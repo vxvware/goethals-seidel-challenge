@@ -68,7 +68,9 @@ Three entry types, with honest and *different* trust levels:
    whether the entry settles an open Hadamard order. **Fully trustless; CI
    re-verifies everything.** This is the core board.
 2. **Nonexistence certificates** (`certificates/`): a claim "(n, stratum) is
-   empty", backed by machine receipts: engine commit hash, per-pass coverage
+   empty" — or, with a scope field, "empty within family F" (e.g. cyclotomic)
+   or "empty on interval [a,b) of the pinned class order" (partial coverage,
+   campaign-in-progress) — backed by machine receipts: engine commit hash, per-pass coverage
    intervals tiling [0, #classes), ordered-class-list digest, pending == [],
    and a pinned re-derivation of #classes. CI cannot re-run a trillion-system
    search, but it CAN (a) recompute the class count and digest, (b) re-settle
@@ -136,15 +138,46 @@ goethals-seidel-challenge/
 
 ## 6. Seeding plan (launch with a full, honest board)
 
-- Existence: Williamson/good/best known-order lists from the literature
-  (provenance-tagged, each with an explicit quadruple where published — Russo
-  n=15/21, the three order-57 best triples, the 292 family at n=73 k···, …)
-  plus our catalogues (n ≤ 15 good: census counts + one representative per
-  class as entries).
-- Certificates: best-73 and good-65 with full receipt chains (the worked
-  examples that define the format); good-41 as the reproduced-literature
-  exemplar; literature-only entries for the rest.
-- Census: Vincent's best-quadruple counts (≤ 43), our good counts (≤ 15).
+**Hard rule: every matrix and every null result we have already collected goes
+on the board at launch.** The concrete manifest of what we hold and where each
+artifact lands:
+
+### Existence entries (quadruples/, dedup via equivalence.py)
+
+| artifact | location | board entries |
+|---|---|---|
+| Full best-matrix catalogue: **9,848 solutions, orders 3–57** | `best-matrix-campaign/data/catalogue_solutions.npz` | kkks cells 3–57 (orbit representatives; the rest feed census) |
+| All good matrices n ≤ 15: **10,080 solutions** | `good-matrix-campaign/benchmark/good_matrices_n{3..15}.npz` | ksss cells 3–15 |
+| Russo good matrices n=15, 21 | `good_solution_n{15,21}.npy` | ksss cells (provenance: Russo) |
+| n=13 full verified solution set (52) from the `--all` gates | `good_all_n13.npy`, `good_all_cpu_n13.npy` | ksss 13 census cross-check |
+| **Our p=73 cyclotomic sweep output: 15,360 raw skew families** (incl. the published 292 family) | `skew356-campaign/data/sweep_p73_d9.json` | k··· cell 73 — dedup to inequivalent orbits; ours independently re-derived, provenance both |
+| Literature quadruples (Williamson known orders, order-57 best triples, 292 family as published, …) | citations + published rows | provenance-tagged entries per cell |
+
+### Nonexistence certificates (certificates/)
+
+| artifact | location | entry |
+|---|---|---|
+| **best kkks n=73 empty** — full receipt chain incl. the float64 enumeration audit | `best-matrix-campaign` (docs/enum_audit, campaign_state, writeup) | the certificate-format worked example #1 |
+| **good ksss n=65 empty** — two-pass coverage receipts, digest-matched seam | `good-matrix-campaign/docs/n65_nonexistence.md` + `data/box_*/coverage_n65_sB*.json` | worked example #2 (defines the two-box union format) |
+| good ksss n=41 empty — reproduced in minutes by every engine gate | `coverage_n41_sB9.json` etc. | the reproduced-literature exemplar (CI can re-run it ENTIRELY) |
+| **good ksss n=67, pass σ_B=−13 prefix [0, 927,600) of 2,062,646** — in progress | `data/box_192.222.50.112/progress_complete_n67_sB-13.json` | partial-coverage entry (a certificate-in-progress tier: shows claimed interval + digest, clearly NOT an emptiness claim) |
+| skew356 tier-0: **cyclotomic k··· route at p=89 empty** (order-11 subgroup, the only odd option) | `skew356-campaign/data/sweep_p89.json` | scoped null result (family-restricted, labeled as such — the board must support *restricted* nonexistence: "empty within family F") |
+| Literature nonexistence (good 47–63 + 69; Williamson 35, 47, 53, 59; best non-r²+r+1 orders by theorem) | citations | `provenance: literature` / `provenance: theorem` entries |
+
+### Census entries (census/)
+
+| artifact | counts |
+|---|---|
+| Vincent's exact-census branch (best quadruples ≤ 43) | e.g. 10,080 quadruples / 20 orbits at n=43; per-order table from the branch |
+| Our good-matrix catalogue counts (≤ 15) | 48/96/528/288/1440/3456/4224 per order, orbit counts via equivalence.py |
+| Our n=13 `--all` cross-validated count (52 per B-organization) | census cross-check fixture |
+
+Two schema consequences this inventory forces (now reflected in §3): the
+certificate type needs a **partial-coverage state** (n=67 today) and a
+**family-restricted scope field** (the p=89 cyclotomic null is "empty within
+cyclotomic family", not "empty") — without these, honest seeding of what we
+hold is impossible.
+
 - Targets page auto-computed: every open (n, stratum) cell with n ≤ 131, the
   open-Hadamard flags on 89/101/107 …, and "what it takes" notes (e.g. best
   requires n = r²+r+1 → next candidate 91).
