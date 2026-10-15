@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "good-n41-literature",
+  "type": "certificate",
+  "n": 41,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      41
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Authors of cited classification"
+  ],
+  "sources": [
+    {
+      "title": "Published nonexistence: good n=41",
+      "url": "https://arxiv.org/abs/1802.00556"
+    }
+  ],
+  "stratum": "good",
+  "claim": "empty",
+  "scope": {
+    "kind": "full"
+  },
+  "method": "literature",
+  "records": [],
+  "gaps": []
+}

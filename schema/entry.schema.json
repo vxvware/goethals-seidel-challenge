@@ -1,0 +1,664 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Goethals\u2013Seidel submission v1",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,100}$"
+        },
+        "n": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 511
+        },
+        "group": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "invariant_factors"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "cyclic",
+                "abelian"
+              ]
+            },
+            "invariant_factors": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 9,
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        "submitted_by": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9-]{0,38}$"
+        },
+        "submitted_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "discovered_by": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 30,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "url"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://"
+              },
+              "commit": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              "source_path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "artifact": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "path",
+                  "sha256"
+                ],
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "pattern": "^evidence/[A-Za-z0-9_./-]+$"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 16000
+        },
+        "type": {
+          "const": "quadruple"
+        },
+        "equivalence": {
+          "const": "equiv-v1"
+        },
+        "rows": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 511,
+            "items": {
+              "type": "integer",
+              "enum": [
+                -1,
+                1
+              ]
+            }
+          }
+        },
+        "blocks": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "array",
+            "maxItems": 511,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "n",
+        "group",
+        "submitted_by",
+        "submitted_at",
+        "discovered_by",
+        "sources",
+        "type",
+        "equivalence"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "rows"
+          ],
+          "not": {
+            "required": [
+              "blocks"
+            ]
+          }
+        },
+        {
+          "required": [
+            "blocks"
+          ],
+          "not": {
+            "required": [
+              "rows"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,100}$"
+        },
+        "n": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 511
+        },
+        "group": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "invariant_factors"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "cyclic",
+                "abelian"
+              ]
+            },
+            "invariant_factors": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 9,
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        "submitted_by": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9-]{0,38}$"
+        },
+        "submitted_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "discovered_by": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 30,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "url"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://"
+              },
+              "commit": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              "source_path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "artifact": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "path",
+                  "sha256"
+                ],
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "pattern": "^evidence/[A-Za-z0-9_./-]+$"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 16000
+        },
+        "type": {
+          "const": "certificate"
+        },
+        "stratum": {
+          "enum": [
+            "williamson",
+            "good",
+            "best",
+            "kkss",
+            "skew-sds",
+            "general"
+          ]
+        },
+        "claim": {
+          "enum": [
+            "empty",
+            "partial"
+          ]
+        },
+        "scope": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "full"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "subgroup_order",
+                "include_zero",
+                "skew_blocks"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "same-subgroup-coset-unions"
+                },
+                "subgroup_order": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "include_zero": {
+                  "type": "boolean"
+                },
+                "skew_blocks": {
+                  "const": 1
+                }
+              }
+            }
+          ]
+        },
+        "method": {
+          "enum": [
+            "literature",
+            "row-sum-theorem",
+            "coset-row-sum-theorem",
+            "good-coverage-v1",
+            "archived-good-coverage-v1",
+            "best-coverage-v1"
+          ]
+        },
+        "records": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^evidence/[A-Za-z0-9_./-]+$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        "engine": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "snapshot_commit",
+            "binding",
+            "artifact"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            },
+            "snapshot_commit": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            "binding": {
+              "enum": [
+                "archived-with-receipt",
+                "replayed"
+              ]
+            },
+            "artifact": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "path",
+                "sha256"
+              ],
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "pattern": "^evidence/[A-Za-z0-9_./-]+$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              }
+            }
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "maxItems": 30,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "n",
+        "group",
+        "submitted_by",
+        "submitted_at",
+        "discovered_by",
+        "sources",
+        "type",
+        "stratum",
+        "claim",
+        "scope",
+        "method",
+        "records",
+        "gaps"
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,100}$"
+        },
+        "n": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 511
+        },
+        "group": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "invariant_factors"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "cyclic",
+                "abelian"
+              ]
+            },
+            "invariant_factors": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 9,
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        "submitted_by": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9-]{0,38}$"
+        },
+        "submitted_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "discovered_by": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 30,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "url"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://"
+              },
+              "commit": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              "source_path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
+              "artifact": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "path",
+                  "sha256"
+                ],
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "pattern": "^evidence/[A-Za-z0-9_./-]+$"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 16000
+        },
+        "type": {
+          "const": "census"
+        },
+        "stratum": {
+          "enum": [
+            "williamson",
+            "good",
+            "best",
+            "kkss",
+            "skew-sds",
+            "general"
+          ]
+        },
+        "equivalence": {
+          "const": "equiv-v1"
+        },
+        "representatives": {
+          "type": "array",
+          "maxItems": 4096,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          }
+        },
+        "claimed_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "claim_kind": {
+          "enum": [
+            "lower-bound",
+            "published-exact",
+            "computed-exact"
+          ]
+        },
+        "enumerator": {
+          "enum": [
+            "best-census-c-v1",
+            "small-exact-v1"
+          ]
+        },
+        "secondary": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "branch_orbits": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "expanded_quadruples": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stored_rows": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "n",
+        "group",
+        "submitted_by",
+        "submitted_at",
+        "discovered_by",
+        "sources",
+        "type",
+        "stratum",
+        "equivalence",
+        "representatives",
+        "claimed_count",
+        "claim_kind"
+      ]
+    }
+  ]
+}

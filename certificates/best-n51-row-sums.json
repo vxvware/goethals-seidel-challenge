@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "best-n51-row-sums",
+  "type": "certificate",
+  "n": 51,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      51
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Best-matrix row-sum theorem"
+  ],
+  "sources": [
+    {
+      "title": "Best row-sum necessary condition",
+      "url": "https://arxiv.org/abs/1907.04987"
+    }
+  ],
+  "stratum": "best",
+  "claim": "empty",
+  "scope": {
+    "kind": "full"
+  },
+  "method": "row-sum-theorem",
+  "records": [],
+  "gaps": []
+}

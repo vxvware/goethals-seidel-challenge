@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "good-n65-campaign",
+  "type": "certificate",
+  "n": 65,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      65
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Good-matrix campaign"
+  ],
+  "sources": [
+    {
+      "title": "good-matrix-campaign: data/box_192.222.58.99/progress_complete_n65_sB-15.json",
+      "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/progress_complete_n65_sB-15.json",
+      "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+      "source_path": "data/box_192.222.58.99/progress_complete_n65_sB-15.json"
+    },
+    {
+      "title": "good-matrix-campaign: data/box_192.222.58.99/complete_n65.log",
+      "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/complete_n65.log",
+      "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+      "source_path": "data/box_192.222.58.99/complete_n65.log",
+      "artifact": {
+        "path": "evidence/seeds/good65/complete_n65.log.txt",
+        "sha256": "35b8dc8f0b52301dcffa981f557d2dbcd07b6a8587dbb41ea71cb45de570ad81"
+      }
+    },
+    {
+      "title": "good-matrix-campaign: data/box_192.222.58.99/complete_n65_v3.log",
+      "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/complete_n65_v3.log",
+      "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+      "source_path": "data/box_192.222.58.99/complete_n65_v3.log",
+      "artifact": {
+        "path": "evidence/seeds/good65/complete_n65_v3.log.txt",
+        "sha256": "ab9daf9c6336a604dcd17951f914fb523f3fa9cbf65a97d46c317f301d1fe5a9"
+      }
+    },
+    {
+      "title": "good-matrix-campaign: data/box_192.222.58.99/complete_n65_v4.log",
+      "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/complete_n65_v4.log",
+      "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+      "source_path": "data/box_192.222.58.99/complete_n65_v4.log",
+      "artifact": {
+        "path": "evidence/seeds/good65/complete_n65_v4.log.txt",
+        "sha256": "a5fda71ecb6a79ef124bb37e841bdfdd7b0188916ada623c2bcad928d8fdf7d5"
+      }
+    },
+    {
+      "title": "good-matrix-campaign: docs/n65_nonexistence.md",
+      "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/docs/n65_nonexistence.md",
+      "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+      "source_path": "docs/n65_nonexistence.md",
+      "artifact": {
+        "path": "evidence/seeds/good65/campaign-writeup.md",
+        "sha256": "2ca3602e42616b5178e37a897a89402e0f894cd9ef4228b32dc692577405cb3d"
+      }
+    }
+  ],
+  "stratum": "good",
+  "claim": "empty",
+  "scope": {
+    "kind": "full"
+  },
+  "method": "archived-good-coverage-v1",
+  "records": [
+    {
+      "path": "evidence/seeds/good65/box_192.222.58.99-progress_complete_n65_sB-15.json",
+      "sha256": "8117d2aedb55a121390553522e48fbfb044ebd8b23124ee7cbf0583bc544f60c"
+    },
+    {
+      "path": "evidence/seeds/good65/box_192.222.50.112-coverage_n65_sB-15.json",
+      "sha256": "13c2996c1afd2decc47a379c91f51aaf7db5fafbd57a3ea95bc1c68c166d348d"
+    },
+    {
+      "path": "evidence/seeds/good65/box_192.222.50.112-coverage_n65_sB13.json",
+      "sha256": "0260a4f9a28fad05c13a5ed0c82564494c8217125b1faa6667704259ee03853d"
+    }
+  ],
+  "engine": {
+    "id": "good-gpu-v4",
+    "snapshot_commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+    "binding": "archived-with-receipt",
+    "artifact": {
+      "path": "evidence/seeds/good65/good_gpu_complete.py",
+      "sha256": "0ff28ccb74b492d1195cdf96d55be1726523c932ee5a0e220fb65ee7a1111a4e"
+    }
+  },
+  "gaps": [
+    "Execution commit not present in legacy receipt; pinned archive snapshot only.",
+    "GPU replay has not run on this CPU-only importer.",
+    "Modern JSON receipts leave [0,454800) uncovered in pass -15; older logs do not repair its missing execution identity."
+  ]
+}

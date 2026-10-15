@@ -1,0 +1,8 @@
+{
+  "id": "cati-pasechnik-2411.18897v2",
+  "date": "2025-08-30",
+  "matrix_type": "skew-Hadamard",
+  "source": "https://arxiv.org/html/2411.18897v2",
+  "coverage": "The listed baseline gaps through order 524; not a current novelty claim.",
+  "orders": [356, 404, 428, 476]
+}

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>good-n41-campaign · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalogue of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
+<link rel="stylesheet" href="../style.css"></head><body>
+<header><a class="brand" href="../index.html">GS / CHALLENGE</a><nav><a href="../index.html#board">The board</a><a href="../index.html#evidence">Evidence</a><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
+<main><article class="entry"><div class="eyebrow">certificate · order 41</div><h1>good-n41-campaign</h1><span class="tag">receipt-backed</span><p>Discovered by: Good-matrix campaign<br>Submitted by: trevor-vincent · 2026-10-14</p><h2>Checks and result</h2><pre>{
+  &quot;id&quot;: &quot;good-n41-campaign&quot;,
+  &quot;type&quot;: &quot;certificate&quot;,
+  &quot;n&quot;: 41,
+  &quot;group&quot;: {
+    &quot;kind&quot;: &quot;cyclic&quot;,
+    &quot;invariant_factors&quot;: [
+      41
+    ]
+  },
+  &quot;stratum&quot;: &quot;good&quot;,
+  &quot;claim&quot;: &quot;empty&quot;,
+  &quot;scope&quot;: {
+    &quot;kind&quot;: &quot;full&quot;
+  },
+  &quot;tier&quot;: &quot;receipt-backed&quot;,
+  &quot;checks&quot;: [
+    &quot;artifact-sha256&quot;,
+    &quot;receipt-identity&quot;,
+    &quot;zero-pending&quot;,
+    &quot;coverage-intervals&quot;,
+    &quot;engine-snapshot-sha256&quot;
+  ],
+  &quot;gaps&quot;: [
+    &quot;Execution commit not present in legacy receipt; pinned archive snapshot only.&quot;,
+    &quot;GPU replay has not run on this CPU-only importer.&quot;
+  ],
+  &quot;coverage&quot;: [
+    {
+      &quot;pass&quot;: 9,
+      &quot;classes&quot;: 1870,
+      &quot;covered&quot;: 1870,
+      &quot;order_digest&quot;: &quot;d8f2e11d2c4d26fd&quot;,
+      &quot;digest_algorithm&quot;: &quot;sha256-prefix-64&quot;,
+      &quot;intervals&quot;: [
+        [
+          0,
+          1870
+        ]
+      ],
+      &quot;uncovered&quot;: []
+    }
+  ],
+  &quot;limitations&quot;: [
+    &quot;Class-order digest is compared across receipts, not independently regenerated.&quot;,
+    &quot;Legacy receipts do not record execution commit or explicit solution count.&quot;,
+    &quot;No random slices or full computation have been replayed by this check.&quot;
+  ]
+}</pre><h2>Sources</h2><ul><li><a href="https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.50.112/coverage_n41_sB9.json">good-matrix-campaign: data/box_192.222.50.112/coverage_n41_sB9.json</a></li></ul><details><summary>Submission JSON</summary><pre>{
+  &quot;schema_version&quot;: 1,
+  &quot;id&quot;: &quot;good-n41-campaign&quot;,
+  &quot;type&quot;: &quot;certificate&quot;,
+  &quot;n&quot;: 41,
+  &quot;group&quot;: {
+    &quot;kind&quot;: &quot;cyclic&quot;,
+    &quot;invariant_factors&quot;: [
+      41
+    ]
+  },
+  &quot;submitted_by&quot;: &quot;trevor-vincent&quot;,
+  &quot;submitted_at&quot;: &quot;2026-10-14&quot;,
+  &quot;discovered_by&quot;: [
+    &quot;Good-matrix campaign&quot;
+  ],
+  &quot;sources&quot;: [
+    {
+      &quot;title&quot;: &quot;good-matrix-campaign: data/box_192.222.50.112/coverage_n41_sB9.json&quot;,
+      &quot;url&quot;: &quot;https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.50.112/coverage_n41_sB9.json&quot;,
+      &quot;commit&quot;: &quot;018ef2d7754017eca1f9f22c8ddd84b9b6cf5581&quot;,
+      &quot;source_path&quot;: &quot;data/box_192.222.50.112/coverage_n41_sB9.json&quot;
+    }
+  ],
+  &quot;stratum&quot;: &quot;good&quot;,
+  &quot;claim&quot;: &quot;empty&quot;,
+  &quot;scope&quot;: {
+    &quot;kind&quot;: &quot;full&quot;
+  },
+  &quot;method&quot;: &quot;good-coverage-v1&quot;,
+  &quot;records&quot;: [
+    {
+      &quot;path&quot;: &quot;evidence/seeds/good41/box_192.222.50.112-coverage_n41_sB9.json&quot;,
+      &quot;sha256&quot;: &quot;1fddc2c595b653d81e5d4f5fd04909e1e6c83c6d907feb5459009333ce90cfe5&quot;
+    }
+  ],
+  &quot;engine&quot;: {
+    &quot;id&quot;: &quot;good-gpu-v4&quot;,
+    &quot;snapshot_commit&quot;: &quot;018ef2d7754017eca1f9f22c8ddd84b9b6cf5581&quot;,
+    &quot;binding&quot;: &quot;archived-with-receipt&quot;,
+    &quot;artifact&quot;: {
+      &quot;path&quot;: &quot;evidence/seeds/good41/good_gpu_complete.py&quot;,
+      &quot;sha256&quot;: &quot;0ff28ccb74b492d1195cdf96d55be1726523c932ee5a0e220fb65ee7a1111a4e&quot;
+    }
+  },
+  &quot;gaps&quot;: [
+    &quot;Execution commit not present in legacy receipt; pinned archive snapshot only.&quot;,
+    &quot;GPU replay has not run on this CPU-only importer.&quot;
+  ]
+}</pre></details></article></main><footer><span>Exact objects. Explicit evidence. Original attribution.</span><span>Cyclic groups · equiv-v1 · <a href="../stats.json">Open data</a></span></footer></body></html>

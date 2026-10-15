@@ -1,0 +1,193 @@
+#!/usr/bin/env python3
+"""Goethals–Seidel challenge CLI."""
+
+import argparse
+import json
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from verify.common import ROOT, read_json, write_json, TRACKS, MAX_N, artifact
+from verify.model import validate
+from verify.gs_verify import verify
+from verify.board import load, summary
+
+
+def emit(value):
+    print(json.dumps(value, indent=2, ensure_ascii=False))
+
+
+def submit(args):
+    doc = validate(read_json(args.path))
+    if doc["type"] != "quadruple":
+        raise ValueError(
+            "submit currently stages existence entries; evidence/census contributions follow CONTRIBUTING.md"
+        )
+    result = verify(doc)
+    for source in doc["sources"]:
+        if "artifact" in source:
+            artifact(ROOT, source["artifact"])
+    documents, results, baseline = load(reproduce=False)
+    for existing in results.values():
+        if (
+            existing["type"] == "quadruple"
+            and existing["canonical_rows"] == result["canonical_rows"]
+        ):
+            raise ValueError(f"equivalent entry already exists: {existing['id']}")
+    from verify.board import check_consistency
+
+    check_consistency({**documents, doc["id"]: doc}, {**results, doc["id"]: result}, baseline)
+    if args.open_pr:
+        args.write = True
+        if subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT, text=True).strip():
+            raise ValueError("--open-pr requires a clean working tree; commit unrelated work first")
+        login = subprocess.check_output(["gh", "api", "user", "--jq", ".login"], text=True).strip()
+        if login.casefold() != doc["submitted_by"].casefold():
+            raise ValueError("submitted_by must match the authenticated GitHub account")
+    folder = "quadruples" if args.write else "research/candidates"
+    target = ROOT / folder / f"{doc['id']}.json"
+    if target.exists():
+        raise ValueError(f"refusing to overwrite {target.relative_to(ROOT)}")
+    if args.open_pr:
+        subprocess.run(["git", "switch", "-c", f"submit/{doc['id']}"], cwd=ROOT, check=True)
+    write_json(target, doc)
+    if args.open_pr:
+        subprocess.run(["git", "add", "--", str(target.relative_to(ROOT))], cwd=ROOT, check=True)
+        subprocess.run(
+            ["git", "commit", "-m", f"Add verified GS quadruple n={doc['n']}"], cwd=ROOT, check=True
+        )
+        subprocess.run(["git", "push", "-u", "origin", "HEAD"], cwd=ROOT, check=True)
+        body = f"Adds an exactly verified order-{doc['n']} quadruple.\n\nValidation: exact integer PAF, derived strata, equiv-v1 deduplication, and board consistency checks passed.\n\nOriginal discovery attribution remains in the entry.\n"
+        with tempfile.NamedTemporaryFile("w", suffix=".md") as f:
+            f.write(body)
+            f.flush()
+            subprocess.run(
+                [
+                    "gh",
+                    "pr",
+                    "create",
+                    "--draft",
+                    "--title",
+                    f"Add GS quadruple n={doc['n']}",
+                    "--body-file",
+                    f.name,
+                ],
+                cwd=ROOT,
+                check=True,
+            )
+    emit({"path": str(target.relative_to(ROOT)), "verification": result})
+
+
+def main():
+    p = argparse.ArgumentParser(prog="./gs", description=__doc__)
+    sub = p.add_subparsers(dest="command", required=True)
+    v = sub.add_parser("verify")
+    v.add_argument("path", nargs="?")
+    v.add_argument("--quick", action="store_true")
+    for name in ("targets", "import-tasks", "census", "recent"):
+        q = sub.add_parser(name)
+        q.add_argument("--stratum", choices=TRACKS)
+        q.add_argument("--max-n", type=int, default=131)
+        if name == "census":
+            q.add_argument("--quick", action="store_true")
+        if name == "recent":
+            q.add_argument("--limit", type=int, default=10)
+    s = sub.add_parser("submit")
+    s.add_argument("path")
+    s.add_argument("--write", action="store_true", help="Write the verified entry to quadruples/")
+    s.add_argument(
+        "--open-pr", action="store_true", help="Create a branch, commit, push, and open a draft PR"
+    )
+    i = sub.add_parser("import")
+    i.add_argument("--source-root", type=Path, default=ROOT.parent)
+    i.add_argument("--sage-file", type=Path, required=True)
+    i.add_argument("--sage-source", type=Path, required=True)
+    b = sub.add_parser("build")
+    b.add_argument("--quick", action="store_true")
+    r = sub.add_parser("recheck")
+    r.add_argument("args", nargs=argparse.REMAINDER)
+    args = p.parse_args()
+    try:
+        if not 1 <= getattr(args, "max_n", 131) <= MAX_N:
+            raise ValueError(f"--max-n must be between 1 and {MAX_N}")
+        if getattr(args, "limit", 1) < 1:
+            raise ValueError("--limit must be positive")
+        if args.command == "submit":
+            return submit(args)
+        if args.command == "import":
+            return subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "tools/import_seeds.py"),
+                    "--source-root",
+                    str(args.source_root),
+                    "--sage-file",
+                    str(args.sage_file),
+                    "--sage-source",
+                    str(args.sage_source),
+                ],
+                cwd=ROOT,
+                check=True,
+            ).returncode
+        if args.command == "build":
+            return subprocess.run(
+                [sys.executable, str(ROOT / "site/build.py")] + (["--quick"] if args.quick else []),
+                cwd=ROOT,
+                check=True,
+            ).returncode
+        if args.command == "recheck":
+            return subprocess.run(
+                [sys.executable, str(ROOT / "verify/recheck_slices.py"), *args.args],
+                cwd=ROOT,
+                check=True,
+            ).returncode
+        if args.command == "verify" and args.path:
+            doc = validate(read_json(args.path))
+            if doc["type"] == "quadruple":
+                return emit(verify(doc))
+            if doc["type"] == "certificate":
+                from verify.evidence import verify as verify_evidence
+
+                return emit(verify_evidence(doc, ROOT))
+            d, r, b = load(reproduce=not args.quick)
+            from verify.census_engine import verify as verify_census
+
+            return emit(
+                verify_census(
+                    doc, {k: v for k, v in r.items() if v["type"] == "quadruple"}, not args.quick
+                )
+            )
+        d, r, b = load(reproduce=args.command in ("verify", "census") and not args.quick)
+        stats = summary(d, r, b, getattr(args, "max_n", 131))
+        if args.command == "verify":
+            return emit(
+                {
+                    k: v
+                    for k, v in stats.items()
+                    if k not in ("cells", "research_targets", "import_tasks")
+                }
+            )
+        if args.command in ("targets", "import-tasks"):
+            data = stats["research_targets" if args.command == "targets" else "import_tasks"]
+        elif args.command == "census":
+            data = [x for x in r.values() if x["type"] == "census" and x["n"] <= args.max_n]
+        else:
+            data = sorted(d.values(), key=lambda x: (x["submitted_at"], x["id"]), reverse=True)[
+                : args.limit
+            ]
+        if args.stratum:
+            data = [
+                x
+                for x in data
+                if x.get("stratum") == args.stratum
+                or args.stratum in r.get(x.get("id"), {}).get("tracks", [])
+            ]
+        emit(data)
+    except (ValueError, KeyError, OSError, subprocess.SubprocessError) as exc:
+        p.exit(1, f"FAIL: {exc}\n")
+
+
+if __name__ == "__main__":
+    main()

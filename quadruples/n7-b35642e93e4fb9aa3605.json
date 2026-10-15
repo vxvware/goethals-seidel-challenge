@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "n7-b35642e93e4fb9aa3605",
+  "type": "quadruple",
+  "n": 7,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      7
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Best-matrix catalogue; see published sources"
+  ],
+  "sources": [
+    {
+      "title": "Best catalogue n=7",
+      "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+      "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
+      "source_path": "data/catalogue_solutions.npz"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+name: Submission gate
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  trusted-submission:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: candidate
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: trusted
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.6'
+      - name: Install trusted dependencies
+        working-directory: trusted
+        run: uv sync --locked --group dev
+      - name: Enforce scope, authorship, manifest, and trusted validation
+        working-directory: trusted
+        env:
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_ASSOCIATION: ${{ github.event.pull_request.author_association }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: uv run python verify/ci.py --candidate ../candidate --base "$BASE_SHA" --author "$PR_AUTHOR" --association "$PR_ASSOCIATION"

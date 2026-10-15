@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "good-n7",
+  "type": "census",
+  "n": 7,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      7
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Campaign catalogue and published classification"
+  ],
+  "sources": [
+    {
+      "title": "Published good classification",
+      "url": "https://arxiv.org/abs/1811.05094"
+    }
+  ],
+  "stratum": "good",
+  "equivalence": "equiv-v1",
+  "representatives": [
+    "n7-52130f3118b7561c80b8",
+    "n7-684ba49e130029ab610d",
+    "n7-cd8aed919b36525bef2a"
+  ],
+  "claimed_count": 3,
+  "claim_kind": "computed-exact",
+  "secondary": {
+    "stored_rows": 528
+  },
+  "enumerator": "small-exact-v1"
+}

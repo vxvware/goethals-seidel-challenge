@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "williamson-n53-literature",
+  "type": "certificate",
+  "n": 53,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      53
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Authors of cited classification"
+  ],
+  "sources": [
+    {
+      "title": "Published nonexistence: williamson n=53",
+      "url": "https://cs.uwaterloo.ca/~cbright/reports/jsc-willsat.pdf"
+    }
+  ],
+  "stratum": "williamson",
+  "claim": "empty",
+  "scope": {
+    "kind": "full"
+  },
+  "method": "literature",
+  "records": [],
+  "gaps": []
+}

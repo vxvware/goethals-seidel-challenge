@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "id": "n9-b31ce3705b7594be4644",
+  "type": "quadruple",
+  "n": 9,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      9
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Good-matrix campaign catalogue",
+    "Szekeres; Sage table references"
+  ],
+  "sources": [
+    {
+      "title": "good-matrix-campaign: benchmark/good_matrices_n9.npz",
+      "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n9.npz",
+      "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+      "source_path": "benchmark/good_matrices_n9.npz"
+    },
+    {
+      "title": "Sage good-matrix table n=9 (Szekeres)",
+      "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+      "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+      "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      1
+    ]
+  ]
+}

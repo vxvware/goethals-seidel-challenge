@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "n7-684ba49e130029ab610d",
+  "type": "quadruple",
+  "n": 7,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      7
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Good-matrix campaign catalogue"
+  ],
+  "sources": [
+    {
+      "title": "good-matrix-campaign: benchmark/good_matrices_n7.npz",
+      "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n7.npz",
+      "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+      "source_path": "benchmark/good_matrices_n7.npz"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      -1
+    ],
+    [
+      1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      1
+    ],
+    [
+      1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      1
+    ]
+  ]
+}

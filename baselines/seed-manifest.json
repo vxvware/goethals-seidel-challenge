@@ -1,0 +1,1144 @@
+{
+  "version": 1,
+  "artifacts": [
+    {
+      "id": "best-n3",
+      "source": {
+        "title": "Best catalogue n=3",
+        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
+        "source_path": "data/catalogue_solutions.npz"
+      },
+      "rows": 16,
+      "representatives": [
+        "n3-ec453394fd68cc414598"
+      ],
+      "archive": {
+        "path": "evidence/seeds/best-n3.jsonl.gz",
+        "sha256": "61914ec4c71ce8df8acf503e7ce685a75ce76a50f92a8630fde92f0d70290292"
+      }
+    },
+    {
+      "id": "best-n7",
+      "source": {
+        "title": "Best catalogue n=7",
+        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
+        "source_path": "data/catalogue_solutions.npz"
+      },
+      "rows": 112,
+      "representatives": [
+        "n7-b35642e93e4fb9aa3605",
+        "n7-cb1ed6bf701629703207"
+      ],
+      "archive": {
+        "path": "evidence/seeds/best-n7.jsonl.gz",
+        "sha256": "fef75101a18396fb82062f4e21da048c625734a99eb3ed73f56bb77b61ba9e7f"
+      }
+    },
+    {
+      "id": "best-n13",
+      "source": {
+        "title": "Best catalogue n=13",
+        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
+        "source_path": "data/catalogue_solutions.npz"
+      },
+      "rows": 1152,
+      "representatives": [
+        "n13-32cf7a7bb92b6e1e5acb",
+        "n13-58b06f32a9c9ed5a8757"
+      ],
+      "archive": {
+        "path": "evidence/seeds/best-n13.jsonl.gz",
+        "sha256": "58f078369ee6d67d4111cce646b629485ef082a6b73a084b7c8801e561b7d252"
+      }
+    },
+    {
+      "id": "best-n21",
+      "source": {
+        "title": "Best catalogue n=21",
+        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
+        "source_path": "data/catalogue_solutions.npz"
+      },
+      "rows": 4032,
+      "representatives": [
+        "n21-0ea967a4e6d237c6175b",
+        "n21-1289aba4d0c6a256bbbe",
+        "n21-3f1eac313596cc0eb070",
+        "n21-4620c6a948b44df1a383",
+        "n21-747444c01f7b39d82f21",
+        "n21-931f2bdede4b8813e0cb",
+        "n21-f0c813ed0667c96d8e91"
+      ],
+      "archive": {
+        "path": "evidence/seeds/best-n21.jsonl.gz",
+        "sha256": "a0a6b6c67321d670b55ca6288e15a099a90418e271b28c17cac85a1346f44366"
+      }
+    },
+    {
+      "id": "best-n31",
+      "source": {
+        "title": "Best catalogue n=31",
+        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
+        "source_path": "data/catalogue_solutions.npz"
+      },
+      "rows": 720,
+      "representatives": [
+        "n31-5195ed64a1a389c8a971",
+        "n31-92b8e1fe9e8b9faa23be"
+      ],
+      "archive": {
+        "path": "evidence/seeds/best-n31.jsonl.gz",
+        "sha256": "9290789534b2689e9ae31f6a71215dcca757e17014ba10ec572a7842e5d5622c"
+      }
+    },
+    {
+      "id": "best-n43",
+      "source": {
+        "title": "Best catalogue n=43",
+        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
+        "source_path": "data/catalogue_solutions.npz"
+      },
+      "rows": 2520,
+      "representatives": [
+        "n43-189ba34696574c36f1de",
+        "n43-46c8748ffad87c5418f3",
+        "n43-83c7ffced2683cc149cf",
+        "n43-90a83a69b3dfadafe4ab",
+        "n43-b4a357d976bba2b8c47e"
+      ],
+      "archive": {
+        "path": "evidence/seeds/best-n43.jsonl.gz",
+        "sha256": "810aa3f188a6ae444a9cfdd1583070564e40e3c21f52320bf600deaf534c2edc"
+      }
+    },
+    {
+      "id": "best-n57",
+      "source": {
+        "title": "Best catalogue n=57",
+        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
+        "source_path": "data/catalogue_solutions.npz"
+      },
+      "rows": 1296,
+      "representatives": [
+        "n57-796742d6865aab63774c",
+        "n57-8f2cd7cbc7bd3effc1b4",
+        "n57-aa4c0ba8b18abb20e26d"
+      ],
+      "archive": {
+        "path": "evidence/seeds/best-n57.jsonl.gz",
+        "sha256": "e7d8791c3f1d10505b953e1c8a243e5f3878eda25fa08d5847cee06d057e5512"
+      }
+    },
+    {
+      "id": "good-n3",
+      "source": {
+        "title": "good-matrix-campaign: benchmark/good_matrices_n3.npz",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n3.npz",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "benchmark/good_matrices_n3.npz"
+      },
+      "rows": 48,
+      "representatives": [
+        "n3-6cf02b7ca7beb77456ed"
+      ],
+      "archive": {
+        "path": "evidence/seeds/good-n3.jsonl.gz",
+        "sha256": "cfabaa31299fe616566c03e4be477da61970c28460e78ca8a58a77d20a1a4417"
+      }
+    },
+    {
+      "id": "good-n5",
+      "source": {
+        "title": "good-matrix-campaign: benchmark/good_matrices_n5.npz",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n5.npz",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "benchmark/good_matrices_n5.npz"
+      },
+      "rows": 96,
+      "representatives": [
+        "n5-2941222429c197fd03cf"
+      ],
+      "archive": {
+        "path": "evidence/seeds/good-n5.jsonl.gz",
+        "sha256": "5a14612d9a685f03e0214720d35b4af0b66e40a57865f6c97717e76371004422"
+      }
+    },
+    {
+      "id": "good-n7",
+      "source": {
+        "title": "good-matrix-campaign: benchmark/good_matrices_n7.npz",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n7.npz",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "benchmark/good_matrices_n7.npz"
+      },
+      "rows": 528,
+      "representatives": [
+        "n7-52130f3118b7561c80b8",
+        "n7-684ba49e130029ab610d",
+        "n7-cd8aed919b36525bef2a"
+      ],
+      "archive": {
+        "path": "evidence/seeds/good-n7.jsonl.gz",
+        "sha256": "897d873f842af999ccf7be435f9f03fccd3ca5e20d0f5308a6558343ef4865a5"
+      }
+    },
+    {
+      "id": "good-n9",
+      "source": {
+        "title": "good-matrix-campaign: benchmark/good_matrices_n9.npz",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n9.npz",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "benchmark/good_matrices_n9.npz"
+      },
+      "rows": 288,
+      "representatives": [
+        "n9-b31ce3705b7594be4644"
+      ],
+      "archive": {
+        "path": "evidence/seeds/good-n9.jsonl.gz",
+        "sha256": "080b84bfb7a2b34decee40508bef18db8c24cd04bd8f1846a3c8a0ec402aa79d"
+      }
+    },
+    {
+      "id": "good-n11",
+      "source": {
+        "title": "good-matrix-campaign: benchmark/good_matrices_n11.npz",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n11.npz",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "benchmark/good_matrices_n11.npz"
+      },
+      "rows": 1440,
+      "representatives": [
+        "n11-06cb798d9099717b13eb",
+        "n11-2917d7bf7f9a4b7ea0a7",
+        "n11-f17c9ec35dc407a1792c"
+      ],
+      "archive": {
+        "path": "evidence/seeds/good-n11.jsonl.gz",
+        "sha256": "961af3b121206232e67cdf212bd51579fd766808b370e7f65cb2710aa3d0a553"
+      }
+    },
+    {
+      "id": "good-n13",
+      "source": {
+        "title": "good-matrix-campaign: benchmark/good_matrices_n13.npz",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n13.npz",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "benchmark/good_matrices_n13.npz"
+      },
+      "rows": 3456,
+      "representatives": [
+        "n13-02eb7cd20dc9fc9999b6",
+        "n13-0e885b0c47ef7d1ab9e7",
+        "n13-61434549082897fa13d0",
+        "n13-907f280ddbbceb96c450",
+        "n13-e2de77a105d4d5c88d46",
+        "n13-ffb6468d24ea38cc3f8d"
+      ],
+      "archive": {
+        "path": "evidence/seeds/good-n13.jsonl.gz",
+        "sha256": "2d64d37b662ff909ccdf2ef7cc70be804b8dbc2c367044a062e9d3056af7fc5f"
+      }
+    },
+    {
+      "id": "good-n15",
+      "source": {
+        "title": "good-matrix-campaign: benchmark/good_matrices_n15.npz",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n15.npz",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "benchmark/good_matrices_n15.npz"
+      },
+      "rows": 4224,
+      "representatives": [
+        "n15-0b5c2442860e6db758dd",
+        "n15-0ef383b2c08b5b015aaf",
+        "n15-3d2598d3a7a9fa8caf7b",
+        "n15-687ac8a4fe70f6b50bc3",
+        "n15-77ad56c97261677482e4",
+        "n15-c069f8c8362f1ca6224d",
+        "n15-c27fec44cf0fc3d4b38d",
+        "n15-c7f80c642bfb00dd9187",
+        "n15-ce498cf2f79f1f8ee713",
+        "n15-d34d62247b8251804de7",
+        "n15-fd6a931b78b1258119f6"
+      ],
+      "archive": {
+        "path": "evidence/seeds/good-n15.jsonl.gz",
+        "sha256": "0599e40018830f4ea639e5bb7c6fa21a19aff3cd69877bbba2111cea05eb37c4"
+      }
+    },
+    {
+      "id": "russo-n15",
+      "source": {
+        "title": "good-matrix-campaign: benchmark/good_solution_n15.npy",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_solution_n15.npy",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "benchmark/good_solution_n15.npy"
+      },
+      "rows": 1,
+      "representatives": [
+        "n15-d34d62247b8251804de7"
+      ],
+      "archive": {
+        "path": "evidence/seeds/russo-n15.jsonl.gz",
+        "sha256": "4199a30b2a4ff7fc7bd9fc362bbea9eac97d0193be7fc24f86aed4da03e5f30a"
+      }
+    },
+    {
+      "id": "russo-n21",
+      "source": {
+        "title": "good-matrix-campaign: benchmark/good_solution_n21.npy",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_solution_n21.npy",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "benchmark/good_solution_n21.npy"
+      },
+      "rows": 1,
+      "representatives": [
+        "n21-5332602e3986ea7453e9"
+      ],
+      "archive": {
+        "path": "evidence/seeds/russo-n21.jsonl.gz",
+        "sha256": "7b2d9955822052ade0f97f14428522f649a68bcfb41161e0a9557bad10ff113c"
+      }
+    },
+    {
+      "id": "good-all-cpu-n13",
+      "source": {
+        "title": "good-matrix-campaign: benchmark/good_all_cpu_n13.npy",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_all_cpu_n13.npy",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "benchmark/good_all_cpu_n13.npy"
+      },
+      "rows": 52,
+      "representatives": [
+        "n13-02eb7cd20dc9fc9999b6",
+        "n13-0e885b0c47ef7d1ab9e7",
+        "n13-61434549082897fa13d0",
+        "n13-907f280ddbbceb96c450",
+        "n13-e2de77a105d4d5c88d46",
+        "n13-ffb6468d24ea38cc3f8d"
+      ],
+      "archive": {
+        "path": "evidence/seeds/good-all-cpu-n13.jsonl.gz",
+        "sha256": "2e39c62091bebf64c43954ac8f7d107397b0f4185819388e40eb241704bc85cc"
+      }
+    },
+    {
+      "id": "good-all-gpu-n13",
+      "source": {
+        "title": "good-matrix-campaign: data/box_192.222.50.112/good_all_n13.npy",
+        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.50.112/good_all_n13.npy",
+        "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+        "source_path": "data/box_192.222.50.112/good_all_n13.npy"
+      },
+      "rows": 52,
+      "representatives": [
+        "n13-02eb7cd20dc9fc9999b6",
+        "n13-0e885b0c47ef7d1ab9e7",
+        "n13-61434549082897fa13d0",
+        "n13-907f280ddbbceb96c450",
+        "n13-e2de77a105d4d5c88d46",
+        "n13-ffb6468d24ea38cc3f8d"
+      ],
+      "archive": {
+        "path": "evidence/seeds/good-all-gpu-n13.jsonl.gz",
+        "sha256": "0bbc1fd694582ea72e840996e81d284c17ac85743f3624f445f09314bb08a4b7"
+      }
+    },
+    {
+      "id": "skew-p73-d9",
+      "source": {
+        "title": "skew356-campaign: data/sweep_p73_d9.json",
+        "url": "https://github.com/vxvware/skew356-campaign/blob/44bd9927d392818ad112d43506ce8f58fa2df510/data/sweep_p73_d9.json",
+        "commit": "44bd9927d392818ad112d43506ce8f58fa2df510",
+        "source_path": "data/sweep_p73_d9.json"
+      },
+      "rows": 15360,
+      "representatives": [
+        "n73-0b1d7bd01ef49dbec0c8",
+        "n73-2b23542dc47894906ad0",
+        "n73-4d211eedd92bc8237ca5",
+        "n73-618128f7d039d75bf588",
+        "n73-82d9f957ff7d5edee022",
+        "n73-8b03666272892f7ae432",
+        "n73-dac8a00046a8bd248873",
+        "n73-f88c071035ff48aad30d"
+      ],
+      "archive": {
+        "path": "evidence/seeds/skew-p73-d9.jsonl.gz",
+        "sha256": "cced9a24e926fc6c568f660719d6fdb76d937eb41919d3c245586c2a7320cbc4"
+      }
+    },
+    {
+      "id": "williamson-n1",
+      "source": {
+        "title": "Sage Williamson table n=1 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n1-0a982ea1a0df30b3b8d9"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n1.jsonl.gz",
+        "sha256": "153475d7185bb76a082ca3c3dbe5cc0589d31ee638cd7bf9ed80c24437b11a32"
+      }
+    },
+    {
+      "id": "williamson-n3",
+      "source": {
+        "title": "Sage Williamson table n=3 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n3-831d8388ba2174cb0688"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n3.jsonl.gz",
+        "sha256": "d86d4e9e5bfe828b1dcc68c4d9f5ae969e4c3dcb0212b1fc5c10974826fd8807"
+      }
+    },
+    {
+      "id": "williamson-n5",
+      "source": {
+        "title": "Sage Williamson table n=5 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n5-e7b3418dfd0aafa312ad"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n5.jsonl.gz",
+        "sha256": "40651e8a10ba08f878e59e40608e77630b42e907aefec85f9ac36932adde4b73"
+      }
+    },
+    {
+      "id": "williamson-n7",
+      "source": {
+        "title": "Sage Williamson table n=7 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n7-ad2db6a1c641e13aaa4e"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n7.jsonl.gz",
+        "sha256": "2dc90a0383b755660a85811741b8694dd185f733e88bf7c94e034785dc1959dc"
+      }
+    },
+    {
+      "id": "williamson-n9",
+      "source": {
+        "title": "Sage Williamson table n=9 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n9-181114f4c46993fa4193"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n9.jsonl.gz",
+        "sha256": "52d76fc431edfc60171254278fc2fdf01b13a2fd8bc045b8449db347a174972d"
+      }
+    },
+    {
+      "id": "williamson-n11",
+      "source": {
+        "title": "Sage Williamson table n=11 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n11-cd1f64808fe4c9afa60d"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n11.jsonl.gz",
+        "sha256": "de23f376c4c637fe1b8a9d08cc176ed791a2d5e5cd47967965af26403eece3ba"
+      }
+    },
+    {
+      "id": "williamson-n13",
+      "source": {
+        "title": "Sage Williamson table n=13 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n13-b1062e2423ab9955a17a"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n13.jsonl.gz",
+        "sha256": "1eb03eace399f0c59e816d86d91a9fac35bf073a030ff461a907517e90cce412"
+      }
+    },
+    {
+      "id": "williamson-n15",
+      "source": {
+        "title": "Sage Williamson table n=15 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n15-0bce2c883546630b9781"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n15.jsonl.gz",
+        "sha256": "900da4d27364fedca38d14e0966f1231ce386cdaa392871c5b77abfa140e296c"
+      }
+    },
+    {
+      "id": "williamson-n17",
+      "source": {
+        "title": "Sage Williamson table n=17 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n17-da0488005e6808ba4a78"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n17.jsonl.gz",
+        "sha256": "3dc6de19b1355cb0ad79c91e4bc813fa6a4e652d54f444fa7f888bdb68df7093"
+      }
+    },
+    {
+      "id": "williamson-n19",
+      "source": {
+        "title": "Sage Williamson table n=19 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n19-6ed6b577f7ca7d52c1bb"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n19.jsonl.gz",
+        "sha256": "5474612f328af39baed4f09c011c9b08c822599184bcf20c8673b1d8a15ddc6d"
+      }
+    },
+    {
+      "id": "williamson-n21",
+      "source": {
+        "title": "Sage Williamson table n=21 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n21-d375ecfe6c70ba7c7969"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n21.jsonl.gz",
+        "sha256": "c1320078870b0139d77c28b40f000214a45892686122081b729f565a1b1a99a2"
+      }
+    },
+    {
+      "id": "williamson-n23",
+      "source": {
+        "title": "Sage Williamson table n=23 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n23-0377a623d22ccf97a550"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n23.jsonl.gz",
+        "sha256": "f406990e078315939065ddeef22781e2d6f50a204dbf2847d5870d1c5eebbefe"
+      }
+    },
+    {
+      "id": "williamson-n25",
+      "source": {
+        "title": "Sage Williamson table n=25 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n25-7986a00f36a25baa96cd"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n25.jsonl.gz",
+        "sha256": "9b9d22ff675ec1f632ddaaa4bd20aae1c728cba43db8ed700539db9ea7895aa1"
+      }
+    },
+    {
+      "id": "williamson-n27",
+      "source": {
+        "title": "Sage Williamson table n=27 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n27-073c722233037b184d3d"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n27.jsonl.gz",
+        "sha256": "978b2335b79d905fd2e556407b7ce813aa8a553c6277a677be611b0d60507da3"
+      }
+    },
+    {
+      "id": "williamson-n29",
+      "source": {
+        "title": "Sage Williamson table n=29 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n29-574437e5c0d87484f316"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n29.jsonl.gz",
+        "sha256": "5324d205a876e74d839f34d3fbb37c037d49cb541a13cc6b552d9e5292f1d3a5"
+      }
+    },
+    {
+      "id": "williamson-n31",
+      "source": {
+        "title": "Sage Williamson table n=31 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n31-6110544338c7a5f33b4b"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n31.jsonl.gz",
+        "sha256": "85205a8a1e92587010ea1957c2c2bf91533f4d95e7ca3650e126840890f1a135"
+      }
+    },
+    {
+      "id": "williamson-n33",
+      "source": {
+        "title": "Sage Williamson table n=33 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n33-4ab4f79f0d05aad86013"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n33.jsonl.gz",
+        "sha256": "05b818939c03f8157569f41125853a54d5263526faecbc0eb6976833bcbc9aff"
+      }
+    },
+    {
+      "id": "williamson-n37",
+      "source": {
+        "title": "Sage Williamson table n=37 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n37-c3b09038810c39bd7338"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n37.jsonl.gz",
+        "sha256": "6c77e4c80a9649479c1ec435e85bf175c975eb93f6023360de4f0fab4f182093"
+      }
+    },
+    {
+      "id": "williamson-n39",
+      "source": {
+        "title": "Sage Williamson table n=39 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n39-ae332f4e86e790416b0c"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n39.jsonl.gz",
+        "sha256": "14dcdad5d2a01aa6aa2fba504e63f71b0b32f36ddf661d4645d05807ea4a39b1"
+      }
+    },
+    {
+      "id": "williamson-n41",
+      "source": {
+        "title": "Sage Williamson table n=41 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n41-49875e3ad2b3b7068fa8"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n41.jsonl.gz",
+        "sha256": "03a29683f8f7aef134214147c101d3946cd1881020e2a561141daec5f78ab418"
+      }
+    },
+    {
+      "id": "williamson-n43",
+      "source": {
+        "title": "Sage Williamson table n=43 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n43-dc66fd7a1ec63847cede"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n43.jsonl.gz",
+        "sha256": "d02da7b8519b6294d7c2951836fc601e6f746a574832f84477b2dabf617a928b"
+      }
+    },
+    {
+      "id": "williamson-n45",
+      "source": {
+        "title": "Sage Williamson table n=45 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n43-dc66fd7a1ec63847cede"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n45.jsonl.gz",
+        "sha256": "4acd436cada7a8cd32d91c70f26e915bbc7c7deee02671629e6ab4dcda5ac39e"
+      }
+    },
+    {
+      "id": "williamson-n49",
+      "source": {
+        "title": "Sage Williamson table n=49 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n49-84788cbb8a318c5e4b6e"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n49.jsonl.gz",
+        "sha256": "27f7cefcc7df59efe1cecb5d4e32097995fcf4ba901c1cf84b5de0931f510d83"
+      }
+    },
+    {
+      "id": "williamson-n51",
+      "source": {
+        "title": "Sage Williamson table n=51 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n51-55d988eaff4e9e36dbcb"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n51.jsonl.gz",
+        "sha256": "b4286acdf4b51e6a3a2c75dcf8a4cbbc0d3675b1c2074aaab64c484e0024b501"
+      }
+    },
+    {
+      "id": "williamson-n55",
+      "source": {
+        "title": "Sage Williamson table n=55 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n55-2687b53836c02e5f2dbd"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n55.jsonl.gz",
+        "sha256": "bdb012afebbfa4313593f84f52fb68f9f3649acc6c58d65c95bed147254b7290"
+      }
+    },
+    {
+      "id": "williamson-n57",
+      "source": {
+        "title": "Sage Williamson table n=57 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n57-f40cf458e06747c61836"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n57.jsonl.gz",
+        "sha256": "fcfa080ad6b9376a4d7299f2e97db882f0203def16f9a6ce428690711b40e041"
+      }
+    },
+    {
+      "id": "williamson-n61",
+      "source": {
+        "title": "Sage Williamson table n=61 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n61-0732fca9a2b40fa15e62"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n61.jsonl.gz",
+        "sha256": "d882358de36f9eef8a7ff58cc61b893631e34af5d7d5c2494dd723d44583502a"
+      }
+    },
+    {
+      "id": "williamson-n63",
+      "source": {
+        "title": "Sage Williamson table n=63 (Hall/London sources)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n63-fa89dca8eb9c12dbbd69"
+      ],
+      "archive": {
+        "path": "evidence/seeds/williamson-n63.jsonl.gz",
+        "sha256": "27287231626fcb724225c8595b6efadeccde3cb86f32c60fcab1bedd37209e3e"
+      }
+    },
+    {
+      "id": "sage-good-n1",
+      "source": {
+        "title": "Sage good-matrix table n=1 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n1-0a982ea1a0df30b3b8d9"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n1.jsonl.gz",
+        "sha256": "153475d7185bb76a082ca3c3dbe5cc0589d31ee638cd7bf9ed80c24437b11a32"
+      }
+    },
+    {
+      "id": "sage-good-n3",
+      "source": {
+        "title": "Sage good-matrix table n=3 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n3-6cf02b7ca7beb77456ed"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n3.jsonl.gz",
+        "sha256": "7cca2c0739753f6a41127972d1f80b69c569e0a6c34d34c95d4820d60ed0ba6a"
+      }
+    },
+    {
+      "id": "sage-good-n5",
+      "source": {
+        "title": "Sage good-matrix table n=5 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n5-2941222429c197fd03cf"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n5.jsonl.gz",
+        "sha256": "9511baef3af73a196fa3ecb820e984bf8ccd93697a0766016e4327ebe0754f92"
+      }
+    },
+    {
+      "id": "sage-good-n7",
+      "source": {
+        "title": "Sage good-matrix table n=7 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n7-cd8aed919b36525bef2a"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n7.jsonl.gz",
+        "sha256": "5c19b02e1c295dffd4f6ac1bc2ec7fa9a2598547e8b0f344a2c1183f7bf15925"
+      }
+    },
+    {
+      "id": "sage-good-n9",
+      "source": {
+        "title": "Sage good-matrix table n=9 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n9-b31ce3705b7594be4644"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n9.jsonl.gz",
+        "sha256": "4212f717ea6b217b147395320cfb295662b49648f36e8554b35c2b5f73925493"
+      }
+    },
+    {
+      "id": "sage-good-n11",
+      "source": {
+        "title": "Sage good-matrix table n=11 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n11-06cb798d9099717b13eb"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n11.jsonl.gz",
+        "sha256": "76f23d68065e6a9e5ad923c0687288239c436976f9f00bb49f88c7177632c8d2"
+      }
+    },
+    {
+      "id": "sage-good-n13",
+      "source": {
+        "title": "Sage good-matrix table n=13 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n13-907f280ddbbceb96c450"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n13.jsonl.gz",
+        "sha256": "284fa464d15076f32b09dc31c01f9293dc0dfa53ccd3f4e04cc725de1031a43f"
+      }
+    },
+    {
+      "id": "sage-good-n15",
+      "source": {
+        "title": "Sage good-matrix table n=15 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n15-3d2598d3a7a9fa8caf7b"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n15.jsonl.gz",
+        "sha256": "f82803cefcba20b0659f7452c4b8bf0092c60559cf2cedf3c1f4edbdf794739d"
+      }
+    },
+    {
+      "id": "sage-good-n17",
+      "source": {
+        "title": "Sage good-matrix table n=17 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n17-decc81e046de1e806e4b"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n17.jsonl.gz",
+        "sha256": "be7c50de48e4fdc725567f795890489887d5a4ba2e6f582571d5211fe6bdddba"
+      }
+    },
+    {
+      "id": "sage-good-n19",
+      "source": {
+        "title": "Sage good-matrix table n=19 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n19-46e8bfc48649eb4d0d11"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n19.jsonl.gz",
+        "sha256": "a74a026196b017a80b3675baab19e0e60d41ec252fc7d6ec184f8ad5e3b2f5ff"
+      }
+    },
+    {
+      "id": "sage-good-n21",
+      "source": {
+        "title": "Sage good-matrix table n=21 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n21-799990052fbd72980281"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n21.jsonl.gz",
+        "sha256": "b444960a427eee395fd0eb171baecb42c29566a2255bec58724ab21b937ee6e2"
+      }
+    },
+    {
+      "id": "sage-good-n23",
+      "source": {
+        "title": "Sage good-matrix table n=23 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n23-fc8a1a7e591e7073a628"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n23.jsonl.gz",
+        "sha256": "bfdfd17117e999ea25ab2f95d2e54bbbb64c7877ff23f10d986981e0ea505692"
+      }
+    },
+    {
+      "id": "sage-good-n25",
+      "source": {
+        "title": "Sage good-matrix table n=25 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n25-e54dc03215478fac5a45"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n25.jsonl.gz",
+        "sha256": "113046475cee1feae4a34a30d621e03e43915ba93f624c4b7bc19d0bb4c40945"
+      }
+    },
+    {
+      "id": "sage-good-n27",
+      "source": {
+        "title": "Sage good-matrix table n=27 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n27-58b97ca15343593700dd"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n27.jsonl.gz",
+        "sha256": "879fc5be551c2bfa73fcde8871bba70f335c5cbdfd01153e5f1c3a8140f98e75"
+      }
+    },
+    {
+      "id": "sage-good-n29",
+      "source": {
+        "title": "Sage good-matrix table n=29 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n29-3389974352720a001d4d"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n29.jsonl.gz",
+        "sha256": "8d30a15b8c5ed7c1c3f09f7666525ad5ddeb16d420533fbfb806e5cf67c125a7"
+      }
+    },
+    {
+      "id": "sage-good-n31",
+      "source": {
+        "title": "Sage good-matrix table n=31 (Szekeres)",
+        "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+        "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+        "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+      },
+      "rows": 1,
+      "representatives": [
+        "n31-75ef0affae16c51dfd46"
+      ],
+      "archive": {
+        "path": "evidence/seeds/sage-good-n31.jsonl.gz",
+        "sha256": "3f21d146846691d28af462477ce7c8b0a493084889590f457cbf1d3794b4ec18"
+      }
+    },
+    {
+      "id": "published-skew-n73",
+      "source": {
+        "title": "Cati–Pasechnik §5.1: Đoković's order-292 construction",
+        "url": "https://arxiv.org/html/2411.18897v2"
+      },
+      "rows": 1,
+      "representatives": [
+        "n73-1f455cf1950ada7eb235"
+      ],
+      "archive": {
+        "path": "evidence/seeds/published-skew-n73.jsonl.gz",
+        "sha256": "b54c41e3d459cadaca5b80288a95e6506f7a3c2a0f6552148cdc53d4f0d77bf8"
+      }
+    }
+  ],
+  "raw_rows": 35439,
+  "representative_count": 93
+}

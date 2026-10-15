@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "n5-e7b3418dfd0aafa312ad",
+  "type": "quadruple",
+  "n": 5,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      5
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Hall / London; Sage table references"
+  ],
+  "sources": [
+    {
+      "title": "Sage Williamson table n=5 (Hall/London sources)",
+      "url": "https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py",
+      "commit": "0835358cba62dc19fccdff54f32e52fded9f22b0",
+      "source_path": "src/sage/combinat/matrices/hadamard_matrix.py"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      1,
+      1,
+      -1
+    ],
+    [
+      1,
+      1,
+      -1,
+      -1,
+      1
+    ]
+  ]
+}

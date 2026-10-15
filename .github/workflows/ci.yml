@@ -1,0 +1,24 @@
+name: Validate
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.6'
+      - run: uv sync --locked --group dev
+      - run: uv run python -m verify.check_manifest
+      - run: uv run ruff check verify tools site tests
+      - run: uv run pytest -q
+      - run: uv run python -m verify.audit_seeds
+      - run: ./gs build

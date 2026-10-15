@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "skew-n89-subgroup11",
+  "type": "certificate",
+  "n": 89,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      89
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Skew356 campaign; exact row-sum obstruction"
+  ],
+  "sources": [
+    {
+      "title": "skew356-campaign: benchmark/cyclotomic_sweep.py",
+      "url": "https://github.com/vxvware/skew356-campaign/blob/44bd9927d392818ad112d43506ce8f58fa2df510/benchmark/cyclotomic_sweep.py",
+      "commit": "44bd9927d392818ad112d43506ce8f58fa2df510",
+      "source_path": "benchmark/cyclotomic_sweep.py"
+    }
+  ],
+  "stratum": "skew-sds",
+  "claim": "empty",
+  "scope": {
+    "kind": "same-subgroup-coset-unions",
+    "subgroup_order": 11,
+    "include_zero": true,
+    "skew_blocks": 1
+  },
+  "method": "coset-row-sum-theorem",
+  "records": [
+    {
+      "path": "evidence/seeds/skew89/original-empty-array.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  ],
+  "gaps": [],
+  "notes": "Original [] retained as provenance. The verifier independently proves the precisely scoped null by integer row sums."
+}

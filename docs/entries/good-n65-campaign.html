@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>good-n65-campaign · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalogue of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
+<link rel="stylesheet" href="../style.css"></head><body>
+<header><a class="brand" href="../index.html">GS / CHALLENGE</a><nav><a href="../index.html#board">The board</a><a href="../index.html#evidence">Evidence</a><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
+<main><article class="entry"><div class="eyebrow">certificate · order 65</div><h1>good-n65-campaign</h1><span class="tag">attributed / archived claim or lower bound</span><p>Discovered by: Good-matrix campaign<br>Submitted by: trevor-vincent · 2026-10-14</p><h2>Checks and result</h2><pre>{
+  &quot;id&quot;: &quot;good-n65-campaign&quot;,
+  &quot;type&quot;: &quot;certificate&quot;,
+  &quot;n&quot;: 65,
+  &quot;group&quot;: {
+    &quot;kind&quot;: &quot;cyclic&quot;,
+    &quot;invariant_factors&quot;: [
+      65
+    ]
+  },
+  &quot;stratum&quot;: &quot;good&quot;,
+  &quot;claim&quot;: &quot;empty&quot;,
+  &quot;scope&quot;: {
+    &quot;kind&quot;: &quot;full&quot;
+  },
+  &quot;tier&quot;: null,
+  &quot;checks&quot;: [
+    &quot;artifact-sha256&quot;,
+    &quot;receipt-identity&quot;,
+    &quot;zero-pending&quot;,
+    &quot;coverage-intervals&quot;,
+    &quot;engine-snapshot-sha256&quot;
+  ],
+  &quot;gaps&quot;: [
+    &quot;Execution commit not present in legacy receipt; pinned archive snapshot only.&quot;,
+    &quot;GPU replay has not run on this CPU-only importer.&quot;,
+    &quot;Modern JSON receipts leave [0,454800) uncovered in pass -15; older logs do not repair its missing execution identity.&quot;,
+    &quot;Receipt coverage is incomplete; full emptiness is a historical claim.&quot;
+  ],
+  &quot;coverage&quot;: [
+    {
+      &quot;pass&quot;: -15,
+      &quot;classes&quot;: 1282051,
+      &quot;covered&quot;: 827251,
+      &quot;order_digest&quot;: &quot;0541f36e58c1f5bc&quot;,
+      &quot;digest_algorithm&quot;: &quot;sha256-prefix-64&quot;,
+      &quot;intervals&quot;: [
+        [
+          454800,
+          517400
+        ],
+        [
+          517400,
+          1282051
+        ]
+      ],
+      &quot;uncovered&quot;: [
+        [
+          0,
+          454800
+        ]
+      ]
+    },
+    {
+      &quot;pass&quot;: 13,
+      &quot;classes&quot;: 1863512,
+      &quot;covered&quot;: 1863512,
+      &quot;order_digest&quot;: &quot;650c57c75d7d1426&quot;,
+      &quot;digest_algorithm&quot;: &quot;sha256-prefix-64&quot;,
+      &quot;intervals&quot;: [
+        [
+          0,
+          1863512
+        ]
+      ],
+      &quot;uncovered&quot;: []
+    }
+  ],
+  &quot;provenance&quot;: &quot;archived-computation&quot;,
+  &quot;limitations&quot;: [
+    &quot;Class-order digest is compared across receipts, not independently regenerated.&quot;,
+    &quot;Legacy receipts do not record execution commit or explicit solution count.&quot;,
+    &quot;No random slices or full computation have been replayed by this check.&quot;
+  ]
+}</pre><h2>Sources</h2><ul><li><a href="https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/progress_complete_n65_sB-15.json">good-matrix-campaign: data/box_192.222.58.99/progress_complete_n65_sB-15.json</a></li><li><a href="https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/complete_n65.log">good-matrix-campaign: data/box_192.222.58.99/complete_n65.log</a></li><li><a href="https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/complete_n65_v3.log">good-matrix-campaign: data/box_192.222.58.99/complete_n65_v3.log</a></li><li><a href="https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/complete_n65_v4.log">good-matrix-campaign: data/box_192.222.58.99/complete_n65_v4.log</a></li><li><a href="https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/docs/n65_nonexistence.md">good-matrix-campaign: docs/n65_nonexistence.md</a></li></ul><details><summary>Submission JSON</summary><pre>{
+  &quot;schema_version&quot;: 1,
+  &quot;id&quot;: &quot;good-n65-campaign&quot;,
+  &quot;type&quot;: &quot;certificate&quot;,
+  &quot;n&quot;: 65,
+  &quot;group&quot;: {
+    &quot;kind&quot;: &quot;cyclic&quot;,
+    &quot;invariant_factors&quot;: [
+      65
+    ]
+  },
+  &quot;submitted_by&quot;: &quot;trevor-vincent&quot;,
+  &quot;submitted_at&quot;: &quot;2026-10-14&quot;,
+  &quot;discovered_by&quot;: [
+    &quot;Good-matrix campaign&quot;
+  ],
+  &quot;sources&quot;: [
+    {
+      &quot;title&quot;: &quot;good-matrix-campaign: data/box_192.222.58.99/progress_complete_n65_sB-15.json&quot;,
+      &quot;url&quot;: &quot;https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/progress_complete_n65_sB-15.json&quot;,
+      &quot;commit&quot;: &quot;018ef2d7754017eca1f9f22c8ddd84b9b6cf5581&quot;,
+      &quot;source_path&quot;: &quot;data/box_192.222.58.99/progress_complete_n65_sB-15.json&quot;
+    },
+    {
+      &quot;title&quot;: &quot;good-matrix-campaign: data/box_192.222.58.99/complete_n65.log&quot;,
+      &quot;url&quot;: &quot;https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/complete_n65.log&quot;,
+      &quot;commit&quot;: &quot;018ef2d7754017eca1f9f22c8ddd84b9b6cf5581&quot;,
+      &quot;source_path&quot;: &quot;data/box_192.222.58.99/complete_n65.log&quot;,
+      &quot;artifact&quot;: {
+        &quot;path&quot;: &quot;evidence/seeds/good65/complete_n65.log.txt&quot;,
+        &quot;sha256&quot;: &quot;35b8dc8f0b52301dcffa981f557d2dbcd07b6a8587dbb41ea71cb45de570ad81&quot;
+      }
+    },
+    {
+      &quot;title&quot;: &quot;good-matrix-campaign: data/box_192.222.58.99/complete_n65_v3.log&quot;,
+      &quot;url&quot;: &quot;https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/complete_n65_v3.log&quot;,
+      &quot;commit&quot;: &quot;018ef2d7754017eca1f9f22c8ddd84b9b6cf5581&quot;,
+      &quot;source_path&quot;: &quot;data/box_192.222.58.99/complete_n65_v3.log&quot;,
+      &quot;artifact&quot;: {
+        &quot;path&quot;: &quot;evidence/seeds/good65/complete_n65_v3.log.txt&quot;,
+        &quot;sha256&quot;: &quot;ab9daf9c6336a604dcd17951f914fb523f3fa9cbf65a97d46c317f301d1fe5a9&quot;
+      }
+    },
+    {
+      &quot;title&quot;: &quot;good-matrix-campaign: data/box_192.222.58.99/complete_n65_v4.log&quot;,
+      &quot;url&quot;: &quot;https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.58.99/complete_n65_v4.log&quot;,
+      &quot;commit&quot;: &quot;018ef2d7754017eca1f9f22c8ddd84b9b6cf5581&quot;,
+      &quot;source_path&quot;: &quot;data/box_192.222.58.99/complete_n65_v4.log&quot;,
+      &quot;artifact&quot;: {
+        &quot;path&quot;: &quot;evidence/seeds/good65/complete_n65_v4.log.txt&quot;,
+        &quot;sha256&quot;: &quot;a5fda71ecb6a79ef124bb37e841bdfdd7b0188916ada623c2bcad928d8fdf7d5&quot;
+      }
+    },
+    {
+      &quot;title&quot;: &quot;good-matrix-campaign: docs/n65_nonexistence.md&quot;,
+      &quot;url&quot;: &quot;https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/docs/n65_nonexistence.md&quot;,
+      &quot;commit&quot;: &quot;018ef2d7754017eca1f9f22c8ddd84b9b6cf5581&quot;,
+      &quot;source_path&quot;: &quot;docs/n65_nonexistence.md&quot;,
+      &quot;artifact&quot;: {
+        &quot;path&quot;: &quot;evidence/seeds/good65/campaign-writeup.md&quot;,
+        &quot;sha256&quot;: &quot;2ca3602e42616b5178e37a897a89402e0f894cd9ef4228b32dc692577405cb3d&quot;
+      }
+    }
+  ],
+  &quot;stratum&quot;: &quot;good&quot;,
+  &quot;claim&quot;: &quot;empty&quot;,
+  &quot;scope&quot;: {
+    &quot;kind&quot;: &quot;full&quot;
+  },
+  &quot;method&quot;: &quot;archived-good-coverage-v1&quot;,
+  &quot;records&quot;: [
+    {
+      &quot;path&quot;: &quot;evidence/seeds/good65/box_192.222.58.99-progress_complete_n65_sB-15.json&quot;,
+      &quot;sha256&quot;: &quot;8117d2aedb55a121390553522e48fbfb044ebd8b23124ee7cbf0583bc544f60c&quot;
+    },
+    {
+      &quot;path&quot;: &quot;evidence/seeds/good65/box_192.222.50.112-coverage_n65_sB-15.json&quot;,
+      &quot;sha256&quot;: &quot;13c2996c1afd2decc47a379c91f51aaf7db5fafbd57a3ea95bc1c68c166d348d&quot;
+    },
+    {
+      &quot;path&quot;: &quot;evidence/seeds/good65/box_192.222.50.112-coverage_n65_sB13.json&quot;,
+      &quot;sha256&quot;: &quot;0260a4f9a28fad05c13a5ed0c82564494c8217125b1faa6667704259ee03853d&quot;
+    }
+  ],
+  &quot;engine&quot;: {
+    &quot;id&quot;: &quot;good-gpu-v4&quot;,
+    &quot;snapshot_commit&quot;: &quot;018ef2d7754017eca1f9f22c8ddd84b9b6cf5581&quot;,
+    &quot;binding&quot;: &quot;archived-with-receipt&quot;,
+    &quot;artifact&quot;: {
+      &quot;path&quot;: &quot;evidence/seeds/good65/good_gpu_complete.py&quot;,
+      &quot;sha256&quot;: &quot;0ff28ccb74b492d1195cdf96d55be1726523c932ee5a0e220fb65ee7a1111a4e&quot;
+    }
+  },
+  &quot;gaps&quot;: [
+    &quot;Execution commit not present in legacy receipt; pinned archive snapshot only.&quot;,
+    &quot;GPU replay has not run on this CPU-only importer.&quot;,
+    &quot;Modern JSON receipts leave [0,454800) uncovered in pass -15; older logs do not repair its missing execution identity.&quot;
+  ]
+}</pre></details></article></main><footer><span>Exact objects. Explicit evidence. Original attribution.</span><span>Cyclic groups · equiv-v1 · <a href="../stats.json">Open data</a></span></footer></body></html>

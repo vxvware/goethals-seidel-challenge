@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "good-n41-campaign",
+  "type": "certificate",
+  "n": 41,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      41
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Good-matrix campaign"
+  ],
+  "sources": [
+    {
+      "title": "good-matrix-campaign: data/box_192.222.50.112/coverage_n41_sB9.json",
+      "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.50.112/coverage_n41_sB9.json",
+      "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+      "source_path": "data/box_192.222.50.112/coverage_n41_sB9.json"
+    }
+  ],
+  "stratum": "good",
+  "claim": "empty",
+  "scope": {
+    "kind": "full"
+  },
+  "method": "good-coverage-v1",
+  "records": [
+    {
+      "path": "evidence/seeds/good41/box_192.222.50.112-coverage_n41_sB9.json",
+      "sha256": "1fddc2c595b653d81e5d4f5fd04909e1e6c83c6d907feb5459009333ce90cfe5"
+    }
+  ],
+  "engine": {
+    "id": "good-gpu-v4",
+    "snapshot_commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
+    "binding": "archived-with-receipt",
+    "artifact": {
+      "path": "evidence/seeds/good41/good_gpu_complete.py",
+      "sha256": "0ff28ccb74b492d1195cdf96d55be1726523c932ee5a0e220fb65ee7a1111a4e"
+    }
+  },
+  "gaps": [
+    "Execution commit not present in legacy receipt; pinned archive snapshot only.",
+    "GPU replay has not run on this CPU-only importer."
+  ]
+}

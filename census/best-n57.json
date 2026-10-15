@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "best-n57",
+  "type": "census",
+  "n": 57,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      57
+    ]
+  },
+  "submitted_by": "trevor-vincent",
+  "submitted_at": "2026-10-14",
+  "discovered_by": [
+    "Campaign catalogue and published classification"
+  ],
+  "sources": [
+    {
+      "title": "Published best classification",
+      "url": "https://arxiv.org/abs/1907.04987"
+    }
+  ],
+  "stratum": "best",
+  "equivalence": "equiv-v1",
+  "representatives": [
+    "n57-796742d6865aab63774c",
+    "n57-8f2cd7cbc7bd3effc1b4",
+    "n57-aa4c0ba8b18abb20e26d"
+  ],
+  "claimed_count": 3,
+  "claim_kind": "published-exact",
+  "secondary": {
+    "stored_rows": 1296
+  }
+}
