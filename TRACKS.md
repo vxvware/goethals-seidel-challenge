@@ -20,6 +20,18 @@ the required operations.
 
 ## Verification levels
 
+Origin is a separate dimension from these levels. **Participant work** covers
+constructions, searches, and claims produced by challenge participants.
+**Independent reproduction** credits work on an already published result.
+**Literature / catalogue** identifies imported reference results. Multiple
+origins can coexist in one cell: n=73 skew-sds includes participant-generated
+families and a separately attributed published construction.
+
+“Unpublished” means no paper is recorded for the contribution as of its registry
+date. It is not a proof of global priority, nor does it upgrade a claim's evidence.
+The curated [contribution registry](baselines/contributions.json) preserves that
+distinction even when the mathematical status remains unresolved.
+
 | Computed label | What actually happened |
 |---|---|
 | proven | An implemented exact mathematical obstruction was checked. |

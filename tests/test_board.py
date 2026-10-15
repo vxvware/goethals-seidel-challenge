@@ -73,3 +73,70 @@ def test_published_292_is_verified_and_attributed(board):
         assert "skew-sds" in results[ident]["tracks"]
         assert results[ident]["n"] == 73
         assert any("Đoković" in credit for credit in d[ident]["discovered_by"])
+        assert {g["relation"] for g in results[ident]["contributions"]} == {"published-import"}
+
+
+def test_participant_credit_does_not_change_evidence_status(board):
+    d, r, b = board
+    cells = {(c["n"], c["stratum"]): c for c in summary(d, r, b)["cells"]}
+    for n in (53, 55):
+        cell = cells[n, "good"]
+        assert cell["status"] == "exists"
+        assert cell["origins"] == ["participant-result"]
+        credit = cell["contributions"][0]
+        assert credit["contributors"] == [{"name": "Vincent Russo", "github": "vprusso"}]
+        assert credit["publication_status"] == "unpublished"
+        assert r[f"russo-good-n{n}"]["bound"] == "lower"
+    best73 = cells[73, "best"]
+    assert best73["status"] == "unresolved" and best73["tier"] is None
+    assert best73["origins"] == ["participant-result"]
+    assert best73["contributions"][0]["contributors"][0]["name"] == "Trevor Vincent"
+    assert cells[73, "skew-sds"]["origins"] == ["participant-result", "published-import"]
+    assert cells[41, "good"]["origins"] == ["independent-reproduction", "published-import"]
+    assert cells[89, "skew-sds"]["origins"] == ["participant-result"]
+    assert cells[89, "best"]["origins"] == ["published-import"]
+    assert "participant-result" not in cells[89, "good"]["origins"]
+    assert all(c["id"] != "trevor-best-73" for c in cells[73, "general"]["contributions"])
+
+
+def test_submitter_is_not_automatically_discoverer(board):
+    from verify.contributions import apply
+
+    d, r, _ = deepcopy(board)
+    for doc in d.values():
+        doc["submitted_by"] = "unrelated-importer"
+    apply(d, r)
+    assert (
+        r["best-n73-campaign"]["contributions"][0]["contributors"][0]["github"] == "trevor-vincent"
+    )
+    assert all(
+        p.get("github") != "unrelated-importer"
+        for result in r.values()
+        for g in result["contributions"]
+        for p in g["contributors"]
+    )
+
+
+@pytest.mark.parametrize("bad_reference", ["seed", "entry", "stratum", "duplicate", "schema"])
+def test_invalid_contribution_registry_rejected(board, tmp_path, bad_reference):
+    import shutil
+    from verify.contributions import apply
+    from verify.common import write_json
+
+    shutil.copytree(ROOT / "baselines", tmp_path / "baselines")
+    registry = read_json(tmp_path / "baselines/contributions.json")
+    first = registry["contributions"][0]
+    if bad_reference == "seed":
+        first["seed_artifacts"] = ["missing-seed"]
+    elif bad_reference == "entry":
+        first["entry_ids"] = ["missing-entry"]
+    elif bad_reference == "stratum":
+        first["stratum"] = "williamson"
+    elif bad_reference == "duplicate":
+        registry["contributions"].append(deepcopy(first))
+    else:
+        first["relation"] = "self-certified-discovery"
+    write_json(tmp_path / "baselines/contributions.json", registry)
+    d, r, _ = deepcopy(board)
+    with pytest.raises(ValueError):
+        apply(d, r, tmp_path)

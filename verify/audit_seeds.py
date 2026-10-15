@@ -11,13 +11,16 @@ if __package__ in (None, ""):
 from verify.common import ROOT, artifact, read_json
 from verify.equivalence import fingerprint
 from verify.gs_verify import validate_rows
+from verify.seed_inventory import inventory
 
 
 def audit(root=ROOT):
-    manifest = read_json(root / "baselines/seed-manifest.json", max_bytes=4 * 1024 * 1024)
+    manifest = inventory(root)
     total = 0
     all_ids = set()
     for record in manifest["artifacts"]:
+        if "artifact" in record["source"]:
+            artifact(root, record["source"]["artifact"])
         count = 0
         ids = set()
         with gzip.open(artifact(root, record["archive"]), "rt") as stream:

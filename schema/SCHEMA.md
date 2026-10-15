@@ -52,3 +52,17 @@ legacy/stored-row statistics, which are not a replacement for primary counts.
 runs and its complete canonical set matches the submitted representatives.
 Quick mode intentionally downgrades this to a lower bound. `published-exact`
 retains the attributed count but does not promote it to locally reproduced.
+
+## Curated contribution attribution
+
+[contributions.schema.json](contributions.schema.json) describes the separate
+maintainer registry in `baselines/contributions.json`. Each contribution selects
+explicit entry IDs and/or seed artifact IDs and records a relation, publication
+status, people, summary, optional stratum, and whether to feature it on the board.
+Unknown entry/seed references, duplicate contribution IDs, and incompatible
+strata fail validation. Entry submissions cannot set this registry or their own
+origin verdict; unclassified entries receive no automatic participant credit.
+
+The derived `contributions` fields appear in entry results, board cells, and
+the board summary. A cell's `origins` can include several categories without
+changing its mathematical status, evidence tier, or equivalence class.

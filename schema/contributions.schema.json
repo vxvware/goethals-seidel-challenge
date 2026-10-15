@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Curated contribution attribution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "recorded_at",
+    "note",
+    "contributions"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "note": {
+      "type": "string"
+    },
+    "contributions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "relation",
+          "publication_status",
+          "contributors",
+          "summary",
+          "featured",
+          "entry_ids",
+          "seed_artifacts"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relation": {
+            "enum": [
+              "participant-result",
+              "independent-reproduction",
+              "published-import"
+            ]
+          },
+          "publication_status": {
+            "enum": [
+              "unpublished",
+              "published"
+            ]
+          },
+          "contributors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "github": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,38}$"
+                }
+              }
+            }
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "featured": {
+            "type": "boolean"
+          },
+          "entry_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]*$"
+            },
+            "uniqueItems": true
+          },
+          "seed_artifacts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]*$"
+            },
+            "uniqueItems": true
+          },
+          "stratum": {
+            "enum": [
+              "williamson",
+              "good",
+              "best",
+              "kkss",
+              "skew-sds",
+              "general"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "relation": {
+                  "enum": [
+                    "participant-result",
+                    "independent-reproduction"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "contributors": {
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -54,13 +54,24 @@ Mathematical status (`exists`, `empty`, `unresolved`) and artifact availability
 construction without imported rows is an import task. Its importer is never
 credited as the original discoverer.
 
+The board also distinguishes **participant work**, **independent reproductions**,
+and **literature/catalogue imports**. The participant section highlights Vincent
+Russo's good matrices at n=53 and n=55 and Trevor Vincent's n=73 campaigns.
+Purple map labels and the Origin filter identify participant work; entry pages
+show the credited people separately from the importer. Publication status and
+verification remain independent, so an unpublished claim can be credited while
+its evidence gaps remain visible.
+
 ## Seed data and evidence
 
-The full inventory is in [baselines/seed-manifest.json](baselines/seed-manifest.json).
-All raw imported rows remain in compact archives under `evidence/seeds/`, with
+The inventories are [the original seeds](baselines/seed-manifest.json) and
+[later participant constructions](baselines/participant-seed-manifest.json).
+All 35,583 raw imported quadruples remain in compact archives under `evidence/`, with
 source commits, hashes, counts, and representative mappings. The explicit plan
 inventory is imported, including best/good catalogues, Russo examples, the n=13
 CPU/GPU fixtures, 15,360 p=73 families, and published Williamson and good rows.
+Vincent Russo's additional 144 good-matrix quadruples supply one verified class
+at each of n=53 and n=55; their census counts remain lower bounds.
 
 ```sh
 uv run python -m verify.audit_seeds

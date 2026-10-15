@@ -1,0 +1,262 @@
+{
+  "version": 1,
+  "recorded_at": "2026-10-15",
+  "note": "Publication status describes the recorded source of each contribution: unpublished means no paper is recorded for that work. Participant credit is separate from verification, and does not by itself establish global priority. Reproductions are credited as computations of published results.",
+  "contributions": [
+    {
+      "id": "russo-good-53",
+      "title": "Good matrices at n=53",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "Vincent Russo",
+          "github": "vprusso"
+        }
+      ],
+      "summary": "Vincent Russo found good matrices at n=53. The archived rows verify exactly and yield one equiv-v1 class; the board records existence and a census lower bound.",
+      "entry_ids": [
+        "russo-good-n53"
+      ],
+      "seed_artifacts": [
+        "russo-good-n53"
+      ],
+      "featured": true,
+      "stratum": "good"
+    },
+    {
+      "id": "russo-good-55",
+      "title": "Good matrices at n=55",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "Vincent Russo",
+          "github": "vprusso"
+        }
+      ],
+      "summary": "Vincent Russo found good matrices at n=55. The archived rows verify exactly and yield one equiv-v1 class; the board records existence and a census lower bound.",
+      "entry_ids": [
+        "russo-good-n55"
+      ],
+      "seed_artifacts": [
+        "russo-good-n55"
+      ],
+      "featured": true,
+      "stratum": "good"
+    },
+    {
+      "id": "trevor-best-73",
+      "title": "Best-matrix nonexistence campaign at n=73",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "Trevor Vincent",
+          "github": "trevor-vincent"
+        }
+      ],
+      "summary": "Trevor Vincent’s campaign reports no best matrices at n=73. This is participant work beyond the published baseline, retained as an archived nonexistence claim; the 104,500-class legacy identity gap still prevents a stronger verification tier.",
+      "entry_ids": [
+        "best-n73-campaign"
+      ],
+      "seed_artifacts": [],
+      "featured": true,
+      "stratum": "best"
+    },
+    {
+      "id": "trevor-skew-73",
+      "title": "Skew families at n=73",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "Trevor Vincent",
+          "github": "trevor-vincent"
+        }
+      ],
+      "summary": "Trevor Vincent’s sweep generated 15,360 quadruples, yielding eight verified equiv-v1 classes. Published skew-Hadamard existence at order 292 is credited separately; these are participant-generated families, without a claim of first existence at this order.",
+      "entry_ids": [],
+      "seed_artifacts": [
+        "skew-p73-d9"
+      ],
+      "featured": true,
+      "stratum": "skew-sds"
+    },
+    {
+      "id": "trevor-good-65",
+      "title": "Good-matrix nonexistence campaign at n=65",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "Trevor Vincent",
+          "github": "trevor-vincent"
+        }
+      ],
+      "summary": "The campaign reports nonexistence. A missing early receipt chain leaves this an archived claim, with participant credit retained.",
+      "entry_ids": [
+        "good-n65-campaign"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "good"
+    },
+    {
+      "id": "trevor-good-67",
+      "title": "Good-matrix partial search at n=67",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "Trevor Vincent",
+          "github": "trevor-vincent"
+        }
+      ],
+      "summary": "Participant search with partial coverage; it does not establish nonexistence.",
+      "entry_ids": [
+        "good-n67-campaign"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "good"
+    },
+    {
+      "id": "trevor-skew-89",
+      "title": "Order-11 subgroup obstruction at n=89",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "Trevor Vincent",
+          "github": "trevor-vincent"
+        }
+      ],
+      "summary": "The campaign’s scoped null has an exactly checked row-sum obstruction. It excludes only the stated subgroup family.",
+      "entry_ids": [
+        "skew-n89-subgroup11"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "skew-sds"
+    },
+    {
+      "id": "trevor-good-41",
+      "title": "Independent good-matrix computation at n=41",
+      "relation": "independent-reproduction",
+      "publication_status": "published",
+      "contributors": [
+        {
+          "name": "Trevor Vincent",
+          "github": "trevor-vincent"
+        }
+      ],
+      "summary": "An independent campaign for a published nonexistence result. The archived coverage is receipt-backed; the board has not replayed the GPU search.",
+      "entry_ids": [
+        "good-n41-campaign"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "good"
+    },
+    {
+      "id": "russo-best-censuses",
+      "title": "Independent best-matrix censuses through n=43",
+      "relation": "independent-reproduction",
+      "publication_status": "published",
+      "contributors": [
+        {
+          "name": "Vincent Russo",
+          "github": "vprusso"
+        }
+      ],
+      "summary": "Vincent Russo’s exact census implementation independently enumerates these published small orders. The board reports exact counts only when its full replay succeeds.",
+      "entry_ids": [
+        "best-n3",
+        "best-n7",
+        "best-n13",
+        "best-n21",
+        "best-n31",
+        "best-n43"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "best"
+    },
+    {
+      "id": "published-catalogues",
+      "title": "Published constructions and catalogue imports",
+      "relation": "published-import",
+      "publication_status": "published",
+      "contributors": [],
+      "summary": "Imported reference constructions retain the original source attribution. Inclusion in the challenge catalogue does not make the importer their discoverer.",
+      "entry_ids": [],
+      "seed_artifacts": [
+        "best-n3",
+        "best-n7",
+        "best-n13",
+        "best-n21",
+        "best-n31",
+        "best-n43",
+        "best-n57",
+        "good-n3",
+        "good-n5",
+        "good-n7",
+        "good-n9",
+        "good-n11",
+        "good-n13",
+        "good-n15",
+        "russo-n15",
+        "russo-n21",
+        "good-all-cpu-n13",
+        "good-all-gpu-n13",
+        "williamson-n1",
+        "williamson-n3",
+        "williamson-n5",
+        "williamson-n7",
+        "williamson-n9",
+        "williamson-n11",
+        "williamson-n13",
+        "williamson-n15",
+        "williamson-n17",
+        "williamson-n19",
+        "williamson-n21",
+        "williamson-n23",
+        "williamson-n25",
+        "williamson-n27",
+        "williamson-n29",
+        "williamson-n31",
+        "williamson-n33",
+        "williamson-n37",
+        "williamson-n39",
+        "williamson-n41",
+        "williamson-n43",
+        "williamson-n45",
+        "williamson-n49",
+        "williamson-n51",
+        "williamson-n55",
+        "williamson-n57",
+        "williamson-n61",
+        "williamson-n63",
+        "sage-good-n1",
+        "sage-good-n3",
+        "sage-good-n5",
+        "sage-good-n7",
+        "sage-good-n9",
+        "sage-good-n11",
+        "sage-good-n13",
+        "sage-good-n15",
+        "sage-good-n17",
+        "sage-good-n19",
+        "sage-good-n21",
+        "sage-good-n23",
+        "sage-good-n25",
+        "sage-good-n27",
+        "sage-good-n29",
+        "sage-good-n31",
+        "published-skew-n73"
+      ],
+      "featured": false
+    }
+  ]
+}
