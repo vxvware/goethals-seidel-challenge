@@ -19,6 +19,15 @@ paths or promise artifacts that are not in the submitted tree. An importer
 must retain original authorship; a verified baseline-gap flag is not a novelty
 claim.
 
+Explain whether the submitted work is a participant result, an independent
+computation of a published result, or an import from the literature. Include
+the people who performed the work and any paper or source archive. After the
+entry is accepted, maintainers record that distinction in
+[baselines/contributions.json](baselines/contributions.json) through a separate
+maintenance PR. This controls the participant highlights, origin filter, and
+credits without changing the entry's verification tier. A submitter handle or
+missing citation alone does not establish discovery credit.
+
 ## Evidence and census submissions
 
 Follow [schema/SCHEMA.md](schema/SCHEMA.md). Add the entry and all its referenced

@@ -3,7 +3,7 @@
 from pathlib import Path
 from verify.common import ROOT, TRACKS, PARENTS, read_json, artifact
 from verify.model import validate
-from verify import gs_verify, evidence, census_engine
+from verify import gs_verify, evidence, census_engine, contributions
 
 
 def load(root=ROOT, reproduce=True):
@@ -54,6 +54,7 @@ def load(root=ROOT, reproduce=True):
 
     apply_registered(documents, results, root)
     check_consistency(documents, results, records)
+    contributions.apply(documents, results, root)
     return documents, results, records
 
 
@@ -134,6 +135,21 @@ def cells(documents, results, baseline, max_n=131):
                 "verified-on-board" if quads else "published-not-imported" if exists else "none"
             )
             tiers = [c["tier"] for c in whole if c["tier"]]
+            censuses = [
+                r
+                for r in results.values()
+                if r["type"] == "census" and r["n"] == n and r["stratum"] == track
+            ]
+            # Scoped evidence can be relevant to narrower strata without being
+            # the result that establishes their status. Credit its target cell.
+            credits = contributions.collect(
+                [*quads, *(c for c in certs if c["stratum"] == track), *censuses]
+            )
+            origins = {c["relation"] for c in credits}
+            if relevant or any(
+                documents[c["id"]]["method"] in ("literature", "row-sum-theorem") for c in certs
+            ):
+                origins.add("published-import")
             rank = {"receipt-backed": 0, "spot-checked": 1, "reproduced": 2, "proven": 3}
             tier = "reproduced" if quads else max(tiers, key=rank.get) if tiers else None
             output.append(
@@ -146,6 +162,9 @@ def cells(documents, results, baseline, max_n=131):
                     "tier": tier,
                     "quadruples": [q["id"] for q in quads],
                     "evidence": [c["id"] for c in certs],
+                    "censuses": [c["id"] for c in censuses],
+                    "contributions": credits,
+                    "origins": sorted(origins),
                     "sources": relevant,
                     "flags": [f for q in quads for f in q["flags"]],
                     "note": "Requires n=r²+r+1." if track == "best" else "",
@@ -164,6 +183,7 @@ def summary(documents, results, baseline, max_n=131):
         "quadruples": sum(r["type"] == "quadruple" for r in results.values()),
         "certificates": sum(r["type"] == "certificate" for r in results.values()),
         "censuses": sum(r["type"] == "census" for r in results.values()),
+        "contributions": contributions.collect(results.values()),
         "cells": grid,
         "research_targets": [c for c in grid if c["status"] == "unresolved"],
         "import_tasks": [c for c in grid if c["artifact_status"] == "published-not-imported"],

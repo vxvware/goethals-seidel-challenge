@@ -11,6 +11,13 @@ the full seed-audit gate. Raw counts and equivalence-class counts are separate.
   separately, including the 10,080 / 20 / 5 n=43 gate.
 - Good catalogue: 10,080 stored rows at n=3,5,7,9,11,13,15. Import the Russo
   rows and both n=13 CPU/GPU all-solution files as additional source records.
+- Supplemental participant import (2026-10-15): Vincent Russo's good matrices
+  at n=53 and n=55 from `saw-best-matrix` commit
+  `020601f6e15db4e2ca023b602bc460204ce40236`. All 104 and 40 raw quadruples,
+  respectively, pass exact verification and give one class per order. The
+  source claims complete censuses, but the board records lower bounds because
+  those full searches have not been replayed here. Original sign rows, gzip
+  mappings, and hashes are retained in the supplemental participant inventory.
 - p=73: import and exactly verify all 15,360 recorded coset families. They
   yield eight equiv-v1 representatives. The published order-292 construction
   verifies but yields a ninth representative under this convention; the plan's

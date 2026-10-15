@@ -6,12 +6,12 @@ row-sum proofs; receipt validation with explicit gaps; whole-board consistency;
 static board and JSON data; submission/import/research CLI; trusted-base PR
 validation; manifest pinning; GitHub Pages deployment; agent workflow and starters.
 
-## Validation on 2026-10-14
+## Validation on 2026-10-15
 
-- 43 pytest checks pass, including exact PAF comparisons, symmetry generators,
+- 50 pytest checks pass, including exact PAF comparisons, symmetry generators,
   census replay, receipt failures, replay registration, and submission boundaries.
-- All 35,439 raw quadruples in 64 source archives verify and map to 93 distinct
-  representatives. There are 71 certificate records and 14 census entries.
+- All 35,583 raw quadruples in 66 source archives verify and map to 95 distinct
+  representatives. There are 71 certificate records and 16 census entries.
 - Full census replay reproduces n=43 best: five equiv-v1 classes, 20 branch-v1
   orbits, and 10,080 expanded quadruples.
 - Ruff and the trusted manifest pass. The full static build succeeds.
@@ -21,6 +21,14 @@ validation; manifest pinning; GitHub Pages deployment; agent workflow and starte
   is rejected. An engine-start failure leaves a durable failed replay report.
 - A temporary Git checkout passes the trusted-base submission gate with a valid
   addition. Wrong authorship and an accompanying verifier edit both fail.
+
+## Participant attribution
+
+A curated registry distinguishes participant results, independent reproductions,
+and published catalogue imports. Vincent Russo's good-53/55 constructions and
+Trevor Vincent's best-73 campaign and skew-73 families are featured on the board.
+Map badges, an Origin filter, named credits, and JSON output preserve that
+distinction independently of publication and verification status.
 
 ## Evidence that remains incomplete
 
@@ -38,9 +46,9 @@ The implementation does not invent runs or provenance to satisfy a planned tier.
   an independent heterogeneous-deck audit for a stronger tier.
 - Good-67 remains a partial result. Git history pins the archive snapshot; it
   cannot retroactively create a missing execution-commit field.
-- The plan's claims of known good matrices at 53,55,61 are not backed by the
-  primary tables inspected for the baseline. They remain unresolved here
-  pending a construction or an individually supporting source. Published
+- Good n=53 and n=55 are now verified from Vincent Russo's participant
+  constructions in the supplemental import. Their census counts remain lower
+  bounds. Good n=61 remains unresolved in the sourced baseline; published
   general skew constructions at 61 do not establish good matrices there.
 
 The scoped n=89 null is stronger than the old empty-array artifact: a small
