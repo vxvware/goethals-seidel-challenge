@@ -8,7 +8,7 @@ validation; manifest pinning; GitHub Pages deployment; agent workflow and starte
 
 ## Validation on 2026-10-14
 
-- 42 pytest checks pass, including exact PAF comparisons, symmetry generators,
+- 43 pytest checks pass, including exact PAF comparisons, symmetry generators,
   census replay, receipt failures, replay registration, and submission boundaries.
 - All 35,439 raw quadruples in 64 source archives verify and map to 93 distinct
   representatives. There are 71 certificate records and 14 census entries.
@@ -19,6 +19,8 @@ validation; manifest pinning; GitHub Pages deployment; agent workflow and starte
   deep links, no JavaScript exceptions, and no page-width overflow.
 - A fresh inequivalent candidate stages successfully; an equivalent candidate
   is rejected. An engine-start failure leaves a durable failed replay report.
+- A temporary Git checkout passes the trusted-base submission gate with a valid
+  addition. Wrong authorship and an accompanying verifier edit both fail.
 
 ## Evidence that remains incomplete
 

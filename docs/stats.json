@@ -1108,12 +1108,24 @@
       "n": 11,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 11,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -1708,12 +1720,24 @@
       "n": 17,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 17,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -2823,12 +2847,24 @@
       "n": 29,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 29,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -3367,12 +3403,24 @@
       "n": 35,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 35,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -3674,12 +3722,24 @@
       "n": 39,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 39,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -4376,12 +4436,24 @@
       "n": 47,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 47,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -4508,12 +4580,24 @@
       "n": 49,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 49,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -4738,12 +4822,24 @@
       "n": 53,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 53,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -5463,12 +5559,24 @@
       "n": 65,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 65,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -5545,12 +5653,24 @@
       "n": 67,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 67,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -5584,12 +5704,24 @@
       "n": 69,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 69,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -5665,12 +5797,24 @@
       "n": 69,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 69,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -5719,12 +5863,24 @@
       "n": 71,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 71,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -5882,12 +6038,24 @@
       "n": 75,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 75,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -5949,12 +6117,24 @@
       "n": 75,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 75,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6042,12 +6222,24 @@
       "n": 79,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 79,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6109,12 +6301,24 @@
       "n": 79,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 79,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6163,12 +6367,24 @@
       "n": 81,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 81,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6243,12 +6459,24 @@
       "n": 83,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 83,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6282,12 +6510,24 @@
       "n": 85,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 85,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6349,12 +6589,24 @@
       "n": 85,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 85,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6362,12 +6614,24 @@
       "n": 87,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 87,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6429,12 +6693,24 @@
       "n": 87,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 87,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6486,14 +6762,26 @@
       "n": 89,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [
         "skew-n89-subgroup11"
       ],
-      "sources": [],
+      "sources": [
+        {
+          "n": 89,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6529,12 +6817,24 @@
       "n": 91,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 91,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6594,12 +6894,24 @@
       "n": 91,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 91,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6728,12 +7040,24 @@
       "n": 95,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 95,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6767,12 +7091,24 @@
       "n": 97,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 97,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6834,12 +7170,24 @@
       "n": 97,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 97,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6847,12 +7195,24 @@
       "n": 99,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 99,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6914,12 +7274,24 @@
       "n": 99,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 99,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -6968,12 +7340,24 @@
       "n": 101,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 101,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7128,12 +7512,24 @@
       "n": 105,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 105,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7208,12 +7604,24 @@
       "n": 107,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 107,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7288,12 +7696,24 @@
       "n": 109,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 109,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7485,12 +7905,24 @@
       "n": 115,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 115,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7552,12 +7984,24 @@
       "n": 115,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 115,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7565,12 +8009,24 @@
       "n": 117,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 117,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7632,12 +8088,24 @@
       "n": 117,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 117,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7686,12 +8154,24 @@
       "n": 119,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 119,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7725,12 +8205,24 @@
       "n": 121,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 121,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7792,12 +8284,24 @@
       "n": 121,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 121,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -7926,12 +8430,24 @@
       "n": 125,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 125,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -8018,12 +8534,24 @@
       "n": 127,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 127,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "empty",
+          "source": {
+            "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+            "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -8081,12 +8609,24 @@
       "n": 129,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 129,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -8148,12 +8688,24 @@
       "n": 129,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "quadruples": [],
       "evidence": [],
-      "sources": [],
+      "sources": [
+        {
+          "n": 129,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "flags": [],
       "note": ""
     },
@@ -8240,97 +8792,6 @@
   ],
   "research_targets": [
     {
-      "n": 11,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 17,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 29,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 35,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 39,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 47,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 49,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 49,
       "stratum": "skew-sds",
       "group": "cyclic",
@@ -8372,19 +8833,6 @@
     {
       "n": 53,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 53,
-      "stratum": "kkss",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -8594,19 +9042,6 @@
     },
     {
       "n": 65,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 65,
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
@@ -8661,19 +9096,6 @@
     },
     {
       "n": 67,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 67,
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
@@ -8700,19 +9122,6 @@
     },
     {
       "n": 69,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 69,
       "stratum": "kkss",
       "group": "cyclic",
       "status": "unresolved",
@@ -8727,19 +9136,6 @@
     {
       "n": 69,
       "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 69,
-      "stratum": "general",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -8766,19 +9162,6 @@
     {
       "n": 71,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 71,
-      "stratum": "kkss",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -8871,19 +9254,6 @@
     },
     {
       "n": 75,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 75,
       "stratum": "good",
       "group": "cyclic",
       "status": "unresolved",
@@ -8922,19 +9292,6 @@
       "note": ""
     },
     {
-      "n": 75,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 77,
       "stratum": "williamson",
       "group": "cyclic",
@@ -9001,19 +9358,6 @@
     },
     {
       "n": 79,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 79,
       "stratum": "good",
       "group": "cyclic",
       "status": "unresolved",
@@ -9052,19 +9396,6 @@
       "note": ""
     },
     {
-      "n": 79,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 81,
       "stratum": "williamson",
       "group": "cyclic",
@@ -9080,19 +9411,6 @@
     {
       "n": 81,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 81,
-      "stratum": "kkss",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -9157,19 +9475,6 @@
     },
     {
       "n": 83,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 83,
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
@@ -9184,19 +9489,6 @@
     {
       "n": 83,
       "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 85,
-      "stratum": "williamson",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -9247,32 +9539,6 @@
       "note": ""
     },
     {
-      "n": 85,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 87,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 87,
       "stratum": "good",
       "group": "cyclic",
@@ -9301,19 +9567,6 @@
     {
       "n": 87,
       "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 87,
-      "stratum": "general",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -9354,21 +9607,6 @@
     },
     {
       "n": 89,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [
-        "skew-n89-subgroup11"
-      ],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 89,
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
@@ -9385,19 +9623,6 @@
     {
       "n": 89,
       "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 91,
-      "stratum": "williamson",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -9461,19 +9686,6 @@
       "note": ""
     },
     {
-      "n": 91,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 93,
       "stratum": "williamson",
       "group": "cyclic",
@@ -9566,19 +9778,6 @@
     },
     {
       "n": 95,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 95,
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
@@ -9593,19 +9792,6 @@
     {
       "n": 95,
       "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 97,
-      "stratum": "williamson",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -9656,32 +9842,6 @@
       "note": ""
     },
     {
-      "n": 97,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 99,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 99,
       "stratum": "good",
       "group": "cyclic",
@@ -9710,19 +9870,6 @@
     {
       "n": 99,
       "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 99,
-      "stratum": "general",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -9749,19 +9896,6 @@
     {
       "n": 101,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 101,
-      "stratum": "kkss",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -9879,19 +10013,6 @@
     {
       "n": 105,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 105,
-      "stratum": "kkss",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -9944,19 +10065,6 @@
     {
       "n": 107,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 107,
-      "stratum": "kkss",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -10009,19 +10117,6 @@
     {
       "n": 109,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 109,
-      "stratum": "kkss",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -10203,19 +10298,6 @@
     },
     {
       "n": 115,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 115,
       "stratum": "good",
       "group": "cyclic",
       "status": "unresolved",
@@ -10243,32 +10325,6 @@
     {
       "n": 115,
       "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 115,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 117,
-      "stratum": "williamson",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -10319,19 +10375,6 @@
       "note": ""
     },
     {
-      "n": 117,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 119,
       "stratum": "williamson",
       "group": "cyclic",
@@ -10359,19 +10402,6 @@
     },
     {
       "n": 119,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 119,
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
@@ -10386,19 +10416,6 @@
     {
       "n": 119,
       "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 121,
-      "stratum": "williamson",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -10438,19 +10455,6 @@
     {
       "n": 121,
       "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 121,
-      "stratum": "general",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -10542,19 +10546,6 @@
     {
       "n": 125,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 125,
-      "stratum": "kkss",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -10605,32 +10596,6 @@
       "note": ""
     },
     {
-      "n": 127,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 129,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 129,
       "stratum": "good",
       "group": "cyclic",
@@ -10659,19 +10624,6 @@
     {
       "n": 129,
       "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "quadruples": [],
-      "evidence": [],
-      "sources": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 129,
-      "stratum": "general",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -11705,6 +11657,556 @@
       "note": ""
     },
     {
+      "n": 69,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 69,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 69,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 69,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 75,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 75,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 75,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 75,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 79,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 79,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 79,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 79,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 85,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 85,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 85,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 85,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 87,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 87,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 87,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 87,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 91,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 91,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 91,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 91,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 97,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 97,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 97,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 97,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 99,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 99,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 99,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 99,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 115,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 115,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 115,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 115,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 117,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 117,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 117,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 117,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 121,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 121,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 121,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 121,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
       "n": 127,
       "stratum": "good",
       "group": "cyclic",
@@ -11772,6 +12274,56 @@
           "source": {
             "title": "Known cyclic good-matrix orders, Section 5",
             "url": "https://arxiv.org/html/1802.00556"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 129,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 129,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 129,
+      "stratum": "general",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "quadruples": [],
+      "evidence": [],
+      "sources": [
+        {
+          "n": 129,
+          "stratum": "williamson",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
           },
           "baseline_date": "2026-10-14"
         }

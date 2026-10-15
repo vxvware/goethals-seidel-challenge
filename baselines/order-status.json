@@ -354,6 +354,138 @@
       "baseline_date": "2026-10-14"
     },
     {
+      "n": 69,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 75,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 79,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 85,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 87,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 91,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 97,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 99,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 115,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 117,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 121,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 129,
+      "stratum": "williamson",
+      "group": "cyclic",
+      "status": "exists",
+      "source": {
+        "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
       "n": 1,
       "stratum": "good",
       "group": "cyclic",
@@ -988,6 +1120,248 @@
       "source": {
         "title": "G-matrix classification, Table 1",
         "url": "https://arxiv.org/abs/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 11,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 17,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 29,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 35,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 39,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 47,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 49,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 53,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 65,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 67,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 71,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 81,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 83,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 89,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 95,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 101,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 105,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 107,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 109,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 119,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 125,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
+      "n": 127,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "empty",
+      "source": {
+        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
+        "url": "https://arxiv.org/html/1802.00556"
       },
       "baseline_date": "2026-10-14"
     },

@@ -1,6 +1,7 @@
 """Materialize individual, sourced status records; never infer absence from a missing import."""
 
 from pathlib import Path
+from math import isqrt
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -30,6 +31,26 @@ for n in range(1, 64, 2):
         "https://cs.uwaterloo.ca/~cbright/reports/jsc-willsat.pdf",
         "Williamson classification and Turyn construction",
     )
+
+
+def prime_power(q):
+    for p in range(2, isqrt(q) + 1):
+        if q % p == 0:
+            while q % p == 0:
+                q //= p
+            return q == 1
+    return q >= 2
+
+
+for n in range(65, 132, 2):
+    if prime_power(2 * n - 1):
+        add(
+            "williamson",
+            n,
+            "exists",
+            "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf",
+            "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+        )
 for n in range(1, 50, 2):
     add(
         "good",
@@ -67,6 +88,18 @@ for n in (1, 3, 7, 13, 21, 31, 43, 57):
 # records are imported here; no assumption is made about blank table cells.
 for n in (1, 3, 5, 7, 9, 13, 15, 19, 21, 23, 25, 27, 31, 33, 37, 41, 43, 45):
     add("kkss", n, "exists", "https://arxiv.org/abs/1802.00556", "G-matrix classification, Table 1")
+for n in range(1, 132, 2):
+    target = 2 * n - 1
+    if n == 49 or not any(
+        isqrt(target - a * a) ** 2 == target - a * a for a in range(isqrt(target) + 1)
+    ):
+        add(
+            "kkss",
+            n,
+            "empty",
+            "https://arxiv.org/html/1802.00556",
+            "G-matrix nonexistence: Proposition 3 and Table 1",
+        )
 add(
     "skew-sds",
     73,

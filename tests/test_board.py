@@ -33,6 +33,16 @@ def test_targets_and_import_tasks_separate(board):
     )
 
 
+def test_known_larger_constructions_and_impossible_g_orders_are_not_targets(board):
+    stats = summary(*board)
+    cells = {(c["n"], c["stratum"]): c for c in stats["cells"]}
+    for n in (69, 85, 91, 129):
+        assert cells[n, "williamson"]["artifact_status"] == "published-not-imported"
+        assert cells[n, "general"]["status"] == "exists"
+    for n in (11, 17, 35, 39, 47, 49):
+        assert cells[n, "kkss"]["status"] == "empty"
+
+
 def test_conflicting_claim_fails(board):
     d, r, b = board
     r = deepcopy(r)
