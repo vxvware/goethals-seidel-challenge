@@ -4,11 +4,13 @@ import argparse
 import re
 from pathlib import Path
 from urllib.parse import unquote, urlparse
-from verify.common import ROOT
+from verify.common import ROOT, MAX_FILE
 
 
 def check(path, root=ROOT):
     path = Path(path)
+    if path.is_symlink() or path.stat().st_size > MAX_FILE:
+        raise ValueError(f"{path.name}: symlink or oversized Markdown")
     text = path.read_text()
     if re.search(r"(?<!\w)(?:~/|/home/|/Users/)", text):
         raise ValueError(f"{path.name}: private filesystem reference")

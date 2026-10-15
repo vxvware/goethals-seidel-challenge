@@ -39,3 +39,19 @@ def test_json_duplicate_keys_rejected(tmp_path):
     p.write_text('{"n":3,"n":5}')
     with pytest.raises(ValueError):
         read_json(p)
+
+
+def test_evidence_prose_cannot_escape_repository(tmp_path):
+    from verify.check_prose import check
+
+    note = tmp_path / "receipt.md"
+    note.write_text("[missing](missing.json)")
+    with pytest.raises(ValueError, match="unresolved"):
+        check(note, tmp_path)
+    note.write_text("Evidence at /home/private/result.json")
+    with pytest.raises(ValueError, match="private"):
+        check(note, tmp_path)
+    note.unlink()
+    note.symlink_to(ROOT / "README.md")
+    with pytest.raises(ValueError, match="symlink"):
+        check(note, tmp_path)

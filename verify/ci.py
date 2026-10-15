@@ -36,7 +36,7 @@ def main():
             parts = Path(path).parts
             if parts[0] in ("quadruples", "certificates", "census"):
                 check_author(read_json(root / path), a.author)
-            elif parts[0] == "notes" and Path(path).suffix == ".md":
+            elif parts[0] in ("notes", "evidence") and Path(path).suffix == ".md":
                 check_prose(root / path, root)
         check(ROOT)
         load(root)
