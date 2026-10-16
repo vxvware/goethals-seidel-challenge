@@ -25,7 +25,7 @@
       ],
       "featured": true,
       "stratum": "kkss",
-      "label": "Challenge participant",
+      "label": "Challenge result",
       "position": 0,
       "recorded_at": "2026-10-15"
     },
@@ -57,7 +57,7 @@
       ],
       "featured": true,
       "stratum": "kkss",
-      "label": "Challenge participant",
+      "label": "Challenge result",
       "position": 1,
       "recorded_at": "2026-10-15"
     },
@@ -83,7 +83,7 @@
       ],
       "featured": true,
       "stratum": "good",
-      "label": "Challenge participant",
+      "label": "Challenge result",
       "position": 2,
       "recorded_at": "2026-10-15"
     },
@@ -104,7 +104,7 @@
       ],
       "featured": false,
       "stratum": "good",
-      "label": "Challenge participant",
+      "label": "Challenge result",
       "position": 3,
       "recorded_at": "2026-10-15"
     },
@@ -294,7 +294,7 @@
       ],
       "featured": false,
       "stratum": "best",
-      "label": "Challenge participant",
+      "label": "Challenge result",
       "position": 6,
       "recorded_at": "2026-10-15"
     },
@@ -322,7 +322,7 @@
       ],
       "featured": false,
       "stratum": "skew-sds",
-      "label": "Challenge participant",
+      "label": "Challenge result",
       "position": 7,
       "recorded_at": "2026-10-15"
     },
@@ -343,7 +343,7 @@
       ],
       "featured": false,
       "stratum": "good",
-      "label": "Challenge participant",
+      "label": "Challenge result",
       "position": 8,
       "recorded_at": "2026-10-15"
     },
@@ -364,7 +364,7 @@
       ],
       "featured": false,
       "stratum": "good",
-      "label": "Challenge participant",
+      "label": "Challenge result",
       "position": 9,
       "recorded_at": "2026-10-15"
     },
@@ -385,7 +385,7 @@
       ],
       "featured": false,
       "stratum": "skew-sds",
-      "label": "Challenge participant",
+      "label": "Challenge result",
       "position": 10,
       "recorded_at": "2026-10-15"
     },
@@ -22783,7 +22783,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 0,
           "recorded_at": "2026-10-15"
         }
@@ -22848,7 +22848,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 0,
           "recorded_at": "2026-10-15"
         }
@@ -22894,7 +22894,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 0,
           "recorded_at": "2026-10-15"
         },
@@ -23260,7 +23260,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 1,
           "recorded_at": "2026-10-15"
         }
@@ -23318,7 +23318,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 1,
           "recorded_at": "2026-10-15"
         }
@@ -23377,7 +23377,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 1,
           "recorded_at": "2026-10-15"
         },
@@ -23576,7 +23576,7 @@
           ],
           "featured": true,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 2,
           "recorded_at": "2026-10-15"
         }
@@ -23681,7 +23681,7 @@
           ],
           "featured": true,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 2,
           "recorded_at": "2026-10-15"
         }
@@ -23730,7 +23730,7 @@
           ],
           "featured": true,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 2,
           "recorded_at": "2026-10-15"
         }
@@ -23915,7 +23915,7 @@
           ],
           "featured": true,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 2,
           "recorded_at": "2026-10-15"
         }
@@ -23998,7 +23998,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 1,
           "recorded_at": "2026-10-15"
         }
@@ -24056,7 +24056,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 1,
           "recorded_at": "2026-10-15"
         },
@@ -24082,7 +24082,7 @@
           ],
           "featured": true,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 2,
           "recorded_at": "2026-10-15"
         }
@@ -24141,7 +24141,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 1,
           "recorded_at": "2026-10-15"
         },
@@ -24167,7 +24167,7 @@
           ],
           "featured": true,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 2,
           "recorded_at": "2026-10-15"
         },
@@ -24640,7 +24640,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 1,
           "recorded_at": "2026-10-15"
         }
@@ -25028,7 +25028,7 @@
           ],
           "featured": false,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 3,
           "recorded_at": "2026-10-15"
         }
@@ -25109,7 +25109,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 1,
           "recorded_at": "2026-10-15"
         }
@@ -25164,7 +25164,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 1,
           "recorded_at": "2026-10-15"
         }
@@ -25219,7 +25219,7 @@
           ],
           "featured": true,
           "stratum": "kkss",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 1,
           "recorded_at": "2026-10-15"
         }
@@ -25404,7 +25404,7 @@
           ],
           "featured": true,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 2,
           "recorded_at": "2026-10-15"
         }
@@ -25495,7 +25495,7 @@
           ],
           "featured": true,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 2,
           "recorded_at": "2026-10-15"
         }
@@ -25558,7 +25558,7 @@
           ],
           "featured": true,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 2,
           "recorded_at": "2026-10-15"
         },
@@ -26187,7 +26187,7 @@
           ],
           "featured": false,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 8,
           "recorded_at": "2026-10-15"
         }
@@ -26341,7 +26341,7 @@
           ],
           "featured": false,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 9,
           "recorded_at": "2026-10-15"
         }
@@ -26801,7 +26801,7 @@
           ],
           "featured": false,
           "stratum": "best",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 6,
           "recorded_at": "2026-10-15"
         }
@@ -26878,7 +26878,7 @@
           ],
           "featured": false,
           "stratum": "skew-sds",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 7,
           "recorded_at": "2026-10-15"
         },
@@ -27049,7 +27049,7 @@
           ],
           "featured": false,
           "stratum": "skew-sds",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 7,
           "recorded_at": "2026-10-15"
         },
@@ -28240,7 +28240,7 @@
           ],
           "featured": false,
           "stratum": "skew-sds",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 10,
           "recorded_at": "2026-10-15"
         }
@@ -31072,7 +31072,7 @@
           ],
           "featured": false,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 8,
           "recorded_at": "2026-10-15"
         }
@@ -31170,7 +31170,7 @@
           ],
           "featured": false,
           "stratum": "good",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 9,
           "recorded_at": "2026-10-15"
         }
@@ -31394,7 +31394,7 @@
           ],
           "featured": false,
           "stratum": "best",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 6,
           "recorded_at": "2026-10-15"
         }
@@ -31944,7 +31944,7 @@
           ],
           "featured": false,
           "stratum": "skew-sds",
-          "label": "Challenge participant",
+          "label": "Challenge result",
           "position": 10,
           "recorded_at": "2026-10-15"
         }

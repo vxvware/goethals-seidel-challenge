@@ -5,7 +5,7 @@ from verify.common import ROOT, read_json
 from verify.seed_inventory import inventory
 
 LABELS = {
-    "participant-result": "Challenge participant",
+    "participant-result": "Challenge result",
     "independent-reproduction": "Independent reproduction",
     "published-import": "Published / catalogue import",
 }
