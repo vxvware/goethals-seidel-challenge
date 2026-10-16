@@ -35,7 +35,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+      "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
       "entry_ids": [
         "vxvware-kkss-n51",
         "vxvware-kkss-n55",
