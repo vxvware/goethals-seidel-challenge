@@ -21,7 +21,7 @@
     "schema/contributions.schema.json": "2ad4aed35ca47c8e954793623000b555bc480f4c99196a106a9c552a35394f1f",
     "schema/entry.schema.json": "7c90cab988278b05189838821f260af2c7cfaf07b6ad379654e858e97ff28810",
     "site/app.js": "63f03d9ef2b767a10b05834f70fb5791f5467ba16187d4b99613a90658d50f65",
-    "site/build.py": "87450cb5b1be5fe2f49c5f92dd248ecefce748de178a2bb4138711414067bed0",
+    "site/build.py": "0484a6f7f4674282f55d9fa2acbfe270369ec66e1a0c5cb01154feb06fba3fe5",
     "site/picture.js": "1d98e4385af1feebc03be664defe69fb8113ef89e339863bfa9f5611f699f2c6",
     "site/style.css": "649521aaa183c3db3817a66b53356f6fe58aed26e779127b611cab1683c2ab9a",
     "tools/gs": "f7168d7ccc75931a8e65f2fd33e3f09490e1629b07052c5acbc484a2050df46d",
