@@ -23,7 +23,7 @@ def apply(documents, results, root=ROOT):
     seen = set()
     for result in results.values():
         result["contributions"] = []
-    for group in registry["contributions"]:
+    for position, group in enumerate(registry["contributions"]):
         if group["id"] in seen:
             raise ValueError(f"duplicate contribution: {group['id']}")
         seen.add(group["id"])
@@ -37,6 +37,7 @@ def apply(documents, results, root=ROOT):
         item = {k: v for k, v in group.items() if k != "seed_artifacts"}
         item["entry_ids"] = sorted(ids)
         item["label"] = LABELS[group["relation"]]
+        item["position"] = position
         item["recorded_at"] = registry["recorded_at"]
         for ident in sorted(ids):
             result = results[ident]
@@ -53,4 +54,4 @@ def collect(results):
     for result in results:
         for group in result.get("contributions", []):
             groups[group["id"]] = group
-    return sorted(groups.values(), key=lambda x: (not x["featured"], x["id"]))
+    return sorted(groups.values(), key=lambda x: (not x["featured"], x["position"]))

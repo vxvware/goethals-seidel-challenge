@@ -1,97 +1,220 @@
 {
   "version": 1,
   "recorded_at": "2026-10-15",
-  "note": "Publication status describes the recorded source of each contribution: unpublished means no paper is recorded for that work. Participant credit is separate from verification, and does not by itself establish global priority. Reproductions are credited as computations of published results.",
+  "note": "Publication status describes the recorded source of each contribution: unpublished means no paper is recorded for that work. Participant credit is separate from verification, and does not by itself establish global priority. Reproductions are credited as computations of published results. Participant work is credited to the vxvware organisation.",
   "contributions": [
     {
-      "id": "russo-good-53",
-      "title": "Good matrices at n=53",
+      "id": "kkss-49-correction",
+      "title": "G-matrices at n=49, correcting a published nonexistence",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
         {
-          "name": "Vincent Russo",
-          "github": "vprusso"
+          "name": "vxvware",
+          "github": "vxvware"
         }
       ],
-      "summary": "Vincent Russo found good matrices at n=53. The archived rows verify exactly and yield one equiv-v1 class; the board records existence and a census lower bound.",
+      "summary": "The exhaustive search in arXiv:1802.00556 reports no G-matrices (type kkss) at v=49 for the parameter set (49; 24,24,22,18; 39). The vxvware census finds eight quadruples with exactly that parameter set, one equiv-v1 class, and the rows verify exactly on this board. The same program reproduces the published counts at v=33, 37, 41, 43, and 45.",
       "entry_ids": [
-        "russo-good-n53"
+        "vxvware-kkss-n49"
       ],
       "seed_artifacts": [
-        "russo-good-n53"
+        "vxvware-kkss-n49"
+      ],
+      "featured": true,
+      "stratum": "kkss"
+    },
+    {
+      "id": "kkss-new-orders",
+      "title": "G-matrix censuses at n=51, 55, 57, and 59",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+      "entry_ids": [
+        "vxvware-kkss-n51",
+        "vxvware-kkss-n55",
+        "vxvware-kkss-n57-census",
+        "vxvware-kkss-n59"
+      ],
+      "seed_artifacts": [
+        "vxvware-kkss-n51",
+        "vxvware-kkss-n55",
+        "vxvware-kkss-n59"
+      ],
+      "featured": true,
+      "stratum": "kkss"
+    },
+    {
+      "id": "good-53-55-61",
+      "title": "Good matrices at n=53, 55, and 61",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; the board records existence and census lower bounds because the searches have not been replayed here.",
+      "entry_ids": [
+        "vxvware-good-n53",
+        "vxvware-good-n55",
+        "vxvware-good-n61"
+      ],
+      "seed_artifacts": [
+        "vxvware-good-n53",
+        "vxvware-good-n55",
+        "vxvware-good-n61"
       ],
       "featured": true,
       "stratum": "good"
     },
     {
-      "id": "russo-good-55",
-      "title": "Good matrices at n=55",
+      "id": "good-59-empty",
+      "title": "Good-matrix census at n=59, empty",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
         {
-          "name": "Vincent Russo",
-          "github": "vprusso"
+          "name": "vxvware",
+          "github": "vxvware"
         }
       ],
-      "summary": "Vincent Russo found good matrices at n=55. The archived rows verify exactly and yield one equiv-v1 class; the board records existence and a census lower bound.",
+      "summary": "Two independent complete runs of the vxvware census report no good matrices at n=59. The board records the attributed claim without a verification tier because the search has not been replayed here.",
       "entry_ids": [
-        "russo-good-n55"
+        "vxvware-good-n59-census"
       ],
-      "seed_artifacts": [
-        "russo-good-n55"
-      ],
-      "featured": true,
+      "seed_artifacts": [],
+      "featured": false,
       "stratum": "good"
     },
     {
-      "id": "trevor-best-73",
+      "id": "kkss-63-orbit-search",
+      "title": "Orbit-restricted G-matrix search at n=63",
+      "relation": "independent-reproduction",
+      "publication_status": "published",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "A search with the two skew rows constant on the orbits of the subgroup generated by 4 reproduces the known Spence example at parameters (63; 31,31,27,25; 51). It is not a census and establishes no count.",
+      "entry_ids": [
+        "vxvware-kkss-n63"
+      ],
+      "seed_artifacts": [
+        "vxvware-kkss-n63"
+      ],
+      "featured": false,
+      "stratum": "kkss"
+    },
+    {
+      "id": "kkss-reproductions",
+      "title": "Independent G-matrix censuses through n=45",
+      "relation": "independent-reproduction",
+      "publication_status": "published",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "The vxvware census recomputes type kkss at every admissible odd order through 45 and agrees with the published class counts at 33, 37, 41, 43, and 45. The imported rows fill the published-not-imported cells with exactly verified representatives.",
+      "entry_ids": [
+        "vxvware-kkss-n3",
+        "vxvware-kkss-n5",
+        "vxvware-kkss-n7",
+        "vxvware-kkss-n9",
+        "vxvware-kkss-n13",
+        "vxvware-kkss-n15",
+        "vxvware-kkss-n19",
+        "vxvware-kkss-n21",
+        "vxvware-kkss-n23",
+        "vxvware-kkss-n25",
+        "vxvware-kkss-n27",
+        "vxvware-kkss-n31",
+        "vxvware-kkss-n33",
+        "vxvware-kkss-n37",
+        "vxvware-kkss-n41",
+        "vxvware-kkss-n43",
+        "vxvware-kkss-n45"
+      ],
+      "seed_artifacts": [
+        "vxvware-kkss-n3",
+        "vxvware-kkss-n5",
+        "vxvware-kkss-n7",
+        "vxvware-kkss-n9",
+        "vxvware-kkss-n13",
+        "vxvware-kkss-n15",
+        "vxvware-kkss-n19",
+        "vxvware-kkss-n21",
+        "vxvware-kkss-n23",
+        "vxvware-kkss-n25",
+        "vxvware-kkss-n27",
+        "vxvware-kkss-n31",
+        "vxvware-kkss-n33",
+        "vxvware-kkss-n37",
+        "vxvware-kkss-n41",
+        "vxvware-kkss-n43",
+        "vxvware-kkss-n45"
+      ],
+      "featured": false,
+      "stratum": "kkss"
+    },
+    {
+      "id": "best-73-campaign",
       "title": "Best-matrix nonexistence campaign at n=73",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
         {
-          "name": "Trevor Vincent",
-          "github": "trevor-vincent"
+          "name": "vxvware",
+          "github": "vxvware"
         }
       ],
-      "summary": "Trevor Vincent’s campaign reports no best matrices at n=73. This is participant work beyond the published baseline, retained as an archived nonexistence claim; the 104,500-class legacy identity gap still prevents a stronger verification tier.",
+      "summary": "The vxvware campaign reports no best matrices at n=73. This is participant work beyond the published baseline, retained as an archived nonexistence claim; the 104,500-class legacy identity gap still prevents a stronger verification tier.",
       "entry_ids": [
         "best-n73-campaign"
       ],
       "seed_artifacts": [],
-      "featured": true,
+      "featured": false,
       "stratum": "best"
     },
     {
-      "id": "trevor-skew-73",
+      "id": "skew-73-families",
       "title": "Skew families at n=73",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
         {
-          "name": "Trevor Vincent",
-          "github": "trevor-vincent"
+          "name": "vxvware",
+          "github": "vxvware"
         }
       ],
-      "summary": "Trevor Vincent’s sweep generated 15,360 quadruples, yielding eight verified equiv-v1 classes. Published skew-Hadamard existence at order 292 is credited separately; these are participant-generated families, without a claim of first existence at this order.",
+      "summary": "The vxvware sweep generated 15,360 quadruples, yielding eight verified equiv-v1 classes. Published skew-Hadamard existence at order 292 is credited separately; these are participant-generated families, without a claim of first existence at this order.",
       "entry_ids": [],
       "seed_artifacts": [
         "skew-p73-d9"
       ],
-      "featured": true,
+      "featured": false,
       "stratum": "skew-sds"
     },
     {
-      "id": "trevor-good-65",
+      "id": "good-65-campaign",
       "title": "Good-matrix nonexistence campaign at n=65",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
         {
-          "name": "Trevor Vincent",
-          "github": "trevor-vincent"
+          "name": "vxvware",
+          "github": "vxvware"
         }
       ],
       "summary": "The campaign reports nonexistence. A missing early receipt chain leaves this an archived claim, with participant credit retained.",
@@ -103,14 +226,14 @@
       "stratum": "good"
     },
     {
-      "id": "trevor-good-67",
+      "id": "good-67-search",
       "title": "Good-matrix partial search at n=67",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
         {
-          "name": "Trevor Vincent",
-          "github": "trevor-vincent"
+          "name": "vxvware",
+          "github": "vxvware"
         }
       ],
       "summary": "Participant search with partial coverage; it does not establish nonexistence.",
@@ -122,14 +245,14 @@
       "stratum": "good"
     },
     {
-      "id": "trevor-skew-89",
+      "id": "skew-89-subgroup",
       "title": "Order-11 subgroup obstruction at n=89",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
         {
-          "name": "Trevor Vincent",
-          "github": "trevor-vincent"
+          "name": "vxvware",
+          "github": "vxvware"
         }
       ],
       "summary": "The campaign’s scoped null has an exactly checked row-sum obstruction. It excludes only the stated subgroup family.",
@@ -141,14 +264,14 @@
       "stratum": "skew-sds"
     },
     {
-      "id": "trevor-good-41",
+      "id": "good-41-reproduction",
       "title": "Independent good-matrix computation at n=41",
       "relation": "independent-reproduction",
       "publication_status": "published",
       "contributors": [
         {
-          "name": "Trevor Vincent",
-          "github": "trevor-vincent"
+          "name": "vxvware",
+          "github": "vxvware"
         }
       ],
       "summary": "An independent campaign for a published nonexistence result. The archived coverage is receipt-backed; the board has not replayed the GPU search.",
@@ -160,17 +283,17 @@
       "stratum": "good"
     },
     {
-      "id": "russo-best-censuses",
+      "id": "best-censuses",
       "title": "Independent best-matrix censuses through n=43",
       "relation": "independent-reproduction",
       "publication_status": "published",
       "contributors": [
         {
-          "name": "Vincent Russo",
-          "github": "vprusso"
+          "name": "vxvware",
+          "github": "vxvware"
         }
       ],
-      "summary": "Vincent Russo’s exact census implementation independently enumerates these published small orders. The board reports exact counts only when its full replay succeeds.",
+      "summary": "The vxvware exact census implementation independently enumerates these published small orders. The board reports exact counts only when its full replay succeeds.",
       "entry_ids": [
         "best-n3",
         "best-n7",

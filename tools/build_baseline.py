@@ -90,9 +90,7 @@ for n in (1, 3, 5, 7, 9, 13, 15, 19, 21, 23, 25, 27, 31, 33, 37, 41, 43, 45):
     add("kkss", n, "exists", "https://arxiv.org/abs/1802.00556", "G-matrix classification, Table 1")
 for n in range(1, 132, 2):
     target = 2 * n - 1
-    if n == 49 or not any(
-        isqrt(target - a * a) ** 2 == target - a * a for a in range(isqrt(target) + 1)
-    ):
+    if not any(isqrt(target - a * a) ** 2 == target - a * a for a in range(isqrt(target) + 1)):
         add(
             "kkss",
             n,
@@ -100,6 +98,16 @@ for n in range(1, 132, 2):
             "https://arxiv.org/html/1802.00556",
             "G-matrix nonexistence: Proposition 3 and Table 1",
         )
+# The published exhaustive search at v=49 reports no G-matrices. Exactly
+# verified rows on the board contradict it, so the claim is kept as a
+# contradicted record rather than dropped or silently treated as empty.
+add(
+    "kkss",
+    49,
+    "contradicted",
+    "https://arxiv.org/html/1802.00556",
+    "G-matrix nonexistence claim: Table 1, parameter set (49; 24,24,22,18; 39)",
+)
 add(
     "skew-sds",
     73,
@@ -110,10 +118,11 @@ add(
 write_json(
     ROOT / "baselines/order-status.json",
     {
-        "id": "gs-literature-2026-10-14",
+        "id": "gs-literature-2026-10-15",
         "records": records,
         "notes": [
-            "Good n=53,55,61 are not marked known without a construction source.",
+            "Good n=53, 55, and 61 and the G-matrix orders 49, 51, 55, 59, and 63 are not marked known here: their existence on the board comes from imported, exactly verified vxvware/saw-best-matrix rows, not from a published source.",
+            "A contradicted record is a published nonexistence claim that exactly verified rows on this board refute. It is neither an existence nor an emptiness source.",
             "Missing records mean unresolved within this sourced baseline, not a claim of exhaustive literature review.",
         ],
     },

@@ -24,6 +24,20 @@ def test_good65_retains_actual_missing_prefix():
         verify(entry, ROOT)
 
 
+def test_unreplayed_census_is_an_attributed_claim():
+    entry = read_json(ROOT / "certificates/vxvware-kkss-n57-census.json")
+    result = verify(entry, ROOT)
+    assert result["tier"] is None
+    assert result["provenance"] == "unreplayed-census"
+    assert any("not been replayed" in gap for gap in result["gaps"])
+    narrowed = {**entry, "scope": {"kind": "same-subgroup-coset-unions"}}
+    with pytest.raises(ValueError, match="full stratum"):
+        verify(narrowed, ROOT)
+    unarchived = {**entry, "sources": [{"title": "t", "url": "https://example.org"}]}
+    with pytest.raises(ValueError, match="archived"):
+        verify(unarchived, ROOT)
+
+
 def test_partial_is_not_full_emptiness():
     entry = read_json(ROOT / "certificates/good-n67-campaign.json")
     result = verify(entry, ROOT)

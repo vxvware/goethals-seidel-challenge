@@ -1,5 +1,5 @@
 {
-  "id": "gs-literature-2026-10-14",
+  "id": "gs-literature-2026-10-15",
   "records": [
     {
       "n": 1,
@@ -1190,17 +1190,6 @@
       "baseline_date": "2026-10-14"
     },
     {
-      "n": 49,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "empty",
-      "source": {
-        "title": "G-matrix nonexistence: Proposition 3 and Table 1",
-        "url": "https://arxiv.org/html/1802.00556"
-      },
-      "baseline_date": "2026-10-14"
-    },
-    {
       "n": 53,
       "stratum": "kkss",
       "group": "cyclic",
@@ -1366,6 +1355,17 @@
       "baseline_date": "2026-10-14"
     },
     {
+      "n": 49,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "contradicted",
+      "source": {
+        "title": "G-matrix nonexistence claim: Table 1, parameter set (49; 24,24,22,18; 39)",
+        "url": "https://arxiv.org/html/1802.00556"
+      },
+      "baseline_date": "2026-10-14"
+    },
+    {
       "n": 73,
       "stratum": "skew-sds",
       "group": "cyclic",
@@ -1378,7 +1378,8 @@
     }
   ],
   "notes": [
-    "Good n=53,55,61 are not marked known without a construction source.",
+    "Good n=53, 55, and 61 and the G-matrix orders 49, 51, 55, 59, and 63 are not marked known here: their existence on the board comes from imported, exactly verified vxvware/saw-best-matrix rows, not from a published source.",
+    "A contradicted record is a published nonexistence claim that exactly verified rows on this board refute. It is neither an existence nor an emptiness source.",
     "Missing records mean unresolved within this sourced baseline, not a claim of exhaustive literature review."
   ]
 }

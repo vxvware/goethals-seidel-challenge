@@ -9,15 +9,25 @@ the full seed-audit gate. Raw counts and equivalence-class counts are separate.
 - Best catalogue: 9,848 stored rows. n=31 has 720 and n=43 has 2,520; these
   are not the branch's expanded raw census counts. Expansion is tested
   separately, including the 10,080 / 20 / 5 n=43 gate.
-- Good catalogue: 10,080 stored rows at n=3,5,7,9,11,13,15. Import the Russo
-  rows and both n=13 CPU/GPU all-solution files as additional source records.
-- Supplemental participant import (2026-10-15): Vincent Russo's good matrices
-  at n=53 and n=55 from `saw-best-matrix` commit
-  `020601f6e15db4e2ca023b602bc460204ce40236`. All 104 and 40 raw quadruples,
-  respectively, pass exact verification and give one class per order. The
-  source claims complete censuses, but the board records lower bounds because
-  those full searches have not been replayed here. Original sign rows, gzip
-  mappings, and hashes are retained in the supplemental participant inventory.
+- Good catalogue: 10,080 stored rows at n=3,5,7,9,11,13,15. Import the
+  campaign's n=15 and n=21 example rows and both n=13 CPU/GPU all-solution
+  files as additional source records.
+- Supplemental participant import (2026-10-15): the vxvware/saw-best-matrix
+  census files, each pinned to the commit that last changed it. Good matrices
+  at n=53, 55, and 61 (104, 40, and 120 raw rows) give one class per order.
+  G-matrices (kkss) at every admissible odd order through 59 and the
+  orbit-restricted family at 63 give 952 raw rows; the equiv-v1 class counts
+  agree with the published counts at 33, 37, 41, 43, and 45 and with the
+  source at every order except 59, where the source counts two classes and
+  equiv-v1 one. The source claims complete censuses, but the board records
+  lower bounds because those searches have not been replayed here. The empty
+  census files at good n=59 and kkss n=57 are archived as unreplayed-census
+  certificates. Original sign rows, gzip mappings, and hashes are retained in
+  the supplemental participant inventory under
+  `evidence/participants/saw-best-matrix/`. Three pinned commits (kkss 49 and
+  59, good 61) are not yet on the source repository's public default branch,
+  so their source URLs resolve only after that branch is pushed; the bytes
+  are bundled here regardless.
 - p=73: import and exactly verify all 15,360 recorded coset families. They
   yield eight equiv-v1 representatives. The published order-292 construction
   verifies but yields a ninth representative under this convention; the plan's

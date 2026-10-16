@@ -126,6 +126,7 @@ cert = entry(
         "method": {
             "enum": [
                 "literature",
+                "unreplayed-census",
                 "row-sum-theorem",
                 "coset-row-sum-theorem",
                 "good-coverage-v1",

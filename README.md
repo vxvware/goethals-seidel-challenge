@@ -55,9 +55,11 @@ construction without imported rows is an import task. Its importer is never
 credited as the original discoverer.
 
 The board also distinguishes **participant work**, **independent reproductions**,
-and **literature/catalogue imports**. The participant section highlights Vincent
-Russo's good matrices at n=53 and n=55 and Trevor Vincent's n=73 campaigns.
-Purple map labels and the Origin filter identify participant work; entry pages
+and **literature/catalogue imports**. Participant work is credited to the
+vxvware organisation. The participant section highlights the G-matrix census at
+n=49, which finds a class where the published classification reports none, the
+good matrices at n=53, 55, and 61, the G-matrix censuses at n=51 through 59,
+and the n=73 campaigns. Purple map labels and the Origin filter identify participant work; entry pages
 show the credited people separately from the importer. Publication status and
 verification remain independent, so an unpublished claim can be credited while
 its evidence gaps remain visible.
@@ -66,12 +68,17 @@ its evidence gaps remain visible.
 
 The inventories are [the original seeds](baselines/seed-manifest.json) and
 [later participant constructions](baselines/participant-seed-manifest.json).
-All 35,583 raw imported quadruples remain in compact archives under `evidence/`, with
+All 36,655 raw imported quadruples remain in compact archives under `evidence/`, with
 source commits, hashes, counts, and representative mappings. The explicit plan
-inventory is imported, including best/good catalogues, Russo examples, the n=13
-CPU/GPU fixtures, 15,360 p=73 families, and published Williamson and good rows.
-Vincent Russo's additional 144 good-matrix quadruples supply one verified class
-at each of n=53 and n=55; their census counts remain lower bounds.
+inventory is imported, including best/good catalogues, the campaign's n=15 and
+n=21 examples, the n=13 CPU/GPU fixtures, 15,360 p=73 families, and published
+Williamson and good rows. The 1,216 rows imported from
+[vxvware/saw-best-matrix](https://github.com/vxvware/saw-best-matrix) supply
+one verified good-matrix class at each of n=53, 55, and 61 and the G-matrix
+(kkss) classes at every admissible odd order through 59, plus an
+orbit-restricted family at 63. The source reports complete censuses; the board
+records lower bounds because those searches have not been replayed here. The
+empty censuses at good n=59 and kkss n=57 are attributed claims without a tier.
 
 ```sh
 uv run python -m verify.audit_seeds

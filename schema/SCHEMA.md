@@ -34,7 +34,9 @@ order digest, interval, pending work, and unsettled count from the original
 receipt. It requires every expected pass and an exact interval tiling for a
 strict emptiness claim. It rejects overlaps and mismatched seam identities.
 
-`archived-good-coverage-v1` preserves a historical full claim whose surviving
+`unreplayed-census` records a full-stratum emptiness claim from a cited,
+archived exhaustive census that the board has not replayed. It receives no
+tier and is not labeled literature. `archived-good-coverage-v1` preserves a historical full claim whose surviving
 records are incomplete. It receives no computed tier. `best-coverage-v1`
 preserves the heterogeneous fleet archive and its documented provenance gaps;
 it also receives no full-coverage tier. The result records the checks actually
