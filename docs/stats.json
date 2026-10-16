@@ -40,7 +40,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+      "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
       "entry_ids": [
         "n51-4eecf9266b906d840eaf",
         "n51-69f675fe8d1ff691c7e7",
@@ -23243,7 +23243,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
           "entry_ids": [
             "n51-4eecf9266b906d840eaf",
             "n51-69f675fe8d1ff691c7e7",
@@ -23266,9 +23266,22 @@
         }
       ],
       "origins": [
-        "participant-result"
+        "participant-result",
+        "published-import"
       ],
-      "sources": [],
+      "sources": [
+        {
+          "n": 51,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -23301,7 +23314,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
           "entry_ids": [
             "n51-4eecf9266b906d840eaf",
             "n51-69f675fe8d1ff691c7e7",
@@ -23324,9 +23337,22 @@
         }
       ],
       "origins": [
-        "participant-result"
+        "participant-result",
+        "published-import"
       ],
-      "sources": [],
+      "sources": [
+        {
+          "n": 51,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -23360,7 +23386,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
           "entry_ids": [
             "n51-4eecf9266b906d840eaf",
             "n51-69f675fe8d1ff691c7e7",
@@ -23494,6 +23520,17 @@
           "source": {
             "title": "Williamson classification and Turyn construction",
             "url": "https://cs.uwaterloo.ca/~cbright/reports/jsc-willsat.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 51,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -23981,7 +24018,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
           "entry_ids": [
             "n51-4eecf9266b906d840eaf",
             "n51-69f675fe8d1ff691c7e7",
@@ -24004,9 +24041,22 @@
         }
       ],
       "origins": [
-        "participant-result"
+        "participant-result",
+        "published-import"
       ],
-      "sources": [],
+      "sources": [
+        {
+          "n": 55,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -24039,7 +24089,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
           "entry_ids": [
             "n51-4eecf9266b906d840eaf",
             "n51-69f675fe8d1ff691c7e7",
@@ -24088,9 +24138,22 @@
         }
       ],
       "origins": [
-        "participant-result"
+        "participant-result",
+        "published-import"
       ],
-      "sources": [],
+      "sources": [
+        {
+          "n": 55,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -24124,7 +24187,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
           "entry_ids": [
             "n51-4eecf9266b906d840eaf",
             "n51-69f675fe8d1ff691c7e7",
@@ -24284,6 +24347,17 @@
           "source": {
             "title": "Williamson classification and Turyn construction",
             "url": "https://cs.uwaterloo.ca/~cbright/reports/jsc-willsat.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 55,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -24623,7 +24697,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
           "entry_ids": [
             "n51-4eecf9266b906d840eaf",
             "n51-69f675fe8d1ff691c7e7",
@@ -25092,7 +25166,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
           "entry_ids": [
             "n51-4eecf9266b906d840eaf",
             "n51-69f675fe8d1ff691c7e7",
@@ -25147,7 +25221,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
           "entry_ids": [
             "n51-4eecf9266b906d840eaf",
             "n51-69f675fe8d1ff691c7e7",
@@ -25202,7 +25276,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
+          "summary": "Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.",
           "entry_ids": [
             "n51-4eecf9266b906d840eaf",
             "n51-69f675fe8d1ff691c7e7",
@@ -25928,9 +26002,22 @@
         }
       ],
       "origins": [
-        "independent-reproduction"
+        "independent-reproduction",
+        "published-import"
       ],
-      "sources": [],
+      "sources": [
+        {
+          "n": 63,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -25973,9 +26060,22 @@
         }
       ],
       "origins": [
-        "independent-reproduction"
+        "independent-reproduction",
+        "published-import"
       ],
-      "sources": [],
+      "sources": [
+        {
+          "n": 63,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -26130,6 +26230,17 @@
           "source": {
             "title": "Williamson classification and Turyn construction",
             "url": "https://cs.uwaterloo.ca/~cbright/reports/jsc-willsat.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 63,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -27252,16 +27363,30 @@
       "n": 75,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 75,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -27270,16 +27395,30 @@
       "n": 75,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 75,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -27308,6 +27447,17 @@
           "source": {
             "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 75,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -27508,16 +27658,30 @@
       "n": 79,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 79,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -27526,16 +27690,30 @@
       "n": 79,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 79,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -27564,6 +27742,17 @@
           "source": {
             "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 79,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -28048,16 +28237,30 @@
       "n": 87,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 87,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -28066,16 +28269,30 @@
       "n": 87,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 87,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -28104,6 +28321,17 @@
           "source": {
             "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 87,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -28343,16 +28571,30 @@
       "n": 91,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 91,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -28361,16 +28603,30 @@
       "n": 91,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 91,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -28399,6 +28655,17 @@
           "source": {
             "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 91,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -28869,16 +29136,30 @@
       "n": 99,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 99,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -28887,16 +29168,30 @@
       "n": 99,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 99,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -28925,6 +29220,17 @@
           "source": {
             "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 99,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -29859,16 +30165,30 @@
       "n": 115,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 115,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -29877,16 +30197,30 @@
       "n": 115,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
       "tier": null,
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
       "censuses": [],
       "contributions": [],
-      "origins": [],
-      "sources": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 115,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
       "contradicted": [],
       "flags": [],
       "note": ""
@@ -29915,6 +30249,17 @@
           "source": {
             "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 115,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -31444,42 +31789,6 @@
       "note": ""
     },
     {
-      "n": 75,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 75,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 77,
       "stratum": "williamson",
       "group": "cyclic",
@@ -31572,42 +31881,6 @@
     {
       "n": 79,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 79,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 79,
-      "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -31824,42 +32097,6 @@
     {
       "n": 87,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 87,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 87,
-      "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -32012,42 +32249,6 @@
       "note": "Requires n=r²+r+1."
     },
     {
-      "n": 91,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 91,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 93,
       "stratum": "williamson",
       "group": "cyclic",
@@ -32266,42 +32467,6 @@
     {
       "n": 99,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 99,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 99,
-      "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -32896,42 +33061,6 @@
     {
       "n": 115,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 115,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 115,
-      "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -33967,6 +34096,70 @@
     },
     {
       "n": 75,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 75,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 75,
+      "stratum": "skew-sds",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 75,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 75,
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
@@ -33991,6 +34184,17 @@
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
           },
           "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 75,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
         }
       ],
       "contradicted": [],
@@ -34031,6 +34235,70 @@
     },
     {
       "n": 79,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 79,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 79,
+      "stratum": "skew-sds",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 79,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 79,
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
@@ -34053,6 +34321,17 @@
           "source": {
             "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 79,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -34159,6 +34438,70 @@
     },
     {
       "n": 87,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 87,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 87,
+      "stratum": "skew-sds",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 87,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 87,
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
@@ -34183,6 +34526,17 @@
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
           },
           "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 87,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
         }
       ],
       "contradicted": [],
@@ -34223,6 +34577,70 @@
     },
     {
       "n": 91,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 91,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 91,
+      "stratum": "skew-sds",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 91,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 91,
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
@@ -34245,6 +34663,17 @@
           "source": {
             "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 91,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -34351,6 +34780,70 @@
     },
     {
       "n": 99,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 99,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 99,
+      "stratum": "skew-sds",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 99,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 99,
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
@@ -34373,6 +34866,17 @@
           "source": {
             "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 99,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }
@@ -34415,6 +34919,70 @@
     },
     {
       "n": 115,
+      "stratum": "kkss",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 115,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 115,
+      "stratum": "skew-sds",
+      "group": "cyclic",
+      "status": "exists",
+      "artifact_status": "published-not-imported",
+      "tier": null,
+      "empty_basis": [],
+      "quadruples": [],
+      "evidence": [],
+      "censuses": [],
+      "contributions": [],
+      "origins": [
+        "published-import"
+      ],
+      "sources": [
+        {
+          "n": 115,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
+          },
+          "baseline_date": "2026-10-14"
+        }
+      ],
+      "contradicted": [],
+      "flags": [],
+      "note": ""
+    },
+    {
+      "n": 115,
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
@@ -34437,6 +35005,17 @@
           "source": {
             "title": "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
             "url": "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf"
+          },
+          "baseline_date": "2026-10-14"
+        },
+        {
+          "n": 115,
+          "stratum": "kkss",
+          "group": "cyclic",
+          "status": "exists",
+          "source": {
+            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
           },
           "baseline_date": "2026-10-14"
         }

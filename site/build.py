@@ -91,19 +91,23 @@ def findings(cells, results):
     """What the board has established, computed from the cells of the four types."""
     primary = [c for c in cells if c["stratum"] in PRIMARY]
     corrected = [c for c in primary if c["contradicted"]]
-    new = [
-        c
-        for c in primary
-        if c["status"] == "exists"
-        and c["quadruples"]
-        and not c["contradicted"]
-        and "participant-result" in c["origins"]
-        and "published-import" not in c["origins"]
-        and not c["sources"]
-    ]
+
+    def relations(c):
+        """Where the cell's verified quadruples came from, by contribution relation."""
+        return {g["relation"] for q in c["quadruples"] for g in results[q]["contributions"]}
+
+    def ours(c):
+        return (
+            c["status"] == "exists"
+            and not c["contradicted"]
+            and relations(c) == {"participant-result"}
+        )
+
+    new = [c for c in primary if ours(c) and not c["sources"]]
+    classified = [c for c in primary if ours(c) and c["sources"]]
     reported_empty = [c for c in primary if c["empty_basis"] == ["unreplayed-census"]]
     reproduced = [c for c in primary if "independent-reproduction" in c["origins"]]
-    imported = [c for c in primary if c["quadruples"] and "published-import" in c["origins"]]
+    imported = [c for c in primary if "published-import" in relations(c)]
     imported_quads = {
         q
         for c in imported
@@ -125,6 +129,12 @@ def findings(cells, results):
             f'<div class="finding"><strong>Existence at orders with no published result</strong>'
             f"<p>{len(new)} cells with exactly verified rows where the sourced baseline records no "
             f"published construction: {cell_list(new)}.</p></div>"
+        )
+    if classified:
+        items.append(
+            f'<div class="finding"><strong>Class counts at orders where existence was known</strong>'
+            f"<p>Complete censuses at orders a published construction already covers, giving the first "
+            f"class counts rather than first existence: {cell_list(classified)}.</p></div>"
         )
     if reported_empty:
         items.append(

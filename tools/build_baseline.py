@@ -98,6 +98,18 @@ for n in range(1, 132, 2):
             "https://arxiv.org/html/1802.00556",
             "G-matrix nonexistence: Proposition 3 and Table 1",
         )
+# Spence (1977) gives circulant G-matrices of order (q+1)/2 for every prime
+# power q = 5 (mod 8); orders through 45 are already covered by the
+# classification above.
+for n in range(47, 132, 2):
+    if (2 * n - 1) % 8 == 5 and prime_power(2 * n - 1):
+        add(
+            "kkss",
+            n,
+            "exists",
+            "https://www.sciencedirect.com/science/article/pii/0012365X77900097",
+            "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+        )
 # The published exhaustive search at v=49 reports no G-matrices. Exactly
 # verified rows on the board contradict it, so the claim is kept as a
 # contradicted record rather than dropped or silently treated as empty.
@@ -118,10 +130,10 @@ add(
 write_json(
     ROOT / "baselines/order-status.json",
     {
-        "id": "gs-literature-2026-10-15",
+        "id": "gs-literature-2026-10-16",
         "records": records,
         "notes": [
-            "Good n=53, 55, and 61 and the G-matrix orders 49, 51, 55, 59, and 63 are not marked known here: their existence on the board comes from imported, exactly verified vxvware/saw-best-matrix rows, not from a published source.",
+            "Good n=53, 55, and 61 and G-matrices at n=49 and 59 have no published existence source here: their existence on the board comes from imported, exactly verified vxvware/saw-best-matrix rows. G-matrices at 51, 55, and 63 exist by Spence's infinite family; the imported censuses add the class counts.",
             "A contradicted record is a published nonexistence claim that exactly verified rows on this board refute. It is neither an existence nor an emptiness source.",
             "Missing records mean unresolved within this sourced baseline, not a claim of exhaustive literature review.",
         ],

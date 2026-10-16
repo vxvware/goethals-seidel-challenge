@@ -52,6 +52,11 @@ def test_known_larger_constructions_and_impossible_g_orders_are_not_targets(boar
     assert cells[57, "kkss"]["status"] == "empty"
     assert cells[57, "kkss"]["empty_basis"] == ["unreplayed-census"]
     assert cells[57, "kkss"]["origins"] == ["participant-result"]
+    # Spence's family: existence at 51 and 55 is published; 75 is published and unimported.
+    for n in (51, 55, 63):
+        assert any("Spence" in s["source"]["title"] for s in cells[n, "kkss"]["sources"])
+    assert cells[75, "kkss"]["artifact_status"] == "published-not-imported"
+    assert cells[59, "kkss"]["sources"] == []
 
 
 def test_contradicted_claim_requires_verified_rows(board):
