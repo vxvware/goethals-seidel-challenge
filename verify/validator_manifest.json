@@ -34,7 +34,7 @@
     "verify/check_manifest.py": "4445add4903f38d137f132c4ed1084bfa67e0014bc85da4b6ad013fa9a7a9d39",
     "verify/check_prose.py": "a34a0ea5a047186dc9a4f2504856f63c897f910438e7a3d9cbc1e857014716dc",
     "verify/check_submission_scope.py": "b33dded292ce4f60576b5d0e3d669afe5a1d66527964721299396573fda1bf41",
-    "verify/ci.py": "385301b01f4285fefc8fd76c8c09f57b7a7199ace242b3a0fa686c6f46160161",
+    "verify/ci.py": "e0d4ee8510bcd37ce770a4be6903d490ae0b26232d240bf934e7a091b769e651",
     "verify/common.py": "3155afb668307caf94f63aa377578e4335f460bcc03dbf6f16215b1e8ae0c6f9",
     "verify/contributions.py": "b488e556bcd137f7e37cc453571ffb86e0920b59484f18a2d3c35d23f0a35cd8",
     "verify/equivalence.py": "f837c2a1d92d5f9bab3ea294df1e9153e236f01647d4e0472a4b55dc555a3cbe",
