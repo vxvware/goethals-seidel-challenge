@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "n": 57,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      57
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=57",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/298ff0aff7c09a7f4de4adc5f5456490522affd3/data/gmat/gmat-57.txt",
+      "commit": "298ff0aff7c09a7f4de4adc5f5456490522affd3",
+      "source_path": "data/gmat/gmat-57.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-57.txt",
+        "sha256": "e91ea95154b2d135a35f38cbca46d5e77f657f77864afda12477560f37954b97"
+      }
+    }
+  ],
+  "id": "vxvware-kkss-n57-census",
+  "type": "certificate",
+  "stratum": "kkss",
+  "claim": "empty",
+  "scope": {
+    "kind": "full"
+  },
+  "method": "unreplayed-census",
+  "records": [],
+  "gaps": [
+    "Unpublished; no paper is recorded for this census."
+  ],
+  "notes": "The archived source file is a deliberately empty census output whose header records the exhaustive search. The only admissible parameter set is (57; 28,28,28,21; 48); no published search covers it."
+}

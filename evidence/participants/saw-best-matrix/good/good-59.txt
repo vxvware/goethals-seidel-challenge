@@ -1,0 +1,20 @@
+# good matrices of order 59: full census produced by this repository.
+# provenance: our own exhaustive search, verified by store_results.py.
+# order 59 is open in the literature, so this census is a new result.
+# the census is empty: no quadruple of this order exists.
+# the absence of rows below is the result, not a missing file.
+#
+# 4n - 1 = 235 admits one row-sum decomposition, (-1, 3, 15), which with the
+# skew row's sum of 1 gives 1 + 1 + 9 + 225 = 236 = 4n.  Of the 536870912 skew
+# rows, 72109836 survive the ceiling filter and 1243274 remain after
+# decimation (58 maps).  Against a symmetric table of 6543531 outer rows that
+# is 127771100682 triples tested, and no quadruple.
+#
+# Run twice, independently and to completion, on bos-game: 2026-08-27 and
+# 2026-08-28.  Both report exactly 127771100682 triples tested and zero
+# quadruples.  The second run took 114800.7 core-seconds, 8277 s wall on 14
+# threads.
+#
+# The same binary was calibrated immediately before this run by re-censusing
+# orders 53 and 55, which reproduced the stored censuses exactly as row-sets,
+# 52 quadruples at n=53 and 40 at n=55.

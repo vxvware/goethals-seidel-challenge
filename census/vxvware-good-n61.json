@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "n": 61,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      61
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: good matrices at n=61",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/2c46a00ee0b450957ed7ac2281cf22bec0edd344/data/good/good-61.txt",
+      "commit": "2c46a00ee0b450957ed7ac2281cf22bec0edd344",
+      "source_path": "data/good/good-61.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/good/good-61.txt",
+        "sha256": "4818e93d5dab46a6a8b5e085672fbbd96e1803bb73dbf5e47087f7c947f37aa1"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "vxvware-good-n61",
+  "type": "census",
+  "stratum": "good",
+  "representatives": [
+    "n61-f0b6a2c1d7000cc60cfd"
+  ],
+  "claimed_count": 1,
+  "claim_kind": "lower-bound",
+  "secondary": {
+    "stored_rows": 120
+  },
+  "notes": "The source reports a full census with 1 class under its own equivalence convention and stores 120 quadruples. This board verifies the 1 equiv-v1 representative and records a lower bound; the search has not been replayed here. No published search covers this order."
+}

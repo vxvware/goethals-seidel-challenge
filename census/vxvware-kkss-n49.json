@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "n": 49,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      49
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=49",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/8aaf08f4352a0b0787e7ff6c670a9c326de2f23f/data/gmat/gmat-49.txt",
+      "commit": "8aaf08f4352a0b0787e7ff6c670a9c326de2f23f",
+      "source_path": "data/gmat/gmat-49.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-49.txt",
+        "sha256": "e96ad52183f15d10b21da0ffcd99b5aa72456ddaed5eda7fa6eadeac9699570f"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "vxvware-kkss-n49",
+  "type": "census",
+  "stratum": "kkss",
+  "representatives": [
+    "n49-703082c3c1ffa487f376"
+  ],
+  "claimed_count": 1,
+  "claim_kind": "lower-bound",
+  "secondary": {
+    "stored_rows": 8
+  },
+  "notes": "The source reports a full census with 1 class under its own equivalence convention and stores 8 quadruples. This board verifies the 1 equiv-v1 representative and records a lower bound; the search has not been replayed here. Contradicts arXiv:1802.00556, whose exhaustive search reports no G-matrices at v=49 for the parameter set (49; 24,24,22,18; 39). The rows here have exactly that parameter set and verify exactly on this board."
+}

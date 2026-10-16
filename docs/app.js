@@ -5,7 +5,7 @@ const panel=document.getElementById('cell-detail');
 function el(tag,text){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n;}
 function showCell(key){
  const c=byCell.get(key);if(!c)return;
- panel.replaceChildren(el('h3',`n = ${c.n} · ${c.stratum}`));
+ panel.replaceChildren(el('h3',`n = ${c.n} · ${data.labels[c.stratum]||c.stratum}`));
  panel.append(el('p',`${c.status} · ${c.artifact_status}${c.tier?' · '+c.tier:''}`));
  if(c.note)panel.append(el('p',c.note));
  for(const credit of c.contributions){
@@ -21,6 +21,7 @@ function showCell(key){
  const ids=[...c.quadruples,...c.evidence,...c.censuses];
  if(ids.length){const list=el('ul');for(const id of ids){const li=el('li');const a=el('a',id);a.href=`entries/${id}.html`;li.append(a);list.append(li);}panel.append(list);}
  for(const source of c.sources){const p=el('p');const a=el('a',source.source.title);a.href=source.source.url;a.rel='noopener';p.append(a);panel.append(p);}
+ for(const claim of c.contradicted){const p=el('p');p.className='contradiction';p.append(document.createTextNode('Exactly verified rows on this board contradict a published nonexistence claim: '));const a=el('a',claim.source.title);a.href=claim.source.url;a.rel='noopener';p.append(a);panel.append(p);}
  if(c.status==='unresolved')panel.append(el('p','Unresolved in the sourced baseline. Review the literature before claiming novelty.'));
  if(c.evidence.length)panel.append(el('p','Open the evidence records for scope, coverage, gaps, and the checks that actually ran.'));
  panel.hidden=false;panel.scrollIntoView({block:'nearest'});

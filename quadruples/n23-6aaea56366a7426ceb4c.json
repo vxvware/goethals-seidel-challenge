@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "n": 23,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      23
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=23",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-23.txt",
+      "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+      "source_path": "data/gmat/gmat-23.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-23.txt",
+        "sha256": "aaf318491affc86c03ef3367a43bcd13eb41073e78e5214d779b277c80683641"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "n23-6aaea56366a7426ceb4c",
+  "type": "quadruple",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1
+    ]
+  ]
+}

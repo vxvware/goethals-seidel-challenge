@@ -1,0 +1,13 @@
+# G-matrices of order 57: symmetry type (kkss).  There are none.
+#
+# Exhaustive census, gmat_c.c on bos-game, 16 threads, 27977.85 s.  The only
+# admissible row-sum decomposition is 1, 1, 1, 15, since 4v - 2 = 226 = 1^2 +
+# 15^2, giving the parameter set (57; 28, 28, 28, 21; 48).  The search covered
+# 1036610 canonical skew rows against 37316768 partners passing the ceiling,
+# 636789051168 candidates from the mod-4 solve in all, and found no quadruple.
+#
+# Djokovic 2009, Table 1, lists this parameter set and leaves the (kkss) column
+# blank, so nothing was known here before.  The answer is that the type is empty
+# at this order.
+#
+# This file is deliberately empty of data lines.

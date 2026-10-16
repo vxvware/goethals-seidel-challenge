@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "n": 7,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      7
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=7",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-07.txt",
+      "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
+      "source_path": "data/gmat/gmat-07.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-07.txt",
+        "sha256": "1244529ae746c132106b545d2d2cea818af9dcb42a1a2eacee4e9b23db1508b9"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "n7-6e922224c78d11c7998c",
+  "type": "quadruple",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1,
+      1
+    ]
+  ]
+}

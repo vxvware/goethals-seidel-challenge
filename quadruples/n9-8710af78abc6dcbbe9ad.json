@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "n": 9,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      9
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=9",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-09.txt",
+      "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
+      "source_path": "data/gmat/gmat-09.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-09.txt",
+        "sha256": "3926c40d60e7d78f71b940b2b302e82bd72e898782ac8774f0031431b44eedd8"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "n9-8710af78abc6dcbbe9ad",
+  "type": "quadruple",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1
+    ],
+    [
+      1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -1
+    ]
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "n": 51,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      51
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=51",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/5348f02f19b9824aabbb77ed26febad092a54b92/data/gmat/gmat-51.txt",
+      "commit": "5348f02f19b9824aabbb77ed26febad092a54b92",
+      "source_path": "data/gmat/gmat-51.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-51.txt",
+        "sha256": "6d8f89d7d1291d7ae8eae4186695845cdf7208cdecb609eb3455eb53d9f6af36"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "vxvware-kkss-n51",
+  "type": "census",
+  "stratum": "kkss",
+  "representatives": [
+    "n51-4eecf9266b906d840eaf",
+    "n51-69f675fe8d1ff691c7e7",
+    "n51-7a6b68c8e7b2b08bf8cc",
+    "n51-f463b622a9ead754a546"
+  ],
+  "claimed_count": 4,
+  "claim_kind": "lower-bound",
+  "secondary": {
+    "stored_rows": 32
+  },
+  "notes": "The source reports a full census with 4 classes under its own equivalence convention and stores 32 quadruples. This board verifies the 4 equiv-v1 representatives and records a lower bound; the search has not been replayed here. First order past the range classified in arXiv:1802.00556."
+}
