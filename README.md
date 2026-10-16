@@ -59,7 +59,7 @@ and **literature/catalogue imports**. Participant work is credited to the
 vxvware organisation. The participant section highlights the G-matrix census at
 n=49, which finds a class where the published classification reports none, the
 good matrices at n=53, 55, and 61, the G-matrix censuses at n=51 through 59,
-and the n=73 campaigns. Purple map labels and the Origin filter identify participant work; entry pages
+and the n=73 campaigns. Purple map marks and the Origin filter identify participant work; entry pages
 show the credited people separately from the importer. Publication status and
 verification remain independent, so an unpublished claim can be credited while
 its evidence gaps remain visible.
