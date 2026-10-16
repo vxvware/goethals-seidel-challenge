@@ -31,6 +31,9 @@ TRACK_LABELS = {
 }
 
 
+PRIMARY = ("williamson", "good", "best", "kkss")
+
+
 def esc(value):
     return html.escape(str(value), quote=True)
 
@@ -91,8 +94,79 @@ def shell(title, body, prefix=""):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalogue of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
 <link rel="stylesheet" href="{prefix}style.css"></head><body>
-<header><a class="brand" href="{prefix}index.html">GS / CHALLENGE</a><nav><a href="{prefix}index.html#participants">Results</a><a href="{prefix}index.html#board">The board</a><a href="{prefix}index.html#evidence">Evidence</a><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
+<header><a class="brand" href="{prefix}index.html">GS / CHALLENGE</a><nav><a href="{prefix}index.html#findings">Findings</a><a href="{prefix}index.html#board">The board</a><a href="{prefix}index.html#evidence">Evidence</a><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
 <main>{body}</main><footer><span>Exact objects. Explicit evidence. Original attribution.</span><span>Cyclic groups · equiv-v1 · <a href="{prefix}stats.json">Open data</a></span></footer></body></html>'''
+
+
+def cell_list(cells):
+    """Links to cell pages, grouped by track: Good 53, 55 · G-matrices 51."""
+    groups = []
+    for track in PRIMARY:
+        orders = sorted(c["n"] for c in cells if c["stratum"] == track)
+        if orders:
+            links = ", ".join(f'<a href="cells/n{n}-{track}.html">{n}</a>' for n in orders)
+            groups.append(f"{esc(TRACK_LABELS[track].split(' (')[0])} {links}")
+    return " · ".join(groups)
+
+
+def findings(cells, results):
+    """What the board has established, computed from the cells of the four types."""
+    primary = [c for c in cells if c["stratum"] in PRIMARY]
+    corrected = [c for c in primary if c["contradicted"]]
+    new = [
+        c
+        for c in primary
+        if c["status"] == "exists"
+        and c["quadruples"]
+        and not c["contradicted"]
+        and "participant-result" in c["origins"]
+        and "published-import" not in c["origins"]
+        and not c["sources"]
+    ]
+    reported_empty = [c for c in primary if c["empty_basis"] == ["unreplayed-census"]]
+    reproduced = [c for c in primary if "independent-reproduction" in c["origins"]]
+    imported = [c for c in primary if c["quadruples"] and "published-import" in c["origins"]]
+    imported_quads = {
+        q
+        for c in imported
+        for q in c["quadruples"]
+        if any(g["relation"] == "published-import" for g in results[q]["contributions"])
+    }
+    items = []
+    for c in corrected:
+        claim = c["contradicted"][0]["source"]
+        count = len(c["quadruples"])
+        items.append(
+            f'<div class="finding"><strong>A published nonexistence corrected</strong>'
+            f'<p><a href="cells/n{c["n"]}-{c["stratum"]}.html">{esc(TRACK_LABELS[c["stratum"]])} at n = {c["n"]}</a>: '
+            f'<a href="{esc(claim["url"])}" rel="noopener">{esc(claim["title"])}</a> reports none; '
+            f"the board holds {count} exactly verified {'class' if count == 1 else 'classes'}.</p></div>"
+        )
+    if new:
+        items.append(
+            f'<div class="finding"><strong>Existence at orders with no published result</strong>'
+            f"<p>{len(new)} cells with exactly verified rows where the sourced baseline records no "
+            f"published construction: {cell_list(new)}.</p></div>"
+        )
+    if reported_empty:
+        items.append(
+            f'<div class="finding"><strong>Nonexistence reported, not yet replayed</strong>'
+            f"<p>Complete censuses run for the challenge found nothing at {cell_list(reported_empty)}. "
+            f"They stay attributed claims until the board replays them.</p></div>"
+        )
+    if reproduced:
+        items.append(
+            f'<div class="finding"><strong>Published results reproduced by an independent program</strong>'
+            f"<p>{len(reproduced)} cells recomputed with the challenge code and found to agree with the "
+            f"published tables: {cell_list(reproduced)}.</p></div>"
+        )
+    if imported:
+        items.append(
+            f'<div class="finding"><strong>Published constructions rechecked exactly</strong>'
+            f"<p>{len(imported_quads)} inequivalent quadruples imported from papers and catalogues, "
+            f"each rechecked with exact integers, across {len(imported)} cells of the four types.</p></div>"
+        )
+    return "".join(items)
 
 
 def quad_figure(doc, result, caption):
@@ -227,7 +301,7 @@ def build(quick=False):
         for track in TRACKS:
             c = by_cell[n, track]
             label = (
-                "Verified, corrects published"
+                "Corrects published"
                 if c["contradicted"]
                 else "Verified"
                 if c["quadruples"]
@@ -248,8 +322,13 @@ def build(quick=False):
                 ORIGIN_LABELS[o] for o in c["origins"]
             )
             classes = f"{c['status']} {c['artifact_status']}{' contradicted' if c['contradicted'] else ''}"
+            marker = (
+                '<span class="participant" title="Participant work"></span>'
+                if "participant-result" in c["origins"]
+                else ""
+            )
             cells.append(
-                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(c["origins"]))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}">{label}<span class="marker">{esc(small) or "&nbsp;"}</span>{badges(c["origins"])}</a></td>'
+                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(c["origins"]))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}">{label}{marker}</a></td>'
             )
         rows.append(f'<tr data-n="{n}"><td>{n}</td>' + "".join(cells) + "</tr>")
     census_rows = []
@@ -282,8 +361,9 @@ def build(quick=False):
         )
     body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>Four rows.<br>A verifiable discovery.</h1><p>A living catalogue of Goethals–Seidel quadruples. Every submitted matrix is checked with exact integers; every computational claim carries its scope and evidence.</p><p><code>AAᵀ + BBᵀ + CCᵀ + DDᵀ = 4nI</code></p></div><aside class="challenge"><div class="eyebrow">Flagship baseline gap</div><strong>356</strong><p>Skew-Hadamard order<br>Quadruple order n = 89</p><small>Cati–Pasechnik baseline · 30 Aug 2025.<br>A verified skew construction fills this historical gap. Present-day novelty requires review.</small></aside></section>
 <div class="metrics"><div class="metric"><strong>{stats["quadruples"]}</strong><span>inequivalent verified quadruples</span></div><div class="metric"><strong>{manifest["raw_rows"]:,}</strong><span>raw imported rows checked</span></div><div class="metric"><strong>{stats["certificates"]}</strong><span>proofs & computational records</span></div><div class="metric"><strong>{stats["censuses"]}</strong><span>census records with explicit bounds</span></div></div>
-<section id="board"><div class="grid-title"><h2>The completeness map</h2><p>Odd orders through 131 · open a cell for its sources and matrices</p></div><p class="key">Each column is a symmetry type of the four circulant blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew, in any order. Skew means at least one skew block, so it contains the good, best, and G-matrix columns; general is any verified quadruple. Skew types give skew-Hadamard matrices of order 4n.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge participants</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalogue</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
-<div class="legend"><span class="known">Verified on board</span><span class="published">Published, awaiting import</span><span class="empty">Empty, with stated evidence</span><span class="unresolved">Unresolved in baseline</span><span class="contradicted">Verified rows contradict a published nonexistence</span><span class="participant">Purple label: participant work</span></div>
+<section id="findings"><h2>What the board has established</h2><div class="findings">{findings(stats["cells"], r)}</div><p class="muted">Computed from the cells below. Existence claims rest on exactly rechecked rows; counts and nonexistence rest on the evidence each cell cites.</p></section>
+<section id="board"><div class="grid-title"><h2>The completeness map</h2><p>Odd orders through 131 · open a cell for its tier, sources, and matrices</p></div><p class="key">Each column is a symmetry type of the four circulant blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew, in any order. Skew means at least one skew block, so it contains the good, best, and G-matrix columns; general is any verified quadruple. Skew types give skew-Hadamard matrices of order 4n.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge participants</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalogue</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
+<div class="legend"><span class="known">Verified on board</span><span class="published">Published, awaiting import</span><span class="empty">Empty, with stated evidence</span><span class="unresolved">Unresolved in baseline</span><span class="contradicted">Verified rows contradict a published nonexistence</span><span class="participant">Purple mark: participant work</span></div>
 <div class="scroll"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div><p class="muted">An unfilled artifact is not automatically an open problem. Scoped nulls and partial searches do not close a whole cell. “kkss” is the G-matrix stratum.</p></section>
 <section id="participants"><div class="eyebrow">Computed for the challenge</div><h2>Results beyond the published tables</h2><p>Censuses run for this challenge at orders the literature does not settle, or where it is contradicted. They are credited separately from published results imported into the catalogue; every row is rechecked exactly here, and no search is marked complete unless the board replays it.</p><div class="columns">{participant_cards}</div><p class="muted">“Unpublished” means no paper is recorded for this work. Origin and verification are separate: a participant result can be an exactly verified construction, a partial search, or an archived claim. These labels do not certify global priority.</p></section>
 <section id="evidence"><h2>Evidence, with its limits</h2><p>Existence is rechecked exactly. Proof rules, complete replays, sampled replays, and receipt checks have distinct labels. Historical records with missing coverage identity remain archived claims.</p><div class="columns">{"".join(evidence_cards)}</div><p class="note">No GPU spot checks ran during this import. The best-73 legacy identity gap and the missing early good-65 receipt chain are preserved explicitly. Literature citations are attributed results, not locally checked proofs.</p></section>
