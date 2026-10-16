@@ -98,7 +98,8 @@ def shell(title, body, prefix=""):
 def quad_figure(doc, result, caption):
     """A figure that picture.js paints from the embedded canonical rows."""
     payload = json.dumps(
-        {"n": doc["n"], "rows": result["canonical_rows"]}, separators=(",", ":")
+        {"n": doc["n"], "rows": result["canonical_rows"], "pattern": result["pattern"]},
+        separators=(",", ":"),
     ).replace("<", "\\u003c")
     return (
         '<figure class="quad"><canvas class="rows" aria-label="Four defining rows"></canvas>'
@@ -138,10 +139,10 @@ def cell_page(c, d, r):
         count = len(c["quadruples"])
         parts.append(
             f"<h2>{count} verified {'class' if count == 1 else 'classes'}</h2>"
-            "<p>Each figure shows the four canonical rows (k skew, s symmetric) and the "
-            f"Goethals–Seidel array they generate, a Hadamard matrix of order {4 * n}, "
-            "dark for +1 and light for −1. The drawing is computed from the rows in the browser; "
-            'open an entry for the verifier result.</p><div class="gallery">'
+            "<p>Each figure shows the four canonical rows and the Goethals–Seidel array they "
+            f"generate, a Hadamard matrix of order {4 * n}. Skew blocks are green and symmetric "
+            "blocks blue; dark is +1 and light is −1. The drawing is computed from the rows in the "
+            'browser; open an entry for the verifier result.</p><div class="gallery">'
         )
         for ident in c["quadruples"]:
             result = r[ident]
@@ -312,8 +313,9 @@ def build(quick=False):
             picture = (
                 f'<section class="picture"><h2>Picture</h2>'
                 f"<p>The four canonical rows, one row of cells per block ({esc(legend)}; k skew, s symmetric), "
-                f"and the Goethals–Seidel array they generate: a Hadamard matrix of order {4 * doc['n']}, "
-                f"dark for +1 and light for −1. The drawing is computed from the rows in the browser; "
+                f"and the Goethals–Seidel array they generate: a Hadamard matrix of order {4 * doc['n']}. "
+                f"Skew blocks are green and symmetric blocks blue; dark is +1 and light is −1. "
+                f"The drawing is computed from the rows in the browser; "
                 f"the verifier result below is the evidence.</p>"
                 f"{quad_figure(doc, result, '')}"
                 f'<script src="../picture.js" defer></script></section>'

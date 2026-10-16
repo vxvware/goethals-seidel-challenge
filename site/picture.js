@@ -2,20 +2,22 @@
 // Draws the four defining rows of a quadruple and the Goethals-Seidel array
 // they generate, for every figure.quad on the page. This is an illustration
 // computed from the submitted rows; the verifier result is the evidence.
-const PLUS=[32,88,61,255],MINUS=[233,236,231,255];
-function paint(canvas,width,height,value){
+// Hue follows the symmetry of the block: skew blocks green, symmetric blue.
+// Dark is +1 and light is -1 in both hues.
+const PALETTE={k:[[32,88,61,255],[222,235,226,255]],s:[[54,93,130,255],[226,235,243,255]]};
+function paint(canvas,width,height,value,kind){
  if(!canvas)return;
  canvas.width=width;canvas.height=height;
  const ctx=canvas.getContext('2d'),img=ctx.createImageData(width,height),px=img.data;
  for(let y=0;y<height;y++)for(let x=0;x<width;x++){
-  const c=value(y,x)>0?PLUS:MINUS,k=4*(y*width+x);
+  const tones=PALETTE[kind(y,x)]||PALETTE.k,c=value(y,x)>0?tones[0]:tones[1],k=4*(y*width+x);
   px[k]=c[0];px[k+1]=c[1];px[k+2]=c[2];px[k+3]=c[3];
  }
  ctx.putImageData(img,0,0);
 }
 function draw(figure){
  const quad=JSON.parse(figure.querySelector('script[type="application/json"]').textContent);
- const n=quad.n,rows=quad.rows,[A,B,C,D]=rows;
+ const n=quad.n,rows=quad.rows,[A,B,C,D]=rows,pattern=quad.pattern||'kkkk';
  // Circulant block X: entry (i, j) is x[(j - i) mod n].
  const circ=(x,i,j)=>x[((j-i)%n+n)%n];
  // X R reverses the columns of X; R X reverses its rows; both stay explicit so
@@ -28,7 +30,8 @@ function draw(figure){
   [(i,j)=>-xR(C,i,j),(i,j)=>Rx(D,i,j),(i,j)=>circ(A,i,j),(i,j)=>-Rx(B,i,j)],
   [(i,j)=>-xR(D,i,j),(i,j)=>-Rx(C,i,j),(i,j)=>Rx(B,i,j),(i,j)=>circ(A,i,j)],
  ];
- paint(figure.querySelector('canvas.rows'),n,4,(y,x)=>rows[y][x]);
- paint(figure.querySelector('canvas.array'),4*n,4*n,(y,x)=>layout[Math.floor(y/n)][Math.floor(x/n)](y%n,x%n));
+ // Block (bi, bj) of the array is the circulant of row bi XOR bj, up to sign and R.
+ paint(figure.querySelector('canvas.rows'),n,4,(y,x)=>rows[y][x],(y,x)=>pattern[y]);
+ paint(figure.querySelector('canvas.array'),4*n,4*n,(y,x)=>layout[Math.floor(y/n)][Math.floor(x/n)](y%n,x%n),(y,x)=>pattern[Math.floor(y/n)^Math.floor(x/n)]);
 }
 document.querySelectorAll('figure.quad').forEach(draw);
