@@ -38,7 +38,7 @@ distinction even when the mathematical status remains unresolved.
 | reproduced | The rows were exactly verified, or the whole supported census/search was replayed. |
 | spot-checked | Validated receipts plus a registered pinned-engine sample replay. |
 | receipt-backed | The archived machine receipts pass identity, interval, seam, and pending-work checks. |
-| no tier | Literature attribution, an incomplete historical claim, or a census lower bound. |
+| no tier | Literature attribution, an unreplayed participant census, an incomplete historical claim, or a census lower bound. |
 
 The last row is absence of a verification tier, not a fifth tier. The evidence
 page lists the checks, gaps, and limitations. A successful file import is not a

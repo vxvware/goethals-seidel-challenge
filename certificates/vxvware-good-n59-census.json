@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "n": 59,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      59
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: good matrices at n=59",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/33477db3deee7d5e4b965af85943ee764289f82b/data/good/good-59.txt",
+      "commit": "33477db3deee7d5e4b965af85943ee764289f82b",
+      "source_path": "data/good/good-59.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/good/good-59.txt",
+        "sha256": "156bedad9b02ec2896722e0fc6c3c6128c6a402792c700c688030c3511d526be"
+      }
+    }
+  ],
+  "id": "vxvware-good-n59-census",
+  "type": "certificate",
+  "stratum": "good",
+  "claim": "empty",
+  "scope": {
+    "kind": "full"
+  },
+  "method": "unreplayed-census",
+  "records": [],
+  "gaps": [
+    "Unpublished; no paper is recorded for this census."
+  ],
+  "notes": "The archived source file is a deliberately empty census output whose header records the exhaustive search. No published search covers this order. The source ran the census twice to completion with identical triple counts."
+}

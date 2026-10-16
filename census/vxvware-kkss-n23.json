@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "n": 23,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      23
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=23",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-23.txt",
+      "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+      "source_path": "data/gmat/gmat-23.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-23.txt",
+        "sha256": "aaf318491affc86c03ef3367a43bcd13eb41073e78e5214d779b277c80683641"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "vxvware-kkss-n23",
+  "type": "census",
+  "stratum": "kkss",
+  "representatives": [
+    "n23-15382ebd79e36b88c028",
+    "n23-314f1504ef93ead77137",
+    "n23-336a9087015b5f2d8248",
+    "n23-4d67106e5cdfa53659ba",
+    "n23-6aaea56366a7426ceb4c",
+    "n23-7bed65511d3c1d675fa6",
+    "n23-8897479ba397915e2e85",
+    "n23-b9c1de21efd9d7388932"
+  ],
+  "claimed_count": 8,
+  "claim_kind": "lower-bound",
+  "secondary": {
+    "stored_rows": 64
+  },
+  "notes": "The source reports a full census with 8 classes under its own equivalence convention and stores 64 quadruples. This board verifies the 8 equiv-v1 representatives and records a lower bound; the search has not been replayed here."
+}

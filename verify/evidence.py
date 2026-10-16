@@ -150,6 +150,17 @@ def verify(entry, root):
     elif entry["method"] == "literature":
         result["checks"] = ["citation-present"]
         result["provenance"] = "literature"
+    elif entry["method"] == "unreplayed-census":
+        # An exhaustive census reported by a cited, archived source that the
+        # board has not replayed. It is an attributed claim with no tier, like
+        # a literature citation, but it is not a published result.
+        if entry["scope"] != {"kind": "full"}:
+            raise ValueError("unreplayed census claims cover the full stratum")
+        if not any("artifact" in source for source in entry["sources"]):
+            raise ValueError("unreplayed census requires an archived source file")
+        result["checks"] = ["citation-present", "source-artifact-sha256"]
+        result["provenance"] = "unreplayed-census"
+        result["gaps"].append("The reported census has not been replayed on this board.")
     elif entry["method"] in ("good-coverage-v1", "archived-good-coverage-v1"):
         if entry["stratum"] != "good" or entry["scope"] != {"kind": "full"}:
             raise ValueError("good-engine receipts support only the full good-matrix search space")

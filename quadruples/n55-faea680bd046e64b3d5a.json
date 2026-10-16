@@ -7,19 +7,19 @@
       55
     ]
   },
-  "submitted_by": "trevor-vincent",
+  "submitted_by": "vxvware",
   "submitted_at": "2026-10-15",
   "discovered_by": [
-    "Vincent Russo"
+    "vxvware"
   ],
   "sources": [
     {
-      "title": "Vincent Russo: good matrices at n=55",
+      "title": "vxvware/saw-best-matrix: good matrices at n=55",
       "url": "https://github.com/vxvware/saw-best-matrix/blob/020601f6e15db4e2ca023b602bc460204ce40236/data/good/good-55.txt",
       "commit": "020601f6e15db4e2ca023b602bc460204ce40236",
       "source_path": "data/good/good-55.txt",
       "artifact": {
-        "path": "evidence/participants/vprusso-good/good-55.txt",
+        "path": "evidence/participants/saw-best-matrix/good/good-55.txt",
         "sha256": "b7b7d33e460c7eea6e5d2d1ffdf1cec7bfbff7dd948be40b8cc73cf3e0c1dde7"
       }
     }

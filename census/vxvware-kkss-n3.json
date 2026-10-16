@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "n": 3,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      3
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=3",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-03.txt",
+      "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
+      "source_path": "data/gmat/gmat-03.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-03.txt",
+        "sha256": "b8ec4807e9123af2f79d6388cc431df85d59cba045bee74ee09f61834badb7b2"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "vxvware-kkss-n3",
+  "type": "census",
+  "stratum": "kkss",
+  "representatives": [
+    "n3-03b35b76ebca02aced02"
+  ],
+  "claimed_count": 1,
+  "claim_kind": "lower-bound",
+  "secondary": {
+    "stored_rows": 4
+  },
+  "notes": "The source reports a full census with 1 class under its own equivalence convention and stores 4 quadruples. This board verifies the 1 equiv-v1 representative and records a lower bound; the search has not been replayed here."
+}

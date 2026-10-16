@@ -2,14 +2,14 @@
   "version": 1,
   "artifacts": [
     {
-      "id": "russo-good-n53",
+      "id": "vxvware-good-n53",
       "source": {
-        "title": "Vincent Russo: good matrices at n=53",
+        "title": "vxvware/saw-best-matrix: good matrices at n=53",
         "url": "https://github.com/vxvware/saw-best-matrix/blob/020601f6e15db4e2ca023b602bc460204ce40236/data/good/good-53.txt",
         "commit": "020601f6e15db4e2ca023b602bc460204ce40236",
         "source_path": "data/good/good-53.txt",
         "artifact": {
-          "path": "evidence/participants/vprusso-good/good-53.txt",
+          "path": "evidence/participants/saw-best-matrix/good/good-53.txt",
           "sha256": "79deb6ae7f913732e86d74786d1e453b522ae1c999083bc3eb20fcf3a8be7f60"
         }
       },
@@ -18,19 +18,19 @@
         "n53-34ed46fbcebe2f71b199"
       ],
       "archive": {
-        "path": "evidence/participants/vprusso-good/good-53.jsonl.gz",
+        "path": "evidence/participants/saw-best-matrix/good/good-53.jsonl.gz",
         "sha256": "83ae56aa90054cef77ba216888c835b4ae598993764517d2b8eb154e9ada6505"
       }
     },
     {
-      "id": "russo-good-n55",
+      "id": "vxvware-good-n55",
       "source": {
-        "title": "Vincent Russo: good matrices at n=55",
+        "title": "vxvware/saw-best-matrix: good matrices at n=55",
         "url": "https://github.com/vxvware/saw-best-matrix/blob/020601f6e15db4e2ca023b602bc460204ce40236/data/good/good-55.txt",
         "commit": "020601f6e15db4e2ca023b602bc460204ce40236",
         "source_path": "data/good/good-55.txt",
         "artifact": {
-          "path": "evidence/participants/vprusso-good/good-55.txt",
+          "path": "evidence/participants/saw-best-matrix/good/good-55.txt",
           "sha256": "b7b7d33e460c7eea6e5d2d1ffdf1cec7bfbff7dd948be40b8cc73cf3e0c1dde7"
         }
       },
@@ -39,11 +39,592 @@
         "n55-faea680bd046e64b3d5a"
       ],
       "archive": {
-        "path": "evidence/participants/vprusso-good/good-55.jsonl.gz",
+        "path": "evidence/participants/saw-best-matrix/good/good-55.jsonl.gz",
         "sha256": "94eb1227e3ca9e10d0c2314268bd1cc15226628e20020b71029c1290dfab124d"
+      }
+    },
+    {
+      "id": "vxvware-good-n61",
+      "source": {
+        "title": "vxvware/saw-best-matrix: good matrices at n=61",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/2c46a00ee0b450957ed7ac2281cf22bec0edd344/data/good/good-61.txt",
+        "commit": "2c46a00ee0b450957ed7ac2281cf22bec0edd344",
+        "source_path": "data/good/good-61.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/good/good-61.txt",
+          "sha256": "4818e93d5dab46a6a8b5e085672fbbd96e1803bb73dbf5e47087f7c947f37aa1"
+        }
+      },
+      "rows": 120,
+      "representatives": [
+        "n61-f0b6a2c1d7000cc60cfd"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/good/good-61.jsonl.gz",
+        "sha256": "234d4a31df8e383b569afdcd8e56d37b37f08f4542573ab04a676269db89a661"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n3",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=3",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-03.txt",
+        "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
+        "source_path": "data/gmat/gmat-03.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-03.txt",
+          "sha256": "b8ec4807e9123af2f79d6388cc431df85d59cba045bee74ee09f61834badb7b2"
+        }
+      },
+      "rows": 4,
+      "representatives": [
+        "n3-03b35b76ebca02aced02"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-03.jsonl.gz",
+        "sha256": "bc7d864c8b656e1ec2182349e547528a33d37cadfb5c277a0d2fd9119219e8fe"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n5",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=5",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-05.txt",
+        "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
+        "source_path": "data/gmat/gmat-05.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-05.txt",
+          "sha256": "f78f92ee0b98118f14cee8394b71e40e9eefb12c9b641ea2ab6f3c095d57f5eb"
+        }
+      },
+      "rows": 2,
+      "representatives": [
+        "n5-44cacd6ce972236a4d28"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-05.jsonl.gz",
+        "sha256": "f917aab35b0fdaf00b0e6478cbc2772a7b75f37e00af6d64941589c7b4d93f7f"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n7",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=7",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-07.txt",
+        "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
+        "source_path": "data/gmat/gmat-07.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-07.txt",
+          "sha256": "1244529ae746c132106b545d2d2cea818af9dcb42a1a2eacee4e9b23db1508b9"
+        }
+      },
+      "rows": 8,
+      "representatives": [
+        "n7-6e922224c78d11c7998c"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-07.jsonl.gz",
+        "sha256": "a3189302b8bd1531580fb08efbf0c74afe69cd864b1df6e8372525b9db666216"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n9",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=9",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-09.txt",
+        "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
+        "source_path": "data/gmat/gmat-09.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-09.txt",
+          "sha256": "3926c40d60e7d78f71b940b2b302e82bd72e898782ac8774f0031431b44eedd8"
+        }
+      },
+      "rows": 32,
+      "representatives": [
+        "n9-8710af78abc6dcbbe9ad",
+        "n9-f21949284b39e642a103"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-09.jsonl.gz",
+        "sha256": "63100d15ab4266196ff8bda0117a89428eda19ccf36abc6138408748d88696d5"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n13",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=13",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-13.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-13.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-13.txt",
+          "sha256": "f37aac040039bb79740680f2d14888eafaf8eab4ffde4d1cca0d057a3247e84f"
+        }
+      },
+      "rows": 24,
+      "representatives": [
+        "n13-0f372870e08b94a46e61",
+        "n13-35702ba11659ee85ed02",
+        "n13-7b4ce1e9cf7f7f28a63e",
+        "n13-9751526edb73e1671fb7",
+        "n13-e31e32b4047853eab43d",
+        "n13-e3e3c497b42575ecd3bc"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-13.jsonl.gz",
+        "sha256": "01df991d923b8209b5a87ace4074457f99c58b7dea604346fb3569059d10f9d3"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n15",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=15",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-15.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-15.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-15.txt",
+          "sha256": "2efca1e13e50626ec57e87b89f61228a6842e319128839d9f0a18f6a1e2e3b37"
+        }
+      },
+      "rows": 144,
+      "representatives": [
+        "n15-01e881f8ca7a289855e9",
+        "n15-19119c09f8c7aa17b850",
+        "n15-2312c5a9db5c490de37c",
+        "n15-25ded91d537cd86e455c",
+        "n15-30cd4e2bbe11bc422a0b",
+        "n15-4d25667b0a1bac25d331",
+        "n15-643763598a41ef4ae574",
+        "n15-66cff4a6457a03285821",
+        "n15-6d4a345e7ad14446b837",
+        "n15-9f5adcb36e4a388f4193",
+        "n15-ae9586f195b4cc1ab29e",
+        "n15-be1af0e38a359d0b557d",
+        "n15-d69ba013dee55d6ff4ba",
+        "n15-e40524234fe43bb2ca8f",
+        "n15-eb5e13a46d161073bf49",
+        "n15-f43eef28bcd02dee6903",
+        "n15-f67ca8b06f8b93bbfc0c",
+        "n15-f74dddad71f2036293c5"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-15.jsonl.gz",
+        "sha256": "46d1634a93da49444a21fb473d1c2f2b1fc999a0fc4485dc1318d9176f42d96c"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n19",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=19",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-19.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-19.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-19.txt",
+          "sha256": "7471c7adc8207471a0779c3d754239d11dbc8bc2a2ed742b787eaab1b0b4b965"
+        }
+      },
+      "rows": 40,
+      "representatives": [
+        "n19-256cb0e9c352c003f8a3",
+        "n19-44b42709d59e7a37f043",
+        "n19-9c4f3cfdab1d6dc5d251",
+        "n19-b6dc4befcdf12dea120c",
+        "n19-f05eb9e7046c3e3ded98"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-19.jsonl.gz",
+        "sha256": "ff24a04c64b31d296eff8fcbe2ca838abb8d30d890117a00a1366b1df7554e25"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n21",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=21",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-21.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-21.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-21.txt",
+          "sha256": "0fbfcb8fe617fa131356df27456cd48cd67ba7f167ebf30c0496be07656176f4"
+        }
+      },
+      "rows": 112,
+      "representatives": [
+        "n21-163ceb67d070e7560c75",
+        "n21-22b52dbbc0b8266c891d",
+        "n21-4cb8a33a198b0afd6d57",
+        "n21-5cbd399319f09cb1d813",
+        "n21-6190809590cac2a7e664",
+        "n21-6f67dc0c9ce629101a21",
+        "n21-71e4c6b936c3ca50cb8e",
+        "n21-8558072f9a9f73209502",
+        "n21-93065a05104516789a55",
+        "n21-dc43c84875978bb9eadd",
+        "n21-de8cf70827d7222d9325",
+        "n21-df831e1be0184af6785e"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-21.jsonl.gz",
+        "sha256": "b38a4b2c07e7868704cd6906231cae3cc272777ab2da56216e208452377dd19b"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n23",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=23",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-23.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-23.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-23.txt",
+          "sha256": "aaf318491affc86c03ef3367a43bcd13eb41073e78e5214d779b277c80683641"
+        }
+      },
+      "rows": 64,
+      "representatives": [
+        "n23-15382ebd79e36b88c028",
+        "n23-314f1504ef93ead77137",
+        "n23-336a9087015b5f2d8248",
+        "n23-4d67106e5cdfa53659ba",
+        "n23-6aaea56366a7426ceb4c",
+        "n23-7bed65511d3c1d675fa6",
+        "n23-8897479ba397915e2e85",
+        "n23-b9c1de21efd9d7388932"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-23.jsonl.gz",
+        "sha256": "a3f560d4aeefc4bbb417135f291f7d6bcd840fd7c5de5a6b35fdf9b50f22b01a"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n25",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=25",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-25.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-25.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-25.txt",
+          "sha256": "ce77a963017b1669e2ed949a45bea763bc462b518545c166980f9d62986b6212"
+        }
+      },
+      "rows": 26,
+      "representatives": [
+        "n25-0ca6776e5db56dadc0d2",
+        "n25-1c555d73a8faf6ec29fc",
+        "n25-347cc20340c0dc8476d6",
+        "n25-8012eda83229a45127d3",
+        "n25-baa41b9dffe70f5c1fa0",
+        "n25-ccaa9b9ab91be3743f14",
+        "n25-e7a7dc99cb74c141f475"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-25.jsonl.gz",
+        "sha256": "a4e7b5a593637f43a813b5be81e433cd298a964cfb6fb7975b1c5fdb6958bade"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n27",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=27",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-27.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-27.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-27.txt",
+          "sha256": "96f70ab1f5465b5e0e2ef5571937b0a0980c3f7c1380ba7905ad001630161cb9"
+        }
+      },
+      "rows": 80,
+      "representatives": [
+        "n27-1703488ee45c11d81208",
+        "n27-35d4deea21dad361297a",
+        "n27-363a788616126c792176",
+        "n27-42a22c3a0ba77bf59ae1",
+        "n27-47631a7ac43f54dc124e",
+        "n27-7366308f259a47095808",
+        "n27-b396809448d9e0a4d2a6",
+        "n27-b930f8dba7580ea63875",
+        "n27-cdf789c1e683c89bae36",
+        "n27-f7ead6ec0972657e1154"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-27.jsonl.gz",
+        "sha256": "5f3d3611f0ab23149d4e0cd9e295bb9f9032033e64d4107f3946d19c217c0793"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n31",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=31",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-31.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-31.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-31.txt",
+          "sha256": "f8e07fc150d644734942343f64dafd07459f7bb62b231bc2c5fc4ea11dd1e99d"
+        }
+      },
+      "rows": 32,
+      "representatives": [
+        "n31-052ac6d34a8e2153f793",
+        "n31-29d206735bced248a119",
+        "n31-811365893e76425c5e2c",
+        "n31-bad1209806950645db7f"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-31.jsonl.gz",
+        "sha256": "437cdcf43874eb6e0a9a489e73c4193d4088e0daa75b340accc4a9bf12b3986b"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n33",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=33",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-33.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-33.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-33.txt",
+          "sha256": "89adc598eed1bfaa0f96ca23de1188b3e12d80ffc25bf3e6cd49184ae27dcccb"
+        }
+      },
+      "rows": 160,
+      "representatives": [
+        "n33-033672147e712e0d97f2",
+        "n33-225f44cffc2a020a4841",
+        "n33-263b5f016c687b355732",
+        "n33-28899fb67c85938855ea",
+        "n33-2adaae49e780528c5296",
+        "n33-446e8df3fbd123061a90",
+        "n33-4506d34572e1a67b5e85",
+        "n33-524891f8368647996ff9",
+        "n33-546a1b443cb9bdb59f54",
+        "n33-6cca59136c9ec3df3a30",
+        "n33-7031dc578f8c855d54f9",
+        "n33-91525a0ce0dffd346dcd",
+        "n33-9452ba86423cdd20d851",
+        "n33-9c15f91a0754413e9cc6",
+        "n33-a6645b9c74d763160385",
+        "n33-c9d101a9a8032deb38f5",
+        "n33-ccedb5852d9ffa16bf67",
+        "n33-dc1210c7f2c7a7ba004e",
+        "n33-e031c38e80eb73345104",
+        "n33-e86ac84c99edfb8869f3"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-33.jsonl.gz",
+        "sha256": "17848e3c906871affaf1f22ce5f47d019b4882fbb3802f58b0cdcbf326506b93"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n37",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=37",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-37.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-37.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-37.txt",
+          "sha256": "38f13734a070c9040ce1d99d08d50c814feed8b1d33d204d922cabb5091b94e6"
+        }
+      },
+      "rows": 52,
+      "representatives": [
+        "n37-012a90f0d040975471c2",
+        "n37-196dcd216613db831765",
+        "n37-1d8a1653b04d5ab6a329",
+        "n37-2b33d6990009e357b3c1",
+        "n37-60723a55a1ad9eee4835",
+        "n37-d70dab95b438f9671166",
+        "n37-e27413f6ac355c51f29b"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-37.jsonl.gz",
+        "sha256": "0042c7e993661465542cacee1b0f174c00f7d7f368693ee1c4de875e58580839"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n41",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=41",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-41.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-41.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-41.txt",
+          "sha256": "cd5d0bd27d0bbde6e9e80a43c516038ce47bef7ab5e52a4f0fedab3b83f991b2"
+        }
+      },
+      "rows": 12,
+      "representatives": [
+        "n41-1a7b986322a1085f867a",
+        "n41-336c4608a071567f47ea",
+        "n41-6e24939444381cafd7da"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-41.jsonl.gz",
+        "sha256": "a172886d221a069d53795433a6f80002e2b596149814c48abd0b6cdb77cc4026"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n43",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=43",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-43.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-43.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-43.txt",
+          "sha256": "fc2873dba77a043124ed92c618172b1569587b566d41ba4125953908bf9a7ad2"
+        }
+      },
+      "rows": 32,
+      "representatives": [
+        "n43-05540051388acb15a335",
+        "n43-73cd141d35de5425bede",
+        "n43-8cbfcae57b6c5398cd4a",
+        "n43-b2fc7d99023ed872e5d4"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-43.jsonl.gz",
+        "sha256": "cf9fbbd754a5d568dc761ac43676ac73b2a7f564f7e53330f520611d163ff873"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n45",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=45",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-45.txt",
+        "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
+        "source_path": "data/gmat/gmat-45.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-45.txt",
+          "sha256": "ba978df01b63dab726581dbaefd94a43907b020fbf8ed13edadd814dde0f1a30"
+        }
+      },
+      "rows": 8,
+      "representatives": [
+        "n45-ed3ba0d416c514e559e3"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-45.jsonl.gz",
+        "sha256": "93aa3fd4093e31b962121bd13fa6194e0f8a47cc5d08f4939f645402f5b293cc"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n49",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=49",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/8aaf08f4352a0b0787e7ff6c670a9c326de2f23f/data/gmat/gmat-49.txt",
+        "commit": "8aaf08f4352a0b0787e7ff6c670a9c326de2f23f",
+        "source_path": "data/gmat/gmat-49.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-49.txt",
+          "sha256": "e96ad52183f15d10b21da0ffcd99b5aa72456ddaed5eda7fa6eadeac9699570f"
+        }
+      },
+      "rows": 8,
+      "representatives": [
+        "n49-703082c3c1ffa487f376"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-49.jsonl.gz",
+        "sha256": "71e258633e0842d57792adc0c76c2331154ffc0b7056eeb7272cd896204dbd3d"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n51",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=51",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/5348f02f19b9824aabbb77ed26febad092a54b92/data/gmat/gmat-51.txt",
+        "commit": "5348f02f19b9824aabbb77ed26febad092a54b92",
+        "source_path": "data/gmat/gmat-51.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-51.txt",
+          "sha256": "6d8f89d7d1291d7ae8eae4186695845cdf7208cdecb609eb3455eb53d9f6af36"
+        }
+      },
+      "rows": 32,
+      "representatives": [
+        "n51-4eecf9266b906d840eaf",
+        "n51-69f675fe8d1ff691c7e7",
+        "n51-7a6b68c8e7b2b08bf8cc",
+        "n51-f463b622a9ead754a546"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-51.jsonl.gz",
+        "sha256": "c37afa99bd5c6d1e4f7f8f1b750160b237ae1f7a37cbb6d0f7a1480c21506908"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n55",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=55",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/a38ad7b0dc6b6108273c3a549181edab6b7f8a6e/data/gmat/gmat-55.txt",
+        "commit": "a38ad7b0dc6b6108273c3a549181edab6b7f8a6e",
+        "source_path": "data/gmat/gmat-55.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-55.txt",
+          "sha256": "4b5bc4bca201e70a5c2fff071c36c3057af98b7463113f6da940b0cae665b60d"
+        }
+      },
+      "rows": 24,
+      "representatives": [
+        "n55-5cec90854d11d04eba81",
+        "n55-e3c675ce26d23cd5e525",
+        "n55-f5bef16e102dfb62585b"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-55.jsonl.gz",
+        "sha256": "a1d3280ec113c3cc757a0b1de980c01c155e151f079ec0867a264d9a35b8712a"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n59",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=59",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/aaa2c7952b52762b8811e3772ba8760b9eecdbac/data/gmat/gmat-59.txt",
+        "commit": "aaa2c7952b52762b8811e3772ba8760b9eecdbac",
+        "source_path": "data/gmat/gmat-59.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-59.txt",
+          "sha256": "a1f351b3220afb4cb741fcb9142f9e79c03ba8fd4f2dfcd5464bb01a9a9846b5"
+        }
+      },
+      "rows": 8,
+      "representatives": [
+        "n59-99937ade3c4429fa7e85"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-59.jsonl.gz",
+        "sha256": "76aea078d68ed0a890dc7900b115f955a4aaf70b25bd4f1dfe840f9bdca9839c"
+      }
+    },
+    {
+      "id": "vxvware-kkss-n63",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=63",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/a6cef295734124cbb8ed07fb935209a8ecb51a2f/data/gmat/gmat-63.txt",
+        "commit": "a6cef295734124cbb8ed07fb935209a8ecb51a2f",
+        "source_path": "data/gmat/gmat-63.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-63.txt",
+          "sha256": "c50fed164652e958de9b1874792dd382c47a7034e42176fb76c37bcae4d7b111"
+        }
+      },
+      "rows": 48,
+      "representatives": [
+        "n63-162a07605fc5d4f623d7"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-63.jsonl.gz",
+        "sha256": "c3b8c6d6ca5317dfc46c67b95f3fd81369546c85dd50c6c49ec3bf48b775012c"
       }
     }
   ],
-  "raw_rows": 144,
-  "representative_count": 2
+  "raw_rows": 1216,
+  "representative_count": 123
 }

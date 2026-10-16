@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "n": 5,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      5
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-15",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=5",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-05.txt",
+      "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
+      "source_path": "data/gmat/gmat-05.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-05.txt",
+        "sha256": "f78f92ee0b98118f14cee8394b71e40e9eefb12c9b641ea2ab6f3c095d57f5eb"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "n5-44cacd6ce972236a4d28",
+  "type": "quadruple",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      1
+    ]
+  ]
+}

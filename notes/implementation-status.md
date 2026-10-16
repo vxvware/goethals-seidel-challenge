@@ -10,8 +10,8 @@ validation; manifest pinning; GitHub Pages deployment; agent workflow and starte
 
 - 50 pytest checks pass, including exact PAF comparisons, symmetry generators,
   census replay, receipt failures, replay registration, and submission boundaries.
-- All 35,583 raw quadruples in 66 source archives verify and map to 95 distinct
-  representatives. There are 71 certificate records and 16 census entries.
+- All 36,655 raw quadruples in 89 source archives verify and map to 216 distinct
+  representatives. There are 72 certificate records and 39 census entries.
 - Full census replay reproduces n=43 best: five equiv-v1 classes, 20 branch-v1
   orbits, and 10,080 expanded quadruples.
 - Ruff and the trusted manifest pass. The full static build succeeds.
@@ -25,8 +25,10 @@ validation; manifest pinning; GitHub Pages deployment; agent workflow and starte
 ## Participant attribution
 
 A curated registry distinguishes participant results, independent reproductions,
-and published catalogue imports. Vincent Russo's good-53/55 constructions and
-Trevor Vincent's best-73 campaign and skew-73 families are featured on the board.
+and published catalogue imports. Participant work is credited to vxvware. The
+G-matrix census at n=49 that contradicts the published nonexistence, the
+good-53/55/61 constructions, the G-matrix censuses at n=51 through 59, the
+best-73 campaign, and the skew-73 families are featured on the board.
 Map badges, an Origin filter, named credits, and JSON output preserve that
 distinction independently of publication and verification status.
 
@@ -46,10 +48,16 @@ The implementation does not invent runs or provenance to satisfy a planned tier.
   an independent heterogeneous-deck audit for a stronger tier.
 - Good-67 remains a partial result. Git history pins the archive snapshot; it
   cannot retroactively create a missing execution-commit field.
-- Good n=53 and n=55 are now verified from Vincent Russo's participant
-  constructions in the supplemental import. Their census counts remain lower
-  bounds. Good n=61 remains unresolved in the sourced baseline; published
-  general skew constructions at 61 do not establish good matrices there.
+- Good n=53, 55, and 61 and the G-matrix orders through 63 are verified from
+  the vxvware/saw-best-matrix import. Their census counts remain lower bounds
+  because the source's exhaustive searches have not been replayed here. The
+  empty censuses at good n=59 and G-matrix n=57 are unreplayed attributed
+  claims with no tier. At G-matrix n=59 the source counts two classes and
+  equiv-v1 one; the discrepancy is recorded in the census notes.
+- The published nonexistence of G-matrices at n=49 (arXiv:1802.00556) is
+  contradicted by eight exactly verified rows. The sourced empty record was
+  removed from the baseline and the contradiction is recorded in the baseline
+  notes and the contribution registry.
 
 The scoped n=89 null is stronger than the old empty-array artifact: a small
 exact row-sum proof is rechecked directly. It applies only to the order-11

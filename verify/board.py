@@ -87,11 +87,19 @@ def check_consistency(documents, results, baseline):
                         f"certificate conflicts with sourced existence baseline: {cert['id']}"
                     )
     for rec in baseline:
-        if rec["status"] != "empty":
+        if rec["status"] not in ("empty", "contradicted"):
             continue
-        for q in (x for x in results.values() if x["type"] == "quadruple"):
-            if q["n"] == rec["n"] and rec["stratum"] in q["tracks"]:
-                raise ValueError(f"existence conflicts with nonexistence baseline: {q['id']}")
+        refuted = [
+            q
+            for q in results.values()
+            if q["type"] == "quadruple" and q["n"] == rec["n"] and rec["stratum"] in q["tracks"]
+        ]
+        if rec["status"] == "empty" and refuted:
+            raise ValueError(f"existence conflicts with nonexistence baseline: {refuted[0]['id']}")
+        if rec["status"] == "contradicted" and not refuted:
+            raise ValueError(
+                f"contradicted claim without verified rows: {rec['stratum']} n={rec['n']}"
+            )
 
 
 def cells(documents, results, baseline, max_n=131):
@@ -111,6 +119,11 @@ def cells(documents, results, baseline, max_n=131):
                     relevant.append(rec)
             exists = [r for r in relevant if r["status"] == "exists"]
             empty = [r for r in relevant if r["status"] == "empty"]
+            contradicted = [
+                rec
+                for rec in baseline
+                if rec["n"] == n and rec["status"] == "contradicted" and rec["stratum"] == track
+            ]
             quads = [
                 r
                 for r in results.values()
@@ -128,7 +141,10 @@ def cells(documents, results, baseline, max_n=131):
                 for c in certs
                 if c["claim"] == "empty"
                 and c["scope"]["kind"] == "full"
-                and (c["tier"] is not None or c.get("provenance") == "literature")
+                and (
+                    c["tier"] is not None
+                    or c.get("provenance") in ("literature", "unreplayed-census")
+                )
             ]
             status = "exists" if quads or exists else "empty" if empty or whole else "unresolved"
             availability = (
@@ -152,6 +168,7 @@ def cells(documents, results, baseline, max_n=131):
                 origins.add("published-import")
             rank = {"receipt-backed": 0, "spot-checked": 1, "reproduced": 2, "proven": 3}
             tier = "reproduced" if quads else max(tiers, key=rank.get) if tiers else None
+            basis = sorted({c["tier"] or c["provenance"] for c in whole})
             output.append(
                 {
                     "n": n,
@@ -160,13 +177,19 @@ def cells(documents, results, baseline, max_n=131):
                     "status": status,
                     "artifact_status": availability,
                     "tier": tier,
+                    "empty_basis": basis,
                     "quadruples": [q["id"] for q in quads],
                     "evidence": [c["id"] for c in certs],
                     "censuses": [c["id"] for c in censuses],
                     "contributions": credits,
                     "origins": sorted(origins),
                     "sources": relevant,
-                    "flags": [f for q in quads for f in q["flags"]],
+                    "contradicted": contradicted,
+                    "flags": [f for q in quads for f in q["flags"]]
+                    + [
+                        {"kind": "contradicts-published-nonexistence", "source": rec["source"]}
+                        for rec in contradicted
+                    ],
                     "note": "Requires n=r²+r+1." if track == "best" else "",
                 }
             )

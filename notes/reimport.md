@@ -27,17 +27,18 @@ The parser extracts literal numerical tables with Python's AST utilities; it
 does not execute Sage code. Every extracted quadruple is independently checked.
 Review all changed source identities before updating the trusted manifest.
 
-## Vincent Russo's additional good matrices
+## The vxvware/saw-best-matrix census files
 
-The supplemental import uses `good-53.txt` and `good-55.txt` from
-`vxvware/saw-best-matrix` at commit
-`020601f6e15db4e2ca023b602bc460204ce40236`. Their original bytes are bundled under
-`evidence/participants/vprusso-good/`; access to the source repository is not
-needed to repeat the import. The importer checks the pinned source hashes,
-exactly verifies all 144 quadruples, and refuses to replace different records.
+The supplemental import reads the good-matrix and G-matrix sign-row files from
+`vxvware/saw-best-matrix`, each pinned in `tools/import_dashboard.py` to the
+commit that last changed it and to its SHA-256. Their original bytes are
+bundled under `evidence/participants/saw-best-matrix/`; access to the source
+repository is not needed to repeat the import. The importer checks the pinned
+hashes, exactly verifies all 1,216 quadruples, writes empty census files as
+unreplayed-census certificates, and refuses to replace different records.
 
 ```sh
-uv run python tools/import_participant_good.py --source-dir evidence/participants/vprusso-good
+uv run python tools/import_dashboard.py --source-dir evidence/participants/saw-best-matrix
 uv run python -m verify.audit_seeds
 ```
 

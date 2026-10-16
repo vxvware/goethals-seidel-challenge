@@ -140,7 +140,7 @@ def main():
             f"russo-n{n}",
             [np.load(good / path, allow_pickle=False)],
             source(good, path),
-            ["Russo (campaign attribution)"],
+            ["vxvware (campaign attribution)"],
         )
     for label, path in (
         ("good-all-cpu-n13", "benchmark/good_all_cpu_n13.npy"),

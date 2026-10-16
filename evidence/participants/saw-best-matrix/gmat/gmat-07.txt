@@ -1,0 +1,16 @@
+# G-matrices of order 7: symmetry type (kkss).
+#
+# Exhaustive census, gmat_c.c.  8 quadruples, 1 inequivalent class.
+# Stored late: the class count was in the table from the start but the
+# quadruples were never written out, so the table carried a number with
+# nothing behind it.  Found by verify/table_check.py.
+#
+# Verified by verify/gmat_check.py.
+++++--- ++--++- +-+--+- +------
+++++--- ++--++- +------ +-+--+-
+++++--- +-+-+-+ +--++-- +------
+++++--- +-+-+-+ +------ +--++--
+++++--- ++-+-+- +--++-- +------
+++++--- ++-+-+- +------ +--++--
+++++--- +-++--+ +-+--+- +------
+++++--- +-++--+ +------ +-+--+-

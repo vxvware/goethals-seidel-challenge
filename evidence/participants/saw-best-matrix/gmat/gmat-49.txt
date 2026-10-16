@@ -1,0 +1,29 @@
+# G-matrices of order 49: symmetry type (kkss), parameter set (49; 24,24,22,18; 39).
+# provenance: our own exhaustive search, nearwill/gmat_c.c, 2026-08-27.
+#
+# Djokovic and Kotsireas (arXiv:1802.00556) report an exhaustive search of this
+# parameter set finding no G-matrices: their Table 1 gives 'no' in the kkss column
+# for (49; 24,24,22,18; 39), and the text says 'none for v = 49'.
+#
+# The eight quadruples below form ONE equivalence class under Definition 1 of
+# arXiv:1802.00556 applied in the paper's own normalisation (4), block sizes
+# non-increasing. Four of the eight orderings violate (4) (the two symmetric
+# blocks transposed) and would read naively as a second class; within the
+# normalised four, the merge is the exchange of the two equal-size SKEW
+# blocks, not anything involving C and D. Each has A and B skew
+# (|X| = 24 = (v-1)/2 and (-X) cap X empty), C and D symmetric (-X = X), row sums
+# 1, 1, 5, 13 whose squares total 196 = 4v, and autocorrelations summing to zero at
+# every nonzero lag. The Goethals-Seidel array built from the first of them is a
+# Hadamard matrix of order 196, checked directly as GS GS^T = 196 I.
+#
+# The same eight are produced by the cached solve and by NW_NOCACHE, which redoes
+# the elimination per pair, so this is not an artefact of the stage-2 table.
+# Order of blocks: A B C D.
+++++-+-+-+-++--+++-++-++-+--+--+---++--+-+-+-+--- +-++-+++++----+-++--++---+++--++--+-++++-----+--+ ++-+++--+----+-+-++++--++++--++++-+-+----+--+++-+ +++++-+-++++-++-++-----++++-----++-++-++++-+-++++
+++++-+-+-+-++--+++-++-++-+--+--+---++--+-+-+-+--- +-++-+++++----+-++--++---+++--++--+-++++-----+--+ +++++-+-++++-++-++-----++++-----++-++-++++-+-++++ ++-+++--+----+-+-++++--++++--++++-+-+----+--+++-+
+++++-+-+-+-++--+++-++-++-+--+--+---++--+-+-+-+--- ++--+-----++++-+--++--+++---++--++-+----+++++-++- ++-+++--+----+-+-++++--++++--++++-+-+----+--+++-+ +++++-+-++++-++-++-----++++-----++-++-++++-+-++++
+++++-+-+-+-++--+++-++-++-+--+--+---++--+-+-+-+--- ++--+-----++++-+--++--+++---++--++-+----+++++-++- +++++-+-++++-++-++-----++++-----++-++-++++-+-++++ ++-+++--+----+-+-++++--++++--++++-+-+----+--+++-+
++++++--+-+++---+++-++++-+-+----+---+++---+-++---- +--+++------+--+++-++-++-+--+--+---++-++++++---++ +---+-+--+-+++-++--++-++++++-++--++-+++-+--+-+--- ++-+-++-++-+-+---+++++++--+++++++---+-+-++-++-+-+
++++++--+-+++---+++-++++-+-+----+---+++---+-++---- +--+++------+--+++-++-++-+--+--+---++-++++++---++ ++-+-++-++-+-+---+++++++--+++++++---+-+-++-++-+-+ +---+-+--+-+++-++--++-++++++-++--++-+++-+--+-+---
++++++--+-+++---+++-++++-+-+----+---+++---+-++---- +++---++++++-++---+--+--+-++-++-+++--+------+++-- +---+-+--+-+++-++--++-++++++-++--++-+++-+--+-+--- ++-+-++-++-+-+---+++++++--+++++++---+-+-++-++-+-+
++++++--+-+++---+++-++++-+-+----+---+++---+-++---- +++---++++++-++---+--+--+-++-++-+++--+------+++-- ++-+-++-++-+-+---+++++++--+++++++---+-+-++-++-+-+ +---+-+--+-+++-++--++-++++++-++--++-+++-+--+-+---
