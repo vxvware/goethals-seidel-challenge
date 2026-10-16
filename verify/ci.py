@@ -14,6 +14,12 @@ from verify.check_authorship import check_author
 from verify.check_prose import check as check_prose
 from verify.board import load
 
+# GitHub reports a private organisation member as CONTRIBUTOR or NONE, so the
+# association alone cannot identify a maintainer. The PR author login is set by
+# GitHub and this file runs from the base branch, so the list cannot be edited
+# by the PR it gates.
+MAINTAINERS = ("vprusso", "trevor-vincent")
+
 
 def main():
     p = argparse.ArgumentParser()
@@ -42,7 +48,8 @@ def main():
         load(root)
         print("Submission passes trusted-base validation.")
     else:
-        if a.association not in ("OWNER", "MEMBER", "COLLABORATOR"):
+        maintainer = a.author.casefold() in MAINTAINERS
+        if not maintainer and a.association not in ("OWNER", "MEMBER", "COLLABORATOR"):
             raise ValueError(
                 "trusted-stack changes require maintainer review and a maintainer-authored PR"
             )
