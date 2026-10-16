@@ -95,12 +95,112 @@ def shell(title, body, prefix=""):
 <main>{body}</main><footer><span>Exact objects. Explicit evidence. Original attribution.</span><span>Cyclic groups · equiv-v1 · <a href="{prefix}stats.json">Open data</a></span></footer></body></html>'''
 
 
+def quad_figure(doc, result, caption):
+    """A figure that picture.js paints from the embedded canonical rows."""
+    payload = json.dumps(
+        {"n": doc["n"], "rows": result["canonical_rows"]}, separators=(",", ":")
+    ).replace("<", "\\u003c")
+    return (
+        '<figure class="quad"><canvas class="rows" aria-label="Four defining rows"></canvas>'
+        '<canvas class="array" aria-label="Goethals–Seidel array"></canvas>'
+        f'<script type="application/json">{payload}</script>'
+        f"<figcaption>{caption}</figcaption></figure>"
+    )
+
+
+def cell_links(result, prefix):
+    tracks = result.get("tracks", [result.get("stratum")])
+    return ", ".join(
+        f'<a href="{prefix}cells/n{result["n"]}-{esc(track)}.html">{esc(TRACK_LABELS[track])}</a>'
+        for track in tracks
+        if track in TRACK_LABELS
+    )
+
+
+def cell_page(c, d, r):
+    """One page per order and track: status, credit, sources, and the matrices."""
+    n, track = c["n"], c["stratum"]
+    status = " · ".join(x for x in (c["status"], c["artifact_status"], c["tier"]) if x)
+    parts = [
+        f'<article class="entry"><div class="eyebrow">cell · order {n} · {esc(track)}</div>'
+        f'<h1>n = {n} · {esc(TRACK_LABELS[track])}</h1><span class="tag">{esc(status)}</span>'
+    ]
+    if c["note"]:
+        parts.append(f"<p>{esc(c['note'])}</p>")
+    for claim in c["contradicted"]:
+        parts.append(
+            '<p class="contradiction">Exactly verified rows on this board contradict a published '
+            f'nonexistence claim: <a href="{esc(claim["source"]["url"])}" rel="noopener">'
+            f"{esc(claim['source']['title'])}</a></p>"
+        )
+    parts.extend(credit_block(group) for group in c["contributions"])
+    if c["quadruples"]:
+        count = len(c["quadruples"])
+        parts.append(
+            f"<h2>{count} verified {'class' if count == 1 else 'classes'}</h2>"
+            "<p>Each figure shows the four canonical rows (k skew, s symmetric) and the "
+            f"Goethals–Seidel array they generate, a Hadamard matrix of order {4 * n}, "
+            "dark for +1 and light for −1. The drawing is computed from the rows in the browser; "
+            'open an entry for the verifier result.</p><div class="gallery">'
+        )
+        for ident in c["quadruples"]:
+            result = r[ident]
+            legend = " ".join(
+                f"{name}&thinsp;{kind}" for name, kind in zip("ABCD", result["pattern"])
+            )
+            caption = (
+                f'<a href="../entries/{esc(ident)}.html">{esc(ident)}</a>'
+                f"<br>{legend} · {esc(result.get('tier') or 'verified')}"
+            )
+            parts.append(quad_figure(d[ident], result, caption))
+        parts.append("</div>")
+    records = [*c["evidence"], *c["censuses"]]
+    if records:
+        items = []
+        for ident in records:
+            result = r[ident]
+            detail = result["type"]
+            if result["type"] == "census":
+                bound = "" if result["bound"] == "exact" else "≥ "
+                detail += (
+                    f" · {bound}{result['count']} {'class' if result['count'] == 1 else 'classes'}"
+                )
+            if result.get("tier"):
+                detail += f" · {result['tier']}"
+            items.append(
+                f'<li><a href="../entries/{esc(ident)}.html">{esc(ident)}</a> · {esc(detail)}</li>'
+            )
+        parts.append(f"<h2>Evidence and census records</h2><ul>{''.join(items)}</ul>")
+    if c["sources"]:
+        parts.append(
+            "<h2>Sources</h2><ul>"
+            + "".join(
+                f'<li><a href="{esc(s["source"]["url"])}" rel="noopener">{esc(s["source"]["title"])}</a></li>'
+                for s in c["sources"]
+            )
+            + "</ul>"
+        )
+    if c["status"] == "unresolved":
+        parts.append(
+            "<p>Unresolved in the sourced baseline. Review the literature before claiming novelty.</p>"
+        )
+    if c["evidence"]:
+        parts.append(
+            "<p>Open the evidence records for scope, coverage, gaps, and the checks that actually ran.</p>"
+        )
+    parts.append('<p><a href="../index.html#board">Back to the board</a></p></article>')
+    if c["quadruples"]:
+        parts.append('<script src="../picture.js" defer></script>')
+    return "".join(parts)
+
+
 def build(quick=False):
     d, r, b = load(reproduce=not quick)
     stats = summary(d, r, b)
     out = ROOT / "docs"
     out.mkdir(exist_ok=True)
     (out / "entries").mkdir(exist_ok=True)
+    (out / "cells").mkdir(exist_ok=True)
     for name in ("style.css", "app.js", "picture.js"):
         shutil.copyfile(ROOT / "site" / name, out / name)
     (out / ".nojekyll").touch()
@@ -148,7 +248,7 @@ def build(quick=False):
             )
             classes = f"{c['status']} {c['artifact_status']}{' contradicted' if c['contradicted'] else ''}"
             cells.append(
-                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(c["origins"]))}"><button data-cell="{n}:{track}" aria-label="{esc(accessible)}">{label}<span class="marker">{esc(small) or "&nbsp;"}</span>{badges(c["origins"])}</button></td>'
+                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(c["origins"]))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}">{label}<span class="marker">{esc(small) or "&nbsp;"}</span>{badges(c["origins"])}</a></td>'
             )
         rows.append(f'<tr data-n="{n}"><td>{n}</td>' + "".join(cells) + "</tr>")
     census_rows = []
@@ -179,20 +279,17 @@ def build(quick=False):
         evidence_cards.append(
             f'<article class="card"><span class="tag">{esc(result["tier"] or "archived claim")}</span><h3><a href="entries/{ident}.html">{esc(title)}</a></h3>{"".join(credit_block(g) for g in result["contributions"])}<p>{scope}. {"Partial coverage; no emptiness claim." if result["claim"] == "partial" else "See the evidence record for coverage and limitations."}</p></article>'
         )
-    embedded_data = json.dumps(
-        {"cells": stats["cells"], "labels": TRACK_LABELS}, ensure_ascii=False
-    ).replace("<", "\\u003c")
     body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>Four rows.<br>A verifiable discovery.</h1><p>A living catalogue of Goethals–Seidel quadruples. Every submitted matrix is checked with exact integers; every computational claim carries its scope and evidence.</p><p><code>AAᵀ + BBᵀ + CCᵀ + DDᵀ = 4nI</code></p></div><aside class="challenge"><div class="eyebrow">Flagship baseline gap</div><strong>356</strong><p>Skew-Hadamard order<br>Quadruple order n = 89</p><small>Cati–Pasechnik baseline · 30 Aug 2025.<br>A verified skew construction fills this historical gap. Present-day novelty requires review.</small></aside></section>
 <div class="metrics"><div class="metric"><strong>{stats["quadruples"]}</strong><span>inequivalent verified quadruples</span></div><div class="metric"><strong>{manifest["raw_rows"]:,}</strong><span>raw imported rows checked</span></div><div class="metric"><strong>{stats["certificates"]}</strong><span>proofs & computational records</span></div><div class="metric"><strong>{stats["censuses"]}</strong><span>census records with explicit bounds</span></div></div>
-<section id="board"><div class="grid-title"><h2>The completeness map</h2><p>Odd orders through 131 · select a cell for sources</p></div><p class="key">Each column is a symmetry type of the four circulant blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew, in any order. Skew means at least one skew block, so it contains the good, best, and G-matrix columns; general is any verified quadruple. Skew types give skew-Hadamard matrices of order 4n.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge participants</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalogue</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
+<section id="board"><div class="grid-title"><h2>The completeness map</h2><p>Odd orders through 131 · open a cell for its sources and matrices</p></div><p class="key">Each column is a symmetry type of the four circulant blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew, in any order. Skew means at least one skew block, so it contains the good, best, and G-matrix columns; general is any verified quadruple. Skew types give skew-Hadamard matrices of order 4n.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge participants</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalogue</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
 <div class="legend"><span class="known">Verified on board</span><span class="published">Published, awaiting import</span><span class="empty">Empty, with stated evidence</span><span class="unresolved">Unresolved in baseline</span><span class="contradicted">Verified rows contradict a published nonexistence</span><span class="participant">Purple label: participant work</span></div>
-<div class="scroll"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div><div id="cell-detail" class="detail" aria-live="polite" hidden></div><p class="muted">An unfilled artifact is not automatically an open problem. Scoped nulls and partial searches do not close a whole cell. “kkss” is the G-matrix stratum.</p></section>
+<div class="scroll"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div><p class="muted">An unfilled artifact is not automatically an open problem. Scoped nulls and partial searches do not close a whole cell. “kkss” is the G-matrix stratum.</p></section>
 <section id="participants"><div class="eyebrow">Computed for the challenge</div><h2>Results beyond the published tables</h2><p>Censuses run for this challenge at orders the literature does not settle, or where it is contradicted. They are credited separately from published results imported into the catalogue; every row is rechecked exactly here, and no search is marked complete unless the board replays it.</p><div class="columns">{participant_cards}</div><p class="muted">“Unpublished” means no paper is recorded for this work. Origin and verification are separate: a participant result can be an exactly verified construction, a partial search, or an archived claim. These labels do not certify global priority.</p></section>
 <section id="evidence"><h2>Evidence, with its limits</h2><p>Existence is rechecked exactly. Proof rules, complete replays, sampled replays, and receipt checks have distinct labels. Historical records with missing coverage identity remain archived claims.</p><div class="columns">{"".join(evidence_cards)}</div><p class="note">No GPU spot checks ran during this import. The best-73 legacy identity gap and the missing early good-65 receipt chain are preserved explicitly. Literature citations are attributed results, not locally checked proofs.</p></section>
 <section><h2>Count the classes</h2><p>The primary convention includes independent reversals. At n=43, the same 10,080 best quadruples form five primary classes and 20 legacy orbits.</p><div class="scroll"><table><thead><tr><th>Family / order</th><th>Classes</th><th>Verification</th><th>Origin / credit</th></tr></thead><tbody>{"".join(census_rows)}</tbody></table></div></section>
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Submit four defining rows or negative-index sets. The verifier derives the family, checks the PAF identity, and detects equivalent entries.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p></article><article class="card"><h3>Keep the attribution</h3><p>Original discoverers and submission authors are recorded separately. Importing a published matrix earns importer credit. Baseline gaps never grant discovery credit automatically.</p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
-<noscript><p>JavaScript enables filters and cell details. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
-<script id="board-data" type="application/json">{embedded_data}</script><script src="app.js" defer></script>"""
+<noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
+<script src="app.js" defer></script>"""
     (out / "index.html").write_text(shell("The board", body))
     for ident, doc in d.items():
         result = r[ident]
@@ -212,22 +309,22 @@ def build(quick=False):
         picture = ""
         if doc["type"] == "quadruple":
             legend = " · ".join(f"{name} {kind}" for name, kind in zip("ABCD", result["pattern"]))
-            payload = json.dumps(
-                {"n": doc["n"], "rows": result["canonical_rows"]}, separators=(",", ":")
-            ).replace("<", "\\u003c")
             picture = (
                 f'<section class="picture"><h2>Picture</h2>'
                 f"<p>The four canonical rows, one row of cells per block ({esc(legend)}; k skew, s symmetric), "
                 f"and the Goethals–Seidel array they generate: a Hadamard matrix of order {4 * doc['n']}, "
                 f"dark for +1 and light for −1. The drawing is computed from the rows in the browser; "
                 f"the verifier result below is the evidence.</p>"
-                f'<canvas id="rows-picture" class="rows" aria-label="Four defining rows"></canvas>'
-                f'<canvas id="array-picture" class="array" aria-label="Goethals–Seidel array"></canvas>'
-                f'<script id="quadruple-data" type="application/json">{payload}</script>'
+                f"{quad_figure(doc, result, '')}"
                 f'<script src="../picture.js" defer></script></section>'
             )
-        text = f"""<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div><h1>{esc(ident)}</h1><span class="tag">{esc(result.get("tier") or "attributed / archived claim or lower bound")}</span>{credits}<p>Original source attribution: {esc("; ".join(doc["discovered_by"]))}<br>Submitted / imported by: {esc(doc["submitted_by"])} · {doc["submitted_at"]}</p>{picture}<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre><h2>Sources</h2><ul>{sources}</ul><details><summary>Submission JSON</summary><pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"""
+        text = f"""<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div><h1>{esc(ident)}</h1><span class="tag">{esc(result.get("tier") or "attributed / archived claim or lower bound")}</span>{credits}<p>Original source attribution: {esc("; ".join(doc["discovered_by"]))}<br>Submitted / imported by: {esc(doc["submitted_by"])} · {doc["submitted_at"]}<br>Board cell: {cell_links(result, "../")}</p>{picture}<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre><h2>Sources</h2><ul>{sources}</ul><details><summary>Submission JSON</summary><pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"""
         (out / f"entries/{ident}.html").write_text(shell(ident, text, "../"))
+    for c in stats["cells"]:
+        title = f"n = {c['n']} · {TRACK_LABELS[c['stratum']]}"
+        (out / f"cells/n{c['n']}-{c['stratum']}.html").write_text(
+            shell(title, cell_page(c, d, r), "../")
+        )
     print(
         f"Built docs/: {stats['quadruples']} quadruples, {stats['certificates']} evidence records, {stats['censuses']} censuses."
     )
