@@ -51,6 +51,25 @@
       "stratum": "kkss"
     },
     {
+      "id": "kkss-61-existence",
+      "title": "G-matrices at n=61, first existence",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18. Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The census is still running, so the class count is not yet known; the rows verify exactly.",
+      "entry_ids": [
+        "vxvware-kkss-n61"
+      ],
+      "seed_artifacts": [],
+      "featured": true,
+      "stratum": "kkss"
+    },
+    {
       "id": "good-53-55-61",
       "title": "Good matrices at n=53, 55, and 61",
       "relation": "participant-result",

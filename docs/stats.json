@@ -2,8 +2,8 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 327,
-  "quadruples": 216,
+  "entry_count": 328,
+  "quadruples": 217,
   "certificates": 72,
   "censuses": 39,
   "contributions": [
@@ -62,6 +62,27 @@
       "recorded_at": "2026-10-15"
     },
     {
+      "id": "kkss-61-existence",
+      "title": "G-matrices at n=61, first existence",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18. Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The census is still running, so the class count is not yet known; the rows verify exactly.",
+      "entry_ids": [
+        "vxvware-kkss-n61"
+      ],
+      "featured": true,
+      "stratum": "kkss",
+      "label": "Challenge result",
+      "position": 2,
+      "recorded_at": "2026-10-15"
+    },
+    {
       "id": "good-53-55-61",
       "title": "Good matrices at n=53, 55, and 61",
       "relation": "participant-result",
@@ -84,7 +105,7 @@
       "featured": true,
       "stratum": "good",
       "label": "Challenge result",
-      "position": 2,
+      "position": 3,
       "recorded_at": "2026-10-15"
     },
     {
@@ -105,7 +126,7 @@
       "featured": false,
       "stratum": "good",
       "label": "Challenge result",
-      "position": 3,
+      "position": 4,
       "recorded_at": "2026-10-15"
     },
     {
@@ -127,7 +148,7 @@
       "featured": false,
       "stratum": "kkss",
       "label": "Independent reproduction",
-      "position": 4,
+      "position": 5,
       "recorded_at": "2026-10-15"
     },
     {
@@ -274,7 +295,7 @@
       "featured": false,
       "stratum": "kkss",
       "label": "Independent reproduction",
-      "position": 5,
+      "position": 6,
       "recorded_at": "2026-10-15"
     },
     {
@@ -295,7 +316,7 @@
       "featured": false,
       "stratum": "best",
       "label": "Challenge result",
-      "position": 6,
+      "position": 7,
       "recorded_at": "2026-10-15"
     },
     {
@@ -323,7 +344,7 @@
       "featured": false,
       "stratum": "skew-sds",
       "label": "Challenge result",
-      "position": 7,
+      "position": 8,
       "recorded_at": "2026-10-15"
     },
     {
@@ -344,7 +365,7 @@
       "featured": false,
       "stratum": "good",
       "label": "Challenge result",
-      "position": 8,
+      "position": 9,
       "recorded_at": "2026-10-15"
     },
     {
@@ -365,7 +386,7 @@
       "featured": false,
       "stratum": "good",
       "label": "Challenge result",
-      "position": 9,
+      "position": 10,
       "recorded_at": "2026-10-15"
     },
     {
@@ -386,7 +407,7 @@
       "featured": false,
       "stratum": "skew-sds",
       "label": "Challenge result",
-      "position": 10,
+      "position": 11,
       "recorded_at": "2026-10-15"
     },
     {
@@ -407,7 +428,7 @@
       "featured": false,
       "stratum": "good",
       "label": "Independent reproduction",
-      "position": 11,
+      "position": 12,
       "recorded_at": "2026-10-15"
     },
     {
@@ -433,7 +454,7 @@
       "featured": false,
       "stratum": "best",
       "label": "Independent reproduction",
-      "position": 12,
+      "position": 13,
       "recorded_at": "2026-10-15"
     },
     {
@@ -532,7 +553,7 @@
       ],
       "featured": false,
       "label": "Published / catalogue import",
-      "position": 13,
+      "position": 14,
       "recorded_at": "2026-10-15"
     }
   ],
@@ -647,7 +668,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -781,7 +802,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -915,7 +936,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1049,7 +1070,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1183,7 +1204,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1339,7 +1360,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1506,7 +1527,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1642,7 +1663,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1705,7 +1726,7 @@
           "featured": false,
           "stratum": "best",
           "label": "Independent reproduction",
-          "position": 12,
+          "position": 13,
           "recorded_at": "2026-10-15"
         },
         {
@@ -1804,7 +1825,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1989,7 +2010,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -2174,7 +2195,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -2273,7 +2294,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -2481,7 +2502,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -2580,7 +2601,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -2748,7 +2769,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -2884,7 +2905,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -3092,7 +3113,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -3276,7 +3297,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -3375,7 +3396,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -3571,7 +3592,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -3670,7 +3691,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -3827,7 +3848,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -3965,7 +3986,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -4029,7 +4050,7 @@
           "featured": false,
           "stratum": "best",
           "label": "Independent reproduction",
-          "position": 12,
+          "position": 13,
           "recorded_at": "2026-10-15"
         },
         {
@@ -4128,7 +4149,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -4313,7 +4334,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -4501,7 +4522,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -4600,7 +4621,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -4811,7 +4832,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -4910,7 +4931,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -5078,7 +5099,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -5214,7 +5235,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -5423,7 +5444,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -5608,7 +5629,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -5707,7 +5728,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -5904,7 +5925,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -6003,7 +6024,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6160,7 +6181,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6298,7 +6319,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6490,7 +6511,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6627,7 +6648,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6772,7 +6793,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6913,7 +6934,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6977,7 +6998,7 @@
           "featured": false,
           "stratum": "best",
           "label": "Independent reproduction",
-          "position": 12,
+          "position": 13,
           "recorded_at": "2026-10-15"
         },
         {
@@ -7076,7 +7097,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -7266,7 +7287,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -7462,7 +7483,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -7561,7 +7582,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -7780,7 +7801,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -7879,7 +7900,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -8047,7 +8068,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -8193,7 +8214,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -8418,7 +8439,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -8629,7 +8650,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -8728,7 +8749,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -8951,7 +8972,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -9050,7 +9071,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -9207,7 +9228,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -9341,7 +9362,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -9531,7 +9552,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -9666,7 +9687,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -9811,7 +9832,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -9945,7 +9966,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -10157,7 +10178,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -10345,7 +10366,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -10444,7 +10465,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -10644,7 +10665,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -10743,7 +10764,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -10900,7 +10921,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -11035,7 +11056,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -11104,7 +11125,7 @@
           "featured": false,
           "stratum": "best",
           "label": "Independent reproduction",
-          "position": 12,
+          "position": 13,
           "recorded_at": "2026-10-15"
         },
         {
@@ -11203,7 +11224,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -11399,7 +11420,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -11602,7 +11623,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -11701,7 +11722,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -11927,7 +11948,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -12026,7 +12047,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -12194,7 +12215,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -12328,7 +12349,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -12543,7 +12564,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -12734,7 +12755,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -12833,7 +12854,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -13036,7 +13057,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -13135,7 +13156,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -13292,7 +13313,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -13426,7 +13447,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -13640,7 +13661,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -13830,7 +13851,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -13929,7 +13950,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -14131,7 +14152,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -14230,7 +14251,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -14387,7 +14408,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -14521,7 +14542,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -14738,7 +14759,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -14931,7 +14952,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -15030,7 +15051,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -15235,7 +15256,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -15334,7 +15355,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -15491,7 +15512,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -15625,7 +15646,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -15815,7 +15836,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -15950,7 +15971,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -16095,7 +16116,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -16229,7 +16250,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -16293,7 +16314,7 @@
           "featured": false,
           "stratum": "best",
           "label": "Independent reproduction",
-          "position": 12,
+          "position": 13,
           "recorded_at": "2026-10-15"
         },
         {
@@ -16392,7 +16413,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -16580,7 +16601,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -16769,7 +16790,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -16868,7 +16889,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -17080,7 +17101,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -17179,7 +17200,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -17347,7 +17368,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -17606,7 +17627,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -17808,7 +17829,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -18022,7 +18043,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -18121,7 +18142,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -18466,7 +18487,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -18712,7 +18733,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -18901,7 +18922,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -19102,7 +19123,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -19201,7 +19222,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -19358,7 +19379,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -19612,7 +19633,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -19757,7 +19778,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -19817,7 +19838,7 @@
           "featured": false,
           "stratum": "good",
           "label": "Independent reproduction",
-          "position": 11,
+          "position": 12,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -20028,7 +20049,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -20213,7 +20234,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -20399,7 +20420,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -20498,7 +20519,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -20644,7 +20665,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -20743,7 +20764,7 @@
           "featured": false,
           "stratum": "best",
           "label": "Independent reproduction",
-          "position": 12,
+          "position": 13,
           "recorded_at": "2026-10-15"
         },
         {
@@ -20842,7 +20863,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -21030,7 +21051,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -21221,7 +21242,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -21320,7 +21341,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -21534,7 +21555,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         },
         {
@@ -21633,7 +21654,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -21939,7 +21960,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -22122,7 +22143,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -22316,7 +22337,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 5,
+          "position": 6,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -22665,7 +22686,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -22994,7 +23015,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -23129,7 +23150,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -23503,7 +23524,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -23614,7 +23635,7 @@
           "featured": true,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 2,
+          "position": 3,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -23719,7 +23740,7 @@
           "featured": true,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 2,
+          "position": 3,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -23768,7 +23789,7 @@
           "featured": true,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 2,
+          "position": 3,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -23890,7 +23911,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -23953,7 +23974,7 @@
           "featured": true,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 2,
+          "position": 3,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -24133,7 +24154,7 @@
           "featured": true,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 2,
+          "position": 3,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -24231,7 +24252,7 @@
           "featured": true,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 2,
+          "position": 3,
           "recorded_at": "2026-10-15"
         },
         {
@@ -24330,7 +24351,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -24476,7 +24497,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -24646,7 +24667,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -24839,7 +24860,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -24987,7 +25008,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -25103,7 +25124,7 @@
           "featured": false,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 3,
+          "position": 4,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -25416,7 +25437,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -25479,7 +25500,7 @@
           "featured": true,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 2,
+          "position": 3,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -25519,15 +25540,41 @@
       "n": 61,
       "stratum": "kkss",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "vxvware-kkss-n61"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "kkss-61-existence",
+          "title": "G-matrices at n=61, first existence",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18. Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The census is still running, so the class count is not yet known; the rows verify exactly.",
+          "entry_ids": [
+            "vxvware-kkss-n61"
+          ],
+          "featured": true,
+          "stratum": "kkss",
+          "label": "Challenge result",
+          "position": 2,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -25542,11 +25589,33 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n61-f0b6a2c1d7000cc60cfd"
+        "n61-f0b6a2c1d7000cc60cfd",
+        "vxvware-kkss-n61"
       ],
       "evidence": [],
       "censuses": [],
       "contributions": [
+        {
+          "id": "kkss-61-existence",
+          "title": "G-matrices at n=61, first existence",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18. Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The census is still running, so the class count is not yet known; the rows verify exactly.",
+          "entry_ids": [
+            "vxvware-kkss-n61"
+          ],
+          "featured": true,
+          "stratum": "kkss",
+          "label": "Challenge result",
+          "position": 2,
+          "recorded_at": "2026-10-15"
+        },
         {
           "id": "good-53-55-61",
           "title": "Good matrices at n=53, 55, and 61",
@@ -25570,7 +25639,7 @@
           "featured": true,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 2,
+          "position": 3,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -25605,11 +25674,33 @@
       "empty_basis": [],
       "quadruples": [
         "n61-0732fca9a2b40fa15e62",
-        "n61-f0b6a2c1d7000cc60cfd"
+        "n61-f0b6a2c1d7000cc60cfd",
+        "vxvware-kkss-n61"
       ],
       "evidence": [],
       "censuses": [],
       "contributions": [
+        {
+          "id": "kkss-61-existence",
+          "title": "G-matrices at n=61, first existence",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18. Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The census is still running, so the class count is not yet known; the rows verify exactly.",
+          "entry_ids": [
+            "vxvware-kkss-n61"
+          ],
+          "featured": true,
+          "stratum": "kkss",
+          "label": "Challenge result",
+          "position": 2,
+          "recorded_at": "2026-10-15"
+        },
         {
           "id": "good-53-55-61",
           "title": "Good matrices at n=53, 55, and 61",
@@ -25633,7 +25724,7 @@
           "featured": true,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 2,
+          "position": 3,
           "recorded_at": "2026-10-15"
         },
         {
@@ -25732,7 +25823,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -25878,7 +25969,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -25997,7 +26088,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 4,
+          "position": 5,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -26055,7 +26146,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 4,
+          "position": 5,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -26114,7 +26205,7 @@
           "featured": false,
           "stratum": "kkss",
           "label": "Independent reproduction",
-          "position": 4,
+          "position": 5,
           "recorded_at": "2026-10-15"
         },
         {
@@ -26213,7 +26304,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -26299,7 +26390,7 @@
           "featured": false,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 8,
+          "position": 9,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -26453,7 +26544,7 @@
           "featured": false,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 9,
+          "position": 10,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -26913,7 +27004,7 @@
           "featured": false,
           "stratum": "best",
           "label": "Challenge result",
-          "position": 6,
+          "position": 7,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -26990,7 +27081,7 @@
           "featured": false,
           "stratum": "skew-sds",
           "label": "Challenge result",
-          "position": 7,
+          "position": 8,
           "recorded_at": "2026-10-15"
         },
         {
@@ -27089,7 +27180,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -27161,7 +27252,7 @@
           "featured": false,
           "stratum": "skew-sds",
           "label": "Challenge result",
-          "position": 7,
+          "position": 8,
           "recorded_at": "2026-10-15"
         },
         {
@@ -27260,7 +27351,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 13,
+          "position": 14,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -28469,7 +28560,7 @@
           "featured": false,
           "stratum": "skew-sds",
           "label": "Challenge result",
-          "position": 10,
+          "position": 11,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -31351,24 +31442,6 @@
   ],
   "research_targets": [
     {
-      "n": 61,
-      "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 65,
       "stratum": "williamson",
       "group": "cyclic",
@@ -31418,7 +31491,7 @@
           "featured": false,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 8,
+          "position": 9,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -31516,7 +31589,7 @@
           "featured": false,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 9,
+          "position": 10,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -31740,7 +31813,7 @@
           "featured": false,
           "stratum": "best",
           "label": "Challenge result",
-          "position": 6,
+          "position": 7,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -32182,7 +32255,7 @@
           "featured": false,
           "stratum": "skew-sds",
           "label": "Challenge result",
-          "position": 10,
+          "position": 11,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -35323,7 +35396,7 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 229,
+    "reproduced": 230,
     "spot-checked": 0,
     "receipt-backed": 2
   },
