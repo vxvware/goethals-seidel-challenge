@@ -11,7 +11,6 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from verify.common import ROOT, TRACKS, write_json
 from verify.board import load, summary
-from verify.seed_inventory import inventory
 
 
 ORIGIN_LABELS = {
@@ -32,6 +31,24 @@ TRACK_LABELS = {
 
 
 PRIMARY = ("williamson", "good", "best", "kkss")
+
+KATEX = "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/"
+MATH_HEAD = (
+    f'<link rel="stylesheet" href="{KATEX}katex.min.css">'
+    f'<script defer src="{KATEX}katex.min.js"></script>'
+    f'<script defer src="{KATEX}contrib/auto-render.min.js" '
+    "onload=\"renderMathInElement(document.body,{delimiters:[{left:'\\\\[',right:'\\\\]',display:true},"
+    "{left:'\\\\(',right:'\\\\)',display:false}]})\"></script>"
+)
+# The array below is the one picture.js draws. It differs from the usual
+# textbook layout only in the sign convention of the transposed blocks; both
+# satisfy H H^T = 4n I, and both are verified numerically in the tests.
+DEFINITION = r"""<aside class="definition"><div class="eyebrow">Definition</div>
+<p>Let \(A, B, C, D\) be circulant \(n \times n\) matrices with entries in \(\{1, -1\}\). Write \(X^{\mathsf T}\) for the transpose of \(X\) and \(I_n\) for the \(n \times n\) identity matrix. The four form a Goethals–Seidel quadruple when</p>
+\[AA^{\mathsf T} + BB^{\mathsf T} + CC^{\mathsf T} + DD^{\mathsf T} = 4nI_n.\]
+<p>A block \(X\) is symmetric when \(X^{\mathsf T} = X\) and skew when \(X^{\mathsf T} = 2I_n - X\). With \(R\) the \(n \times n\) back-diagonal permutation matrix, the Goethals–Seidel array</p>
+\[H = \begin{pmatrix} A & BR & CR & DR \\ -BR & A & -D^{\mathsf T}R & C^{\mathsf T}R \\ -CR & D^{\mathsf T}R & A & -B^{\mathsf T}R \\ -DR & -C^{\mathsf T}R & B^{\mathsf T}R & A \end{pmatrix}\]
+<p>satisfies \(HH^{\mathsf T} = 4nI_{4n}\), so it is a Hadamard matrix of order \(4n\), and a skew-Hadamard matrix whenever \(A\) is skew.</p></aside>"""
 
 
 def esc(value):
@@ -67,11 +84,11 @@ def credit_block(group):
     )
 
 
-def shell(title, body, prefix=""):
+def shell(title, body, prefix="", head=""):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalogue of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
-<link rel="icon" href="{prefix}favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}style.css"></head><body>
+<link rel="icon" href="{prefix}favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
 <header><a class="brand" href="{prefix}index.html">GS / CHALLENGE</a><nav><a href="{prefix}index.html#findings">Findings</a><a href="{prefix}index.html#board">The board</a><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
 <main>{body}</main><footer><span>Goethals–Seidel Challenge · vxvware</span><span>Cyclic groups · equiv-v1 · <a href="{prefix}stats.json">Open data</a></span></footer></body></html>'''
 
@@ -181,7 +198,14 @@ def findings(cells, results):
             f"<p>{len(imported_quads)} inequivalent quadruples imported from papers and catalogues, "
             f"each rechecked with exact integers, across {len(imported)} cells of the four types.</p></div>"
         )
-    return "".join(items)
+    counts = {
+        "new": len(new),
+        "corrected": len(corrected),
+        "classified": len(classified),
+        "reproduced": len(reproduced),
+        "imported_quads": len(imported_quads),
+    }
+    return "".join(items), counts
 
 
 def quad_figure(doc, result, caption):
@@ -305,7 +329,6 @@ def build(quick=False):
 <g fill="white" font-family="Verdana,sans-serif" font-size="11" text-anchor="middle">
 <text x="78" y="16">{label}</text><text x="178" y="16">{value}</text></g></svg>'''
         (out / f"badges/{key}.svg").write_text(badge)
-    manifest = inventory()
     by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
     rows = []
     for n in range(1, 132, 2):
@@ -355,9 +378,16 @@ def build(quick=False):
         census_rows.append(
             f'<tr><td><a href="entries/{c["id"]}.html">{esc(c["stratum"])} / {c["n"]}</a></td><td>{count}</td><td>{esc(c["tier"] or "verified representatives")}</td><td>{credits}</td></tr>'
         )
-    body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>The Goethals–Seidel Challenge</h1><p>A verified catalogue of circulant Goethals–Seidel quadruples. Every submitted matrix is checked with exact integers, and every computational claim carries its scope and evidence.</p><p><code>AAᵀ + BBᵀ + CCᵀ + DDᵀ = 4nI</code></p></div><aside class="challenge"><div class="eyebrow">Flagship baseline gap</div><strong>356</strong><p>Skew-Hadamard order<br>Quadruple order n = 89</p><small>Cati–Pasechnik baseline · 30 Aug 2025.<br>A verified skew construction fills this historical gap. Present-day novelty requires review.</small></aside></section>
-<div class="metrics"><div class="metric"><strong>{stats["quadruples"]}</strong><span>inequivalent verified quadruples</span></div><div class="metric"><strong>{manifest["raw_rows"]:,}</strong><span>raw imported rows checked</span></div><div class="metric"><strong>{stats["certificates"]}</strong><span>proofs & computational records</span></div><div class="metric"><strong>{stats["censuses"]}</strong><span>census records with explicit bounds</span></div></div>
-<section id="findings"><h2>What the board has established</h2><div class="findings">{findings(stats["cells"], r)}</div><p class="muted">Computed from the cells below. Existence claims rest on exactly rechecked rows; counts and nonexistence rest on the evidence each cell cites.</p></section>
+    established, counts = findings(stats["cells"], r)
+    metrics = (
+        (counts["new"], "orders where existence is first shown here"),
+        (counts["corrected"], "published nonexistence corrected"),
+        (counts["classified"], "orders with their first class counts"),
+        (counts["reproduced"], "published results reproduced independently"),
+    )
+    body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>The Goethals–Seidel Challenge</h1><p>Four circulant ±1 matrices of order n whose Gram matrices sum to 4nI give, through the Goethals–Seidel array, a Hadamard matrix of order 4n. Such quadruples are one of the main routes to the Hadamard conjecture, and when a block is skew they give skew-Hadamard matrices, whose smallest open order in the 2025 Cati–Pasechnik census is 356 = 4 · 89.</p><p>This board catalogues the quadruples of odd order n ≤ 131 by symmetry type. Every submitted matrix is checked with exact integers, and every computational claim carries its scope and evidence.</p></div>{DEFINITION}</section>
+<div class="metrics">{"".join(f'<div class="metric"><strong>{value}</strong><span>{label}</span></div>' for value, label in metrics)}</div>
+<section id="findings"><h2>What the board has established</h2><div class="findings">{established}</div><p class="muted">Computed from the cells below. Existence claims rest on exactly rechecked rows; counts and nonexistence rest on the evidence each cell cites.</p></section>
 <section id="board"><div class="grid-title"><h2>The completeness map</h2><p>Odd orders through 131 · open a cell for its tier, sources, and matrices</p></div><p class="key">Each column is a symmetry type of the four circulant blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew, in any order. Skew means at least one skew block, so it contains the good, best, and G-matrix columns; general is any verified quadruple. Skew types give skew-Hadamard matrices of order 4n.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalogue</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
 <div class="legend"><span class="known">Verified on board</span><span class="published">Published, awaiting import</span><span class="empty">Empty, with stated evidence</span><span class="unresolved">Unresolved in baseline</span><span class="contradicted">Verified rows contradict a published nonexistence</span><span class="participant">Purple diamond: new result</span></div>
 <div class="scroll"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div><p class="muted">An unfilled artifact is not automatically an open problem. Scoped nulls and partial searches do not close a whole cell. “kkss” is the G-matrix stratum.</p></section>
@@ -365,7 +395,7 @@ def build(quick=False):
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Submit four defining rows or negative-index sets. The verifier derives the family, checks the PAF identity, and detects equivalent entries.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p></article><article class="card"><h3>Keep the attribution</h3><p>Original discoverers and submission authors are recorded separately. Importing a published matrix earns importer credit. Baseline gaps never grant discovery credit automatically.</p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
 <noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
 <script src="app.js" defer></script>"""
-    (out / "index.html").write_text(shell("The board", body))
+    (out / "index.html").write_text(shell("The board", body, head=MATH_HEAD))
     for ident, doc in d.items():
         result = r[ident]
         sources = "".join(
