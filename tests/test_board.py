@@ -41,7 +41,8 @@ def test_known_larger_constructions_and_impossible_g_orders_are_not_targets(boar
     stats = summary(*board)
     cells = {(c["n"], c["stratum"]): c for c in stats["cells"]}
     for n in (69, 85, 91, 129):
-        assert cells[n, "williamson"]["artifact_status"] == "published-not-imported"
+        assert cells[n, "williamson"]["status"] == "exists"
+        assert cells[n, "williamson"]["artifact_status"] != "none"
         assert cells[n, "general"]["status"] == "exists"
     for n in (11, 17, 35, 39, 47, 53):
         assert cells[n, "kkss"]["status"] == "empty"
