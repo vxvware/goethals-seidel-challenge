@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "n": 61,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      61
+    ]
+  },
+  "submitted_by": "vxvware",
+  "submitted_at": "2026-10-26",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=61",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/a886481c349391608e258d76e28b6e5dd65bccf7/data/gmat/gmat-61.txt",
+      "commit": "a886481c349391608e258d76e28b6e5dd65bccf7",
+      "source_path": "data/gmat/gmat-61.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-61.txt",
+        "sha256": "b21718787b4f7a161047f59417c0f8609dfc7454c8d04aa3fd0771631528b69e"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "vxvware-kkss-n61",
+  "type": "census",
+  "stratum": "kkss",
+  "representatives": [
+    "n61-3d9cf65aadb08ee971c8",
+    "n61-c46dadc965084b5d9e77"
+  ],
+  "claimed_count": 2,
+  "claim_kind": "lower-bound",
+  "secondary": {
+    "stored_rows": 12
+  },
+  "notes": "The source reports a full census with 3 classes under its own equivalence convention and stores 12 quadruples. This board verifies the 2 equiv-v1 representatives and records a lower bound; the search has not been replayed here. A single run of 811 cpu-hours in 32 resumable pieces, 2026-10-17 to 2026-10-22, calibrated beforehand on the stored v=45 and v=49 censuses. The source counts three classes under its own convention; under equiv-v1, which also transposes blocks, the twelve rows fall into two classes. The first class was entered on the board by hand as vxvware-kkss-n61 when it was found on 2026-10-18; this import replaces that entry with the canonical representative."
+}

@@ -34,7 +34,7 @@ The supplemental import reads the good-matrix and G-matrix sign-row files from
 commit that last changed it and to its SHA-256. Their original bytes are
 bundled under `evidence/participants/saw-best-matrix/`; access to the source
 repository is not needed to repeat the import. The importer checks the pinned
-hashes, exactly verifies all 1,216 quadruples, writes empty census files as
+hashes, exactly verifies all 1,228 quadruples, writes empty census files as
 unreplayed-census certificates, and refuses to replace different records.
 
 ```sh

@@ -604,6 +604,28 @@
       }
     },
     {
+      "id": "vxvware-kkss-n61",
+      "source": {
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=61",
+        "url": "https://github.com/vxvware/saw-best-matrix/blob/a886481c349391608e258d76e28b6e5dd65bccf7/data/gmat/gmat-61.txt",
+        "commit": "a886481c349391608e258d76e28b6e5dd65bccf7",
+        "source_path": "data/gmat/gmat-61.txt",
+        "artifact": {
+          "path": "evidence/participants/saw-best-matrix/gmat/gmat-61.txt",
+          "sha256": "b21718787b4f7a161047f59417c0f8609dfc7454c8d04aa3fd0771631528b69e"
+        }
+      },
+      "rows": 12,
+      "representatives": [
+        "n61-3d9cf65aadb08ee971c8",
+        "n61-c46dadc965084b5d9e77"
+      ],
+      "archive": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-61.jsonl.gz",
+        "sha256": "21af88f209db63c58eb3a5f6e29801b58393e8c6013a62e7f02c34a2d10a673a"
+      }
+    },
+    {
       "id": "vxvware-kkss-n63",
       "source": {
         "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=63",
@@ -625,6 +647,6 @@
       }
     }
   ],
-  "raw_rows": 1216,
-  "representative_count": 123
+  "raw_rows": 1228,
+  "representative_count": 125
 }

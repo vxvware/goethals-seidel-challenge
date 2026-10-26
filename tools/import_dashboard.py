@@ -25,6 +25,8 @@ from verify.model import validate
 REPO = "https://github.com/vxvware/saw-best-matrix"
 SUBMITTER = "vxvware"
 SUBMITTED_AT = "2026-10-15"
+# Orders imported after the initial import carry their own import date.
+SUBMITTED_LATER = {("kkss", 61): "2026-10-26"}
 DISCOVERED_BY = ["vxvware"]
 EVIDENCE = "evidence/participants/saw-best-matrix"
 DK2018 = "https://arxiv.org/abs/1802.00556"
@@ -193,6 +195,17 @@ SOURCES = {
         "source counts two classes under its own convention; under equiv-v1 the eight "
         "rows fall into one class.",
     ),
+    ("kkss", 61): (
+        "a886481c349391608e258d76e28b6e5dd65bccf7",
+        "b21718787b4f7a161047f59417c0f8609dfc7454c8d04aa3fd0771631528b69e",
+        3,
+        "A single run of 811 cpu-hours in 32 resumable pieces, 2026-10-17 to 2026-10-22, "
+        "calibrated beforehand on the stored v=45 and v=49 censuses. The source counts "
+        "three classes under its own convention; under equiv-v1, which also transposes "
+        "blocks, the twelve rows fall into two classes. The first class was entered on "
+        "the board by hand as vxvware-kkss-n61 when it was found on 2026-10-18; this "
+        "import replaces that entry with the canonical representative.",
+    ),
     ("kkss", 63): (
         "a6cef295734124cbb8ed07fb935209a8ecb51a2f",
         "c50fed164652e958de9b1874792dd382c47a7034e42176fb76c37bcae4d7b111",
@@ -271,7 +284,7 @@ def import_order(family, n, source_dir, folder):
         "n": n,
         "group": {"kind": "cyclic", "invariant_factors": [n]},
         "submitted_by": SUBMITTER,
-        "submitted_at": SUBMITTED_AT,
+        "submitted_at": SUBMITTED_LATER.get((family, n), SUBMITTED_AT),
         "discovered_by": DISCOVERED_BY,
         "sources": [source],
     }

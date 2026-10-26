@@ -72,10 +72,10 @@ All 36,655 raw imported quadruples remain in compact archives under `evidence/`,
 source commits, hashes, counts, and representative mappings. The explicit plan
 inventory is imported, including best/good catalogues, the campaign's n=15 and
 n=21 examples, the n=13 CPU/GPU fixtures, 15,360 p=73 families, and published
-Williamson and good rows. The 1,216 rows imported from
+Williamson and good rows. The 1,228 rows imported from
 [vxvware/saw-best-matrix](https://github.com/vxvware/saw-best-matrix) supply
 one verified good-matrix class at each of n=53, 55, and 61 and the G-matrix
-(kkss) classes at every admissible odd order through 59, plus an
+(kkss) classes at every admissible odd order through 61, plus an
 orbit-restricted family at 63. The source reports complete censuses; the board
 records lower bounds because those searches have not been replayed here. The
 empty censuses at good n=59 and kkss n=57 are attributed claims without a tier.
