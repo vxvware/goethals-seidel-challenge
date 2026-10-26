@@ -25,6 +25,9 @@ from verify.model import validate
 REPO = "https://github.com/vxvware/saw-best-matrix"
 SUBMITTER = "vxvware"
 SUBMITTED_AT = "2026-10-15"
+# Orders imported after the initial import carry their own import date and the
+# login of the maintainer whose PR adds them, which the entry gate requires.
+LATER = {("kkss", 61): ("vprusso", "2026-10-26")}
 DISCOVERED_BY = ["vxvware"]
 EVIDENCE = "evidence/participants/saw-best-matrix"
 DK2018 = "https://arxiv.org/abs/1802.00556"
@@ -193,6 +196,16 @@ SOURCES = {
         "source counts two classes under its own convention; under equiv-v1 the eight "
         "rows fall into one class.",
     ),
+    ("kkss", 61): (
+        "a886481c349391608e258d76e28b6e5dd65bccf7",
+        "b21718787b4f7a161047f59417c0f8609dfc7454c8d04aa3fd0771631528b69e",
+        3,
+        "A single run of 811 cpu-hours in 32 resumable pieces, 2026-10-17 to 2026-10-22, "
+        "calibrated beforehand on the stored v=45 and v=49 censuses. The source counts "
+        "three classes under its own convention; under equiv-v1, which also transposes "
+        "blocks, the twelve rows fall into two classes. The first class was entered on "
+        "the board as vxvware-kkss-n61 when it was found on 2026-10-18 and keeps that id.",
+    ),
     ("kkss", 63): (
         "a6cef295734124cbb8ed07fb935209a8ecb51a2f",
         "c50fed164652e958de9b1874792dd382c47a7034e42176fb76c37bcae4d7b111",
@@ -256,6 +269,23 @@ def census_notes(family, n, rows, ids):
     return f"{text} {note}".strip()
 
 
+def existing_representatives(n):
+    """Canonical rows of the hand-submitted quadruple entries already on the board at n.
+
+    An entry submitted before its census finished keeps its id and submission
+    date; the census maps rows of its class onto it instead of writing an
+    equivalent duplicate, which the board rejects.
+    """
+    found = {}
+    for path in sorted((ROOT / "quadruples").glob("*.json")):
+        if path.stem.startswith(f"n{n}-"):
+            continue
+        doc = json.loads(path.read_text())
+        if doc.get("type") == "quadruple" and doc.get("n") == n:
+            found[canonical([tuple(r) for r in doc["rows"]])] = doc["id"]
+    return found
+
+
 def import_order(family, n, source_dir, folder):
     original = source_dir / FILES[family] / f"{FILES[family]}-{n:02d}.txt"
     if digest(original) != SOURCES[family, n][1]:
@@ -270,8 +300,8 @@ def import_order(family, n, source_dir, folder):
         "schema_version": 1,
         "n": n,
         "group": {"kind": "cyclic", "invariant_factors": [n]},
-        "submitted_by": SUBMITTER,
-        "submitted_at": SUBMITTED_AT,
+        "submitted_by": LATER.get((family, n), (SUBMITTER, SUBMITTED_AT))[0],
+        "submitted_at": LATER.get((family, n), (SUBMITTER, SUBMITTED_AT))[1],
         "discovered_by": DISCOVERED_BY,
         "sources": [source],
     }
@@ -302,8 +332,13 @@ def import_order(family, n, source_dir, folder):
         return None
     mappings = []
     ids = set()
+    existing = existing_representatives(n)
     for q in rows:
         rep = canonical(q)
+        if rep in existing:
+            ids.add(existing[rep])
+            mappings.append({"n": n, "rows": q, "representative": existing[rep]})
+            continue
         quad_id = f"n{n}-{fingerprint(rep)[3:23]}"
         doc = validate(
             {

@@ -27,7 +27,7 @@
     "tools/gs": "f7168d7ccc75931a8e65f2fd33e3f09490e1629b07052c5acbc484a2050df46d",
     "uv.lock": "f7240b2fffd2e706f1b0fe54a064b52771ceb71e3a98e9abb7bf0a1ee77aee5b",
     "verify/__init__.py": "26274b5be9ce8e8a069376874127c3b4a7436f7bafb41351f2398ce36f39980f",
-    "verify/audit_seeds.py": "62df67a48f75582ff18076f1f6ba79950d96837a5caa52de019788f7b8a32351",
+    "verify/audit_seeds.py": "cb135c38132c892b255b2c36f75febba32c5053d259961b9500130160613cb9e",
     "verify/board.py": "d1c73358c1c1c898cd096ae8eff46a07a491c21ee18fc31ecf02db8497b5f789",
     "verify/census_engine.py": "9a445ba8305fabb007d9fced371e4ef1254665633bb8d2227f1096f554933c5a",
     "verify/check_authorship.py": "006e4f9e7bad02d57854383f1edfabf5ea1a59155609784cbc4cb222287d3eaf",

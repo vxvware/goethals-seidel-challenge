@@ -4,6 +4,7 @@
 import gzip
 import json
 from pathlib import Path
+import re
 import sys
 
 if __package__ in (None, ""):
@@ -29,14 +30,14 @@ def audit(root=ROOT):
                     raise ValueError("seed row exceeds limit")
                 row = json.loads(line)
                 q = validate_rows(row["rows"], row["n"])
-                expected = f"n{row['n']}-{fingerprint(q)[3:23]}"
-                if row["representative"] != expected:
-                    raise ValueError("bad seed equivalence mapping")
-                doc = read_json(root / f"quadruples/{expected}.json")
-                if fingerprint(doc["rows"]) != fingerprint(q):
+                representative = row["representative"]
+                if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", representative):
+                    raise ValueError("bad seed representative id")
+                doc = read_json(root / f"quadruples/{representative}.json")
+                if doc["n"] != row["n"] or fingerprint(doc["rows"]) != fingerprint(q):
                     raise ValueError("representative does not match raw row")
                 count += 1
-                ids.add(expected)
+                ids.add(representative)
         if count != record["rows"] or sorted(ids) != record["representatives"]:
             raise ValueError("seed manifest count/membership mismatch")
         total += count
