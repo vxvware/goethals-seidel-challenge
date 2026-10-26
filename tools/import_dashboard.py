@@ -307,6 +307,9 @@ def import_order(family, n, source_dir, folder):
     }
     rows = read_rows(original, family, n)
     ident = f"vxvware-{family}-n{n}"
+    if (ROOT / f"quadruples/{ident}.json").exists():
+        # the hand-submitted first quadruple already holds this id
+        ident = f"{ident}-census"
     if not rows:
         if (family, n) not in FULL_CENSUS or SOURCES[family, n][2] != 0:
             raise ValueError(f"empty source without an empty census claim: {original.name}")
