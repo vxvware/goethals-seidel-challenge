@@ -52,7 +52,7 @@
     },
     {
       "id": "kkss-61-existence",
-      "title": "G-matrices at n=61, first existence",
+      "title": "G-matrices at n=61, first existence and two classes",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
@@ -61,11 +61,14 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18. Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The census is still running, so the class count is not yet known; the rows verify exactly.",
+      "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18 and finished all 32 pieces on 2026-10-22 after 811 cpu-hours: twelve quadruples, two equiv-v1 classes (three under the source's own convention, which does not transpose blocks). Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The rows verify exactly; the board records a lower bound of two because the single run has not been replayed. The first quadruple keeps its hand-entered id and the census maps its class onto it.",
       "entry_ids": [
+        "n61-c46dadc965084b5d9e77",
         "vxvware-kkss-n61"
       ],
-      "seed_artifacts": [],
+      "seed_artifacts": [
+        "vxvware-kkss-n61-census"
+      ],
       "featured": true,
       "stratum": "kkss"
     },
