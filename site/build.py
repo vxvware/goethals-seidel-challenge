@@ -88,32 +88,9 @@ def shell(title, body, prefix="", head=""):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
-<link rel="icon" href="{prefix}favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
+<link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
 <header><a class="brand" href="{prefix}index.html">GS / CHALLENGE</a><nav><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
 <main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a></footer></body></html>'''
-
-
-def metrics(cells, results):
-    """Counts for the strip under the hero, computed from the cells of the four types."""
-    primary = [c for c in cells if c["stratum"] in PRIMARY]
-
-    def relations(c):
-        """Where the cell's verified quadruples came from, by contribution relation."""
-        return {g["relation"] for q in c["quadruples"] for g in results[q]["contributions"]}
-
-    def ours(c):
-        return (
-            c["status"] == "exists"
-            and not c["contradicted"]
-            and relations(c) == {"participant-result"}
-        )
-
-    return {
-        "new": sum(ours(c) and not c["sources"] for c in primary),
-        "corrected": sum(bool(c["contradicted"]) for c in primary),
-        "classified": sum(ours(c) and bool(c["sources"]) for c in primary),
-        "reproduced": sum("independent-reproduction" in c["origins"] for c in primary),
-    }
 
 
 def quad_figure(doc, result, caption):
@@ -240,7 +217,7 @@ def build(quick=False):
     out.mkdir(exist_ok=True)
     (out / "entries").mkdir(exist_ok=True)
     (out / "cells").mkdir(exist_ok=True)
-    for name in ("style.css", "app.js", "picture.js", "favicon.svg", "vxvware-logo.png"):
+    for name in ("style.css", "app.js", "picture.js", "favicon.png", "vxvware-logo.png"):
         shutil.copyfile(ROOT / "site" / name, out / name)
     (out / ".nojekyll").touch()
     write_json(out / "stats.json", stats)
@@ -290,24 +267,20 @@ def build(quick=False):
             count = census_count(c, r)
             if count:
                 accessible += f"; {count}"
-                count = f"<small>{esc(count)}</small>"
+            text = (
+                count.replace(" classes", "").replace(" class", "")
+                if count
+                else {"Published": "pub", "Empty": "–", "Unresolved": "?"}.get(label, "✓")
+            )
             cells.append(
-                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(c["origins"]))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}"><span>{label}{count}</span>{marker}</a></td>'
+                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(c["origins"]))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}">{esc(text)}{marker}</a></td>'
             )
         rows.append(f'<tr data-n="{n}"><td>{n}</td>' + "".join(cells) + "</tr>")
-    counts = metrics(stats["cells"], r)
-    strip = (
-        (counts["new"], "orders where existence is first shown here"),
-        (counts["corrected"], "published nonexistence corrected"),
-        (counts["classified"], "orders with their first class counts"),
-        (counts["reproduced"], "published results reproduced independently"),
-    )
     body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>The Goethals–Seidel Challenge</h1><p>Four circulant ±1 matrices of order n whose Gram matrices sum to 4nI give, through the Goethals–Seidel array, a Hadamard matrix of order 4n.</p><p>This board lists the known quadruples of odd order n ≤ 131 by symmetry type. Each entry is rechecked in exact arithmetic, and each search is recorded with what it covered.</p></div>{DEFINITION}</section>
-<div class="metrics">{"".join(f'<div class="metric"><strong>{value}</strong><span>{label}</span></div>' for value, label in strip)}</div>
-<section id="board"><div class="grid-title"><h2>The completeness map</h2><p>Odd orders through 131 · open a cell for its tier, sources, and matrices</p></div><p class="key">Columns are the symmetry types of the blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew. Skew needs one skew block, so it contains the good, best and G-matrix columns; general is any quadruple. Class counts treat reversals as equivalent.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
-<div class="legend"><span class="known">Verified on board</span><span class="published">Published, awaiting import</span><span class="empty">Empty, with stated evidence</span><span class="unresolved">Unresolved in baseline</span><span class="contradicted">Verified rows contradict a published nonexistence</span><span class="participant">Purple diamond: new result</span></div>
+<section id="board"><h2>Status by order and type</h2><p class="key">Columns are the symmetry types of the blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew. Skew needs one skew block, so it contains the good, best and G-matrix columns; general is any quadruple. Class counts treat reversals as equivalent.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
+<div class="legend"><span class="known">Verified; a number is the class count</span><span class="published">Published, not imported</span><span class="empty">Empty</span><span class="unresolved">Unresolved</span><span class="contradicted">Contradicts a published result</span><span class="participant">New result</span></div>
 <div class="grid-wrap"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div></section>
-<section class="columns"><article class="card"><h3>Bring a construction</h3><p>Submit four defining rows or negative-index sets. The verifier derives the family, checks the PAF identity, and detects equivalent entries.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p></article><article class="card"><h3>Keep the attribution</h3><p>Original discoverers and submission authors are recorded separately. Importing a published matrix earns importer credit. Baseline gaps never grant discovery credit automatically.</p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
+<section class="columns"><article class="card"><h3>Bring a construction</h3><p>Submit four defining rows or negative-index sets. The verifier derives the family, checks the PAF identity, and detects equivalent entries.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
 <noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
 <script src="app.js" defer></script>"""
     (out / "index.html").write_text(shell("The board", body, head=MATH_HEAD))
