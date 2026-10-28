@@ -89,25 +89,13 @@ def shell(title, body, prefix="", head=""):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalogue of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
 <link rel="icon" href="{prefix}favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
-<header><a class="brand" href="{prefix}index.html">GS / CHALLENGE</a><nav><a href="{prefix}index.html#findings">Findings</a><a href="{prefix}index.html#board">The board</a><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
+<header><a class="brand" href="{prefix}index.html">GS / CHALLENGE</a><nav><a href="{prefix}index.html#board">The board</a><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
 <main>{body}</main><footer><span>Goethals–Seidel Challenge · vxvware</span><span>Cyclic groups · equiv-v1 · <a href="{prefix}stats.json">Open data</a></span></footer></body></html>'''
 
 
-def cell_list(cells):
-    """Links to cell pages, grouped by track: Good 53, 55 · G-matrices 51."""
-    groups = []
-    for track in PRIMARY:
-        orders = sorted(c["n"] for c in cells if c["stratum"] == track)
-        if orders:
-            links = ", ".join(f'<a href="cells/n{n}-{track}.html">{n}</a>' for n in orders)
-            groups.append(f"{esc(TRACK_LABELS[track].split(' (')[0])} {links}")
-    return " · ".join(groups)
-
-
-def findings(cells, results):
-    """What the board has established, computed from the cells of the four types."""
+def metrics(cells, results):
+    """Counts for the strip under the hero, computed from the cells of the four types."""
     primary = [c for c in cells if c["stratum"] in PRIMARY]
-    corrected = [c for c in primary if c["contradicted"]]
 
     def relations(c):
         """Where the cell's verified quadruples came from, by contribution relation."""
@@ -120,92 +108,12 @@ def findings(cells, results):
             and relations(c) == {"participant-result"}
         )
 
-    new = [c for c in primary if ours(c) and not c["sources"]]
-    classified = [c for c in primary if ours(c) and c["sources"]]
-    reported_empty = [c for c in primary if c["empty_basis"] == ["unreplayed-census"]]
-    reproduced = [c for c in primary if "independent-reproduction" in c["origins"]]
-    imported = [c for c in primary if "published-import" in relations(c)]
-    imported_quads = {
-        q
-        for c in imported
-        for q in c["quadruples"]
-        if any(g["relation"] == "published-import" for g in results[q]["contributions"])
+    return {
+        "new": sum(ours(c) and not c["sources"] for c in primary),
+        "corrected": sum(bool(c["contradicted"]) for c in primary),
+        "classified": sum(ours(c) and bool(c["sources"]) for c in primary),
+        "reproduced": sum("independent-reproduction" in c["origins"] for c in primary),
     }
-    items = []
-    for c in corrected:
-        claim = c["contradicted"][0]["source"]
-        count = len(c["quadruples"])
-        items.append(
-            f'<div class="finding"><strong>A published nonexistence corrected</strong>'
-            f'<p><a href="cells/n{c["n"]}-{c["stratum"]}.html">{esc(TRACK_LABELS[c["stratum"]])} at n = {c["n"]}</a>: '
-            f'<a href="{esc(claim["url"])}" rel="noopener">{esc(claim["title"])}</a> reports none; '
-            f"the board holds {count} exactly verified {'class' if count == 1 else 'classes'}.</p></div>"
-        )
-    if new:
-        items.append(
-            f'<div class="finding"><strong>Existence at orders with no published result</strong>'
-            f"<p>{len(new)} cells with exactly verified rows where the sourced baseline records no "
-            f"published construction: {cell_list(new)}.</p></div>"
-        )
-    if classified:
-        items.append(
-            f'<div class="finding"><strong>Class counts at orders where existence was known</strong>'
-            f"<p>Complete censuses at orders a published construction already covers, giving the first "
-            f"class counts rather than first existence: {cell_list(classified)}.</p></div>"
-        )
-    if reported_empty:
-        items.append(
-            f'<div class="finding"><strong>Nonexistence reported, not yet replayed</strong>'
-            f"<p>Complete censuses run for the challenge found nothing at {cell_list(reported_empty)}. "
-            f"They stay attributed claims until the board replays them.</p></div>"
-        )
-    if reproduced:
-        items.append(
-            f'<div class="finding"><strong>Published results reproduced by an independent program</strong>'
-            f"<p>{len(reproduced)} cells recomputed with the challenge code and found to agree with the "
-            f"published tables: {cell_list(reproduced)}.</p></div>"
-        )
-    campaigns = sorted(
-        (
-            x
-            for x in results.values()
-            if x["type"] == "certificate"
-            and x.get("provenance") != "unreplayed-census"
-            and any(g["relation"] != "published-import" for g in x["contributions"])
-        ),
-        key=lambda x: (x["stratum"], x["n"]),
-    )
-    if campaigns:
-        parts = []
-        for x in campaigns:
-            limits = [x.get("tier") or "archived claim"]
-            if x["claim"] == "partial":
-                limits.append("partial coverage")
-            if x["scope"]["kind"] != "full":
-                limits.append("one subgroup family only")
-            parts.append(
-                f'<a href="entries/{esc(x["id"])}.html">{esc(TRACK_LABELS[x["stratum"]].split(" (")[0])} {x["n"]}</a> '
-                f"({esc(', '.join(limits))})"
-            )
-        items.append(
-            f'<div class="finding"><strong>Search campaigns with stated limits</strong>'
-            f"<p>Nonexistence searches run for the challenge whose evidence is incomplete or scoped; "
-            f"none closes a cell on its own: {' · '.join(parts)}.</p></div>"
-        )
-    if imported:
-        items.append(
-            f'<div class="finding"><strong>Published constructions rechecked exactly</strong>'
-            f"<p>{len(imported_quads)} inequivalent quadruples imported from papers and catalogues, "
-            f"each rechecked with exact integers, across {len(imported)} cells of the four types.</p></div>"
-        )
-    counts = {
-        "new": len(new),
-        "corrected": len(corrected),
-        "classified": len(classified),
-        "reproduced": len(reproduced),
-        "imported_quads": len(imported_quads),
-    }
-    return "".join(items), counts
 
 
 def quad_figure(doc, result, caption):
@@ -231,6 +139,15 @@ def cell_links(result, prefix):
     )
 
 
+def census_count(c, r):
+    """The class count a cell's census record states, as '2 classes' or '≥ 2 classes'."""
+    if not c["censuses"]:
+        return ""
+    x = r[c["censuses"][0]]
+    bound = "" if x["bound"] == "exact" else "≥ "
+    return f"{bound}{x['count']} {'class' if x['count'] == 1 else 'classes'}"
+
+
 def cell_page(c, d, r):
     """One page per order and track: status, credit, sources, and the matrices."""
     n, track = c["n"], c["stratum"]
@@ -239,6 +156,14 @@ def cell_page(c, d, r):
         f'<article class="entry"><div class="eyebrow">cell · order {n} · {esc(track)}</div>'
         f'<h1>n = {n} · {esc(TRACK_LABELS[track])}</h1><span class="tag">{esc(status)}</span>'
     ]
+    if c["censuses"]:
+        x = r[c["censuses"][0]]
+        kind = "complete census" if x["bound"] == "exact" else "lower bound from a census"
+        parts.append(
+            f'<p class="census"><strong>{esc(census_count(c, r))}</strong> · {kind} · '
+            f"{esc(x['tier'] or 'verified representatives')} · "
+            f'<a href="../entries/{esc(x["id"])}.html">{esc(x["id"])}</a></p>'
+        )
     if c["note"]:
         parts.append(f"<p>{esc(c['note'])}</p>")
     for claim in c["contradicted"]:
@@ -362,36 +287,26 @@ def build(quick=False):
                 if "participant-result" in c["origins"]
                 else ""
             )
+            count = census_count(c, r)
+            if count:
+                accessible += f"; {count}"
+                count = f"<small>{esc(count)}</small>"
             cells.append(
-                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(c["origins"]))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}">{label}{marker}</a></td>'
+                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(c["origins"]))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}"><span>{label}{count}</span>{marker}</a></td>'
             )
         rows.append(f'<tr data-n="{n}"><td>{n}</td>' + "".join(cells) + "</tr>")
-    census_rows = []
-    for c in sorted(
-        (x for x in r.values() if x["type"] == "census"), key=lambda x: (x["stratum"], x["n"])
-    ):
-        count = str(c["count"]) if c["bound"] == "exact" else f"≥ {c['count']}"
-        credits = (
-            "<br>".join(badges([g["relation"]]) + " " + people(g) for g in c["contributions"])
-            or "Catalogue census"
-        )
-        census_rows.append(
-            f'<tr><td><a href="entries/{c["id"]}.html">{esc(c["stratum"])} / {c["n"]}</a></td><td>{count}</td><td>{esc(c["tier"] or "verified representatives")}</td><td>{credits}</td></tr>'
-        )
-    established, counts = findings(stats["cells"], r)
-    metrics = (
+    counts = metrics(stats["cells"], r)
+    strip = (
         (counts["new"], "orders where existence is first shown here"),
         (counts["corrected"], "published nonexistence corrected"),
         (counts["classified"], "orders with their first class counts"),
         (counts["reproduced"], "published results reproduced independently"),
     )
     body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>The Goethals–Seidel Challenge</h1><p>Four circulant ±1 matrices of order n whose Gram matrices sum to 4nI give, through the Goethals–Seidel array, a Hadamard matrix of order 4n. Such quadruples are one of the main routes to the Hadamard conjecture, and when a block is skew they give skew-Hadamard matrices, whose smallest open order in the 2025 Cati–Pasechnik census is 356 = 4 · 89.</p><p>This board catalogues the quadruples of odd order n ≤ 131 by symmetry type. Every submitted matrix is checked with exact integers, and every computational claim carries its scope and evidence.</p></div>{DEFINITION}</section>
-<div class="metrics">{"".join(f'<div class="metric"><strong>{value}</strong><span>{label}</span></div>' for value, label in metrics)}</div>
-<section id="findings"><h2>What the board has established</h2><div class="findings">{established}</div><p class="muted">Computed from the cells below. Existence claims rest on exactly rechecked rows; counts and nonexistence rest on the evidence each cell cites.</p></section>
-<section id="board"><div class="grid-title"><h2>The completeness map</h2><p>Odd orders through 131 · open a cell for its tier, sources, and matrices</p></div><p class="key">Each column is a symmetry type of the four circulant blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew, in any order. Skew means at least one skew block, so it contains the good, best, and G-matrix columns; general is any verified quadruple. Skew types give skew-Hadamard matrices of order 4n.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalogue</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
+<div class="metrics">{"".join(f'<div class="metric"><strong>{value}</strong><span>{label}</span></div>' for value, label in strip)}</div>
+<section id="board"><div class="grid-title"><h2>The completeness map</h2><p>Odd orders through 131 · open a cell for its tier, sources, and matrices</p></div><p class="key">Each column is a symmetry type of the four circulant blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew, in any order. Skew means at least one skew block, so it contains the good, best, and G-matrix columns; general is any verified quadruple. Skew types give skew-Hadamard matrices of order 4n. A cell with a census shows its class count under the status; the convention counts reversals as equivalent, so at n = 43 the 10,080 best quadruples form five classes rather than the 20 orbits of the older convention.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalogue</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
 <div class="legend"><span class="known">Verified on board</span><span class="published">Published, awaiting import</span><span class="empty">Empty, with stated evidence</span><span class="unresolved">Unresolved in baseline</span><span class="contradicted">Verified rows contradict a published nonexistence</span><span class="participant">Purple diamond: new result</span></div>
-<div class="scroll"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div><p class="muted">An unfilled artifact is not automatically an open problem. Scoped nulls and partial searches do not close a whole cell. “kkss” is the G-matrix stratum.</p></section>
-<section><h2>Count the classes</h2><p>The primary convention includes independent reversals. At n=43, the same 10,080 best quadruples form five primary classes and 20 legacy orbits.</p><div class="scroll"><table><thead><tr><th>Family / order</th><th>Classes</th><th>Verification</th><th>Origin / credit</th></tr></thead><tbody>{"".join(census_rows)}</tbody></table></div></section>
+<div class="scroll"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div><p class="muted">An unfilled artifact is not automatically an open problem. Scoped nulls and partial searches do not close a whole cell. A count with ≥ is a lower bound from a single unreplayed run. “kkss” is the G-matrix stratum.</p></section>
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Submit four defining rows or negative-index sets. The verifier derives the family, checks the PAF identity, and detects equivalent entries.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p></article><article class="card"><h3>Keep the attribution</h3><p>Original discoverers and submission authors are recorded separately. Importing a published matrix earns importer credit. Baseline gaps never grant discovery credit automatically.</p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
 <noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
 <script src="app.js" defer></script>"""
