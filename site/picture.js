@@ -3,8 +3,8 @@
 // they generate, for every figure.quad on the page. This is an illustration
 // computed from the submitted rows; the verifier result is the evidence.
 // Hue follows the symmetry of the block: skew blocks green, symmetric blue.
-// Dark is +1 and light is -1 in both hues.
-const PALETTE={k:[[32,88,61,255],[222,235,226,255]],s:[[54,93,130,255],[226,235,243,255]]};
+// Light is +1 and dark is -1 in both hues.
+const PALETTE={k:[[159,211,181,255],[20,38,29,255]],s:[[169,199,232,255],[20,32,44,255]]};
 function paint(canvas,width,height,value,kind){
  if(!canvas)return;
  canvas.width=width;canvas.height=height;
