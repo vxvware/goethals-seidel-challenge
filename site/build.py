@@ -16,7 +16,7 @@ from verify.board import load, summary
 ORIGIN_LABELS = {
     "participant-result": "Challenge result",
     "independent-reproduction": "Independent reproduction",
-    "published-import": "Literature / catalogue",
+    "published-import": "Literature / catalog",
 }
 
 
@@ -87,10 +87,10 @@ def credit_block(group):
 def shell(title, body, prefix="", head=""):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{esc(title)} · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalogue of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
-<link rel="icon" href="{prefix}favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
-<header><a class="brand" href="{prefix}index.html">GS / CHALLENGE</a><nav><a href="{prefix}index.html#board">The board</a><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
-<main>{body}</main><footer><span>Goethals–Seidel Challenge · vxvware</span><span>Cyclic groups · equiv-v1 · <a href="{prefix}stats.json">Open data</a></span></footer></body></html>'''
+<title>{esc(title)} · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
+<link rel="icon" href="{prefix}favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
+<header><a class="brand" href="{prefix}index.html">GS / CHALLENGE</a><nav><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
+<main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a></footer></body></html>'''
 
 
 def metrics(cells, results):
@@ -179,7 +179,7 @@ def cell_page(c, d, r):
             f"<h2>{count} verified {'class' if count == 1 else 'classes'}</h2>"
             "<p>Each figure shows the four canonical rows and the Goethals–Seidel array they "
             f"generate, a Hadamard matrix of order {4 * n}. Skew blocks are green and symmetric "
-            "blocks blue; dark is +1 and light is −1. The drawing is computed from the rows in the "
+            "blocks blue; light is +1 and dark is −1. The drawing is computed from the rows in the "
             'browser; open an entry for the verifier result.</p><div class="gallery">'
         )
         for ident in c["quadruples"]:
@@ -240,7 +240,7 @@ def build(quick=False):
     out.mkdir(exist_ok=True)
     (out / "entries").mkdir(exist_ok=True)
     (out / "cells").mkdir(exist_ok=True)
-    for name in ("style.css", "app.js", "picture.js", "favicon.svg"):
+    for name in ("style.css", "app.js", "picture.js", "favicon.svg", "vxvware-logo.png"):
         shutil.copyfile(ROOT / "site" / name, out / name)
     (out / ".nojekyll").touch()
     write_json(out / "stats.json", stats)
@@ -302,11 +302,11 @@ def build(quick=False):
         (counts["classified"], "orders with their first class counts"),
         (counts["reproduced"], "published results reproduced independently"),
     )
-    body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>The Goethals–Seidel Challenge</h1><p>Four circulant ±1 matrices of order n whose Gram matrices sum to 4nI give, through the Goethals–Seidel array, a Hadamard matrix of order 4n. Such quadruples are one of the main routes to the Hadamard conjecture, and when a block is skew they give skew-Hadamard matrices, whose smallest open order in the 2025 Cati–Pasechnik census is 356 = 4 · 89.</p><p>This board catalogues the quadruples of odd order n ≤ 131 by symmetry type. Every submitted matrix is checked with exact integers, and every computational claim carries its scope and evidence.</p></div>{DEFINITION}</section>
+    body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>The Goethals–Seidel Challenge</h1><p>Four circulant ±1 matrices of order n whose Gram matrices sum to 4nI give, through the Goethals–Seidel array, a Hadamard matrix of order 4n.</p><p>This board lists the known quadruples of odd order n ≤ 131 by symmetry type. Each entry is rechecked in exact arithmetic, and each search is recorded with what it covered.</p></div>{DEFINITION}</section>
 <div class="metrics">{"".join(f'<div class="metric"><strong>{value}</strong><span>{label}</span></div>' for value, label in strip)}</div>
-<section id="board"><div class="grid-title"><h2>The completeness map</h2><p>Odd orders through 131 · open a cell for its tier, sources, and matrices</p></div><p class="key">Each column is a symmetry type of the four circulant blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew, in any order. Skew means at least one skew block, so it contains the good, best, and G-matrix columns; general is any verified quadruple. Skew types give skew-Hadamard matrices of order 4n. A cell with a census shows its class count under the status; the convention counts reversals as equivalent, so at n = 43 the 10,080 best quadruples form five classes rather than the 20 orbits of the older convention.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalogue</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
+<section id="board"><div class="grid-title"><h2>The completeness map</h2><p>Odd orders through 131 · open a cell for its tier, sources, and matrices</p></div><p class="key">Columns are the symmetry types of the blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew. Skew needs one skew block, so it contains the good, best and G-matrix columns; general is any quadruple. Class counts treat reversals as equivalent.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
 <div class="legend"><span class="known">Verified on board</span><span class="published">Published, awaiting import</span><span class="empty">Empty, with stated evidence</span><span class="unresolved">Unresolved in baseline</span><span class="contradicted">Verified rows contradict a published nonexistence</span><span class="participant">Purple diamond: new result</span></div>
-<div class="grid-wrap"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div><p class="muted">An unfilled artifact is not automatically an open problem. Scoped nulls and partial searches do not close a whole cell. A count with ≥ is a lower bound from a single unreplayed run. “kkss” is the G-matrix stratum.</p></section>
+<div class="grid-wrap"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div></section>
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Submit four defining rows or negative-index sets. The verifier derives the family, checks the PAF identity, and detects equivalent entries.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p></article><article class="card"><h3>Keep the attribution</h3><p>Original discoverers and submission authors are recorded separately. Importing a published matrix earns importer credit. Baseline gaps never grant discovery credit automatically.</p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
 <noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
 <script src="app.js" defer></script>"""
@@ -333,7 +333,7 @@ def build(quick=False):
                 f'<section class="picture"><h2>Picture</h2>'
                 f"<p>The four canonical rows, one row of cells per block ({esc(legend)}; k skew, s symmetric), "
                 f"and the Goethals–Seidel array they generate: a Hadamard matrix of order {4 * doc['n']}. "
-                f"Skew blocks are green and symmetric blocks blue; dark is +1 and light is −1. "
+                f"Skew blocks are green and symmetric blocks blue; light is +1 and dark is −1. "
                 f"The drawing is computed from the rows in the browser; "
                 f"the verifier result below is the evidence.</p>"
                 f"{quad_figure(doc, result, '')}"
