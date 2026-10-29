@@ -2,10 +2,10 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 380,
-  "quadruples": 268,
+  "entry_count": 500,
+  "quadruples": 344,
   "certificates": 72,
-  "censuses": 40,
+  "censuses": 84,
   "contributions": [
     {
       "id": "kkss-49-correction",
@@ -621,7 +621,9 @@
         "n1-0a982ea1a0df30b3b8d9"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "order-one-williamson"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -805,7 +807,9 @@
         "n1-0a982ea1a0df30b3b8d9"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "order-one-good"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -989,7 +993,9 @@
         "n1-0a982ea1a0df30b3b8d9"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "order-one-best"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -1173,7 +1179,9 @@
         "n1-0a982ea1a0df30b3b8d9"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "order-one-kkss"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -1357,7 +1365,9 @@
         "n1-0a982ea1a0df30b3b8d9"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "order-one-skew-sds"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -1563,7 +1573,9 @@
         "n1-0a982ea1a0df30b3b8d9"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "order-one-general"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -1780,7 +1792,9 @@
         "n3-831d8388ba2174cb0688"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n3"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -3272,7 +3286,9 @@
         "n5-e7b3418dfd0aafa312ad"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n5"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -4552,7 +4568,9 @@
         "n7-c3ca371576acc5cefeb4"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n7"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -6056,7 +6074,9 @@
         "n9-d0d7a1abff0ace62fec9"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n9"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -7340,7 +7360,9 @@
         "n11-cd1f64808fe4c9afa60d"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n11"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -8155,7 +8177,9 @@
         "n13-ed62cd189c05f775fdfa"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n13"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -9686,7 +9710,9 @@
         "n15-fc825b4fb6a81962e138"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n15"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -11052,7 +11078,9 @@
         "n17-dd30dd803c249acc4a29"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n17"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -11233,10 +11261,13 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n17-aed86d508ff21b635563",
         "n17-decc81e046de1e806e4b"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n17"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -11473,6 +11504,7 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n17-aed86d508ff21b635563",
         "n17-decc81e046de1e806e4b"
       ],
       "evidence": [],
@@ -11658,6 +11690,7 @@
       "empty_basis": [],
       "quadruples": [
         "n17-7a5f3affa4c3ae5d520e",
+        "n17-aed86d508ff21b635563",
         "n17-cced39a44432eaca6bbc",
         "n17-da0488005e6808ba4a78",
         "n17-dd30dd803c249acc4a29",
@@ -11864,7 +11897,9 @@
         "n19-d8e3b65932b46385c46b"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n19"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -12045,10 +12080,19 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n19-46e8bfc48649eb4d0d11"
+        "n19-00e1f8214e2b3725b0dd",
+        "n19-0cdada639eab09fd4f17",
+        "n19-45891aca30288d702f13",
+        "n19-46e8bfc48649eb4d0d11",
+        "n19-728310b740cc1945cc6b",
+        "n19-88bc4792324abe7ea10c",
+        "n19-baa5b43ecd21c73d7471",
+        "n19-e827ae9ca7bc50344722"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n19"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -12442,11 +12486,18 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n19-00e1f8214e2b3725b0dd",
+        "n19-0cdada639eab09fd4f17",
         "n19-256cb0e9c352c003f8a3",
         "n19-44b42709d59e7a37f043",
+        "n19-45891aca30288d702f13",
         "n19-46e8bfc48649eb4d0d11",
+        "n19-728310b740cc1945cc6b",
+        "n19-88bc4792324abe7ea10c",
         "n19-9c4f3cfdab1d6dc5d251",
         "n19-b6dc4befcdf12dea120c",
+        "n19-baa5b43ecd21c73d7471",
+        "n19-e827ae9ca7bc50344722",
         "n19-f05eb9e7046c3e3ded98"
       ],
       "evidence": [],
@@ -12790,17 +12841,24 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n19-00e1f8214e2b3725b0dd",
+        "n19-0cdada639eab09fd4f17",
         "n19-256cb0e9c352c003f8a3",
         "n19-2647d8e82e82c9a400ac",
         "n19-31dfbe7ccd7074e7e43c",
         "n19-44b42709d59e7a37f043",
+        "n19-45891aca30288d702f13",
         "n19-45fb841b8a919b066973",
         "n19-46e8bfc48649eb4d0d11",
         "n19-6ed6b577f7ca7d52c1bb",
+        "n19-728310b740cc1945cc6b",
+        "n19-88bc4792324abe7ea10c",
         "n19-9c4f3cfdab1d6dc5d251",
         "n19-a455c6e025f1d22a2abd",
         "n19-b6dc4befcdf12dea120c",
+        "n19-baa5b43ecd21c73d7471",
         "n19-d8e3b65932b46385c46b",
+        "n19-e827ae9ca7bc50344722",
         "n19-f05eb9e7046c3e3ded98"
       ],
       "evidence": [],
@@ -13164,7 +13222,9 @@
         "n21-e0423f25c77ae586b6c8"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n21"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -13345,11 +13405,21 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n21-098545d133609f790d6a",
+        "n21-244dbc80f1864d4af916",
+        "n21-43d1efdc8632d6b3db2e",
+        "n21-50b4ce1ddefabb404d04",
         "n21-5332602e3986ea7453e9",
-        "n21-799990052fbd72980281"
+        "n21-733f29ff92163a76f47d",
+        "n21-799990052fbd72980281",
+        "n21-92e67d8c0e5ecd628b89",
+        "n21-f2f8a1e5ce2c00056d7a",
+        "n21-f73f09c99e3b8ca4fe76"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n21"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -13945,27 +14015,35 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n21-098545d133609f790d6a",
         "n21-0ea967a4e6d237c6175b",
         "n21-1289aba4d0c6a256bbbe",
         "n21-163ceb67d070e7560c75",
         "n21-22b52dbbc0b8266c891d",
+        "n21-244dbc80f1864d4af916",
         "n21-3f1eac313596cc0eb070",
+        "n21-43d1efdc8632d6b3db2e",
         "n21-4620c6a948b44df1a383",
         "n21-4cb8a33a198b0afd6d57",
+        "n21-50b4ce1ddefabb404d04",
         "n21-5332602e3986ea7453e9",
         "n21-5cbd399319f09cb1d813",
         "n21-6190809590cac2a7e664",
         "n21-6f67dc0c9ce629101a21",
         "n21-71e4c6b936c3ca50cb8e",
+        "n21-733f29ff92163a76f47d",
         "n21-747444c01f7b39d82f21",
         "n21-799990052fbd72980281",
         "n21-8558072f9a9f73209502",
+        "n21-92e67d8c0e5ecd628b89",
         "n21-93065a05104516789a55",
         "n21-931f2bdede4b8813e0cb",
         "n21-dc43c84875978bb9eadd",
         "n21-de8cf70827d7222d9325",
         "n21-df831e1be0184af6785e",
-        "n21-f0c813ed0667c96d8e91"
+        "n21-f0c813ed0667c96d8e91",
+        "n21-f2f8a1e5ce2c00056d7a",
+        "n21-f73f09c99e3b8ca4fe76"
       ],
       "evidence": [],
       "censuses": [],
@@ -14319,15 +14397,19 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n21-098545d133609f790d6a",
         "n21-0ea967a4e6d237c6175b",
         "n21-12502838a875b0023207",
         "n21-1289aba4d0c6a256bbbe",
         "n21-163ceb67d070e7560c75",
         "n21-22b52dbbc0b8266c891d",
         "n21-2309af1decc956a962ff",
+        "n21-244dbc80f1864d4af916",
         "n21-3f1eac313596cc0eb070",
+        "n21-43d1efdc8632d6b3db2e",
         "n21-4620c6a948b44df1a383",
         "n21-4cb8a33a198b0afd6d57",
+        "n21-50b4ce1ddefabb404d04",
         "n21-5332602e3986ea7453e9",
         "n21-5cbd399319f09cb1d813",
         "n21-6190809590cac2a7e664",
@@ -14335,9 +14417,11 @@
         "n21-6c3435545881ce41ee24",
         "n21-6f67dc0c9ce629101a21",
         "n21-71e4c6b936c3ca50cb8e",
+        "n21-733f29ff92163a76f47d",
         "n21-747444c01f7b39d82f21",
         "n21-799990052fbd72980281",
         "n21-8558072f9a9f73209502",
+        "n21-92e67d8c0e5ecd628b89",
         "n21-93065a05104516789a55",
         "n21-931f2bdede4b8813e0cb",
         "n21-9d742e99e48e555934c3",
@@ -14346,7 +14430,9 @@
         "n21-de8cf70827d7222d9325",
         "n21-df831e1be0184af6785e",
         "n21-e0423f25c77ae586b6c8",
-        "n21-f0c813ed0667c96d8e91"
+        "n21-f0c813ed0667c96d8e91",
+        "n21-f2f8a1e5ce2c00056d7a",
+        "n21-f73f09c99e3b8ca4fe76"
       ],
       "evidence": [],
       "censuses": [],
@@ -14714,7 +14800,9 @@
         "n23-0377a623d22ccf97a550"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n23"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -14895,10 +14983,17 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n23-3577f4df0e57a525ff1f",
+        "n23-9cde73132e4504f955c8",
+        "n23-a9e83f8920c32a920817",
+        "n23-cfc8fb77efcc400d13c4",
+        "n23-eb8162daeef989a94059",
         "n23-fc8a1a7e591e7073a628"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n23"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -15298,11 +15393,16 @@
         "n23-15382ebd79e36b88c028",
         "n23-314f1504ef93ead77137",
         "n23-336a9087015b5f2d8248",
+        "n23-3577f4df0e57a525ff1f",
         "n23-4d67106e5cdfa53659ba",
         "n23-6aaea56366a7426ceb4c",
         "n23-7bed65511d3c1d675fa6",
         "n23-8897479ba397915e2e85",
+        "n23-9cde73132e4504f955c8",
+        "n23-a9e83f8920c32a920817",
         "n23-b9c1de21efd9d7388932",
+        "n23-cfc8fb77efcc400d13c4",
+        "n23-eb8162daeef989a94059",
         "n23-fc8a1a7e591e7073a628"
       ],
       "evidence": [],
@@ -15650,11 +15750,16 @@
         "n23-15382ebd79e36b88c028",
         "n23-314f1504ef93ead77137",
         "n23-336a9087015b5f2d8248",
+        "n23-3577f4df0e57a525ff1f",
         "n23-4d67106e5cdfa53659ba",
         "n23-6aaea56366a7426ceb4c",
         "n23-7bed65511d3c1d675fa6",
         "n23-8897479ba397915e2e85",
+        "n23-9cde73132e4504f955c8",
+        "n23-a9e83f8920c32a920817",
         "n23-b9c1de21efd9d7388932",
+        "n23-cfc8fb77efcc400d13c4",
+        "n23-eb8162daeef989a94059",
         "n23-fc8a1a7e591e7073a628"
       ],
       "evidence": [],
@@ -16021,7 +16126,9 @@
         "n25-cec6f5ce3e9062d11bea"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n25"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -16202,10 +16309,20 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n25-e54dc03215478fac5a45"
+        "n25-0bf5089b2ddc304e231e",
+        "n25-1413e3ddb0df39761c44",
+        "n25-99dc36272fd55f5283d4",
+        "n25-9c7b52d2931151ac97fe",
+        "n25-bcd28ef0121fafb278e2",
+        "n25-d1a8cf5518f17493a38b",
+        "n25-e54dc03215478fac5a45",
+        "n25-ebb479f61678bd6c7801",
+        "n25-ffd59040a038aa81e4df"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n25"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -16601,14 +16718,22 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n25-0bf5089b2ddc304e231e",
         "n25-0ca6776e5db56dadc0d2",
+        "n25-1413e3ddb0df39761c44",
         "n25-1c555d73a8faf6ec29fc",
         "n25-347cc20340c0dc8476d6",
         "n25-8012eda83229a45127d3",
+        "n25-99dc36272fd55f5283d4",
+        "n25-9c7b52d2931151ac97fe",
         "n25-baa41b9dffe70f5c1fa0",
+        "n25-bcd28ef0121fafb278e2",
         "n25-ccaa9b9ab91be3743f14",
+        "n25-d1a8cf5518f17493a38b",
         "n25-e54dc03215478fac5a45",
-        "n25-e7a7dc99cb74c141f475"
+        "n25-e7a7dc99cb74c141f475",
+        "n25-ebb479f61678bd6c7801",
+        "n25-ffd59040a038aa81e4df"
       ],
       "evidence": [],
       "censuses": [],
@@ -16952,7 +17077,9 @@
       "empty_basis": [],
       "quadruples": [
         "n25-09d5f5f628edb78d675d",
+        "n25-0bf5089b2ddc304e231e",
         "n25-0ca6776e5db56dadc0d2",
+        "n25-1413e3ddb0df39761c44",
         "n25-15d8008f807ab52edd7b",
         "n25-161edda53eac8180267f",
         "n25-1c555d73a8faf6ec29fc",
@@ -16962,13 +17089,19 @@
         "n25-7986a00f36a25baa96cd",
         "n25-8012eda83229a45127d3",
         "n25-9900ae1742950e7d0985",
+        "n25-99dc36272fd55f5283d4",
+        "n25-9c7b52d2931151ac97fe",
         "n25-b050808101c3aa88e4b4",
         "n25-b13dc3e56b56ad754280",
         "n25-baa41b9dffe70f5c1fa0",
+        "n25-bcd28ef0121fafb278e2",
         "n25-ccaa9b9ab91be3743f14",
         "n25-cec6f5ce3e9062d11bea",
+        "n25-d1a8cf5518f17493a38b",
         "n25-e54dc03215478fac5a45",
-        "n25-e7a7dc99cb74c141f475"
+        "n25-e7a7dc99cb74c141f475",
+        "n25-ebb479f61678bd6c7801",
+        "n25-ffd59040a038aa81e4df"
       ],
       "evidence": [],
       "censuses": [],
@@ -17330,7 +17463,9 @@
         "n27-8532c868c8c997d4f75b"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n27"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -17511,10 +17646,24 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n27-58b97ca15343593700dd"
+        "n27-14e6e823d1d6873ed069",
+        "n27-161086b669d4676c795d",
+        "n27-35012849f2b112d18393",
+        "n27-58b97ca15343593700dd",
+        "n27-801cc3edaffc57a0059e",
+        "n27-9340e6602b13be7023d8",
+        "n27-9cdccecbf7e3c52789fb",
+        "n27-a23b71e7c07479895e89",
+        "n27-c011f79846d0385d6175",
+        "n27-db35807752775351a350",
+        "n27-dd2bc87e4072e5dfa6f0",
+        "n27-e0654f8ab41fc5131901",
+        "n27-f8b16a7ac90ef7265c87"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n27"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -17913,17 +18062,29 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n27-14e6e823d1d6873ed069",
+        "n27-161086b669d4676c795d",
         "n27-1703488ee45c11d81208",
+        "n27-35012849f2b112d18393",
         "n27-35d4deea21dad361297a",
         "n27-363a788616126c792176",
         "n27-42a22c3a0ba77bf59ae1",
         "n27-47631a7ac43f54dc124e",
         "n27-58b97ca15343593700dd",
         "n27-7366308f259a47095808",
+        "n27-801cc3edaffc57a0059e",
+        "n27-9340e6602b13be7023d8",
+        "n27-9cdccecbf7e3c52789fb",
+        "n27-a23b71e7c07479895e89",
         "n27-b396809448d9e0a4d2a6",
         "n27-b930f8dba7580ea63875",
+        "n27-c011f79846d0385d6175",
         "n27-cdf789c1e683c89bae36",
-        "n27-f7ead6ec0972657e1154"
+        "n27-db35807752775351a350",
+        "n27-dd2bc87e4072e5dfa6f0",
+        "n27-e0654f8ab41fc5131901",
+        "n27-f7ead6ec0972657e1154",
+        "n27-f8b16a7ac90ef7265c87"
       ],
       "evidence": [],
       "censuses": [],
@@ -18267,8 +18428,11 @@
       "empty_basis": [],
       "quadruples": [
         "n27-073c722233037b184d3d",
+        "n27-14e6e823d1d6873ed069",
+        "n27-161086b669d4676c795d",
         "n27-1703488ee45c11d81208",
         "n27-322189905e6ef9eb14f7",
+        "n27-35012849f2b112d18393",
         "n27-35d4deea21dad361297a",
         "n27-363a788616126c792176",
         "n27-38211a40ab61f15bcc5e",
@@ -18278,11 +18442,20 @@
         "n27-58b97ca15343593700dd",
         "n27-65b3a2251985b5f9fe32",
         "n27-7366308f259a47095808",
+        "n27-801cc3edaffc57a0059e",
         "n27-8532c868c8c997d4f75b",
+        "n27-9340e6602b13be7023d8",
+        "n27-9cdccecbf7e3c52789fb",
+        "n27-a23b71e7c07479895e89",
         "n27-b396809448d9e0a4d2a6",
         "n27-b930f8dba7580ea63875",
+        "n27-c011f79846d0385d6175",
         "n27-cdf789c1e683c89bae36",
-        "n27-f7ead6ec0972657e1154"
+        "n27-db35807752775351a350",
+        "n27-dd2bc87e4072e5dfa6f0",
+        "n27-e0654f8ab41fc5131901",
+        "n27-f7ead6ec0972657e1154",
+        "n27-f8b16a7ac90ef7265c87"
       ],
       "evidence": [],
       "censuses": [],
@@ -18639,7 +18812,9 @@
         "n29-574437e5c0d87484f316"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n29"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -18820,10 +18995,16 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n29-3389974352720a001d4d"
+        "n29-3389974352720a001d4d",
+        "n29-3e506452b53af50507ec",
+        "n29-40b659b501c437c1213d",
+        "n29-49d8b0c4203389fa0922",
+        "n29-d1d2c5242676382346b0"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n29"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -19060,7 +19241,11 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n29-3389974352720a001d4d"
+        "n29-3389974352720a001d4d",
+        "n29-3e506452b53af50507ec",
+        "n29-40b659b501c437c1213d",
+        "n29-49d8b0c4203389fa0922",
+        "n29-d1d2c5242676382346b0"
       ],
       "evidence": [],
       "censuses": [],
@@ -19245,7 +19430,11 @@
       "empty_basis": [],
       "quadruples": [
         "n29-3389974352720a001d4d",
-        "n29-574437e5c0d87484f316"
+        "n29-3e506452b53af50507ec",
+        "n29-40b659b501c437c1213d",
+        "n29-49d8b0c4203389fa0922",
+        "n29-574437e5c0d87484f316",
+        "n29-d1d2c5242676382346b0"
       ],
       "evidence": [],
       "censuses": [],
@@ -19444,7 +19633,9 @@
         "n31-e67710f0fd74626715b1"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n31"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -19625,10 +19816,14 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n31-75ef0affae16c51dfd46"
+        "n31-75ef0affae16c51dfd46",
+        "n31-b2a3029c3bc71a4c3891",
+        "n31-ce95825587654ce330f7"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n31"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -20217,7 +20412,9 @@
         "n31-75ef0affae16c51dfd46",
         "n31-811365893e76425c5e2c",
         "n31-92b8e1fe9e8b9faa23be",
-        "n31-bad1209806950645db7f"
+        "n31-b2a3029c3bc71a4c3891",
+        "n31-bad1209806950645db7f",
+        "n31-ce95825587654ce330f7"
       ],
       "evidence": [],
       "censuses": [],
@@ -20578,7 +20775,9 @@
         "n31-75ef0affae16c51dfd46",
         "n31-811365893e76425c5e2c",
         "n31-92b8e1fe9e8b9faa23be",
+        "n31-b2a3029c3bc71a4c3891",
         "n31-bad1209806950645db7f",
+        "n31-ce95825587654ce330f7",
         "n31-e67710f0fd74626715b1"
       ],
       "evidence": [],
@@ -20951,7 +21150,9 @@
         "n33-b71c9d16c511820842d4"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n33"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -21128,12 +21329,30 @@
       "stratum": "good",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n33-03b19decc3812569f87d",
+        "n33-38a03be799bfa81b596d",
+        "n33-394fd84684c74c9fe4c4",
+        "n33-4a3834b547b0d8584954",
+        "n33-5598006b0af71ca22ba2",
+        "n33-810f5c15e21dfd73adee",
+        "n33-82126cdb9f6a13c02587",
+        "n33-8323225b8996d72ae493",
+        "n33-8715a6b6e7a9bb432b31",
+        "n33-a6565f96b5a54299a023",
+        "n33-cccd777dd53e10033366",
+        "n33-d57c961b02702bad373b",
+        "n33-e2beedec9c9c5597117c",
+        "n33-eb04b58679d36e336179",
+        "n33-fad3cc68da7e7f8ebed5"
+      ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n33"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -21393,25 +21612,40 @@
       "empty_basis": [],
       "quadruples": [
         "n33-033672147e712e0d97f2",
+        "n33-03b19decc3812569f87d",
         "n33-225f44cffc2a020a4841",
         "n33-263b5f016c687b355732",
         "n33-28899fb67c85938855ea",
         "n33-2adaae49e780528c5296",
+        "n33-38a03be799bfa81b596d",
+        "n33-394fd84684c74c9fe4c4",
         "n33-446e8df3fbd123061a90",
         "n33-4506d34572e1a67b5e85",
+        "n33-4a3834b547b0d8584954",
         "n33-524891f8368647996ff9",
         "n33-546a1b443cb9bdb59f54",
+        "n33-5598006b0af71ca22ba2",
         "n33-6cca59136c9ec3df3a30",
         "n33-7031dc578f8c855d54f9",
+        "n33-810f5c15e21dfd73adee",
+        "n33-82126cdb9f6a13c02587",
+        "n33-8323225b8996d72ae493",
+        "n33-8715a6b6e7a9bb432b31",
         "n33-91525a0ce0dffd346dcd",
         "n33-9452ba86423cdd20d851",
         "n33-9c15f91a0754413e9cc6",
+        "n33-a6565f96b5a54299a023",
         "n33-a6645b9c74d763160385",
         "n33-c9d101a9a8032deb38f5",
+        "n33-cccd777dd53e10033366",
         "n33-ccedb5852d9ffa16bf67",
+        "n33-d57c961b02702bad373b",
         "n33-dc1210c7f2c7a7ba004e",
         "n33-e031c38e80eb73345104",
-        "n33-e86ac84c99edfb8869f3"
+        "n33-e2beedec9c9c5597117c",
+        "n33-e86ac84c99edfb8869f3",
+        "n33-eb04b58679d36e336179",
+        "n33-fad3cc68da7e7f8ebed5"
       ],
       "evidence": [],
       "censuses": [],
@@ -21606,30 +21840,45 @@
       "empty_basis": [],
       "quadruples": [
         "n33-033672147e712e0d97f2",
+        "n33-03b19decc3812569f87d",
         "n33-13e3ab92ed0775b0610a",
         "n33-225f44cffc2a020a4841",
         "n33-263b5f016c687b355732",
         "n33-28899fb67c85938855ea",
         "n33-2adaae49e780528c5296",
         "n33-2e7c9b471b2fc04ebe68",
+        "n33-38a03be799bfa81b596d",
+        "n33-394fd84684c74c9fe4c4",
         "n33-446e8df3fbd123061a90",
         "n33-4506d34572e1a67b5e85",
+        "n33-4a3834b547b0d8584954",
         "n33-4ab4f79f0d05aad86013",
         "n33-524891f8368647996ff9",
         "n33-546a1b443cb9bdb59f54",
+        "n33-5598006b0af71ca22ba2",
         "n33-6cca59136c9ec3df3a30",
         "n33-7031dc578f8c855d54f9",
+        "n33-810f5c15e21dfd73adee",
+        "n33-82126cdb9f6a13c02587",
+        "n33-8323225b8996d72ae493",
+        "n33-8715a6b6e7a9bb432b31",
         "n33-91525a0ce0dffd346dcd",
         "n33-9452ba86423cdd20d851",
         "n33-9c15f91a0754413e9cc6",
         "n33-9c2fb744ec95207f2b8c",
+        "n33-a6565f96b5a54299a023",
         "n33-a6645b9c74d763160385",
         "n33-b71c9d16c511820842d4",
         "n33-c9d101a9a8032deb38f5",
+        "n33-cccd777dd53e10033366",
         "n33-ccedb5852d9ffa16bf67",
+        "n33-d57c961b02702bad373b",
         "n33-dc1210c7f2c7a7ba004e",
         "n33-e031c38e80eb73345104",
-        "n33-e86ac84c99edfb8869f3"
+        "n33-e2beedec9c9c5597117c",
+        "n33-e86ac84c99edfb8869f3",
+        "n33-eb04b58679d36e336179",
+        "n33-fad3cc68da7e7f8ebed5"
       ],
       "evidence": [],
       "censuses": [],
@@ -22015,12 +22264,21 @@
       "stratum": "good",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n35-72b9ba1bec4c30d19a58",
+        "n35-84423f09043d91279636",
+        "n35-93367446d0be35096085",
+        "n35-a97e6a34ef4b0b26abee",
+        "n35-ae0ba6c76ebbfe0eff8c",
+        "n35-b8259b1af6cb5625453a"
+      ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n35"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -22103,10 +22361,17 @@
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n35-72b9ba1bec4c30d19a58",
+        "n35-84423f09043d91279636",
+        "n35-93367446d0be35096085",
+        "n35-a97e6a34ef4b0b26abee",
+        "n35-ae0ba6c76ebbfe0eff8c",
+        "n35-b8259b1af6cb5625453a"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -22135,10 +22400,17 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n35-72b9ba1bec4c30d19a58",
+        "n35-84423f09043d91279636",
+        "n35-93367446d0be35096085",
+        "n35-a97e6a34ef4b0b26abee",
+        "n35-ae0ba6c76ebbfe0eff8c",
+        "n35-b8259b1af6cb5625453a"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -22177,7 +22449,9 @@
         "n37-c3b09038810c39bd7338"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n37"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -22354,12 +22628,17 @@
       "stratum": "good",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n37-5330d42b5559662b689a",
+        "n37-c16b65656bf52a7843d5"
+      ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n37"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -22609,7 +22888,9 @@
         "n37-196dcd216613db831765",
         "n37-1d8a1653b04d5ab6a329",
         "n37-2b33d6990009e357b3c1",
+        "n37-5330d42b5559662b689a",
         "n37-60723a55a1ad9eee4835",
+        "n37-c16b65656bf52a7843d5",
         "n37-d70dab95b438f9671166",
         "n37-e27413f6ac355c51f29b"
       ],
@@ -22809,10 +23090,12 @@
         "n37-196dcd216613db831765",
         "n37-1d8a1653b04d5ab6a329",
         "n37-2b33d6990009e357b3c1",
+        "n37-5330d42b5559662b689a",
         "n37-60723a55a1ad9eee4835",
         "n37-934933247daf3a0af9d5",
         "n37-a7df06393367d9135ce0",
         "n37-c13b232d3bc055826c80",
+        "n37-c16b65656bf52a7843d5",
         "n37-c3b09038810c39bd7338",
         "n37-d70dab95b438f9671166",
         "n37-e27413f6ac355c51f29b"
@@ -23172,7 +23455,9 @@
         "n39-ae332f4e86e790416b0c"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n39"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -23349,12 +23634,20 @@
       "stratum": "good",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n39-15686382537422c1641c",
+        "n39-51cb4867128d0cffc648",
+        "n39-7b01c82d860746f3881b",
+        "n39-d3ad4cade3b11d60485b",
+        "n39-e3e70e4bd49867d75001"
+      ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n39"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -23437,10 +23730,16 @@
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n39-15686382537422c1641c",
+        "n39-51cb4867128d0cffc648",
+        "n39-7b01c82d860746f3881b",
+        "n39-d3ad4cade3b11d60485b",
+        "n39-e3e70e4bd49867d75001"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -23473,7 +23772,12 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n39-ae332f4e86e790416b0c"
+        "n39-15686382537422c1641c",
+        "n39-51cb4867128d0cffc648",
+        "n39-7b01c82d860746f3881b",
+        "n39-ae332f4e86e790416b0c",
+        "n39-d3ad4cade3b11d60485b",
+        "n39-e3e70e4bd49867d75001"
       ],
       "evidence": [],
       "censuses": [],
@@ -23671,7 +23975,9 @@
         "n41-49875e3ad2b3b7068fa8"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n41"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -24659,7 +24965,9 @@
         "n43-dc66fd7a1ec63847cede"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n43"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -24836,12 +25144,16 @@
       "stratum": "good",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n43-0a827449767ebff11b87"
+      ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "good-n43"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -25278,6 +25590,7 @@
       "empty_basis": [],
       "quadruples": [
         "n43-05540051388acb15a335",
+        "n43-0a827449767ebff11b87",
         "n43-189ba34696574c36f1de",
         "n43-46c8748ffad87c5418f3",
         "n43-73cd141d35de5425bede",
@@ -25640,6 +25953,7 @@
       "empty_basis": [],
       "quadruples": [
         "n43-05540051388acb15a335",
+        "n43-0a827449767ebff11b87",
         "n43-189ba34696574c36f1de",
         "n43-46c8748ffad87c5418f3",
         "n43-4efc0dbe73c8293389c4",
@@ -26017,7 +26331,9 @@
         "n45-160ca4a118500087b821"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n45"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -27183,7 +27499,9 @@
         "n49-84788cbb8a318c5e4b6e"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n49"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -27748,7 +28066,9 @@
         "n51-b6c6acff0ba9dc5ffdaf"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n51"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -28610,7 +28930,9 @@
         "n55-2687b53836c02e5f2dbd"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n55"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -29296,7 +29618,9 @@
         "n57-f40cf458e06747c61836"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n57"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -39367,262 +39691,6 @@
   ],
   "import_tasks": [
     {
-      "n": 33,
-      "stratum": "good",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 33,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Goethals–Seidel difference families, Table 1",
-            "url": "https://arxiv.org/abs/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 35,
-      "stratum": "good",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 35,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Goethals–Seidel difference families, Table 1",
-            "url": "https://arxiv.org/abs/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 35,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 35,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Goethals–Seidel difference families, Table 1",
-            "url": "https://arxiv.org/abs/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 35,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 35,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Goethals–Seidel difference families, Table 1",
-            "url": "https://arxiv.org/abs/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 37,
-      "stratum": "good",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 37,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Goethals–Seidel difference families, Table 1",
-            "url": "https://arxiv.org/abs/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 39,
-      "stratum": "good",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 39,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Goethals–Seidel difference families, Table 1",
-            "url": "https://arxiv.org/abs/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 39,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 39,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Goethals–Seidel difference families, Table 1",
-            "url": "https://arxiv.org/abs/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 43,
-      "stratum": "good",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 43,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Goethals–Seidel difference families, Table 1",
-            "url": "https://arxiv.org/abs/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 45,
       "stratum": "good",
       "group": "cyclic",
@@ -41011,9 +41079,9 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 281,
+    "reproduced": 393,
     "spot-checked": 0,
     "receipt-backed": 2
   },
-  "ungraded_claims": 41
+  "ungraded_claims": 49
 }

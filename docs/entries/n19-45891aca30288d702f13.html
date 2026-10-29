@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n19-45891aca30288d702f13 · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
+<link rel="icon" href="../favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap"><link rel="stylesheet" href="../style.css"></head><body>
+<header><a class="brand" href="../index.html">GS / CHALLENGE</a><nav><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
+<main><article class="entry"><div class="eyebrow">quadruple · order 19</div><h1>n19-45891aca30288d702f13</h1><span class="tag">reproduced</span><p class="origin published-import">Origin not yet classified</p><p>Original source attribution: Published searches surveyed in arXiv:1811.05094 (Szekeres 1988; Koukouvinos 1999; Georgiou, Koukouvinos, Stylianou 2002; Đoković and Kotsireas 2018; Bright, Đoković, Kotsireas, Ganesh 2019); enumerated here by the vxvware good census<br>Submitted / imported by: vprusso · 2026-10-29<br>Board cell: <a href="../cells/n19-good.html">Good (ksss)</a>, <a href="../cells/n19-skew-sds.html">Skew (any k)</a>, <a href="../cells/n19-general.html">General (any)</a></p><section class="picture"><h2>Picture</h2><p>The four canonical rows, one row of cells per block (A k · B s · C s · D s; k skew, s symmetric), and the Goethals–Seidel array they generate: a Hadamard matrix of order 76. Skew blocks are green and symmetric blocks blue; light is +1 and dark is −1. The drawing is computed from the rows in the browser; the verifier result below is the evidence.</p><figure class="quad"><canvas class="rows" aria-label="Four defining rows"></canvas><canvas class="array" aria-label="Goethals–Seidel array"></canvas><script type="application/json">{"n":19,"rows":[[1,-1,-1,-1,-1,-1,1,1,-1,1,-1,1,-1,-1,1,1,1,1,1],[1,-1,-1,1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,1,-1,-1],[1,-1,1,-1,-1,-1,1,1,-1,-1,-1,-1,1,1,-1,-1,-1,1,-1],[1,-1,1,-1,-1,1,1,1,1,1,1,1,1,1,1,-1,-1,1,-1]],"pattern":"ksss"}</script><figcaption></figcaption></figure><script src="../picture.js" defer></script></section><h2>Checks and result</h2><pre>{
+  &quot;id&quot;: &quot;n19-45891aca30288d702f13&quot;,
+  &quot;type&quot;: &quot;quadruple&quot;,
+  &quot;n&quot;: 19,
+  &quot;group&quot;: {
+    &quot;kind&quot;: &quot;cyclic&quot;,
+    &quot;invariant_factors&quot;: [
+      19
+    ]
+  },
+  &quot;tracks&quot;: [
+    &quot;good&quot;,
+    &quot;skew-sds&quot;,
+    &quot;general&quot;
+  ],
+  &quot;tier&quot;: &quot;reproduced&quot;,
+  &quot;checks&quot;: [
+    &quot;integer-domain&quot;,
+    &quot;exact-PAF&quot;,
+    &quot;symmetry&quot;,
+    &quot;canonical-form&quot;
+  ],
+  &quot;equivalence&quot;: &quot;equiv-v1&quot;,
+  &quot;fingerprint&quot;: &quot;gs-45891aca30288d702f13a2517a8ca1f435989f21cbd756fe92bcde30cabe12bd&quot;,
+  &quot;canonical_rows&quot;: [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      -1
+    ]
+  ],
+  &quot;row_sums&quot;: [
+    1,
+    -1,
+    -5,
+    7
+  ],
+  &quot;pattern&quot;: &quot;ksss&quot;,
+  &quot;flags&quot;: [],
+  &quot;contributions&quot;: []
+}</pre><h2>Sources</h2><ul><li><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/f9862dd59ab3f981e08810e66860ba84c9c2d782/research/starter/good/good_c.c">This board&#x27;s pinned census good-census-c-v1, replayed at n=19</a></li><li><a href="https://arxiv.org/abs/1811.05094">Bright, Đoković, Kotsireas, Ganesh, A SAT+CAS approach to finding good matrices: new examples and counterexamples (AAAI 2019), Table 1 and its survey of earlier searches</a></li></ul><details><summary>Submission JSON</summary><pre>{
+  &quot;schema_version&quot;: 1,
+  &quot;n&quot;: 19,
+  &quot;group&quot;: {
+    &quot;kind&quot;: &quot;cyclic&quot;,
+    &quot;invariant_factors&quot;: [
+      19
+    ]
+  },
+  &quot;submitted_by&quot;: &quot;vprusso&quot;,
+  &quot;submitted_at&quot;: &quot;2026-10-29&quot;,
+  &quot;discovered_by&quot;: [
+    &quot;Published searches surveyed in arXiv:1811.05094 (Szekeres 1988; Koukouvinos 1999; Georgiou, Koukouvinos, Stylianou 2002; Đoković and Kotsireas 2018; Bright, Đoković, Kotsireas, Ganesh 2019); enumerated here by the vxvware good census&quot;
+  ],
+  &quot;sources&quot;: [
+    {
+      &quot;title&quot;: &quot;This board&#x27;s pinned census good-census-c-v1, replayed at n=19&quot;,
+      &quot;url&quot;: &quot;https://github.com/vxvware/goethals-seidel-challenge/blob/f9862dd59ab3f981e08810e66860ba84c9c2d782/research/starter/good/good_c.c&quot;,
+      &quot;commit&quot;: &quot;f9862dd59ab3f981e08810e66860ba84c9c2d782&quot;,
+      &quot;source_path&quot;: &quot;research/starter/good/good_c.c&quot;
+    },
+    {
+      &quot;title&quot;: &quot;Bright, Đoković, Kotsireas, Ganesh, A SAT+CAS approach to finding good matrices: new examples and counterexamples (AAAI 2019), Table 1 and its survey of earlier searches&quot;,
+      &quot;url&quot;: &quot;https://arxiv.org/abs/1811.05094&quot;
+    }
+  ],
+  &quot;equivalence&quot;: &quot;equiv-v1&quot;,
+  &quot;id&quot;: &quot;n19-45891aca30288d702f13&quot;,
+  &quot;type&quot;: &quot;quadruple&quot;,
+  &quot;rows&quot;: [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      -1
+    ]
+  ]
+}</pre></details></article></main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="../vxvware-logo.png" alt="vxvware"></a></footer></body></html>
