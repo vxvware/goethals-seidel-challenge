@@ -58,8 +58,11 @@ prime cyclic group. Source citations alone are not machine-checked proofs.
 ## Census
 
 The small good-matrix enumerator exhausts the normalized search space at odd
-n≤15 using exact PAF joins. The bundled best census replays orders 3,7,13,21,31,43
-and every returned solution is independently checked. Its spectral pruning is
+n≤15 using exact PAF joins, and returns the one quadruple at n=1 for every
+stratum. The bundled C good census replays odd orders 3 to 43, the bundled
+Williamson census replays odd orders 3 to 37, and the bundled best census
+replays orders 3,7,13,21,31,43; every returned solution is independently
+checked. Its spectral pruning is
 floating point with conservative margins; the label is reproduced computation,
 not formally checked proof. The full-replay output set must equal the submitted
 representative set, rather than merely agree in cardinality.

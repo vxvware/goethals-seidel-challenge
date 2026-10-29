@@ -15,6 +15,8 @@ def trusted_files(root):
             and p.suffix in (".py", ".json", ".css", ".js")
         )
     paths.extend(p for p in (root / "research/starter/best").glob("census.c"))
+    paths.extend(p for p in (root / "research/starter/good").glob("good_c.c"))
+    paths.extend(p for p in (root / "research/starter/williamson").glob("williamson_c.c"))
     paths.extend(p for p in (root / "research/starter/good_gpu").glob("*.py"))
     paths.extend((root / ".github/workflows").glob("*.yml"))
     paths.extend(root / name for name in ("pyproject.toml", "uv.lock", "tools/gs", "gs"))

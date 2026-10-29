@@ -1,8 +1,8 @@
 from copy import deepcopy
 import pytest
 from verify.board import load, summary, check_consistency
-from verify.common import ROOT, read_json
-from verify.census_engine import small_exact, best_census
+from verify.common import ROOT, TRACKS, read_json
+from verify.census_engine import small_exact, best_census, good_census, williamson_census
 
 
 @pytest.fixture(scope="module")
@@ -81,6 +81,57 @@ def test_conflicting_claim_fails(board):
 @pytest.mark.parametrize("n,count", [(3, 1), (5, 1), (7, 3), (9, 1), (11, 3), (13, 6), (15, 11)])
 def test_good_full_censuses(n, count):
     assert len(small_exact(n, "good")) == count
+
+
+@pytest.mark.parametrize("stratum", TRACKS)
+def test_order_one_census_covers_every_stratum(stratum):
+    assert small_exact(1, stratum) == {((1,),) * 4}
+
+
+@pytest.mark.parametrize(
+    "n,count",
+    [(17, 2), (19, 8), (21, 10), (23, 6), (25, 9), (27, 13), (29, 5), (31, 3)],
+)
+def test_good_c_censuses(n, count):
+    assert len(good_census(n)) == count
+
+
+@pytest.mark.parametrize(
+    "n,count",
+    [
+        (3, 1),
+        (5, 1),
+        (7, 2),
+        (9, 3),
+        (11, 1),
+        (13, 4),
+        (15, 4),
+        (17, 4),
+        (19, 6),
+        (21, 7),
+        (23, 1),
+        (25, 10),
+        (27, 6),
+        (29, 1),
+        (31, 2),
+    ],
+)
+def test_williamson_c_matches_holzmann_kharaghani_tayfeh_rezaie(n, count):
+    assert len(williamson_census(n)) == count
+
+
+def test_williamson_c_census_is_the_imported_classification(board):
+    _, results, _ = board
+    imported = {
+        r["canonical_rows"]
+        for r in results.values()
+        if r["type"] == "quadruple" and r["n"] == 25 and "williamson" in r["tracks"]
+    }
+    assert williamson_census(25) == imported
+
+
+def test_good_c_agrees_with_small_exact():
+    assert good_census(15) == small_exact(15, "good")
 
 
 def test_full_best43_census_gate():
