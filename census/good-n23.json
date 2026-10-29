@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "n": 23,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      23
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-10-29",
+  "discovered_by": [
+    "Published searches surveyed in arXiv:1811.05094 (Szekeres 1988; Koukouvinos 1999; Georgiou, Koukouvinos, Stylianou 2002; Đoković and Kotsireas 2018; Bright, Đoković, Kotsireas, Ganesh 2019); enumerated here by the vxvware good census"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned census good-census-c-v1, replayed at n=23",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f9862dd59ab3f981e08810e66860ba84c9c2d782/research/starter/good/good_c.c",
+      "commit": "f9862dd59ab3f981e08810e66860ba84c9c2d782",
+      "source_path": "research/starter/good/good_c.c"
+    },
+    {
+      "title": "Bright, Đoković, Kotsireas, Ganesh, A SAT+CAS approach to finding good matrices: new examples and counterexamples (AAAI 2019), Table 1 and its survey of earlier searches",
+      "url": "https://arxiv.org/abs/1811.05094"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "good-n23",
+  "type": "census",
+  "stratum": "good",
+  "representatives": [
+    "n23-3577f4df0e57a525ff1f",
+    "n23-9cde73132e4504f955c8",
+    "n23-a9e83f8920c32a920817",
+    "n23-cfc8fb77efcc400d13c4",
+    "n23-eb8162daeef989a94059",
+    "n23-fc8a1a7e591e7073a628"
+  ],
+  "claimed_count": 6,
+  "claim_kind": "computed-exact",
+  "enumerator": "good-census-c-v1",
+  "notes": "Full census replayed on this board by good-census-c-v1 on every verification. Before the engine was pinned its class sets were checked against the Python enumerator at orders 3 to 15, the stored saw-best-matrix censuses at 17 to 45, and the published counts of arXiv:1811.05094 at orders divisible by 3."
+}

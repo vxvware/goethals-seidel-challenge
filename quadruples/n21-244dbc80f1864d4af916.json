@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "n": 21,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      21
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-10-29",
+  "discovered_by": [
+    "Published searches surveyed in arXiv:1811.05094 (Szekeres 1988; Koukouvinos 1999; Georgiou, Koukouvinos, Stylianou 2002; Đoković and Kotsireas 2018; Bright, Đoković, Kotsireas, Ganesh 2019); enumerated here by the vxvware good census"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned census good-census-c-v1, replayed at n=21",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f9862dd59ab3f981e08810e66860ba84c9c2d782/research/starter/good/good_c.c",
+      "commit": "f9862dd59ab3f981e08810e66860ba84c9c2d782",
+      "source_path": "research/starter/good/good_c.c"
+    },
+    {
+      "title": "Bright, Đoković, Kotsireas, Ganesh, A SAT+CAS approach to finding good matrices: new examples and counterexamples (AAAI 2019), Table 1 and its survey of earlier searches",
+      "url": "https://arxiv.org/abs/1811.05094"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "n21-244dbc80f1864d4af916",
+  "type": "quadruple",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      -1
+    ],
+    [
+      1,
+      1,
+      -1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      -1,
+      1
+    ]
+  ]
+}
