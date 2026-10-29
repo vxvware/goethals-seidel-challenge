@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "n": 55,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      55
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-10-29",
+  "discovered_by": [
+    "Holzmann, Kharaghani, Tayfeh-Rezaie 2008 classification; earlier constructions credited there"
+  ],
+  "sources": [
+    {
+      "title": "Holzmann, Kharaghani, Tayfeh-Rezaie, Williamson matrices up to order 59, Des. Codes Cryptogr. 46 (2008), Tables 2 and 3",
+      "url": "https://doi.org/10.1007/s10623-007-9163-5"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n55",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [
+    "n55-2687b53836c02e5f2dbd"
+  ],
+  "claimed_count": 1,
+  "claim_kind": "published-exact",
+  "notes": "The paper's exhaustive classification; its representatives are verified here and pairwise inequivalent, but the search has not been replayed on this board, so the count is recorded as a lower bound."
+}

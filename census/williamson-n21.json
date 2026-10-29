@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "n": 21,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      21
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-10-29",
+  "discovered_by": [
+    "Holzmann, Kharaghani, Tayfeh-Rezaie 2008 classification; earlier constructions credited there"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned census williamson-census-c-v1, replayed at n=21",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f9862dd59ab3f981e08810e66860ba84c9c2d782/research/starter/williamson/williamson_c.c",
+      "commit": "f9862dd59ab3f981e08810e66860ba84c9c2d782",
+      "source_path": "research/starter/williamson/williamson_c.c"
+    },
+    {
+      "title": "Holzmann, Kharaghani, Tayfeh-Rezaie, Williamson matrices up to order 59, Des. Codes Cryptogr. 46 (2008), Tables 2 and 3",
+      "url": "https://doi.org/10.1007/s10623-007-9163-5"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n21",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [
+    "n21-12502838a875b0023207",
+    "n21-2309af1decc956a962ff",
+    "n21-6295da03d598b6d13ffb",
+    "n21-6c3435545881ce41ee24",
+    "n21-9d742e99e48e555934c3",
+    "n21-d375ecfe6c70ba7c7969",
+    "n21-e0423f25c77ae586b6c8"
+  ],
+  "claimed_count": 7,
+  "claim_kind": "computed-exact",
+  "enumerator": "williamson-census-c-v1",
+  "notes": "Full census replayed on this board by williamson-census-c-v1 on every verification. It reproduces the classification of Holzmann, Kharaghani and Tayfeh-Rezaie at this order."
+}

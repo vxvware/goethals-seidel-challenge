@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "n": 1,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      1
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-10-29",
+  "discovered_by": [
+    "Trivial: the single quadruple of order 1"
+  ],
+  "sources": [
+    {
+      "title": "Mathematical contract, equiv-v1: at n=1 all six tracks apply",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/main/notes/mathematical-contract.md"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "order-one-williamson",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [
+    "n1-0a982ea1a0df30b3b8d9"
+  ],
+  "claimed_count": 1,
+  "claim_kind": "computed-exact",
+  "enumerator": "small-exact-v1",
+  "notes": "The row (1) is both symmetric and skew, so the one quadruple of order 1 is the whole census of every stratum."
+}
