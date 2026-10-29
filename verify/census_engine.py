@@ -4,19 +4,22 @@ from functools import lru_cache
 from itertools import combinations_with_replacement, permutations
 from math import gcd
 from pathlib import Path
+import os
 import subprocess
 import tempfile
-from verify.common import ROOT
+from verify.common import ROOT, TRACKS
 from verify.equivalence import canonical, branch_canonical
-from verify.gs_verify import paf, validate_rows
+from verify.gs_verify import memberships, paf, validate_rows
 
 
 @lru_cache(maxsize=16)
 def small_exact(n, stratum):
-    if stratum != "good" or n not in range(1, 16, 2):
-        raise ValueError("small-exact-v1 supports good odd orders <=15")
-    if n == 1:
+    if n == 1 and stratum in TRACKS:
+        # The single row (1) is symmetric and skew, so the one quadruple at
+        # n=1 belongs to all six strata.
         return {((1,),) * 4}
+    if stratum != "good" or n not in range(3, 16, 2):
+        raise ValueError("small-exact-v1 supports good odd orders <=15 and every stratum at n=1")
     h = n // 2
     skew = {}
     symmetric = []
@@ -79,6 +82,98 @@ def best_census(n):
     return reps, {"branch_orbits": len(branches), "expanded_quadruples": len(expanded)}
 
 
+# Pinned C enumerators replayed inline on every full verification. The order
+# ranges are a time budget: the last order of each takes under a minute on two
+# threads, and the next one takes several minutes.
+C_ENGINES = {
+    "good-census-c-v1": {
+        "stratum": "good",
+        "source": "research/starter/good/good_c.c",
+        "flags": ("-DGS_WIDE", "-DGC_WIDE"),
+        "orders": range(3, 44, 2),
+        "env": ("GOOD_", "TILE_"),
+    },
+    "williamson-census-c-v1": {
+        "stratum": "williamson",
+        "source": "research/starter/williamson/williamson_c.c",
+        "flags": (),
+        "orders": range(3, 38, 2),
+        "env": (),
+    },
+}
+
+
+@lru_cache(maxsize=len(C_ENGINES))
+def c_exe(engine):
+    """Build a pinned C census once per process; several censuses replay it."""
+    spec = C_ENGINES[engine]
+    exe = Path(tempfile.mkdtemp(prefix="gs-census-build-")) / "census"
+    build = subprocess.run(
+        [
+            "gcc",
+            "-O3",
+            "-march=native",
+            "-fopenmp",
+            *spec["flags"],
+            str(ROOT / spec["source"]),
+            "-lm",
+            "-o",
+            str(exe),
+        ],
+        capture_output=True,
+        text=True,
+        timeout=120,
+    )
+    if build.returncode:
+        raise ValueError(f"{engine} compilation failed: " + build.stderr[-2000:])
+    return exe
+
+
+def c_census(engine, n):
+    """Replay a pinned C census at odd order n and return its equiv-v1 classes.
+
+    The engines' environment variables only tune performance, but any with the
+    engine's prefixes are stripped so that a shard setting inherited from a
+    campaign shell cannot narrow a replay.
+    """
+    spec = C_ENGINES[engine]
+    if n not in spec["orders"]:
+        raise ValueError(
+            f"{engine} supports odd orders {spec['orders'][0]} to {spec['orders'][-1]}"
+        )
+    env = {k: v for k, v in os.environ.items() if not k.startswith(spec["env"] or ("\0",))}
+    with tempfile.TemporaryDirectory(prefix="gs-census-") as tmp:
+        out = Path(tmp) / "solutions.txt"
+        run = subprocess.run(
+            [str(c_exe(engine)), str(n), "2", str(out)],
+            capture_output=True,
+            text=True,
+            timeout=600,
+            cwd=tmp,
+            env=env,
+        )
+        if run.returncode or not out.exists():
+            raise ValueError(f"{engine} replay failed: " + run.stderr[-2000:])
+        rows = [
+            tuple(tuple(1 if c == "+" else -1 for c in word) for word in line.split())
+            for line in out.read_text().splitlines()
+            if line and line[0] in "+-"
+        ]
+    for q in rows:
+        validate_rows(q, n)
+        if spec["stratum"] not in memberships(q):
+            raise ValueError(f"{engine} produced a row outside the {spec['stratum']} stratum")
+    return {canonical(q) for q in rows}
+
+
+def good_census(n):
+    return c_census("good-census-c-v1", n)
+
+
+def williamson_census(n):
+    return c_census("williamson-census-c-v1", n)
+
+
 def verify(entry, quadruples, reproduce=True):
     reps = []
     for identifier in entry["representatives"]:
@@ -111,6 +206,8 @@ def verify(entry, quadruples, reproduce=True):
         if engine == "best-census-c-v1" and entry["stratum"] == "best":
             expected, secondary = best_census(entry["n"])
             result["secondary"] = secondary
+        elif engine in C_ENGINES and entry["stratum"] == C_ENGINES[engine]["stratum"]:
+            expected = c_census(engine, entry["n"])
         elif engine == "small-exact-v1":
             expected = small_exact(entry["n"], entry["stratum"])
         else:

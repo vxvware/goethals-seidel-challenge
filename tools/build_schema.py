@@ -163,7 +163,14 @@ census = entry(
         },
         "claimed_count": NONNEGATIVE_INTEGER,
         "claim_kind": {"enum": ["lower-bound", "published-exact", "computed-exact"]},
-        "enumerator": {"enum": ["best-census-c-v1", "small-exact-v1"]},
+        "enumerator": {
+            "enum": [
+                "best-census-c-v1",
+                "good-census-c-v1",
+                "small-exact-v1",
+                "williamson-census-c-v1",
+            ]
+        },
         "secondary": {
             "type": "object",
             "additionalProperties": False,

@@ -622,7 +622,9 @@
         "enumerator": {
           "enum": [
             "best-census-c-v1",
-            "small-exact-v1"
+            "good-census-c-v1",
+            "small-exact-v1",
+            "williamson-census-c-v1"
           ]
         },
         "secondary": {
