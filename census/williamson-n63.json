@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "n": 63,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      63
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-12",
+  "discovered_by": [
+    "Bright, Kotsireas, Ganesh 2018 SAT+CAS classification of odd orders divisible by three; the Turyn-type class credited there"
+  ],
+  "sources": [
+    {
+      "title": "Bright, Kotsireas, Ganesh, Applying computer algebra systems with SAT solvers to the Williamson conjecture, J. Symbolic Comput. (2020), Table 3",
+      "url": "https://cs.uwaterloo.ca/~cbright/reports/jsc-willsat.pdf"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n63",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [
+    "n63-7e4ff9b08623ad806bc6",
+    "n63-fa89dca8eb9c12dbbd69"
+  ],
+  "claimed_count": 2,
+  "claim_kind": "published-exact",
+  "notes": "The paper's exhaustive enumeration at order 63 (two inequivalent sets); its representatives are verified here and pairwise inequivalent, but the search has not been replayed on this board, so the count is recorded as a lower bound until a replay is registered."
+}
