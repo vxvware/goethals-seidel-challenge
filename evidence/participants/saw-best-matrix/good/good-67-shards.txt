@@ -1,0 +1,242 @@
+# Shard logs of the order-67 good-matrix census (data/good/good-67.txt).
+# Engine tools/good_c_n67.c, driver run67.sh; one section per file, per host.
+
+=== bos-game/run67.sh
+#!/bin/sh
+# Good-matrix census at n=67, one shard per argument "di:lo:hi" (decomposition
+# index, outer-table slices [lo,hi) of GOOD_OUTER_CHUNKS=8).  Builds the engine,
+# validates it on the stored n=37 census, then runs the shards in order under a
+# memory-capped user scope at nice 19.  Resumable: a shard with a .done marker is
+# skipped, and a shard with a checkpoint resumes from it.
+#   usage: run67.sh THREADS MEMMAX di:lo:hi [di:lo:hi ...]
+set -u
+cd "$HOME/gc67" || exit 1
+T=$1; MEM=$2; shift 2
+L=$HOME/gc67/queue.log
+export XDG_RUNTIME_DIR=/run/user/$(id -u) DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+export OMP_WAIT_POLICY=PASSIVE
+if [ ! -x good_c ] || [ good_c.c -nt good_c ]; then
+  gcc -O3 -march=native -fopenmp -DGS_WIDE -DGC_WIDE -o good_c good_c.c -lm 2>>"$L" || { echo "build failed $(date -Is)" >> "$L"; exit 1; }
+  rm -f val37.ok
+fi
+if [ ! -f val37.ok ]; then
+  GOOD_OUTER_CHUNKS=4 nice -n 19 ./good_c 37 "$T" val37.txt > val37.log 2>&1
+  want=$(grep -c '^[+-]' good-37.ref); got=$(grep -c '^[+-]' val37.txt)
+  echo "validation n=37: reference rows=$want local rows=$got $(date -Is)" >> "$L"
+  grep '^[+-]' good-37.ref | sort -u > ref.sorted; grep '^[+-]' val37.txt | sort -u > val.sorted
+  if [ "$want" = "$got" ] && cmp -s ref.sorted val.sorted; then touch val37.ok; else echo "validation FAILED; n=67 not started" >> "$L"; exit 1; fi
+fi
+for u in "$@"; do
+  di=${u%%:*}; r=${u#*:}; lo=${r%%:*}; hi=${r#*:}
+  tag="d${di}-s${lo}-${hi}"
+  [ -f "$tag.done" ] && continue
+  echo "shard $tag starting, threads $T, MemoryMax $MEM $(date -Is)" >> "$L"
+  GOOD_OUTER_CHUNKS=8 GOOD_DI=$di GOOD_OC_LO=$lo GOOD_OC_HI=$hi \
+  systemd-run --user --scope -q -p MemoryMax="$MEM" -p MemorySwapMax=0 \
+    nice -n 19 ./good_c 67 "$T" "out-$tag.txt" "ckpt-$tag" 600 >> "out-$tag.log" 2>> "err-$tag.log"
+  rc=$?
+  echo "shard $tag rc=$rc $(date -Is)" >> "$L"
+  [ $rc -eq 0 ] && touch "$tag.done" || exit $rc
+done
+echo "all shards done $(date -Is)" >> "$L"
+
+=== bos-game/queue.log
+validation n=37: reference rows=144 local rows=144 2026-10-27T22:09:16-04:00
+shard d0-s0-8 starting, threads 16, MemoryMax 14G 2026-10-27T22:09:16-04:00
+shard d0-s0-8 rc=0 2026-11-04T12:22:44-05:00
+shard d1-s0-6 starting, threads 16, MemoryMax 14G 2026-11-04T12:22:44-05:00
+requeue: chunks 4,5 moved to archdesktop and versalife 2026-11-07T07:35:23-05:00
+shard d1-s0-4 starting, threads 16, MemoryMax 14G 2026-11-07T07:35:23-05:00
+shard d1-s0-4 rc=0 2026-11-08T04:46:07-05:00
+all shards done 2026-11-08T04:46:07-05:00
+follow: chunk 5 taken back from versalife 2026-11-08T04:46:09-05:00
+shard d1-s5-6 starting, threads 16, MemoryMax 14G 2026-11-08T04:46:09-05:00
+shard d1-s5-6 rc=0 2026-11-09T12:26:15-05:00
+all shards done 2026-11-09T12:26:15-05:00
+
+=== bos-game/ckpt-d0-s0-8.head
+good_c ckpt v1
+n 67
+decomp 1
+chunk 0
+nrow 0
+found 0
+tested 6449937552151
+
+=== bos-game/ckpt-d1-s0-4.head
+good_c ckpt v1
+n 67
+decomp 2
+chunk 0
+nrow 0
+found 0
+tested 804818314469
+
+=== bos-game/ckpt-d1-s0-6.head
+good_c ckpt v1
+n 67
+decomp 1
+chunk 3
+nrow 13385019
+found 0
+tested 24563821504
+
+=== bos-game/ckpt-d1-s5-6.head
+good_c ckpt v1
+n 67
+decomp 2
+chunk 0
+nrow 0
+found 0
+tested 1174262606086
+
+=== bos-game/d0-s0-8.done
+
+=== bos-game/d1-s0-4.done
+
+=== bos-game/d1-s5-6.done
+
+=== bos-game/out-d0-s0-8.log
+n=67: 4n-1 = 267, 2 row-sum decompositions
+   (-13, 7, 7)
+   (-5, 11, 11)
+   skew A: 855741752 of 8589934592 survive the ceiling, 12965822 after decimation (66 maps, 66.0x)
+   (-13,7,7): outer row sum -13, symmetric table 14715321
+   (-13,7,7): outer row sum -13, symmetric table 10546138
+   (-13,7,7): outer row sum -13, symmetric table 10469503
+   (-13,7,7): outer row sum -13, symmetric table 6686078
+   (-13,7,7): outer row sum -13, symmetric table 10470641
+   (-13,7,7): outer row sum -13, symmetric table 6684940
+   (-13,7,7): outer row sum -13, symmetric table 6761575
+   (-13,7,7): outer row sum -13, symmetric table 3653920
+   (-13,7,7): 0 quadruples, 6449937552151 triples tested
+   thread-seconds by phase: table build 1723.279 (0%) | per-row work 9643999.695 (100%)
+   per-row split: A filter + survivors 807426.821 | solve 8850701.135 (continue rows counted in the filter half)
+
+n=67: 0 good-matrix quadruples (0 on canonical skew rows, expanded over 66 decimations)
+   triples tested: 6449937552151
+
+=== bos-game/out-d1-s0-4.log
+n=67: 4n-1 = 267, 2 row-sum decompositions
+   (-13, 7, 7)
+   (-5, 11, 11)
+   skew A: 855741752 of 8589934592 survive the ceiling, 12965822 after decimation (66 maps, 66.0x)
+   (-5,11,11): outer row sum 11, symmetric table 13385019
+   (-5,11,11): 0 quadruples, 780254492965 triples tested
+   thread-seconds by phase: table build 833.061 (0%) | per-row work 1173725.300 (100%)
+   per-row split: A filter + survivors 105401.885 | solve 1072624.371 (continue rows counted in the filter half)
+
+n=67: 0 good-matrix quadruples (0 on canonical skew rows, expanded over 66 decimations)
+   triples tested: 804818314469
+
+=== bos-game/out-d1-s0-6.log
+
+=== bos-game/out-d1-s5-6.log
+n=67: 4n-1 = 267, 2 row-sum decompositions
+   (-13, 7, 7)
+   (-5, 11, 11)
+   skew A: 855741752 of 8589934592 survive the ceiling, 12965822 after decimation (66 maps, 66.0x)
+   (-5,11,11): outer row sum 11, symmetric table 13382756
+   (-5,11,11): 0 quadruples, 1174262606086 triples tested
+   thread-seconds by phase: table build 843.649 (0%) | per-row work 1765154.830 (100%)
+   per-row split: A filter + survivors 153847.665 | solve 1614155.071 (continue rows counted in the filter half)
+
+n=67: 0 good-matrix quadruples (0 on canonical skew rows, expanded over 66 decimations)
+   triples tested: 1174262606086
+
+=== archdesktop/run67.sh
+#!/bin/sh
+# Good-matrix census at n=67, one shard per argument "di:lo:hi" (decomposition
+# index, outer-table slices [lo,hi) of GOOD_OUTER_CHUNKS=8).  Builds the engine,
+# validates it on the stored n=37 census, then runs the shards in order under a
+# memory-capped user scope at nice 19.  Resumable: a shard with a .done marker is
+# skipped, and a shard with a checkpoint resumes from it.
+#   usage: run67.sh THREADS MEMMAX di:lo:hi [di:lo:hi ...]
+set -u
+cd "$HOME/gc67" || exit 1
+T=$1; MEM=$2; shift 2
+L=$HOME/gc67/queue.log
+export XDG_RUNTIME_DIR=/run/user/$(id -u) DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+export OMP_WAIT_POLICY=PASSIVE
+if [ ! -x good_c ] || [ good_c.c -nt good_c ]; then
+  gcc -O3 -march=native -fopenmp -DGS_WIDE -DGC_WIDE -o good_c good_c.c -lm 2>>"$L" || { echo "build failed $(date -Is)" >> "$L"; exit 1; }
+  rm -f val37.ok
+fi
+if [ ! -f val37.ok ]; then
+  GOOD_OUTER_CHUNKS=4 nice -n 19 ./good_c 37 "$T" val37.txt > val37.log 2>&1
+  want=$(grep -c '^[+-]' good-37.ref); got=$(grep -c '^[+-]' val37.txt)
+  echo "validation n=37: reference rows=$want local rows=$got $(date -Is)" >> "$L"
+  grep '^[+-]' good-37.ref | sort -u > ref.sorted; grep '^[+-]' val37.txt | sort -u > val.sorted
+  if [ "$want" = "$got" ] && cmp -s ref.sorted val.sorted; then touch val37.ok; else echo "validation FAILED; n=67 not started" >> "$L"; exit 1; fi
+fi
+for u in "$@"; do
+  di=${u%%:*}; r=${u#*:}; lo=${r%%:*}; hi=${r#*:}
+  tag="d${di}-s${lo}-${hi}"
+  [ -f "$tag.done" ] && continue
+  echo "shard $tag starting, threads $T, MemoryMax $MEM $(date -Is)" >> "$L"
+  GOOD_OUTER_CHUNKS=8 GOOD_DI=$di GOOD_OC_LO=$lo GOOD_OC_HI=$hi \
+  systemd-run --user --scope -q -p MemoryMax="$MEM" -p MemorySwapMax=0 \
+    nice -n 19 ./good_c 67 "$T" "out-$tag.txt" "ckpt-$tag" 600 >> "out-$tag.log" 2>> "err-$tag.log"
+  rc=$?
+  echo "shard $tag rc=$rc $(date -Is)" >> "$L"
+  [ $rc -eq 0 ] && touch "$tag.done" || exit $rc
+done
+echo "all shards done $(date -Is)" >> "$L"
+
+=== archdesktop/queue.log
+validation n=37: reference rows=144 local rows=144 2026-10-27T22:09:17-04:00
+shard d1-s6-8 starting, threads 4, MemoryMax 8G 2026-10-27T22:09:17-04:00
+shard d1-s6-8 rc=0 2026-11-05T09:04:44-05:00
+all shards done 2026-11-05T09:04:44-05:00
+shard d1-s4-5 starting, threads 4, MemoryMax 8G 2026-11-07T07:35:26-05:00
+shard d1-s4-5 rc=0 2026-11-10T05:52:54-05:00
+all shards done 2026-11-10T05:52:54-05:00
+
+=== archdesktop/ckpt-d1-s4-5.head
+good_c ckpt v1
+n 67
+decomp 2
+chunk 0
+nrow 0
+found 0
+tested 849400440939
+
+=== archdesktop/ckpt-d1-s6-8.head
+good_c ckpt v1
+n 67
+decomp 2
+chunk 0
+nrow 0
+found 0
+tested 2454762862710
+
+=== archdesktop/d1-s4-5.done
+
+=== archdesktop/d1-s6-8.done
+
+=== archdesktop/out-d1-s4-5.log
+n=67: 4n-1 = 267, 2 row-sum decompositions
+   (-13, 7, 7)
+   (-5, 11, 11)
+   skew A: 855741752 of 8589934592 survive the ceiling, 12965822 after decimation (66 maps, 66.0x)
+   (-5,11,11): outer row sum 11, symmetric table 9777511
+   (-5,11,11): 0 quadruples, 849400440939 triples tested
+   thread-seconds by phase: table build 2241.479 (0%) | per-row work 950655.578 (100%)
+   per-row split: A filter + survivors 80211.893 | solve 871958.224 (continue rows counted in the filter half)
+
+n=67: 0 good-matrix quadruples (0 on canonical skew rows, expanded over 66 decimations)
+   triples tested: 849400440939
+
+=== archdesktop/out-d1-s6-8.log
+n=67: 4n-1 = 267, 2 row-sum decompositions
+   (-13, 7, 7)
+   (-5, 11, 11)
+   skew A: 855741752 of 8589934592 survive the ceiling, 12965822 after decimation (66 maps, 66.0x)
+   (-5,11,11): outer row sum 11, symmetric table 13495068
+   (-5,11,11): outer row sum 11, symmetric table 16518464
+   (-5,11,11): 0 quadruples, 2454762862710 triples tested
+   thread-seconds by phase: table build 3046.484 (0%) | per-row work 2715762.178 (100%)
+   per-row split: A filter + survivors 237572.534 | solve 2482751.922 (continue rows counted in the filter half)
+
+n=67: 0 good-matrix quadruples (0 on canonical skew rows, expanded over 66 decimations)
+   triples tested: 2454762862710

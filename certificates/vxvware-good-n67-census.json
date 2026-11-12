@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "n": 67,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      67
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-12",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: good matrices at n=67",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/0061ad63796971e767971ff82756b32500291f62/data/good/good-67.txt",
+      "commit": "0061ad63796971e767971ff82756b32500291f62",
+      "source_path": "data/good/good-67.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/good/good-67.txt",
+        "sha256": "6357c3594dbfd7d4d5ec2f8e42ad2e1bc263c8d6845cac17d5b99242881c529d"
+      }
+    },
+    {
+      "title": "vxvware/saw-best-matrix: shard logs of the n=67 census",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/0061ad63796971e767971ff82756b32500291f62/data/good/good-67-shards.txt",
+      "commit": "0061ad63796971e767971ff82756b32500291f62",
+      "source_path": "data/good/good-67-shards.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/good/good-67-shards.txt",
+        "sha256": "2528167be48141d176fed1ccc772504cc222ef0304c740619f67fb2d50c14660"
+      }
+    }
+  ],
+  "id": "vxvware-good-n67-census",
+  "type": "certificate",
+  "stratum": "good",
+  "claim": "empty",
+  "scope": {
+    "kind": "full"
+  },
+  "method": "unreplayed-census",
+  "records": [],
+  "gaps": [
+    "Unpublished; no paper is recorded for this census.",
+    "Single complete run; not replayed here."
+  ],
+  "notes": "The archived source file is a deliberately empty census output whose header records the exhaustive search: the corrected wide-word build of the vxvware good-matrix engine (tools/good_c_n67.c in the source repository), validated against the stored n=37 census before each shard, run as 16 resumable shards over two hosts between 2026-10-27 and 2026-11-10, 11.76e12 triples tested and no quadruple. It replaces the partial search recorded as good-n67-campaign and the earlier run withdrawn over the wide-word bug. No published search covers this order."
+}
