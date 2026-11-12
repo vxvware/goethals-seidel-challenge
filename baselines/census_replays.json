@@ -26,8 +26,16 @@
       "sha256": "9478393bcf64199f7ef9d8871e38c6559f370529292a116e59f7ebe155976a2e"
     },
     {
+      "path": "evidence/census-replays/williamson-n55.json",
+      "sha256": "da6d078daed519213f527258afeb6641081362ab393f0df1463e6f61a37de1dd"
+    },
+    {
       "path": "evidence/census-replays/williamson-n57.json",
       "sha256": "be6b9e74f8b02423a9dfbfe34b3671efe80d02d1e4c431661032c3261108607b"
+    },
+    {
+      "path": "evidence/census-replays/williamson-n63.json",
+      "sha256": "9557c60f40f3f8ffc42325a252ea7b8e27538ae027d75db3e4b2a3dfe7219fe3"
     }
   ]
 }
