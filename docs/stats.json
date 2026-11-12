@@ -2,8 +2,8 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 502,
-  "quadruples": 344,
+  "entry_count": 513,
+  "quadruples": 355,
   "certificates": 73,
   "censuses": 85,
   "contributions": [
@@ -33463,10 +33463,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n75-8f62cb8ad8591ec83dbf"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -33601,10 +33603,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n75-8f62cb8ad8591ec83dbf"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -33758,10 +33762,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n79-59677cf862a92586e1dc"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -33896,10 +33902,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n79-59677cf862a92586e1dc"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -34195,10 +34203,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n85-f4788d582f4496ba2091"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -34305,10 +34315,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n85-f4788d582f4496ba2091"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -34337,10 +34349,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n87-7d59b8fbff4dd62898cc"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -34475,10 +34489,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n87-7d59b8fbff4dd62898cc"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -34677,10 +34693,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n91-67c71e6acebe219558f3"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -34809,10 +34827,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n91-67c71e6acebe219558f3"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -35094,10 +35114,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n97-80f6003b5c1d035ff691"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -35204,10 +35226,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n97-80f6003b5c1d035ff691"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -35236,10 +35260,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n99-908528d3b50070130f77"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -35374,10 +35400,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n99-908528d3b50070130f77"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -36265,10 +36293,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n115-af17c3ac6edfc9d8eb0b"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -36403,10 +36433,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n115-af17c3ac6edfc9d8eb0b"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -36446,10 +36478,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n117-86ea347fa01e310c86a2"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -36556,10 +36590,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n117-86ea347fa01e310c86a2"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -36716,10 +36752,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n121-98ab44956daa5b72d69c"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -36826,10 +36864,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n121-98ab44956daa5b72d69c"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -37270,10 +37310,12 @@
       "stratum": "williamson",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n129-e6cbfa660a612e32d73c"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -37380,10 +37422,12 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n129-e6cbfa660a612e32d73c"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -39823,38 +39867,6 @@
     },
     {
       "n": 75,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 75,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 75,
       "stratum": "kkss",
       "group": "cyclic",
       "status": "exists",
@@ -39918,81 +39930,6 @@
       "note": ""
     },
     {
-      "n": 75,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 75,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        },
-        {
-          "n": 75,
-          "stratum": "kkss",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
-            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 79,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 79,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 79,
       "stratum": "kkss",
       "group": "cyclic",
@@ -40048,145 +39985,6 @@
           "source": {
             "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
             "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 79,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 79,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        },
-        {
-          "n": 79,
-          "stratum": "kkss",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
-            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 85,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 85,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 85,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 85,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 87,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 87,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
           },
           "baseline_date": "2026-10-14"
         }
@@ -40260,81 +40058,6 @@
       "note": ""
     },
     {
-      "n": 87,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 87,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        },
-        {
-          "n": 87,
-          "stratum": "kkss",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
-            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 91,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 91,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 91,
       "stratum": "kkss",
       "group": "cyclic",
@@ -40390,145 +40113,6 @@
           "source": {
             "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
             "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 91,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 91,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        },
-        {
-          "n": 91,
-          "stratum": "kkss",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
-            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 97,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 97,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 97,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 97,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 99,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 99,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
           },
           "baseline_date": "2026-10-14"
         }
@@ -40602,81 +40186,6 @@
       "note": ""
     },
     {
-      "n": 99,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 99,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        },
-        {
-          "n": 99,
-          "stratum": "kkss",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
-            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 115,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 115,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 115,
       "stratum": "kkss",
       "group": "cyclic",
@@ -40732,177 +40241,6 @@
           "source": {
             "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
             "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 115,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 115,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        },
-        {
-          "n": 115,
-          "stratum": "kkss",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
-            "url": "https://www.sciencedirect.com/science/article/pii/0012365X77900097"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 117,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 117,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 117,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 117,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 121,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 121,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 121,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 121,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
           },
           "baseline_date": "2026-10-14"
         }
@@ -41006,83 +40344,19 @@
       "contradicted": [],
       "flags": [],
       "note": ""
-    },
-    {
-      "n": 129,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 129,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 129,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 129,
-          "stratum": "williamson",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
-            "url": "https://doi.org/10.1016/0097-3165(72)90095-7"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
     }
   ],
   "largest_verified": {
-    "williamson": 69,
+    "williamson": 129,
     "good": 61,
     "best": 57,
     "kkss": 63,
     "skew-sds": 73,
-    "general": 73
+    "general": 129
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 400,
+    "reproduced": 411,
     "spot-checked": 0,
     "receipt-backed": 2
   },
