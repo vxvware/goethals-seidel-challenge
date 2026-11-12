@@ -48,8 +48,9 @@ for n in range(65, 132, 2):
             "williamson",
             n,
             "exists",
-            "https://rikkyo.repo.nii.ac.jp/record/10210/files/AA00610867_31-01_10.pdf",
-            "Yamada, Williamson matrices of Turyn's type: 2n-1 a prime power",
+            "https://doi.org/10.1016/0097-3165(72)90095-7",
+            "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972): "
+            "Williamson matrices of order n whenever 2n-1 is a prime power congruent to 1 mod 4",
         )
 for n in range(1, 50, 2):
     add(
