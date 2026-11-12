@@ -95174,6 +95174,23 @@
       ],
       "contributions": []
     },
+    "williamson-n63": {
+      "id": "williamson-n63",
+      "type": "census",
+      "n": 63,
+      "stratum": "williamson",
+      "equivalence": "equiv-v1",
+      "count": 2,
+      "bound": "lower",
+      "tier": null,
+      "claimed_count": 2,
+      "claim_kind": "published-exact",
+      "checks": [
+        "representative-existence",
+        "pairwise-inequivalence"
+      ],
+      "contributions": []
+    },
     "williamson-n7": {
       "id": "williamson-n7",
       "type": "census",
