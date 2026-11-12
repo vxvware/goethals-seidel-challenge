@@ -15,7 +15,9 @@ def test_no_false_empty_inherited_to_parent(board):
     s = summary(d, r, b)
     lookup = {(c["n"], c["stratum"]): c for c in s["cells"]}
     assert lookup[89, "skew-sds"]["status"] == "unresolved"
-    assert lookup[67, "good"]["status"] == "unresolved"
+    assert lookup[67, "good"]["status"] == "empty"
+    assert lookup[67, "good"]["tier"] is None
+    assert lookup[67, "good"]["empty_basis"] == ["unreplayed-census"]
     assert lookup[65, "good"]["status"] == "unresolved"
     assert lookup[41, "good"]["status"] == "empty"
     assert lookup[41, "general"]["status"] == "exists"

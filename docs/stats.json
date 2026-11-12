@@ -2,9 +2,9 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 500,
+  "entry_count": 501,
   "quadruples": 344,
-  "certificates": 72,
+  "certificates": 73,
   "censuses": 84,
   "contributions": [
     {
@@ -380,7 +380,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Participant search with partial coverage; it does not establish nonexistence.",
+      "summary": "Participant search with partial coverage from the withdrawn first run; it does not establish nonexistence. The complete census that does is recorded separately as good-67-empty.",
       "entry_ids": [
         "good-n67-campaign"
       ],
@@ -605,6 +605,27 @@
       "featured": false,
       "label": "Published / catalogue import",
       "position": 14,
+      "recorded_at": "2026-10-15"
+    },
+    {
+      "id": "good-67-empty",
+      "title": "Good-matrix census at n=67, empty",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "The re-run of the vxvware census with the corrected wide-word engine, validated against the stored n=37 census before every shard and run as sixteen resumable shards on two hosts from 2026-10-27 to 2026-11-10, reports no good matrices at n=67 after 11.76e12 triples. The board records the attributed claim without a verification tier because the search has not been replayed here.",
+      "entry_ids": [
+        "vxvware-good-n67-census"
+      ],
+      "featured": false,
+      "stratum": "good",
+      "label": "Challenge result",
+      "position": 15,
       "recorded_at": "2026-10-15"
     }
   ],
@@ -32147,13 +32168,16 @@
       "n": 67,
       "stratum": "good",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
       "tier": null,
-      "empty_basis": [],
+      "empty_basis": [
+        "unreplayed-census"
+      ],
       "quadruples": [],
       "evidence": [
-        "good-n67-campaign"
+        "good-n67-campaign",
+        "vxvware-good-n67-census"
       ],
       "censuses": [],
       "contributions": [
@@ -32168,7 +32192,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Participant search with partial coverage; it does not establish nonexistence.",
+          "summary": "Participant search with partial coverage from the withdrawn first run; it does not establish nonexistence. The complete census that does is recorded separately as good-67-empty.",
           "entry_ids": [
             "good-n67-campaign"
           ],
@@ -32176,6 +32200,27 @@
           "stratum": "good",
           "label": "Challenge result",
           "position": 10,
+          "recorded_at": "2026-10-15"
+        },
+        {
+          "id": "good-67-empty",
+          "title": "Good-matrix census at n=67, empty",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "The re-run of the vxvware census with the corrected wide-word engine, validated against the stored n=37 census before every shard and run as sixteen resumable shards on two hosts from 2026-10-27 to 2026-11-10, reports no good matrices at n=67 after 11.76e12 triples. The board records the attributed claim without a verification tier because the search has not been replayed here.",
+          "entry_ids": [
+            "vxvware-good-n67-census"
+          ],
+          "featured": false,
+          "stratum": "good",
+          "label": "Challenge result",
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -37594,50 +37639,6 @@
     },
     {
       "n": 67,
-      "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [
-        "good-n67-campaign"
-      ],
-      "censuses": [],
-      "contributions": [
-        {
-          "id": "good-67-search",
-          "title": "Good-matrix partial search at n=67",
-          "relation": "participant-result",
-          "publication_status": "unpublished",
-          "contributors": [
-            {
-              "name": "vxvware",
-              "github": "vxvware"
-            }
-          ],
-          "summary": "Participant search with partial coverage; it does not establish nonexistence.",
-          "entry_ids": [
-            "good-n67-campaign"
-          ],
-          "featured": false,
-          "stratum": "good",
-          "label": "Challenge result",
-          "position": 10,
-          "recorded_at": "2026-10-15"
-        }
-      ],
-      "origins": [
-        "participant-result"
-      ],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 67,
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
@@ -41083,5 +41084,5 @@
     "spot-checked": 0,
     "receipt-backed": 2
   },
-  "ungraded_claims": 49
+  "ungraded_claims": 50
 }
