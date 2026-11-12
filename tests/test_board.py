@@ -249,3 +249,48 @@ def test_pictured_array_is_hadamard(board, ident):
     rows = board[1][ident]["canonical_rows"]
     h = gs_array(rows)
     assert np.array_equal(h @ h.T, 4 * len(rows[0]) * np.eye(len(h), dtype=int))
+
+
+def test_registered_census_replays_make_published_counts_exact(board):
+    d, r, b = board
+    for n, count, engine in (
+        (39, 1, "williamson-census-c-v1"),
+        (41, 1, "williamson-census-c-v1"),
+        (43, 2, "williamson-census-c-v1"),
+        (45, 1, "williamson-compress-v1"),
+        (49, 1, "williamson-compress-v1"),
+        (51, 2, "williamson-compress-v1"),
+        (57, 1, "williamson-compress-v1"),
+    ):
+        x = r[f"williamson-n{n}"]
+        assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", count)
+        assert x["claim_kind"] == "published-exact"
+        assert "registered-full-census-replay" in x["checks"]
+        assert x["replay"]["engine_id"] == engine
+    assert r["williamson-n55"]["bound"] == "lower"
+
+
+def test_registered_census_replay_rejects_tampering(board):
+    from verify.census_replays import apply_report
+    from verify.common import digest, read_json
+
+    d, r, b = board
+    entry = d["williamson-n43"]
+    report = read_json(ROOT / "evidence/census-replays/williamson-n43.json")
+    sha = digest(ROOT / "census/williamson-n43.json")
+    reps = [r[q]["canonical_rows"] for q in entry["representatives"]]
+
+    def attempt(**changes):
+        bad = dict(report, **changes)
+        with pytest.raises(ValueError):
+            apply_report(entry, dict(r["williamson-n43"]), bad, sha, reps)
+
+    attempt(entry_sha256="0" * 64)
+    attempt(engine_sha256={})
+    attempt(status="failed")
+    attempt(mode="sample")
+    attempt(rows=report["rows"][:1])  # one class of two
+    attempt(rows=report["rows"] + [report["rows"][0].replace("+", "-", 1)])
+    good = dict(r["williamson-n43"])
+    apply_report(entry, good, report, sha, reps)
+    assert good["bound"] == "exact"
