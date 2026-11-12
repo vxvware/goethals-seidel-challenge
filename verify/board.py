@@ -50,9 +50,11 @@ def load(root=ROOT, reproduce=True):
         elif doc["type"] == "census":
             results[ident] = census_engine.verify(doc, quads, reproduce)
     records = read_json(root / "baselines/order-status.json")["records"]
+    from verify.census_replays import apply_registered as apply_census_replays
     from verify.replay_registry import apply_registered
 
     apply_registered(documents, results, root)
+    apply_census_replays(documents, results, root)
     check_consistency(documents, results, records)
     contributions.apply(documents, results, root)
     return documents, results, records

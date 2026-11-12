@@ -94939,13 +94939,25 @@
       "stratum": "williamson",
       "equivalence": "equiv-v1",
       "count": 1,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 1,
       "claim_kind": "published-exact",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "williamson-census-c-v1",
+        "host": "bos-game",
+        "threads": 16,
+        "date": "2026-11-12",
+        "wall_seconds": 35.0,
+        "raw_rows": 4
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },
@@ -94956,13 +94968,25 @@
       "stratum": "williamson",
       "equivalence": "equiv-v1",
       "count": 1,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 1,
       "claim_kind": "published-exact",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "williamson-census-c-v1",
+        "host": "bos-game",
+        "threads": 16,
+        "date": "2026-11-12",
+        "wall_seconds": 73.0,
+        "raw_rows": 5
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },
@@ -94973,13 +94997,25 @@
       "stratum": "williamson",
       "equivalence": "equiv-v1",
       "count": 2,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 2,
       "claim_kind": "published-exact",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "williamson-census-c-v1",
+        "host": "bos-game",
+        "threads": 16,
+        "date": "2026-11-12",
+        "wall_seconds": 414.0,
+        "raw_rows": 28
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },
@@ -94990,13 +95026,26 @@
       "stratum": "williamson",
       "equivalence": "equiv-v1",
       "count": 1,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 1,
       "claim_kind": "published-exact",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "williamson-compress-v1",
+        "compression": 5,
+        "host": "laptop",
+        "threads": 2,
+        "date": "2026-11-12",
+        "wall_seconds": 193.0,
+        "raw_rows": 4
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },
@@ -95007,13 +95056,26 @@
       "stratum": "williamson",
       "equivalence": "equiv-v1",
       "count": 1,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 1,
       "claim_kind": "published-exact",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "williamson-compress-v1",
+        "compression": 7,
+        "host": "archdesktop",
+        "threads": 4,
+        "date": "2026-11-12",
+        "wall_seconds": 1718.0,
+        "raw_rows": 7
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },
@@ -95042,13 +95104,26 @@
       "stratum": "williamson",
       "equivalence": "equiv-v1",
       "count": 2,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 2,
       "claim_kind": "published-exact",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "williamson-compress-v1",
+        "compression": 3,
+        "host": "archdesktop",
+        "threads": 4,
+        "date": "2026-11-12",
+        "wall_seconds": 92.0,
+        "raw_rows": 4
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },
@@ -95076,13 +95151,26 @@
       "stratum": "williamson",
       "equivalence": "equiv-v1",
       "count": 1,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 1,
       "claim_kind": "published-exact",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "williamson-compress-v1",
+        "compression": 3,
+        "host": "bos-game",
+        "threads": 16,
+        "date": "2026-11-12",
+        "wall_seconds": 669.0,
+        "raw_rows": 2
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },

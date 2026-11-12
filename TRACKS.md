@@ -68,7 +68,26 @@ not formally checked proof. The full-replay output set must equal the submitted
 representative set, rather than merely agree in cardinality.
 
 For larger orders the board reports `≥ N` from verified inequivalent
-representatives and displays any published exact count separately. Primary
+representatives and displays any published exact count separately.
+
+A census beyond the inline range becomes exact through a registered offline
+replay: a maintainer runs a pinned engine to completion, records its raw rows
+with the engine source hashes, host, date and wall time under
+`evidence/census-replays/`, and registers the report in
+`baselines/census_replays.json` (tools/register_census_replay.py does both).
+On every load the verifier rechecks each recorded row exactly, re-derives the
+equivalence classes with the board's canonical form, and requires them to equal
+the submitted representatives and the claimed count; only then is the count
+exact and the tier reproduced. The registered engines are the bundled
+Williamson census (williamson-census-c-v1, used offline above order 37) and the
+Williamson compression pipeline (williamson-compress-v1, orders n = d m): it
+enumerates every symmetric sequence passing the PSD ceiling, keeps the realized
+d-compressions, matches them into compressed quadruples by the length-m PAF
+condition, reduces those by the multipliers of Z_m (every unit of Z_m lifts to
+a unit of Z_n, so one instance per orbit lifts to every class), and lifts each
+instance coset by coset with the same exact matching. Registrations bind the
+report to the exact entry bytes and engine sources; entry PRs cannot register
+their own replays. Primary
 counts use `equiv-v1`; legacy statistics explicitly use `branch-v1`.
 
 ## Replay a campaign slice
