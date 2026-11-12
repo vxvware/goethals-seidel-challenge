@@ -1,0 +1,28 @@
+# good matrices of order 67: full census produced by this repository.
+# the census is empty: no quadruple of this order exists.
+# the absence of rows below is the result, not a missing file.
+#
+# This is the re-run that replaces the census withdrawn on 2026-09-08 (finding
+# 522): that run used a build whose wide-word paths were wrong above n = 63.
+# The engine here is tools/good_c_n67.c (md5 6b7716218976...), the corrected
+# good_c.c of the n = 65 fix plus the shard knobs GOOD_DI, GOOD_OC_LO and
+# GOOD_OC_HI, built with -DGS_WIDE -DGC_WIDE and validated before every shard
+# against the stored n = 37 census (144 rows, identical).
+#
+# 4n = 268 admits two row-sum decompositions for the three symmetric rows:
+# (-13, 7, 7) and (-5, 11, 11), each with the skew row's sum of 1.  Each
+# decomposition's symmetric outer table was cut into 8 chunks
+# (GOOD_OUTER_CHUNKS=8) and the chunks were run as resumable shards on
+# bos-game (16 threads) and archdesktop (4 threads) between 2026-10-27 and
+# 2026-11-10, every shard exiting with rc=0 and its done bitmap complete:
+#
+#   shard      host         chunks   triples tested      quadruples
+#   d0-s0-8    bos-game     0..7     6449937552151       0
+#   d1-s0-4    bos-game     0..3      804818314469       0   (resumed at chunk 3
+#                                     + 24563821504           from the d1-s0-6 checkpoint)
+#   d1-s4-5    archdesktop  4         849400440939       0
+#   d1-s5-6    bos-game     5        1174262606086       0
+#   d1-s6-8    archdesktop  6..7     2454762862710       0
+#
+# 11.76e12 triples tested in all, no quadruple.  Shard logs, queue logs and
+# checkpoint headers are archived with the challenge-board entry.
