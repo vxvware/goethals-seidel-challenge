@@ -260,14 +260,15 @@ def test_registered_census_replays_make_published_counts_exact(board):
         (45, 1, "williamson-compress-v1"),
         (49, 1, "williamson-compress-v1"),
         (51, 2, "williamson-compress-v1"),
+        (55, 1, "williamson-compress-v1"),
         (57, 1, "williamson-compress-v1"),
+        (63, 2, "williamson-compress-v1"),
     ):
         x = r[f"williamson-n{n}"]
         assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", count)
         assert x["claim_kind"] == "published-exact"
         assert "registered-full-census-replay" in x["checks"]
         assert x["replay"]["engine_id"] == engine
-    assert r["williamson-n55"]["bound"] == "lower"
 
 
 def test_registered_census_replay_rejects_tampering(board):
