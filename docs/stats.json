@@ -2,10 +2,10 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 552,
+  "entry_count": 554,
   "quadruples": 374,
   "certificates": 76,
-  "censuses": 102,
+  "censuses": 104,
   "contributions": [
     {
       "id": "kkss-49-correction",
@@ -30868,7 +30868,9 @@
         "n61-0732fca9a2b40fa15e62"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n61"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -32428,7 +32430,9 @@
         "n69-2d828c8cf271c0b3ff3d"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n69"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -39875,9 +39879,9 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 462,
+    "reproduced": 463,
     "spot-checked": 0,
     "receipt-backed": 2
   },
-  "ungraded_claims": 32
+  "ungraded_claims": 33
 }

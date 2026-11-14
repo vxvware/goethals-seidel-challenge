@@ -269,10 +269,11 @@ def test_registered_census_replays_make_published_counts_exact(board):
         (47, 0, "williamson-census-c-v1"),
         (53, 0, "williamson-hkt-v1"),
         (59, 0, "williamson-hkt-v1"),
+        (61, 1, "williamson-hkt-v2"),
     ):
         x = r[f"williamson-n{n}"]
         assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", count)
-        assert x["claim_kind"] == "published-exact"
+        assert x["claim_kind"] == ("lower-bound" if n == 61 else "published-exact")
         assert "registered-full-census-replay" in x["checks"]
         assert x["replay"]["engine_id"] == engine
 

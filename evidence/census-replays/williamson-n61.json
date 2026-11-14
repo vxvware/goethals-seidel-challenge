@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "entry_id": "williamson-n61",
+  "entry_sha256": "6b54874d02cb0511afc929f8980e6d502ca3441e5e0ae985ec15ff1df05c9b44",
+  "engine_id": "williamson-hkt-v2",
+  "engine_sha256": {
+    "research/starter/williamson/wil_hkt2.c": "482f60f348b9792c78ec86a7d2036d55df59e00bf58b3d973dc16b36ea6329b9",
+    "research/starter/kkss/hkt_solve.h": "96d29998fbf83e04c97b4db687b490164b5e785aa708904a1b18da73df13c11f"
+  },
+  "mode": "full",
+  "status": "passed",
+  "host": "bos-game",
+  "threads": 8,
+  "date": "2026-11-14",
+  "wall_seconds": 17359.0,
+  "command": "WIL_NLEV=32 ./wil_hkt2 61 8 w-61.txt",
+  "rows": [
+    "+++-+-----+++--+-+++--+---+--------+---+--+++-+--+++-----+-++ +++-+-----+++--+-+++--+---+--------+---+--+++-+--+++-----+-++ +++-+-+++-+--+----+++--+-+--++--++--+-+--+++----+--+-+++-+-++ +--+-+---+-++-++++---++-+-++--++--++-+-++---++++-++-+---+-+--"
+  ]
+}
