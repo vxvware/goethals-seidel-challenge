@@ -29,6 +29,15 @@ ENGINES = {
         "orders": range(9, 66, 2),
         "composite": True,
     },
+    "kkss-census-c-v1": {
+        "stratum": "kkss",
+        "sources": (
+            "research/starter/kkss/gmat_c.c",
+            "research/starter/kkss/hkt_solve.h",
+        ),
+        "orders": range(3, 64, 2),
+        "composite": False,
+    },
 }
 REPORT_DIR = "evidence/census-replays/"
 
