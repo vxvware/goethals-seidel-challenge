@@ -166,7 +166,7 @@ def test_participant_credit_does_not_change_evidence_status(board):
         credit = cell["contributions"][0]
         assert credit["contributors"] == [{"name": "vxvware", "github": "vxvware"}]
         assert credit["publication_status"] == "unpublished"
-        assert r[f"vxvware-good-n{n}"]["bound"] == "lower"
+        assert r[f"vxvware-good-n{n}"]["bound"] == ("exact" if n == 53 else "lower")
     correction = cells[49, "kkss"]
     assert correction["status"] == "exists" and correction["tier"] == "reproduced"
     assert correction["origins"] == ["participant-result"]
@@ -306,7 +306,13 @@ def test_registered_census_replay_rejects_tampering(board):
 
 def test_registered_good_replays_make_counts_exact(board):
     d, r, b = board
-    for ident, count in (("vxvware-good-n45", 4), ("good-n47", 0), ("good-n49", 0)):
+    for ident, count in (
+        ("vxvware-good-n45", 4),
+        ("good-n47", 0),
+        ("good-n49", 0),
+        ("good-n51", 0),
+        ("vxvware-good-n53", 1),
+    ):
         x = r[ident]
         assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", count)
         assert x["replay"]["engine_id"] == "good-census-c-v1"
