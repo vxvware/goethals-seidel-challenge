@@ -1,0 +1,8 @@
+# good matrices of order 49: full census produced by this repository.
+# provenance: our own exhaustive search, verified by store_results.py.
+# order 49 is settled in the literature, so this file is our
+# reproduction of a known answer and not a new result.
+# the census is empty: no quadruple of this order exists.
+# the absence of rows below is the result, not a missing file.
+# data/good/known/good-49.txt is absent for the same reason: an order with no good
+# matrices has no published quadruples to transcribe.

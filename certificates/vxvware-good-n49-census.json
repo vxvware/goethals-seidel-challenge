@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "n": 49,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      49
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-13",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: good matrices at n=49",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/0061ad63796971e767971ff82756b32500291f62/data/good/good-49.txt",
+      "commit": "0061ad63796971e767971ff82756b32500291f62",
+      "source_path": "data/good/good-49.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/good/good-49.txt",
+        "sha256": "5bee790585ddbf13b99fab03638e67a69b9d908fe753469d815015d3ddbdca5b"
+      }
+    }
+  ],
+  "id": "vxvware-good-n49-census",
+  "type": "certificate",
+  "stratum": "good",
+  "claim": "empty",
+  "scope": {
+    "kind": "full"
+  },
+  "method": "unreplayed-census",
+  "records": [],
+  "gaps": [
+    "Unpublished; no paper is recorded for this census."
+  ],
+  "notes": "The archived source file is a deliberately empty census output whose header records the exhaustive search. The published searches surveyed in arXiv:1811.05094 also find no good matrices at this order."
+}
