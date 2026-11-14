@@ -39,6 +39,15 @@ ENGINES = {
         "orders": range(9, 66, 2),
         "composite": True,
     },
+    "williamson-hkt-v1": {
+        "stratum": "williamson",
+        "sources": (
+            "research/starter/williamson/wil_hkt.c",
+            "research/starter/kkss/hkt_solve.h",
+        ),
+        "orders": range(3, 68, 2),
+        "composite": False,
+    },
     "kkss-census-c-v1": {
         "stratum": "kkss",
         "sources": (
