@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "entry_id": "good-n51",
+  "entry_sha256": "e037e08bfdfbe1cbfd7598158a5ba64c618aa3f025a036c62059a6d76feb8887",
+  "engine_id": "good-census-c-v1",
+  "engine_sha256": {
+    "research/starter/good/good_c.c": "cdbc20eae5c8b19f48489381e625f9490020f77a6f8c663bc03433f37e2b7c93"
+  },
+  "mode": "full",
+  "status": "passed",
+  "host": "bos-game",
+  "threads": 8,
+  "date": "2026-11-14",
+  "wall_seconds": 752.0,
+  "command": "gcc -O3 -march=native -fopenmp -DGS_WIDE -DGC_WIDE good_c.c -lm -o good_c; ./good_c 51 8 good-51.txt",
+  "rows": []
+}
