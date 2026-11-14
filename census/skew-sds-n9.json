@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "skew-sds-n9",
+  "type": "census",
+  "n": 9,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      9
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-14",
+  "discovered_by": [
+    "Exhaustive enumeration by this board's pinned census skew-sds-census-c-v1"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned census skew-sds-census-c-v1 (research/starter/general/gencensus.c), replayed inline by the verifier",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/584cfca65a04312d71e75c0743f1083c91ef489d/research/starter/general/gencensus.c",
+      "commit": "584cfca65a04312d71e75c0743f1083c91ef489d",
+      "source_path": "research/starter/general/gencensus.c"
+    }
+  ],
+  "equivalence": "equiv-v2",
+  "stratum": "skew-sds",
+  "representatives": [
+    "n9-064694c1bf0f79b307ad",
+    "n9-2aea392068d4fa0918d0",
+    "n9-2eec4d399cb9348273cf",
+    "n9-5d074993785e1e1a24d7",
+    "n9-8710af78abc6dcbbe9ad",
+    "n9-a1151f6255d55f7f0088",
+    "n9-b31ce3705b7594be4644",
+    "n9-def300777aa6c69257c9",
+    "n9-e20285656c1182f21b25"
+  ],
+  "claimed_count": 9,
+  "claim_kind": "computed-exact",
+  "enumerator": "skew-sds-census-c-v1",
+  "notes": "Counted under equiv-v2, which also identifies independent cyclic shifts of each row; the census counts the classes containing a quadruple of the skew-sds stratum, and every representative is one. Under equiv-v1 the same stratum has 2,865 classes at this order."
+}

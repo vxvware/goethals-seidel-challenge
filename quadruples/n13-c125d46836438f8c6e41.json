@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "id": "n13-c125d46836438f8c6e41",
+  "type": "quadruple",
+  "n": 13,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      13
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-14",
+  "discovered_by": [
+    "Exhaustive small-order enumeration by this board's pinned census general-census-c-v1; no individual discoverer"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned census general-census-c-v1 (research/starter/general/gencensus.c), replayed inline by the verifier",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/584cfca65a04312d71e75c0743f1083c91ef489d/research/starter/general/gencensus.c",
+      "commit": "584cfca65a04312d71e75c0743f1083c91ef489d",
+      "source_path": "research/starter/general/gencensus.c"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      1,
+      -1,
+      1
+    ],
+    [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      1,
+      1,
+      1,
+      1
+    ]
+  ],
+  "notes": "Representative of one equiv-v2 class (the shift quotient) of the general census at n=13, with a skew row; rows stored in canonical form under equiv-v1. Under equiv-v1 this class splits into several."
+}
