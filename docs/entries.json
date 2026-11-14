@@ -102357,6 +102357,40 @@
       ],
       "contributions": []
     },
+    "good-n47": {
+      "id": "good-n47",
+      "type": "census",
+      "n": 47,
+      "stratum": "good",
+      "equivalence": "equiv-v1",
+      "count": 0,
+      "bound": "lower",
+      "tier": null,
+      "claimed_count": 0,
+      "claim_kind": "published-exact",
+      "checks": [
+        "representative-existence",
+        "pairwise-inequivalence"
+      ],
+      "contributions": []
+    },
+    "good-n49": {
+      "id": "good-n49",
+      "type": "census",
+      "n": 49,
+      "stratum": "good",
+      "equivalence": "equiv-v1",
+      "count": 0,
+      "bound": "lower",
+      "tier": null,
+      "claimed_count": 0,
+      "claim_kind": "published-exact",
+      "checks": [
+        "representative-existence",
+        "pairwise-inequivalence"
+      ],
+      "contributions": []
+    },
     "good-n5": {
       "id": "good-n5",
       "type": "census",
@@ -102372,6 +102406,23 @@
         "representative-existence",
         "pairwise-inequivalence",
         "full-enumeration-replayed"
+      ],
+      "contributions": []
+    },
+    "good-n51": {
+      "id": "good-n51",
+      "type": "census",
+      "n": 51,
+      "stratum": "good",
+      "equivalence": "equiv-v1",
+      "count": 0,
+      "bound": "lower",
+      "tier": null,
+      "claimed_count": 0,
+      "claim_kind": "published-exact",
+      "checks": [
+        "representative-existence",
+        "pairwise-inequivalence"
       ],
       "contributions": []
     },

@@ -2,10 +2,10 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 549,
+  "entry_count": 552,
   "quadruples": 374,
   "certificates": 76,
-  "censuses": 99,
+  "censuses": 102,
   "contributions": [
     {
       "id": "kkss-49-correction",
@@ -27409,7 +27409,9 @@
         "good-n47-literature",
         "vxvware-good-n47-census"
       ],
-      "censuses": [],
+      "censuses": [
+        "good-n47"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -27769,7 +27771,9 @@
         "good-n49-literature",
         "vxvware-good-n49-census"
       ],
-      "censuses": [],
+      "censuses": [
+        "good-n49"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -28338,7 +28342,9 @@
         "good-n51-literature",
         "vxvware-good-n51-census"
       ],
-      "censuses": [],
+      "censuses": [
+        "good-n51"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -39872,5 +39878,5 @@
     "spot-checked": 0,
     "receipt-backed": 2
   },
-  "ungraded_claims": 30
+  "ungraded_claims": 33
 }
