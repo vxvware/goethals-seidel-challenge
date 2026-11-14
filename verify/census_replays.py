@@ -111,6 +111,8 @@ def apply_report(entry, result, report, entry_sha256, representatives, root=ROOT
         raise ValueError("unknown census replay engine")
     spec = ENGINES[engine]
     n = entry["n"]
+    if entry["equivalence"] != "equiv-v1":
+        raise ValueError("registered census replays are defined only under equiv-v1")
     if entry["stratum"] != spec["stratum"] or n not in spec["orders"]:
         raise ValueError("census replay engine does not cover this cell")
     if report.get("engine_sha256") != engine_digests(engine, root):

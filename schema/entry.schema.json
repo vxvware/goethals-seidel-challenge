@@ -597,7 +597,10 @@
           ]
         },
         "equivalence": {
-          "const": "equiv-v1"
+          "enum": [
+            "equiv-v1",
+            "equiv-v2"
+          ]
         },
         "representatives": {
           "type": "array",
@@ -622,7 +625,9 @@
         "enumerator": {
           "enum": [
             "best-census-c-v1",
+            "general-census-c-v1",
             "good-census-c-v1",
+            "skew-sds-census-c-v1",
             "small-exact-v1",
             "williamson-census-c-v1"
           ]

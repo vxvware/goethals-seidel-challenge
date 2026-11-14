@@ -6,6 +6,7 @@ from math import gcd
 import json
 
 VERSION = "equiv-v1"
+VERSION_SHIFTS = "equiv-v2"
 
 
 @lru_cache(maxsize=512)
@@ -36,6 +37,35 @@ def row_images(row, reversal=True):
 def canonical(rows):
     images = [row_images(tuple(r)) for r in rows]
     return min(tuple(sorted(column)) for column in zip(*images))
+
+
+@lru_cache(maxsize=20000)
+def dihedral_min(row):
+    """Least sign-normalized image of a row under cyclic shifts and reversal."""
+    n = len(row)
+    shifted = (normalize(row[s:] + row[:s]) for s in range(n))
+    return min(min(image, reverse(image)) for image in shifted)
+
+
+@lru_cache(maxsize=20000)
+def row_images_shifts(row):
+    row = normalize(row)
+    return tuple(dihedral_min(tuple(row[j] for j in indices)) for indices in multipliers(len(row)))
+
+
+def canonical_shifts(rows):
+    """equiv-v2: equiv-v1 plus independent cyclic shifts of each row.
+
+    Multipliers normalize the dihedral group of Z_n, so the least sorted tuple
+    of per-row dihedral minima over all multipliers is a complete invariant.
+    Strata are not invariant under shifts: a census under this version counts
+    the classes that contain a member of its stratum.
+    """
+    images = [row_images_shifts(tuple(r)) for r in rows]
+    return min(tuple(sorted(column)) for column in zip(*images))
+
+
+CANONICAL = {VERSION: canonical, VERSION_SHIFTS: canonical_shifts}
 
 
 def branch_canonical(rows):
