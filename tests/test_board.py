@@ -23,7 +23,7 @@ def test_no_false_empty_inherited_to_parent(board):
     assert lookup[41, "general"]["status"] == "exists"
     assert lookup[57, "good"]["status"] == "exists"
     assert lookup[57, "good"]["artifact_status"] == "verified-on-board"
-    assert lookup[47, "good"]["empty_basis"] == ["literature", "unreplayed-census"]
+    assert lookup[47, "good"]["empty_basis"] == ["literature", "reproduced", "unreplayed-census"]
     assert lookup[35, "williamson"]["status"] == "empty"
     assert lookup[47, "williamson"]["status"] == "empty"
     assert lookup[61, "good"]["status"] == "exists"
