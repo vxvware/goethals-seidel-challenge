@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "entry_id": "williamson-n59",
+  "entry_sha256": "4b93167828e09b0a5bb40dd8f6bf1cf4382e1c2a148daafaac02248edb8645be",
+  "engine_id": "williamson-hkt-v1",
+  "engine_sha256": {
+    "research/starter/williamson/wil_hkt.c": "3a115d932b9a45c56c487032c6eaafe5bf79e59da805980342b456b9dab782f8",
+    "research/starter/kkss/hkt_solve.h": "96d29998fbf83e04c97b4db687b490164b5e785aa708904a1b18da73df13c11f"
+  },
+  "mode": "full",
+  "status": "passed",
+  "host": "bos-game",
+  "threads": 8,
+  "date": "2026-11-14",
+  "wall_seconds": 13124.0,
+  "command": "WIL_NOCACHE=1 WIL_NLEV=64 ./wil_hkt 59 8 w-59.txt",
+  "rows": []
+}

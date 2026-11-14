@@ -267,6 +267,8 @@ def test_registered_census_replays_make_published_counts_exact(board):
         (57, 1, "williamson-compress-v1"),
         (63, 2, "williamson-compress-v1"),
         (47, 0, "williamson-census-c-v1"),
+        (53, 0, "williamson-hkt-v1"),
+        (59, 0, "williamson-hkt-v1"),
     ):
         x = r[f"williamson-n{n}"]
         assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", count)

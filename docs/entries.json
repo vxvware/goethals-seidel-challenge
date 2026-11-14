@@ -106826,13 +106826,25 @@
       "stratum": "williamson",
       "equivalence": "equiv-v1",
       "count": 0,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 0,
       "claim_kind": "published-exact",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "williamson-hkt-v1",
+        "host": "bos-game",
+        "threads": 8,
+        "date": "2026-11-14",
+        "wall_seconds": 13124.0,
+        "raw_rows": 0
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },
