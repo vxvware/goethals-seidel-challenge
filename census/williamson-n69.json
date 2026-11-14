@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "n": 69,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      69
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-14",
+  "discovered_by": [
+    "Bright, Kotsireas, Ganesh 2020 SAT+CAS complete enumeration at order 69; the single class is Turyn's"
+  ],
+  "sources": [
+    {
+      "title": "Bright, Kotsireas, Ganesh, Applying computer algebra systems with SAT solvers to the Williamson conjecture, J. Symbolic Comput. (2020), Section 1 and Table 3",
+      "url": "https://cs.uwaterloo.ca/~cbright/reports/jsc-willsat.pdf"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n69",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [
+    "n69-2d828c8cf271c0b3ff3d"
+  ],
+  "claimed_count": 1,
+  "claim_kind": "published-exact",
+  "notes": "The paper's complete enumeration at order 69 (600,338 compressed instances, 8162 CPU hours) finds exactly one set of Williamson matrices, which falls under Turyn's construction. Its representative is verified here, but the search has not been replayed on this board, so the count is recorded as a lower bound until a replay is registered."
+}
