@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "skew-sds-n11",
+  "type": "census",
+  "n": 11,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      11
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-14",
+  "discovered_by": [
+    "Exhaustive enumeration by this board's pinned census skew-sds-census-c-v1"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned census skew-sds-census-c-v1 (research/starter/general/gencensus.c), replayed inline by the verifier",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/584cfca65a04312d71e75c0743f1083c91ef489d/research/starter/general/gencensus.c",
+      "commit": "584cfca65a04312d71e75c0743f1083c91ef489d",
+      "source_path": "research/starter/general/gencensus.c"
+    }
+  ],
+  "equivalence": "equiv-v2",
+  "stratum": "skew-sds",
+  "representatives": [
+    "n11-06cb798d9099717b13eb",
+    "n11-137caf0d521fd8c1b930",
+    "n11-2917d7bf7f9a4b7ea0a7",
+    "n11-2caa7cd53d87351711bc",
+    "n11-3145b2a1ac411c2313c5",
+    "n11-37f711e0d8b7747c8220",
+    "n11-4f4ca17c1382b20db5c7",
+    "n11-51a5b42f327eaf68200a",
+    "n11-5682cfc1bbc6c1ab089a",
+    "n11-6c7e4b8d587f93af4c95",
+    "n11-72bcb3889f826094d3ec",
+    "n11-93d1b89f5d721b20f903",
+    "n11-965922d0822f94138bb3",
+    "n11-99bb279e990f46ecd3c5",
+    "n11-9b2de6919c5cfb5d69de",
+    "n11-a6033208ebf892e54e51",
+    "n11-c302974d49b7cd913142",
+    "n11-cda56a5aa5b3a1987788",
+    "n11-ce9ec7d344a52b780fe0",
+    "n11-e441c24d1580d41b39b6",
+    "n11-ebc1d57d897e3cd5fb05",
+    "n11-f17c9ec35dc407a1792c",
+    "n11-f751325093331d503875",
+    "n11-ff6c8dd677be00384124"
+  ],
+  "claimed_count": 24,
+  "claim_kind": "computed-exact",
+  "enumerator": "skew-sds-census-c-v1",
+  "notes": "Counted under equiv-v2, which also identifies independent cyclic shifts of each row; the census counts the classes containing a quadruple of the skew-sds stratum, and every representative is one. Under equiv-v1 the same stratum has 17,544 classes at this order."
+}

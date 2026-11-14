@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "skew-sds-n5",
+  "type": "census",
+  "n": 5,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      5
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-14",
+  "discovered_by": [
+    "Exhaustive enumeration by this board's pinned census skew-sds-census-c-v1"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned census skew-sds-census-c-v1 (research/starter/general/gencensus.c), replayed inline by the verifier",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/584cfca65a04312d71e75c0743f1083c91ef489d/research/starter/general/gencensus.c",
+      "commit": "584cfca65a04312d71e75c0743f1083c91ef489d",
+      "source_path": "research/starter/general/gencensus.c"
+    }
+  ],
+  "equivalence": "equiv-v2",
+  "stratum": "skew-sds",
+  "representatives": [
+    "n5-2941222429c197fd03cf"
+  ],
+  "claimed_count": 1,
+  "claim_kind": "computed-exact",
+  "enumerator": "skew-sds-census-c-v1",
+  "notes": "Counted under equiv-v2, which also identifies independent cyclic shifts of each row; the census counts the classes containing a quadruple of the skew-sds stratum, and every representative is one. Under equiv-v1 the same stratum has 16 classes at this order."
+}
