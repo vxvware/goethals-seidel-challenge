@@ -75,6 +75,15 @@ ENGINES = {
         "orders": range(3, 64, 2),
         "composite": False,
     },
+    "kkss-census-c-v3": {
+        "stratum": "kkss",
+        "sources": (
+            "research/starter/kkss/gmat_c_v3.c",
+            "research/starter/kkss/hkt_solve.h",
+        ),
+        "orders": range(3, 64, 2),
+        "composite": False,
+    },
     "good-census-c-v1": {
         "stratum": "good",
         "sources": ("research/starter/good/good_c.c",),
