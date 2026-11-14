@@ -23,7 +23,7 @@ def test_no_false_empty_inherited_to_parent(board):
     assert lookup[41, "general"]["status"] == "exists"
     assert lookup[57, "good"]["status"] == "exists"
     assert lookup[57, "good"]["artifact_status"] == "verified-on-board"
-    assert lookup[47, "good"]["empty_basis"] == ["literature", "unreplayed-census"]
+    assert lookup[47, "good"]["empty_basis"] == ["literature", "reproduced", "unreplayed-census"]
     assert lookup[35, "williamson"]["status"] == "empty"
     assert lookup[47, "williamson"]["status"] == "empty"
     assert lookup[61, "good"]["status"] == "exists"
@@ -302,3 +302,11 @@ def test_registered_census_replay_rejects_tampering(board):
     good = dict(r["williamson-n43"])
     apply_report(entry, good, report, sha, reps)
     assert good["bound"] == "exact"
+
+
+def test_registered_good_replays_make_counts_exact(board):
+    d, r, b = board
+    for ident, count in (("vxvware-good-n45", 4), ("good-n47", 0), ("good-n49", 0)):
+        x = r[ident]
+        assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", count)
+        assert x["replay"]["engine_id"] == "good-census-c-v1"

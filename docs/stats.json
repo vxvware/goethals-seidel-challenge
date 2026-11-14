@@ -28306,9 +28306,10 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
+      "tier": "reproduced",
       "empty_basis": [
         "literature",
+        "reproduced",
         "unreplayed-census"
       ],
       "quadruples": [],
@@ -28668,9 +28669,10 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
+      "tier": "reproduced",
       "empty_basis": [
         "literature",
+        "reproduced",
         "unreplayed-census"
       ],
       "quadruples": [],
@@ -40786,9 +40788,9 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 1098,
+    "reproduced": 1101,
     "spot-checked": 0,
     "receipt-backed": 2
   },
-  "ungraded_claims": 32
+  "ungraded_claims": 29
 }
