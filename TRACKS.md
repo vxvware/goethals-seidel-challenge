@@ -85,7 +85,9 @@ enumerates every symmetric sequence passing the PSD ceiling, keeps the realized
 d-compressions, matches them into compressed quadruples by the length-m PAF
 condition, reduces those by the multipliers of Z_m (every unit of Z_m lifts to
 a unit of Z_n, so one instance per orbit lifts to every class), and lifts each
-instance coset by coset with the same exact matching. Registrations bind the
+instance coset by coset with the same exact matching; and the G-matrix census
+(kkss-census-c-v1, the vxvware gmat_c engine that produced every kkss census
+on the board, replayed at odd orders up to 63). Registrations bind the
 report to the exact entry bytes and engine sources; entry PRs cannot register
 their own replays. A census with no representatives and a claimed count of
 zero is a nonexistence claim; once replayed, inline or by registration, it

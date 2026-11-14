@@ -3,20 +3,32 @@
 <title>vxvware-kkss-n41 · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
 <link rel="icon" href="../favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap"><link rel="stylesheet" href="../style.css"></head><body>
 <header><a class="brand" href="../index.html">GS / CHALLENGE</a><nav><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
-<main><article class="entry"><div class="eyebrow">census · order 41</div><h1>vxvware-kkss-n41</h1><span class="tag">attributed / archived claim or lower bound</span><div class="credit"><span class="origin independent-reproduction">Independent reproduction</span><span class="publication">Published result</span><p class="byline"><a href="https://github.com/vxvware">vxvware</a></p><p>The vxvware census recomputes type kkss at every admissible odd order through 45 and agrees with the published class counts at 33, 37, 41, 43, and 45. The imported rows fill the published-not-imported cells with exactly verified representatives.</p></div><p>Original source attribution: vxvware<br>Submitted / imported by: vxvware · 2026-10-15<br>Board cell: <a href="../cells/n41-kkss.html">G-matrices (kkss)</a></p><h2>Checks and result</h2><pre>{
+<main><article class="entry"><div class="eyebrow">census · order 41</div><h1>vxvware-kkss-n41</h1><span class="tag">reproduced</span><div class="credit"><span class="origin independent-reproduction">Independent reproduction</span><span class="publication">Published result</span><p class="byline"><a href="https://github.com/vxvware">vxvware</a></p><p>The vxvware census recomputes type kkss at every admissible odd order through 45 and agrees with the published class counts at 33, 37, 41, 43, and 45. The imported rows fill the published-not-imported cells with exactly verified representatives.</p></div><p>Original source attribution: vxvware<br>Submitted / imported by: vxvware · 2026-10-15<br>Board cell: <a href="../cells/n41-kkss.html">G-matrices (kkss)</a></p><h2>Checks and result</h2><pre>{
   &quot;id&quot;: &quot;vxvware-kkss-n41&quot;,
   &quot;type&quot;: &quot;census&quot;,
   &quot;n&quot;: 41,
   &quot;stratum&quot;: &quot;kkss&quot;,
   &quot;equivalence&quot;: &quot;equiv-v1&quot;,
   &quot;count&quot;: 3,
-  &quot;bound&quot;: &quot;lower&quot;,
-  &quot;tier&quot;: null,
+  &quot;bound&quot;: &quot;exact&quot;,
+  &quot;tier&quot;: &quot;reproduced&quot;,
   &quot;claimed_count&quot;: 3,
   &quot;claim_kind&quot;: &quot;lower-bound&quot;,
   &quot;checks&quot;: [
-    &quot;representative-existence&quot;,
-    &quot;pairwise-inequivalence&quot;
+    &quot;pairwise-inequivalence&quot;,
+    &quot;registered-full-census-replay&quot;,
+    &quot;representative-existence&quot;
+  ],
+  &quot;replay&quot;: {
+    &quot;engine_id&quot;: &quot;kkss-census-c-v1&quot;,
+    &quot;host&quot;: &quot;bos-game&quot;,
+    &quot;threads&quot;: 4,
+    &quot;date&quot;: &quot;2026-11-13&quot;,
+    &quot;wall_seconds&quot;: 6.0,
+    &quot;raw_rows&quot;: 12
+  },
+  &quot;limitations&quot;: [
+    &quot;Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs.&quot;
   ],
   &quot;contributions&quot;: [
     {

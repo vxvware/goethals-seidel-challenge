@@ -2,10 +2,10 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 525,
+  "entry_count": 533,
   "quadruples": 360,
   "certificates": 76,
-  "censuses": 89,
+  "censuses": 97,
   "contributions": [
     {
       "id": "kkss-49-correction",
@@ -7773,11 +7773,15 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
+      "tier": "reproduced",
+      "empty_basis": [
+        "reproduced"
+      ],
       "quadruples": [],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "vxvware-kkss-n11"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -11490,11 +11494,15 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
+      "tier": "reproduced",
+      "empty_basis": [
+        "reproduced"
+      ],
       "quadruples": [],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "vxvware-kkss-n17"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -19227,11 +19235,15 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
+      "tier": "reproduced",
+      "empty_basis": [
+        "reproduced"
+      ],
       "quadruples": [],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "vxvware-kkss-n29"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -22354,11 +22366,15 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
+      "tier": "reproduced",
+      "empty_basis": [
+        "reproduced"
+      ],
       "quadruples": [],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "vxvware-kkss-n35"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -23723,11 +23739,15 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
+      "tier": "reproduced",
+      "empty_basis": [
+        "reproduced"
+      ],
       "quadruples": [],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "vxvware-kkss-n39"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -27445,7 +27465,9 @@
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "vxvware-kkss-n47"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -28846,7 +28868,9 @@
       "empty_basis": [],
       "quadruples": [],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "vxvware-kkss-n53"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -30078,7 +30102,9 @@
       "evidence": [
         "vxvware-kkss-n57-census"
       ],
-      "censuses": [],
+      "censuses": [
+        "vxvware-kkss-n57"
+      ],
       "contributions": [
         {
           "id": "kkss-new-orders",
@@ -40325,9 +40351,9 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 420,
+    "reproduced": 441,
     "spot-checked": 0,
     "receipt-backed": 2
   },
-  "ungraded_claims": 47
+  "ungraded_claims": 34
 }
