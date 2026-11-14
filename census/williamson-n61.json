@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "n": 61,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      61
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-14",
+  "discovered_by": [
+    "Turyn 1972 construction (the class tabulated by Hall and London); classified as the only class at this order by this board's pinned census williamson-hkt-v2"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned census williamson-hkt-v2, run to completion at n=61",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/c9ad8d3f82680b9153028b7a15f0e1ad80403244/research/starter/williamson/wil_hkt2.c",
+      "commit": "c9ad8d3f82680b9153028b7a15f0e1ad80403244",
+      "source_path": "research/starter/williamson/wil_hkt2.c"
+    },
+    {
+      "title": "Lang, Schneider, Turyn type Williamson matrices up to order 99, Des. Codes Cryptogr. 62 (2012): the Turyn-type classes at this order",
+      "url": "https://doi.org/10.1007/s10623-011-9498-9"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n61",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [
+    "n61-0732fca9a2b40fa15e62"
+  ],
+  "claimed_count": 1,
+  "claim_kind": "lower-bound",
+  "notes": "No published exhaustive classification at this order is recorded (Lang and Schneider classify only the Turyn type). The full census run on this board finds exactly one class, the Turyn-type one; the count is exact on the board only through the registered replay of the pinned engine."
+}
