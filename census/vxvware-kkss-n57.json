@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "n": 57,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      57
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-13",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=57",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/0061ad63796971e767971ff82756b32500291f62/data/gmat/gmat-57.txt",
+      "commit": "0061ad63796971e767971ff82756b32500291f62",
+      "source_path": "data/gmat/gmat-57.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/gmat/gmat-57.txt",
+        "sha256": "e91ea95154b2d135a35f38cbca46d5e77f657f77864afda12477560f37954b97"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "vxvware-kkss-n57",
+  "type": "census",
+  "stratum": "kkss",
+  "representatives": [],
+  "claimed_count": 0,
+  "claim_kind": "lower-bound",
+  "notes": "The source census found no G-matrices at this order and stores no rows. The record has no representatives and becomes an exact empty census only through a registered full replay of the pinned engine."
+}

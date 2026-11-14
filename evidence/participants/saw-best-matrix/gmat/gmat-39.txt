@@ -1,0 +1,19 @@
+# G-matrices of order 39: symmetry type (kkss).  There are none.
+#
+# This one needs no search.  A (kkss) quadruple has two skew rows and two
+# symmetric rows, and a skew row of odd length has row sum 1, so the two
+# symmetric row sums must satisfy
+#
+#     s3^2 + s4^2 = 4n - 2 = 154
+#
+# with s3 and s4 odd.  154 has no such representation, so there is no
+# admissible row-sum decomposition and the type is empty for arithmetic
+# reasons rather than as the outcome of a search.
+#
+# gmat_c.c agrees, reporting "0 row-sum decompositions" and zero quadruples
+# in 0.9s on versalife, 3 threads.
+#
+# Djokovic 2009 Table 1 does not reach this order, so nothing was recorded here
+# before.
+#
+# This file is deliberately empty of data lines.
