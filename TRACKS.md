@@ -87,7 +87,9 @@ condition, reduces those by the multipliers of Z_m (every unit of Z_m lifts to
 a unit of Z_n, so one instance per orbit lifts to every class), and lifts each
 instance coset by coset with the same exact matching. Registrations bind the
 report to the exact entry bytes and engine sources; entry PRs cannot register
-their own replays. Primary
+their own replays. A census with no representatives and a claimed count of
+zero is a nonexistence claim; once replayed, inline or by registration, it
+makes the cell empty with tier reproduced, and the cell shows 0. Primary
 counts use `equiv-v1`; legacy statistics explicitly use `branch-v1`.
 
 ## Replay a campaign slice

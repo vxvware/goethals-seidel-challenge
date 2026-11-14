@@ -27,13 +27,47 @@ SUBMITTER = "vxvware"
 SUBMITTED_AT = "2026-10-15"
 # Orders imported after the initial import carry their own import date and the
 # login of the maintainer whose PR adds them, which the entry gate requires.
-LATER = {("kkss", 61): ("vprusso", "2026-10-26")}
+LATER = {
+    ("kkss", 61): ("vprusso", "2026-10-26"),
+    ("good", 45): ("vprusso", "2026-11-13"),
+    ("good", 47): ("vprusso", "2026-11-13"),
+    ("good", 49): ("vprusso", "2026-11-13"),
+    ("good", 51): ("vprusso", "2026-11-13"),
+    ("good", 57): ("vprusso", "2026-11-13"),
+}
 DISCOVERED_BY = ["vxvware"]
 EVIDENCE = "evidence/participants/saw-best-matrix"
 DK2018 = "https://arxiv.org/abs/1802.00556"
 
 # (family, n): commit, sha256, classes reported by the source, note on prior work.
 SOURCES = {
+    ("good", 45): (
+        "0061ad63796971e767971ff82756b32500291f62",
+        "0aa8365833698f3e6c1ce0d327065b993ade2a424c2fb8c3d0b7be12c6c8e470",
+        4,
+        "The four classes agree with the published searches surveyed in "
+        "arXiv:1811.05094, and the source recovers every published quadruple.",
+    ),
+    ("good", 47): (
+        "0061ad63796971e767971ff82756b32500291f62",
+        "da76918b69771ac4540fc6d9fe89c41ccae9911f9da38a58553b0eb2d4c1b121",
+        0,
+        "The published searches surveyed in arXiv:1811.05094 also find no good "
+        "matrices at this order.",
+    ),
+    ("good", 49): (
+        "0061ad63796971e767971ff82756b32500291f62",
+        "5bee790585ddbf13b99fab03638e67a69b9d908fe753469d815015d3ddbdca5b",
+        0,
+        "The published searches surveyed in arXiv:1811.05094 also find no good "
+        "matrices at this order.",
+    ),
+    ("good", 51): (
+        "0061ad63796971e767971ff82756b32500291f62",
+        "9a97b2eb5363fb9efc07bc9a158f4fda73794e6b30db16b0387d076db513da40",
+        0,
+        "arXiv:1811.05094 (Table 1) also finds no good matrices at this order.",
+    ),
     ("good", 53): (
         "020601f6e15db4e2ca023b602bc460204ce40236",
         "79deb6ae7f913732e86d74786d1e453b522ae1c999083bc3eb20fcf3a8be7f60",
@@ -45,6 +79,13 @@ SOURCES = {
         "b7b7d33e460c7eea6e5d2d1ffdf1cec7bfbff7dd948be40b8cc73cf3e0c1dde7",
         1,
         "No published search covers this order.",
+    ),
+    ("good", 57): (
+        "0061ad63796971e767971ff82756b32500291f62",
+        "8229a09e460cf45ad6810db79ddd25fd56b5d5256dfabd361eeae70d0114e623",
+        1,
+        "arXiv:1811.05094 (Table 1, Figure 1) reports exactly one class by SAT+CAS; "
+        "its rows appear among the source's quadruples and nothing else does.",
     ),
     ("good", 59): (
         "33477db3deee7d5e4b965af85943ee764289f82b",

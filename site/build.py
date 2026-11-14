@@ -121,6 +121,8 @@ def census_count(c, r):
     if not c["censuses"]:
         return ""
     x = r[c["censuses"][0]]
+    if x["bound"] != "exact" and x["count"] == 0:
+        return ""
     bound = "" if x["bound"] == "exact" else "≥ "
     return f"{bound}{x['count']} {'class' if x['count'] == 1 else 'classes'}"
 

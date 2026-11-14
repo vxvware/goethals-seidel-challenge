@@ -2,10 +2,10 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 513,
-  "quadruples": 355,
-  "certificates": 73,
-  "censuses": 85,
+  "entry_count": 525,
+  "quadruples": 360,
+  "certificates": 76,
+  "censuses": 89,
   "contributions": [
     {
       "id": "kkss-49-correction",
@@ -22250,15 +22250,18 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
+      "tier": "reproduced",
       "empty_basis": [
-        "literature"
+        "literature",
+        "reproduced"
       ],
       "quadruples": [],
       "evidence": [
         "williamson-n35-literature"
       ],
-      "censuses": [],
+      "censuses": [
+        "williamson-n35"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -26531,12 +26534,19 @@
       "stratum": "good",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n45-aaadb66ae5c96e7fb880",
+        "n45-bbf62a76fd5a35a727e2",
+        "n45-d15cd077ff54d4bfd592",
+        "n45-e92b1f3f69583d4d10f0"
+      ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "vxvware-good-n45"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -26776,6 +26786,10 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n45-aaadb66ae5c96e7fb880",
+        "n45-bbf62a76fd5a35a727e2",
+        "n45-d15cd077ff54d4bfd592",
+        "n45-e92b1f3f69583d4d10f0",
         "n45-ed3ba0d416c514e559e3"
       ],
       "evidence": [],
@@ -26971,6 +26985,10 @@
       "empty_basis": [],
       "quadruples": [
         "n45-160ca4a118500087b821",
+        "n45-aaadb66ae5c96e7fb880",
+        "n45-bbf62a76fd5a35a727e2",
+        "n45-d15cd077ff54d4bfd592",
+        "n45-e92b1f3f69583d4d10f0",
         "n45-ed3ba0d416c514e559e3"
       ],
       "evidence": [],
@@ -27322,15 +27340,18 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
+      "tier": "reproduced",
       "empty_basis": [
-        "literature"
+        "literature",
+        "reproduced"
       ],
       "quadruples": [],
       "evidence": [
         "williamson-n47-literature"
       ],
-      "censuses": [],
+      "censuses": [
+        "williamson-n47"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -27360,11 +27381,13 @@
       "artifact_status": "none",
       "tier": null,
       "empty_basis": [
-        "literature"
+        "literature",
+        "unreplayed-census"
       ],
       "quadruples": [],
       "evidence": [
-        "good-n47-literature"
+        "good-n47-literature",
+        "vxvware-good-n47-census"
       ],
       "censuses": [],
       "contributions": [],
@@ -27702,11 +27725,13 @@
       "artifact_status": "none",
       "tier": null,
       "empty_basis": [
-        "literature"
+        "literature",
+        "unreplayed-census"
       ],
       "quadruples": [],
       "evidence": [
-        "good-n49-literature"
+        "good-n49-literature",
+        "vxvware-good-n49-census"
       ],
       "censuses": [],
       "contributions": [],
@@ -28269,11 +28294,13 @@
       "artifact_status": "none",
       "tier": null,
       "empty_basis": [
-        "literature"
+        "literature",
+        "unreplayed-census"
       ],
       "quadruples": [],
       "evidence": [
-        "good-n51-literature"
+        "good-n51-literature",
+        "vxvware-good-n51-census"
       ],
       "censuses": [],
       "contributions": [],
@@ -29818,12 +29845,16 @@
       "stratum": "good",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n57-8a2725a1b113b26a0969"
+      ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "vxvware-good-n57"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -30100,6 +30131,7 @@
       "empty_basis": [],
       "quadruples": [
         "n57-796742d6865aab63774c",
+        "n57-8a2725a1b113b26a0969",
         "n57-8f2cd7cbc7bd3effc1b4",
         "n57-aa4c0ba8b18abb20e26d"
       ],
@@ -30297,6 +30329,7 @@
       "empty_basis": [],
       "quadruples": [
         "n57-796742d6865aab63774c",
+        "n57-8a2725a1b113b26a0969",
         "n57-8f2cd7cbc7bd3effc1b4",
         "n57-aa4c0ba8b18abb20e26d",
         "n57-f40cf458e06747c61836"
@@ -39738,38 +39771,6 @@
   ],
   "import_tasks": [
     {
-      "n": 45,
-      "stratum": "good",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 45,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Goethals–Seidel difference families, Table 1",
-            "url": "https://arxiv.org/abs/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 47,
       "stratum": "skew-sds",
       "group": "cyclic",
@@ -39825,38 +39826,6 @@
           "source": {
             "title": "Cyclic skew SDS constructions, Section 5",
             "url": "https://arxiv.org/html/0903.5053v2"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 57,
-      "stratum": "good",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 57,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Good matrices SAT+CAS, Table 1",
-            "url": "https://arxiv.org/abs/1811.05094"
           },
           "baseline_date": "2026-10-14"
         }
@@ -40356,9 +40325,9 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 413,
+    "reproduced": 420,
     "spot-checked": 0,
     "receipt-backed": 2
   },
-  "ungraded_claims": 42
+  "ungraded_claims": 47
 }
