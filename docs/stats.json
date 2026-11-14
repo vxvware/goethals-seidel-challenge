@@ -28881,8 +28881,10 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
+      "tier": "reproduced",
+      "empty_basis": [
+        "reproduced"
+      ],
       "quadruples": [],
       "evidence": [],
       "censuses": [
@@ -39866,9 +39868,9 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 459,
+    "reproduced": 461,
     "spot-checked": 0,
     "receipt-backed": 2
   },
-  "ungraded_claims": 32
+  "ungraded_claims": 30
 }

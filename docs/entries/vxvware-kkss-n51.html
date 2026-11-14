@@ -3,20 +3,32 @@
 <title>vxvware-kkss-n51 · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
 <link rel="icon" href="../favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap"><link rel="stylesheet" href="../style.css"></head><body>
 <header><a class="brand" href="../index.html">GS / CHALLENGE</a><nav><a href="https://github.com/vxvware/goethals-seidel-challenge">Contribute ↗</a></nav></header>
-<main><article class="entry"><div class="eyebrow">census · order 51</div><h1>vxvware-kkss-n51</h1><span class="tag">attributed / archived claim or lower bound</span><div class="credit"><span class="origin participant-result">Challenge result</span><span class="publication">Not yet published</span><p class="byline"><a href="https://github.com/vxvware">vxvware</a></p><p>Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence&#x27;s 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.</p></div><p>Original source attribution: vxvware<br>Submitted / imported by: vxvware · 2026-10-15<br>Board cell: <a href="../cells/n51-kkss.html">G-matrices (kkss)</a></p><h2>Checks and result</h2><pre>{
+<main><article class="entry"><div class="eyebrow">census · order 51</div><h1>vxvware-kkss-n51</h1><span class="tag">reproduced</span><div class="credit"><span class="origin participant-result">Challenge result</span><span class="publication">Not yet published</span><p class="byline"><a href="https://github.com/vxvware">vxvware</a></p><p>Complete vxvware censuses past the range classified in arXiv:1802.00556: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence&#x27;s 1977 infinite family (q = 101 and 109); the class counts there and the existence at 59 are new. Verified rows give existence and lower bounds; the empty order is an unreplayed attributed claim.</p></div><p>Original source attribution: vxvware<br>Submitted / imported by: vxvware · 2026-10-15<br>Board cell: <a href="../cells/n51-kkss.html">G-matrices (kkss)</a></p><h2>Checks and result</h2><pre>{
   &quot;id&quot;: &quot;vxvware-kkss-n51&quot;,
   &quot;type&quot;: &quot;census&quot;,
   &quot;n&quot;: 51,
   &quot;stratum&quot;: &quot;kkss&quot;,
   &quot;equivalence&quot;: &quot;equiv-v1&quot;,
   &quot;count&quot;: 4,
-  &quot;bound&quot;: &quot;lower&quot;,
-  &quot;tier&quot;: null,
+  &quot;bound&quot;: &quot;exact&quot;,
+  &quot;tier&quot;: &quot;reproduced&quot;,
   &quot;claimed_count&quot;: 4,
   &quot;claim_kind&quot;: &quot;lower-bound&quot;,
   &quot;checks&quot;: [
-    &quot;representative-existence&quot;,
-    &quot;pairwise-inequivalence&quot;
+    &quot;pairwise-inequivalence&quot;,
+    &quot;registered-full-census-replay&quot;,
+    &quot;representative-existence&quot;
+  ],
+  &quot;replay&quot;: {
+    &quot;engine_id&quot;: &quot;kkss-census-c-v1&quot;,
+    &quot;host&quot;: &quot;bos-game&quot;,
+    &quot;threads&quot;: 4,
+    &quot;date&quot;: &quot;2026-11-14&quot;,
+    &quot;wall_seconds&quot;: 1455.0,
+    &quot;raw_rows&quot;: 32
+  },
+  &quot;limitations&quot;: [
+    &quot;Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs.&quot;
   ],
   &quot;contributions&quot;: [
     {
