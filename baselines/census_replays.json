@@ -2,6 +2,18 @@
   "version": 1,
   "reports": [
     {
+      "path": "evidence/census-replays/good-n47.json",
+      "sha256": "1673ace43d6ef11a03544791d4df7cc8fc15aaa0c5d720f34b80e0b49238d744"
+    },
+    {
+      "path": "evidence/census-replays/good-n49.json",
+      "sha256": "358e73b72a6a5a4a7cda0b84d953647e687eb59d8c720e82456e0730e60142dd"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-good-n45.json",
+      "sha256": "8237aca559688b246bc8d4faa2f59bae71c2df9fdb2376a060a125096ec8fb20"
+    },
+    {
       "path": "evidence/census-replays/vxvware-kkss-n11.json",
       "sha256": "f60bac32909b18d6c730330b40c7f4163e0eba5a929e33cf91968d5f650e141b"
     },

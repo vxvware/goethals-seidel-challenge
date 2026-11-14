@@ -302,3 +302,11 @@ def test_registered_census_replay_rejects_tampering(board):
     good = dict(r["williamson-n43"])
     apply_report(entry, good, report, sha, reps)
     assert good["bound"] == "exact"
+
+
+def test_registered_good_replays_make_counts_exact(board):
+    d, r, b = board
+    for ident, count in (("vxvware-good-n45", 4), ("good-n47", 0), ("good-n49", 0)):
+        x = r[ident]
+        assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", count)
+        assert x["replay"]["engine_id"] == "good-census-c-v1"

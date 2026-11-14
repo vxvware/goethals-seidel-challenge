@@ -160721,13 +160721,25 @@
       "stratum": "good",
       "equivalence": "equiv-v1",
       "count": 0,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 0,
       "claim_kind": "published-exact",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "good-census-c-v1",
+        "host": "bos-game",
+        "threads": 16,
+        "date": "2026-11-13",
+        "wall_seconds": 35.0,
+        "raw_rows": 0
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },
@@ -160738,13 +160750,25 @@
       "stratum": "good",
       "equivalence": "equiv-v1",
       "count": 0,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 0,
       "claim_kind": "published-exact",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "good-census-c-v1",
+        "host": "bos-game",
+        "threads": 16,
+        "date": "2026-11-13",
+        "wall_seconds": 142.0,
+        "raw_rows": 0
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },
@@ -161042,13 +161066,25 @@
       "stratum": "good",
       "equivalence": "equiv-v1",
       "count": 4,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 4,
       "claim_kind": "lower-bound",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "good-census-c-v1",
+        "host": "bos-game",
+        "threads": 16,
+        "date": "2026-11-13",
+        "wall_seconds": 38.0,
+        "raw_rows": 192
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": []
     },
