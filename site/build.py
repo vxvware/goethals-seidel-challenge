@@ -137,12 +137,17 @@ def cell_page(c, d, r):
     ]
     if c["censuses"]:
         x = r[c["censuses"][0]]
-        kind = "complete census" if x["bound"] == "exact" else "lower bound from a census"
-        parts.append(
-            f'<p class="census"><strong>{esc(census_count(c, r))}</strong> · {kind} · '
-            f"{esc(x['tier'] or 'verified representatives')} · "
-            f'<a href="../entries/{esc(x["id"])}.html">{esc(x["id"])}</a></p>'
-        )
+        link = f'<a href="../entries/{esc(x["id"])}.html">{esc(x["id"])}</a>'
+        if x["bound"] != "exact" and x["count"] == 0:
+            parts.append(
+                f'<p class="census">published empty census · awaiting a full replay · {link}</p>'
+            )
+        else:
+            kind = "complete census" if x["bound"] == "exact" else "lower bound from a census"
+            parts.append(
+                f'<p class="census"><strong>{esc(census_count(c, r))}</strong> · {kind} · '
+                f"{esc(x['tier'] or 'verified representatives')} · {link}</p>"
+            )
     if c["note"]:
         parts.append(f"<p>{esc(c['note'])}</p>")
     for claim in c["contradicted"]:
@@ -178,7 +183,9 @@ def cell_page(c, d, r):
         for ident in records:
             result = r[ident]
             detail = result["type"]
-            if result["type"] == "census":
+            if result["type"] == "census" and result["bound"] != "exact" and result["count"] == 0:
+                detail += " · published empty, awaiting a full replay"
+            elif result["type"] == "census":
                 bound = "" if result["bound"] == "exact" else "≥ "
                 detail += (
                     f" · {bound}{result['count']} {'class' if result['count'] == 1 else 'classes'}"
