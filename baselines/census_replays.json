@@ -90,6 +90,14 @@
       "sha256": "b8cd3baf0d6105a20c2b0b1e012b2f593d8aab69e8f285a2382be8d5f6a5c39f"
     },
     {
+      "path": "evidence/census-replays/vxvware-kkss-n51.json",
+      "sha256": "c07bc23677e9a9e51923053bcf760721656341ed94e29625637a49095dc390a1"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n53.json",
+      "sha256": "a73a5e4dcd725c70a4b69b4c26100f6408cc0c754a8efb335c785d5f3effed14"
+    },
+    {
       "path": "evidence/census-replays/vxvware-kkss-n7.json",
       "sha256": "dc445b84ef6cf41a9a90f985348a375b73f679b5cd4a9aaa28637f144a851425"
     },
