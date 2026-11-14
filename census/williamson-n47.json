@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "n": 47,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      47
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-13",
+  "discovered_by": [
+    "Holzmann, Kharaghani, Tayfeh-Rezaie 2008 classification; earlier constructions credited there"
+  ],
+  "sources": [
+    {
+      "title": "Holzmann, Kharaghani, Tayfeh-Rezaie, Williamson matrices up to order 59, Des. Codes Cryptogr. 46 (2008), Tables 2 and 3",
+      "url": "https://doi.org/10.1007/s10623-007-9163-5"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n47",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [],
+  "claimed_count": 0,
+  "claim_kind": "published-exact",
+  "notes": "The paper's exhaustive classification finds no Williamson matrices at this order. The census is recorded with no representatives; it is exact on the board only through a registered full replay of the pinned engine."
+}

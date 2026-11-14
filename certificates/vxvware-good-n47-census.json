@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "n": 47,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      47
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-13",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: good matrices at n=47",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/0061ad63796971e767971ff82756b32500291f62/data/good/good-47.txt",
+      "commit": "0061ad63796971e767971ff82756b32500291f62",
+      "source_path": "data/good/good-47.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/good/good-47.txt",
+        "sha256": "da76918b69771ac4540fc6d9fe89c41ccae9911f9da38a58553b0eb2d4c1b121"
+      }
+    }
+  ],
+  "id": "vxvware-good-n47-census",
+  "type": "certificate",
+  "stratum": "good",
+  "claim": "empty",
+  "scope": {
+    "kind": "full"
+  },
+  "method": "unreplayed-census",
+  "records": [],
+  "gaps": [
+    "Unpublished; no paper is recorded for this census."
+  ],
+  "notes": "The archived source file is a deliberately empty census output whose header records the exhaustive search. The published searches surveyed in arXiv:1811.05094 also find no good matrices at this order."
+}

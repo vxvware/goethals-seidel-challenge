@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "n": 57,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      57
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-13",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: good matrices at n=57",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/0061ad63796971e767971ff82756b32500291f62/data/good/good-57.txt",
+      "commit": "0061ad63796971e767971ff82756b32500291f62",
+      "source_path": "data/good/good-57.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/good/good-57.txt",
+        "sha256": "8229a09e460cf45ad6810db79ddd25fd56b5d5256dfabd361eeae70d0114e623"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "vxvware-good-n57",
+  "type": "census",
+  "stratum": "good",
+  "representatives": [
+    "n57-8a2725a1b113b26a0969"
+  ],
+  "claimed_count": 1,
+  "claim_kind": "lower-bound",
+  "secondary": {
+    "stored_rows": 72
+  },
+  "notes": "The source reports a full census with 1 class under its own equivalence convention and stores 72 quadruples. This board verifies the 1 equiv-v1 representative and records a lower bound; the search has not been replayed here. arXiv:1811.05094 (Table 1, Figure 1) reports exactly one class by SAT+CAS; its rows appear among the source's quadruples and nothing else does."
+}
