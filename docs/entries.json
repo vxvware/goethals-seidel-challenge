@@ -106655,6 +106655,35 @@
       ],
       "contributions": []
     },
+    "williamson-n53": {
+      "id": "williamson-n53",
+      "type": "census",
+      "n": 53,
+      "stratum": "williamson",
+      "equivalence": "equiv-v1",
+      "count": 0,
+      "bound": "exact",
+      "tier": "reproduced",
+      "claimed_count": 0,
+      "claim_kind": "published-exact",
+      "checks": [
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "williamson-hkt-v1",
+        "host": "bos-game",
+        "threads": 8,
+        "date": "2026-11-14",
+        "wall_seconds": 480.0,
+        "raw_rows": 0
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
+      ],
+      "contributions": []
+    },
     "williamson-n55": {
       "id": "williamson-n55",
       "type": "census",
@@ -106712,6 +106741,23 @@
       },
       "limitations": [
         "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
+      ],
+      "contributions": []
+    },
+    "williamson-n59": {
+      "id": "williamson-n59",
+      "type": "census",
+      "n": 59,
+      "stratum": "williamson",
+      "equivalence": "equiv-v1",
+      "count": 0,
+      "bound": "lower",
+      "tier": null,
+      "claimed_count": 0,
+      "claim_kind": "published-exact",
+      "checks": [
+        "representative-existence",
+        "pairwise-inequivalence"
       ],
       "contributions": []
     },
