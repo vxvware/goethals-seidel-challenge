@@ -48,6 +48,10 @@ permutations, and simultaneous cyclic-group automorphisms. It excludes
 independent shifts. At n=43, 10,080 best quadruples yield five primary classes
 and 20 legacy `branch-v1` orbits. This is equivalence of quadruples under the
 specified operations, not an assertion of full Hadamard-matrix isomorphism.
+The general and skew censuses are counted under `equiv-v2`, which also
+identifies independent cyclic shifts of each row; without it every class at
+those orders splits into thousands (514 against 4 at n=7). Entries and every
+other census keep `equiv-v1`.
 
 Mathematical status (`exists`, `empty`, `unresolved`) and artifact availability
 (`verified-on-board`, `published-not-imported`, `none`) are separate. A known

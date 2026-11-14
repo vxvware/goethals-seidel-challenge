@@ -8,7 +8,7 @@ import os
 import subprocess
 import tempfile
 from verify.common import ROOT, TRACKS
-from verify.equivalence import canonical, branch_canonical
+from verify.equivalence import CANONICAL, VERSION, VERSION_SHIFTS, canonical, branch_canonical
 from verify.gs_verify import memberships, paf, validate_rows
 
 
@@ -100,7 +100,30 @@ C_ENGINES = {
         "orders": range(3, 38, 2),
         "env": (),
     },
+    # The unconstrained tracks are counted under equiv-v2, which also identifies
+    # independent cyclic shifts; under equiv-v1 their counts explode (514 and
+    # 152 classes at n=7 against 4 and 4) and would need an entry per class.
+    "general-census-c-v1": {
+        "stratum": "general",
+        "source": "research/starter/general/gencensus.c",
+        "flags": ("-DGEN_SHIFTCLASS",),
+        "orders": range(3, 14, 2),
+        "env": ("GEN_",),
+        "equivalence": VERSION_SHIFTS,
+    },
+    "skew-sds-census-c-v1": {
+        "stratum": "skew-sds",
+        "source": "research/starter/general/gencensus.c",
+        "flags": ("-DGEN_SHIFTCLASS", "-DGEN_SKEW"),
+        "orders": range(3, 14, 2),
+        "env": ("GEN_",),
+        "equivalence": VERSION_SHIFTS,
+    },
 }
+
+
+def engine_equivalence(engine):
+    return C_ENGINES[engine].get("equivalence", VERSION)
 
 
 @lru_cache(maxsize=len(C_ENGINES))
@@ -130,7 +153,9 @@ def c_exe(engine):
 
 
 def c_census(engine, n):
-    """Replay a pinned C census at odd order n and return its equiv-v1 classes.
+    """Replay a pinned C census at odd order n and return its classes.
+
+    Classes are taken under the engine's declared equivalence version.
 
     The engines' environment variables only tune performance, but any with the
     engine's prefixes are stripped so that a shard setting inherited from a
@@ -163,7 +188,8 @@ def c_census(engine, n):
         validate_rows(q, n)
         if spec["stratum"] not in memberships(q):
             raise ValueError(f"{engine} produced a row outside the {spec['stratum']} stratum")
-    return {canonical(q) for q in rows}
+    canonical_form = CANONICAL[engine_equivalence(engine)]
+    return {canonical_form(q) for q in rows}
 
 
 def good_census(n):
@@ -175,6 +201,9 @@ def williamson_census(n):
 
 
 def verify(entry, quadruples, reproduce=True):
+    # Representatives are stored under equiv-v1; a census declared under
+    # equiv-v2 compares them, and the enumerator's rows, under that version.
+    canonical_form = CANONICAL[entry["equivalence"]]
     reps = []
     for identifier in entry["representatives"]:
         if identifier not in quadruples:
@@ -182,7 +211,7 @@ def verify(entry, quadruples, reproduce=True):
         q = quadruples[identifier]
         if q["n"] != entry["n"] or entry["stratum"] not in q["tracks"]:
             raise ValueError("census representative has wrong order or stratum")
-        reps.append(q["canonical_rows"])
+        reps.append(canonical_form(q["canonical_rows"]))
     unique = set(reps)
     if len(unique) != len(reps):
         raise ValueError("census repeats equivalent representatives")
@@ -203,6 +232,10 @@ def verify(entry, quadruples, reproduce=True):
     }
     if entry["claim_kind"] == "computed-exact" and reproduce:
         engine = entry.get("enumerator")
+        if engine in C_ENGINES and engine_equivalence(engine) != entry["equivalence"]:
+            raise ValueError("census equivalence differs from the enumerator's")
+        if engine not in C_ENGINES and entry["equivalence"] != VERSION:
+            raise ValueError("no trusted enumerator for this census")
         if engine == "best-census-c-v1" and entry["stratum"] == "best":
             expected, secondary = best_census(entry["n"])
             result["secondary"] = secondary

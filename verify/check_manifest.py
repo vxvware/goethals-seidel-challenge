@@ -16,6 +16,7 @@ def trusted_files(root):
         )
     paths.extend(p for p in (root / "research/starter/best").glob("census.c"))
     paths.extend(p for p in (root / "research/starter/good").glob("good_c.c"))
+    paths.extend(p for p in (root / "research/starter/general").glob("*.c"))
     paths.extend(p for p in (root / "research/starter/williamson").glob("*.c"))
     paths.extend(p for p in (root / "research/starter/kkss").glob("*.[ch]"))
     paths.extend(p for p in (root / "research/starter/good_gpu").glob("*.py"))

@@ -31,6 +31,20 @@ with the published best-matrix convention. A future shift quotient requires a
 new version and separate statistics. No claim of Hadamard-matrix isomorphism
 is made; the decision is exact only under the stated generators.
 
+## Shift quotient equiv-v2
+
+The version equiv-v2 adds independent cyclic shifts of each row to the equiv-v1
+generators. The canonical representative is the lexicographically least sorted
+tuple, over all simultaneous multipliers, of per-row minima over shifts,
+reversal and sign; the multipliers normalize the dihedral group of Z_n, so this
+is a complete invariant. Strata are not invariant under shifts, so equiv-v2 is
+declared only on censuses of the general and skew-sds tracks, and such a census
+counts the classes that contain a member of its stratum; every representative
+is itself a member (a skew-sds representative has a literally skew row).
+Quadruple entries, fingerprints, deduplication and every other census keep
+equiv-v1. Registered offline replays are defined only under equiv-v1. At n=7
+the general track has 514 equiv-v1 classes and 4 equiv-v2 classes.
+
 The secondary branch-v1 convention on best quadruples permits simultaneous
 multipliers, permutation of the three skew rows, and D-negation, with skew
 origins fixed to +1. At n=43 the full normalized catalogue gives 20 branch-v1

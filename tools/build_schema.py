@@ -154,7 +154,7 @@ census = entry(
     "census",
     {
         "stratum": TRACK,
-        "equivalence": {"const": "equiv-v1"},
+        "equivalence": {"enum": ["equiv-v1", "equiv-v2"]},
         "representatives": {
             "type": "array",
             "maxItems": 4096,
@@ -166,7 +166,9 @@ census = entry(
         "enumerator": {
             "enum": [
                 "best-census-c-v1",
+                "general-census-c-v1",
                 "good-census-c-v1",
+                "skew-sds-census-c-v1",
                 "small-exact-v1",
                 "williamson-census-c-v1",
             ]
