@@ -2,6 +2,90 @@
   "version": 1,
   "reports": [
     {
+      "path": "evidence/census-replays/vxvware-kkss-n11.json",
+      "sha256": "f60bac32909b18d6c730330b40c7f4163e0eba5a929e33cf91968d5f650e141b"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n13.json",
+      "sha256": "1fcc3707cf0be2a17a234bcf6962a70baa1500b0aa12858ce95a1cd90e444d59"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n15.json",
+      "sha256": "cf18cc537e8cd5d950201f608e9a02e7eae09b314a07a12929ed6f8688d2f397"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n17.json",
+      "sha256": "49c4fdb0761b6fa02f90989c22fe112774994ff3ed7818e43efac766a5b02f9b"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n19.json",
+      "sha256": "9984ddd682edc34be21c2ffebeb0710f1de83c9818d07d0035148d8087042aea"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n21.json",
+      "sha256": "c12bd21fa531cf9baaa1a33a050b69555328f560afe0233077bf304ee2e50546"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n23.json",
+      "sha256": "1aeb27fc02b44336a4eecf7c5a6ac3e1c77d440b5660303e127e0e7698a15b47"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n25.json",
+      "sha256": "78c87ca36ac552d966cc3f237a5c352037f8decbefc0501bcd243b5f0483eb0f"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n27.json",
+      "sha256": "9f0c72aa712edde99a60f30b1acc418b1718cc6bcdbac6ba032f292343147a5b"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n29.json",
+      "sha256": "ee9f926af3bab7badf5b763c304fd9d5b5d9a4638d719005d2ba8d942fb2e5ad"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n3.json",
+      "sha256": "e985e49af4a323a563490eec03598464a1df41b7972bfe855b9665a78c572afb"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n31.json",
+      "sha256": "1d68a01f7f78c5d4e1a401c36467d5f9a5343e96e47f21f54b7e1fcfaef37503"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n33.json",
+      "sha256": "9e6c497aa9e9d3d05655f308279c7e7254100b95d9b9c8d8b1eb96273a91085e"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n35.json",
+      "sha256": "96e63e6ba8cba10fd5928fe635b4cbf89fdc2d44c3fe10e7b5108d6b692101db"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n37.json",
+      "sha256": "e27ee9db68d848eceaaddb1426ae9ca668130c2dcd87c1ec68fa57b370cdb453"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n39.json",
+      "sha256": "6cb8bcb0c6ffc87b0591560c98f0b00300bc38222c67e0b92dd6588fff1a4166"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n41.json",
+      "sha256": "65a0c259e6b0950694ed43499dee3e5aad33cce1045d6106eb97c07c3254d4a8"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n43.json",
+      "sha256": "8feb79b72f943a426abcce114574afbfe638ca23a1037fd226751b7511d08156"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n5.json",
+      "sha256": "b8cd3baf0d6105a20c2b0b1e012b2f593d8aab69e8f285a2382be8d5f6a5c39f"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n7.json",
+      "sha256": "dc445b84ef6cf41a9a90f985348a375b73f679b5cd4a9aaa28637f144a851425"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n9.json",
+      "sha256": "54f87b8ec21df0126b7a0dcac749e05cbfa3bfcaaa1e6db405332ca50de89799"
+    },
+    {
       "path": "evidence/census-replays/williamson-n39.json",
       "sha256": "cc72d451da87d0f1cc337f1769664eb11852b3ea298bafb1b7c5d095ce0ba884"
     },
