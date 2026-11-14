@@ -217,8 +217,7 @@ if __name__ == "__main__":
         import_replayed("good-census-c-v1", n, a.engine_commit, a.date)
     williamson = C_ENGINES["williamson-census-c-v1"]["orders"]
     for n in williamson:
-        if n != 35:
-            import_replayed("williamson-census-c-v1", n, a.engine_commit, a.date)
+        import_replayed("williamson-census-c-v1", n, a.engine_commit, a.date)
     for n in sorted(HKT_COUNTS):
-        if n not in williamson and HKT_COUNTS[n]:
+        if n not in williamson and (HKT_COUNTS[n] or n == 47):
             import_published_williamson(n, a.date)

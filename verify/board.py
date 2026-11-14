@@ -148,16 +148,24 @@ def cells(documents, results, baseline, max_n=131):
                     or c.get("provenance") in ("literature", "unreplayed-census")
                 )
             ]
-            status = "exists" if quads or exists else "empty" if empty or whole else "unresolved"
-            availability = (
-                "verified-on-board" if quads else "published-not-imported" if exists else "none"
-            )
-            tiers = [c["tier"] for c in whole if c["tier"]]
             censuses = [
                 r
                 for r in results.values()
                 if r["type"] == "census" and r["n"] == n and r["stratum"] == track
             ]
+            # An exact census with no classes is a replayed proof of emptiness.
+            exact_empty = [c for c in censuses if c["bound"] == "exact" and c["count"] == 0]
+            status = (
+                "exists"
+                if quads or exists
+                else "empty"
+                if empty or whole or exact_empty
+                else "unresolved"
+            )
+            availability = (
+                "verified-on-board" if quads else "published-not-imported" if exists else "none"
+            )
+            tiers = [c["tier"] for c in whole if c["tier"]] + [c["tier"] for c in exact_empty]
             # Scoped evidence can be relevant to narrower strata without being
             # the result that establishes their status. Credit its target cell.
             credits = contributions.collect(
@@ -170,7 +178,9 @@ def cells(documents, results, baseline, max_n=131):
                 origins.add("published-import")
             rank = {"receipt-backed": 0, "spot-checked": 1, "reproduced": 2, "proven": 3}
             tier = "reproduced" if quads else max(tiers, key=rank.get) if tiers else None
-            basis = sorted({c["tier"] or c["provenance"] for c in whole})
+            basis = sorted(
+                {c["tier"] or c["provenance"] for c in whole} | {c["tier"] for c in exact_empty}
+            )
             output.append(
                 {
                     "n": n,

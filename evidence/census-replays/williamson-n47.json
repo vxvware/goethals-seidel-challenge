@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "entry_id": "williamson-n47",
+  "entry_sha256": "d29bdee7ce0480aabee05eb77b1b22dc56cc579eaaca17321c3f4d39481e532b",
+  "engine_id": "williamson-census-c-v1",
+  "engine_sha256": {
+    "research/starter/williamson/williamson_c.c": "322a578f4fbe578d9b6d5c99928b674ec5688c617a806df98aee3811ac016a5e"
+  },
+  "mode": "full",
+  "status": "passed",
+  "host": "bos-game",
+  "threads": 16,
+  "date": "2026-11-12",
+  "wall_seconds": 6829.0,
+  "command": "./williamson_c 47 16 wil-47.txt",
+  "rows": []
+}
