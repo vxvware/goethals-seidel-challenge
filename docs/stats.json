@@ -2,8 +2,8 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 540,
-  "quadruples": 367,
+  "entry_count": 547,
+  "quadruples": 374,
   "certificates": 76,
   "censuses": 97,
   "contributions": [
@@ -27496,10 +27496,16 @@
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n47-054b4adcc03ed4960fee",
+        "n47-41c47eb4a1dbcc2b2bf8",
+        "n47-7a3fd80fdc100e1fd5d4",
+        "n47-c115c251d79e64e0f216",
+        "n47-d01cf41314649dabef70"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -27528,10 +27534,16 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n47-054b4adcc03ed4960fee",
+        "n47-41c47eb4a1dbcc2b2bf8",
+        "n47-7a3fd80fdc100e1fd5d4",
+        "n47-c115c251d79e64e0f216",
+        "n47-d01cf41314649dabef70"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -37252,10 +37264,12 @@
       "stratum": "good",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n127-44cb574363047480088c"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -37340,10 +37354,13 @@
       "stratum": "skew-sds",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n127-44cb574363047480088c",
+        "n127-b0a931500810840bf860"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -37372,10 +37389,13 @@
       "stratum": "general",
       "group": "cyclic",
       "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n127-44cb574363047480088c",
+        "n127-b0a931500810840bf860"
+      ],
       "evidence": [],
       "censuses": [],
       "contributions": [],
@@ -39830,179 +39850,18 @@
       "note": ""
     }
   ],
-  "import_tasks": [
-    {
-      "n": 47,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 47,
-          "stratum": "skew-sds",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Cyclic skew SDS constructions, Section 5",
-            "url": "https://arxiv.org/html/0903.5053v2"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 47,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 47,
-          "stratum": "skew-sds",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Cyclic skew SDS constructions, Section 5",
-            "url": "https://arxiv.org/html/0903.5053v2"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 127,
-      "stratum": "good",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 127,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Known cyclic good-matrix orders, Section 5",
-            "url": "https://arxiv.org/html/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 127,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 127,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Known cyclic good-matrix orders, Section 5",
-            "url": "https://arxiv.org/html/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 127,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "exists",
-      "artifact_status": "published-not-imported",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [
-        "published-import"
-      ],
-      "sources": [
-        {
-          "n": 127,
-          "stratum": "good",
-          "group": "cyclic",
-          "status": "exists",
-          "source": {
-            "title": "Known cyclic good-matrix orders, Section 5",
-            "url": "https://arxiv.org/html/1802.00556"
-          },
-          "baseline_date": "2026-10-14"
-        }
-      ],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    }
-  ],
+  "import_tasks": [],
   "largest_verified": {
     "williamson": 129,
-    "good": 61,
+    "good": 127,
     "best": 57,
     "kkss": 115,
-    "skew-sds": 115,
+    "skew-sds": 127,
     "general": 129
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 451,
+    "reproduced": 458,
     "spot-checked": 0,
     "receipt-backed": 2
   },
