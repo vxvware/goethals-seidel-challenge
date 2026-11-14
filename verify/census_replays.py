@@ -66,6 +66,12 @@ ENGINES = {
         "orders": range(3, 64, 2),
         "composite": False,
     },
+    "good-census-c-v1": {
+        "stratum": "good",
+        "sources": ("research/starter/good/good_c.c",),
+        "orders": range(3, 68, 2),
+        "composite": False,
+    },
 }
 REPORT_DIR = "evidence/census-replays/"
 
