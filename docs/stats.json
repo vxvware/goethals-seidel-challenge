@@ -2,10 +2,10 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 547,
+  "entry_count": 549,
   "quadruples": 374,
   "certificates": 76,
-  "censuses": 97,
+  "censuses": 99,
   "contributions": [
     {
       "id": "kkss-49-correction",
@@ -28767,15 +28767,18 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
+      "tier": "reproduced",
       "empty_basis": [
-        "literature"
+        "literature",
+        "reproduced"
       ],
       "quadruples": [],
       "evidence": [
         "williamson-n53-literature"
       ],
-      "censuses": [],
+      "censuses": [
+        "williamson-n53"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -30583,7 +30586,9 @@
       "evidence": [
         "williamson-n59-literature"
       ],
-      "censuses": [],
+      "censuses": [
+        "williamson-n59"
+      ],
       "contributions": [],
       "origins": [
         "published-import"
@@ -39861,9 +39866,9 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 458,
+    "reproduced": 459,
     "spot-checked": 0,
     "receipt-backed": 2
   },
-  "ungraded_claims": 31
+  "ungraded_claims": 32
 }

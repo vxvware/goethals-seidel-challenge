@@ -126,6 +126,10 @@
       "sha256": "9478393bcf64199f7ef9d8871e38c6559f370529292a116e59f7ebe155976a2e"
     },
     {
+      "path": "evidence/census-replays/williamson-n53.json",
+      "sha256": "50c273582b13f818436e5bba2f32137bea3070405aa7842254156bf92431f860"
+    },
+    {
       "path": "evidence/census-replays/williamson-n55.json",
       "sha256": "da6d078daed519213f527258afeb6641081362ab393f0df1463e6f61a37de1dd"
     },
