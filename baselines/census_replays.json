@@ -74,6 +74,18 @@
       "sha256": "8feb79b72f943a426abcce114574afbfe638ca23a1037fd226751b7511d08156"
     },
     {
+      "path": "evidence/census-replays/vxvware-kkss-n45.json",
+      "sha256": "2545f53cec873c3185ce8b2c5e69f7a081963776e88ba528b175a25b288d4977"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n47.json",
+      "sha256": "eff6256eb0e7ba3b1c907e8c186b35ab718191a778158b57b5658b3446f672cc"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n49.json",
+      "sha256": "303543470673f3929d606f9819063dee75da18a57dfcc3a4896b26d0eceb97c3"
+    },
+    {
       "path": "evidence/census-replays/vxvware-kkss-n5.json",
       "sha256": "b8cd3baf0d6105a20c2b0b1e012b2f593d8aab69e8f285a2382be8d5f6a5c39f"
     },
