@@ -29,6 +29,16 @@ ENGINES = {
         "orders": range(9, 66, 2),
         "composite": True,
     },
+    "williamson-compress-v2": {
+        "stratum": "williamson",
+        "sources": (
+            "research/starter/williamson/wc_compress.c",
+            "research/starter/williamson/wc_lift.c",
+            "research/starter/williamson/wc_lift5.c",
+        ),
+        "orders": range(9, 66, 2),
+        "composite": True,
+    },
     "kkss-census-c-v1": {
         "stratum": "kkss",
         "sources": (
