@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "n": 47,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      47
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-14",
+  "discovered_by": [
+    "Đoković and Kotsireas 2018 classification of Goethals-Seidel difference families with symmetric or skew blocks for odd v < 50"
+  ],
+  "sources": [
+    {
+      "title": "Đoković, Kotsireas, Goethals-Seidel difference families with symmetric or skew base blocks, Math. Comput. Sci. 12 (2018); arXiv:1802.00556, classification of odd v < 50",
+      "url": "https://arxiv.org/abs/1802.00556"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "good-n47",
+  "type": "census",
+  "stratum": "good",
+  "representatives": [],
+  "claimed_count": 0,
+  "claim_kind": "published-exact",
+  "notes": "The cited exhaustive search finds no circulant good matrices at this order. The census is recorded with no representatives; it is exact on the board only through a registered full replay of the pinned engine."
+}
