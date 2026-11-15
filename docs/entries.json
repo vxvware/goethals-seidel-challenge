@@ -164319,13 +164319,25 @@
       "stratum": "kkss",
       "equivalence": "equiv-v1",
       "count": 1,
-      "bound": "lower",
-      "tier": null,
+      "bound": "exact",
+      "tier": "reproduced",
       "claimed_count": 1,
       "claim_kind": "lower-bound",
       "checks": [
-        "representative-existence",
-        "pairwise-inequivalence"
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "kkss-census-c-v3",
+        "host": "bos-game",
+        "threads": 16,
+        "date": "2026-11-14",
+        "wall_seconds": 9005.0,
+        "raw_rows": 4
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
       ],
       "contributions": [
         {
@@ -165438,6 +165450,36 @@
         "date": "2026-11-12",
         "wall_seconds": 12186.8,
         "raw_rows": 6
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
+      ],
+      "contributions": []
+    },
+    "williamson-n65": {
+      "id": "williamson-n65",
+      "type": "census",
+      "n": 65,
+      "stratum": "williamson",
+      "equivalence": "equiv-v1",
+      "count": 0,
+      "bound": "exact",
+      "tier": "reproduced",
+      "claimed_count": 0,
+      "claim_kind": "lower-bound",
+      "checks": [
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "williamson-compress-v2",
+        "compression": 5,
+        "host": "bos-game and versalife",
+        "threads": 16,
+        "date": "2026-11-14",
+        "wall_seconds": 320543.0,
+        "raw_rows": 0
       },
       "limitations": [
         "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."

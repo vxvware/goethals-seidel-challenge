@@ -270,10 +270,11 @@ def test_registered_census_replays_make_published_counts_exact(board):
         (53, 0, "williamson-hkt-v1"),
         (59, 0, "williamson-hkt-v1"),
         (61, 1, "williamson-hkt-v2"),
+        (65, 0, "williamson-compress-v2"),
     ):
         x = r[f"williamson-n{n}"]
         assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", count)
-        assert x["claim_kind"] == ("lower-bound" if n == 61 else "published-exact")
+        assert x["claim_kind"] == ("lower-bound" if n in (61, 65) else "published-exact")
         assert "registered-full-census-replay" in x["checks"]
         assert x["replay"]["engine_id"] == engine
 
@@ -316,3 +317,10 @@ def test_registered_good_replays_make_counts_exact(board):
         x = r[ident]
         assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", count)
         assert x["replay"]["engine_id"] == "good-census-c-v1"
+
+
+def test_registered_kkss_v3_replay(board):
+    _, r, _ = board
+    x = r["vxvware-kkss-n59"]
+    assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", 1)
+    assert x["replay"]["engine_id"] == "kkss-census-c-v3"
