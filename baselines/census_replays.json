@@ -22,6 +22,14 @@
       "sha256": "009c1821f04f00ebf7d517de08f2c0987fc8a2bd20f54c7f42d611a2e830c948"
     },
     {
+      "path": "evidence/census-replays/vxvware-good-n55.json",
+      "sha256": "a5fc2f72d61227010c27abb5f450a15746736501bf0aee39b9a8b7623bd41efd"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-good-n57.json",
+      "sha256": "6529fa562d149b895adabbbc5dbb966bb2c7e945bca612dcbf16c91549084ecd"
+    },
+    {
       "path": "evidence/census-replays/vxvware-kkss-n11.json",
       "sha256": "f60bac32909b18d6c730330b40c7f4163e0eba5a929e33cf91968d5f650e141b"
     },
@@ -124,6 +132,10 @@
     {
       "path": "evidence/census-replays/vxvware-kkss-n59.json",
       "sha256": "9c1ed144f3c83c10b8baf35c4a75e64737f26393b11cb855110768c674290794"
+    },
+    {
+      "path": "evidence/census-replays/vxvware-kkss-n61-census.json",
+      "sha256": "efd151b1abf324411403a0682b1d362829af67e25618c6d0cb4e6081e629b291"
     },
     {
       "path": "evidence/census-replays/vxvware-kkss-n7.json",
