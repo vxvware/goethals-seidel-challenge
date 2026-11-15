@@ -166,7 +166,7 @@ def test_participant_credit_does_not_change_evidence_status(board):
         credit = cell["contributions"][0]
         assert credit["contributors"] == [{"name": "vxvware", "github": "vxvware"}]
         assert credit["publication_status"] == "unpublished"
-        assert r[f"vxvware-good-n{n}"]["bound"] == ("exact" if n == 53 else "lower")
+        assert r[f"vxvware-good-n{n}"]["bound"] == ("exact" if n in (53, 55) else "lower")
     correction = cells[49, "kkss"]
     assert correction["status"] == "exists" and correction["tier"] == "reproduced"
     assert correction["origins"] == ["participant-result"]
