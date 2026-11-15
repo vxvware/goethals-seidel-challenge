@@ -2,10 +2,10 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 1188,
+  "entry_count": 1189,
   "quadruples": 996,
   "certificates": 76,
-  "censuses": 116,
+  "censuses": 117,
   "contributions": [
     {
       "id": "kkss-49-correction",
@@ -33000,13 +33000,17 @@
       "n": 65,
       "stratum": "williamson",
       "group": "cyclic",
-      "status": "unresolved",
+      "status": "empty",
       "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
+      "tier": "reproduced",
+      "empty_basis": [
+        "reproduced"
+      ],
       "quadruples": [],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "williamson-n65"
+      ],
       "contributions": [],
       "origins": [],
       "sources": [],
@@ -38611,24 +38615,6 @@
   "research_targets": [
     {
       "n": 65,
-      "stratum": "williamson",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 65,
       "stratum": "good",
       "group": "cyclic",
       "status": "unresolved",
@@ -40789,9 +40775,9 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 1103,
+    "reproduced": 1105,
     "spot-checked": 0,
     "receipt-backed": 2
   },
-  "ungraded_claims": 27
+  "ungraded_claims": 26
 }

@@ -122,6 +122,10 @@
       "sha256": "986665ab1ba445a4f63a763e1f836637fdfc4dcc7fae0954e6172c9c756bee89"
     },
     {
+      "path": "evidence/census-replays/vxvware-kkss-n59.json",
+      "sha256": "9c1ed144f3c83c10b8baf35c4a75e64737f26393b11cb855110768c674290794"
+    },
+    {
       "path": "evidence/census-replays/vxvware-kkss-n7.json",
       "sha256": "dc445b84ef6cf41a9a90f985348a375b73f679b5cd4a9aaa28637f144a851425"
     },
@@ -180,6 +184,10 @@
     {
       "path": "evidence/census-replays/williamson-n63.json",
       "sha256": "9557c60f40f3f8ffc42325a252ea7b8e27538ae027d75db3e4b2a3dfe7219fe3"
+    },
+    {
+      "path": "evidence/census-replays/williamson-n65.json",
+      "sha256": "4cf85b1f5f1f8ac7a48cc0f3f7c37e1cc05690e317cdc89b8fa311980aaff516"
     }
   ]
 }
