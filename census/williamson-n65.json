@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "n": 65,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      65
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-14",
+  "discovered_by": [
+    "This board's pinned compression census williamson-compress-v2, run to completion at n=65"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned compression census williamson-compress-v2 (wc_compress.c, wc_lift.c, wc_lift5.c), run to completion at n=65 with compression by 5",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/tree/ef7c33bb188f73232ae1caa5880dc6f09a6b96e6/research/starter/williamson"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n65",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [],
+  "claimed_count": 0,
+  "claim_kind": "lower-bound",
+  "notes": "No peer-reviewed classification at this order is recorded. The full compression census run on this board (72,478 instances after compression by 5 and the multiplier reduction, every one lifted) finds no Williamson matrices of order 65; the count is exact on the board only through the registered replay of the pinned engine."
+}
