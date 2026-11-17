@@ -2,15 +2,16 @@
 // Draws the four defining rows of a quadruple and the Goethals-Seidel array
 // they generate, for every figure.quad on the page. This is an illustration
 // computed from the submitted rows; the verifier result is the evidence.
-// Hue follows the symmetry of the block: skew blocks green, symmetric blue.
-// Light is +1 and dark is -1 in both hues.
-const PALETTE={k:[[159,211,181,255],[20,38,29,255]],s:[[169,199,232,255],[20,32,44,255]]};
+// Hue follows the symmetry of the block: skew blocks green, symmetric blue,
+// and blocks with neither symmetry grey. Light is +1 and dark is -1 in each hue.
+const PALETTE={k:[[61,235,120,255],[5,34,17,255]],s:[[95,205,245,255],[5,28,40,255]]};
+const PLAIN=[[176,184,179,255],[24,28,26,255]];
 function paint(canvas,width,height,value,kind){
  if(!canvas)return;
  canvas.width=width;canvas.height=height;
  const ctx=canvas.getContext('2d'),img=ctx.createImageData(width,height),px=img.data;
  for(let y=0;y<height;y++)for(let x=0;x<width;x++){
-  const tones=PALETTE[kind(y,x)]||PALETTE.k,c=value(y,x)>0?tones[0]:tones[1],k=4*(y*width+x);
+  const tones=PALETTE[kind(y,x)]||PLAIN,c=value(y,x)>0?tones[0]:tones[1],k=4*(y*width+x);
   px[k]=c[0];px[k+1]=c[1];px[k+2]=c[2];px[k+3]=c[3];
  }
  ctx.putImageData(img,0,0);
