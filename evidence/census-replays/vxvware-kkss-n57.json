@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "entry_id": "vxvware-kkss-n57",
+  "entry_sha256": "8391026eb3c534b957264cec44317eb22c4677cfcbe29ad387c96874c5970f18",
+  "engine_id": "kkss-census-c-v1",
+  "engine_sha256": {
+    "research/starter/kkss/gmat_c.c": "7949e441ac507d81ff2d84048737cc02024e4db7c92d5ddd9914ec3ea312de2a",
+    "research/starter/kkss/hkt_solve.h": "96d29998fbf83e04c97b4db687b490164b5e785aa708904a1b18da73df13c11f"
+  },
+  "mode": "full",
+  "status": "passed",
+  "host": "bos-game",
+  "threads": 4,
+  "date": "2026-11-15",
+  "wall_seconds": 109252.0,
+  "command": "gcc -O3 -march=native -fopenmp -DNLEV=32 -DNW_NOCACHE gmat_c.c -lm -o gmat_c_l32; ./gmat_c_l32 57 4 g-57.txt",
+  "rows": []
+}

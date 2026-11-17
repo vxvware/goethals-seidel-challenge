@@ -56,7 +56,7 @@ def test_known_larger_constructions_and_impossible_g_orders_are_not_targets(boar
     assert [f["kind"] for f in cells[49, "kkss"]["flags"]] == ["contradicts-published-nonexistence"]
     assert "1802.00556" in cells[49, "kkss"]["contradicted"][0]["source"]["url"]
     assert cells[57, "kkss"]["status"] == "empty"
-    assert cells[57, "kkss"]["empty_basis"] == ["unreplayed-census"]
+    assert cells[57, "kkss"]["empty_basis"] == ["reproduced", "unreplayed-census"]
     assert cells[57, "kkss"]["origins"] == ["participant-result"]
     # Spence's family: existence at 51 and 55 is published; 75 is published and unimported.
     for n in (51, 55, 63):
@@ -166,7 +166,7 @@ def test_participant_credit_does_not_change_evidence_status(board):
         credit = cell["contributions"][0]
         assert credit["contributors"] == [{"name": "vxvware", "github": "vxvware"}]
         assert credit["publication_status"] == "unpublished"
-        assert r[f"vxvware-good-n{n}"]["bound"] == ("exact" if n in (53, 55) else "lower")
+        assert r[f"vxvware-good-n{n}"]["bound"] == "exact"
     correction = cells[49, "kkss"]
     assert correction["status"] == "exists" and correction["tier"] == "reproduced"
     assert correction["origins"] == ["participant-result"]
