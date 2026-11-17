@@ -127,6 +127,113 @@ def census_count(c, r):
     return f"{bound}{x['count']} {'class' if x['count'] == 1 else 'classes'}"
 
 
+# Cells whose statement is not in the published literature. The list is curated
+# because a cell's origins only say who supplied the rows: an exact class count
+# at an order whose existence was already published still counts here. The
+# wording is derived from the live board, so a statement cannot outrun its
+# evidence.
+NEW_RESULTS = (
+    ("williamson", 61),
+    ("williamson", 65),
+    ("good", 53),
+    ("good", 55),
+    ("good", 59),
+    ("good", 61),
+    ("good", 67),
+    ("kkss", 49),
+    ("kkss", 51),
+    ("kkss", 53),
+    ("kkss", 55),
+    ("kkss", 57),
+    ("kkss", 59),
+    ("kkss", 61),
+)
+NEW_RESULT_NAMES = {"williamson": "Williamson ", "good": "Good ", "kkss": "G-"}
+NEW_RESULT_GROUPS = (
+    ("correction", "Correction to a published result"),
+    ("classification", "Classifications"),
+    ("nonexistence", "Nonexistence"),
+    ("unreplayed", "Not yet replayed"),
+)
+
+
+def new_results(stats, r):
+    """The curated new results, grouped, each worded from its cell's evidence."""
+    by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
+    groups = {key: [] for key, _ in NEW_RESULT_GROUPS}
+    for track, n in NEW_RESULTS:
+        c = by_cell[n, track]
+        item = {"n": n, "stratum": track, "source": None}
+        subject = f"{NEW_RESULT_NAMES[track]}matrices of order {n}"
+        count = census_count(c, r)
+        if c["status"] == "exists" and count:
+            exact = not count.startswith("≥")
+            text = f"{subject}: {'exactly ' if exact else 'at least '}{count.lstrip('≥ ')}."
+            kind = "classification" if exact else "unreplayed"
+        elif c["status"] == "empty":
+            replayed = "reproduced" in c["empty_basis"]
+            text = (
+                f"{subject}: none exist."
+                if replayed
+                else f"{subject}: none found by an exhaustive search."
+            )
+            kind = "nonexistence" if replayed else "unreplayed"
+        else:
+            raise ValueError(f"new result without a census or an empty cell: {track} n={n}")
+        if c["contradicted"]:
+            kind = "correction"
+            item["source"] = c["contradicted"][0]["source"]
+        groups[kind].append(item | {"text": text})
+    # A quick build skips the inline replays, so these counts are only lower
+    # bounds there and the line is left out.
+    shifts = {
+        track: [r[f"{track}-n{n}"] for n in range(3, 14, 2)] for track in ("general", "skew-sds")
+    }
+    if all(x["bound"] == "exact" for xs in shifts.values() for x in xs):
+        general, skew = (
+            ", ".join(str(x["count"]) for x in shifts[track]) for track in ("general", "skew-sds")
+        )
+        groups["classification"].append(
+            {
+                "n": 13,
+                "stratum": "general",
+                "source": None,
+                "text": "Classes up to independent cyclic shifts at orders 3 to 13: "
+                f"{general} with no symmetry condition and {skew} with a skew block.",
+            }
+        )
+    return [(title, groups[key]) for key, title in NEW_RESULT_GROUPS if groups[key]]
+
+
+def new_results_section(stats, r):
+    parts = [
+        '<section id="new-results"><h2>New results</h2><p class="key">Statements on this board '
+        "that are not in the published literature. Counts are equivalence classes. Counts and "
+        "nonexistence statements come from exhaustive computer searches replayed with a pinned "
+        "engine, not from proofs; an item listed as not yet replayed rests on a search that "
+        "has not been rerun that way.</p>"
+    ]
+    for title, items in new_results(stats, r):
+        parts.append(f"<h3>{esc(title)}</h3><ul>")
+        for x in items:
+            link = f'<a href="cells/n{x["n"]}-{x["stratum"]}.html">{esc(x["text"])}</a>'
+            if x["source"]:
+                url = x["source"]["url"]
+                label = (
+                    "arXiv:" + url.rsplit("/", 1)[-1]
+                    if "arxiv.org" in url
+                    else x["source"]["title"]
+                )
+                link += (
+                    " A published exhaustive search reports none "
+                    f'(<a href="{esc(url)}" rel="noopener">{esc(label)}</a>).'
+                )
+            parts.append(f"<li>{link}</li>")
+        parts.append("</ul>")
+    parts.append("</section>")
+    return "".join(parts)
+
+
 def cell_page(c, d, r):
     """One page per order and track: status, credit, sources, and the matrices."""
     n, track = c["n"], c["stratum"]
@@ -290,6 +397,7 @@ def build(quick=False):
             )
         rows.append(f'<tr data-n="{n}"><td>{n}</td>' + "".join(cells) + "</tr>")
     body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>The Goethals–Seidel Challenge</h1><p>Four circulant ±1 matrices of order n whose Gram matrices sum to 4nI give, through the Goethals–Seidel array, a Hadamard matrix of order 4n.</p><p>This board lists the known quadruples of odd order n ≤ 131 by symmetry type. Each entry is rechecked in exact arithmetic, and each search is recorded with what it covered.</p></div>{DEFINITION}</section>
+{new_results_section(stats, r)}
 <section id="board"><h2>Status by order and type</h2><p class="key">Columns are the symmetry types of the blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew. Skew needs one skew block, so it contains the good, best and G-matrix columns; general is any quadruple. Class counts treat reversals as equivalent; the skew and general columns also identify independent cyclic shifts (equiv-v2), without which every class at those orders splits into thousands.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
 <div class="legend"><span class="known">Verified; a number is the class count</span><span class="published">Published, not imported</span><span class="empty">Empty</span><span class="unresolved">Unresolved</span><span class="contradicted">Contradicts a published result</span><span class="participant">New result</span></div>
 <div class="grid-wrap"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div></section>

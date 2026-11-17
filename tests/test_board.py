@@ -324,3 +324,28 @@ def test_registered_kkss_v3_replay(board):
     x = r["vxvware-kkss-n59"]
     assert (x["bound"], x["tier"], x["count"]) == ("exact", "reproduced", 1)
     assert x["replay"]["engine_id"] == "kkss-census-c-v3"
+
+
+def test_new_results_are_worded_from_the_board(board):
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("site_build", ROOT / "site/build.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    new_results = module.new_results
+    d, r, b = board
+    groups = dict(new_results(summary(d, r, b), r))
+    correction = groups["Correction to a published result"]
+    assert [(x["stratum"], x["n"]) for x in correction] == [("kkss", 49)]
+    assert correction[0]["text"] == "G-matrices of order 49: exactly 1 class."
+    assert "1802.00556" in correction[0]["source"]["url"]
+    texts = {x["text"] for items in groups.values() for x in items}
+    assert "Williamson matrices of order 65: none exist." in texts
+    assert "G-matrices of order 61: exactly 2 classes." in texts
+    unreplayed = {x["text"] for x in groups["Not yet replayed"]}
+    assert unreplayed == {
+        "Good matrices of order 59: none found by an exhaustive search.",
+        "Good matrices of order 67: none found by an exhaustive search.",
+    }
+    # The fixture skips the inline replays, so the shift-class line is absent.
+    assert not any("cyclic shifts" in t for t in texts)
