@@ -148,6 +148,11 @@ NEW_RESULTS = (
     ("kkss", 59),
     ("kkss", 61),
 )
+# Every cell the section speaks about, including the shift-class counts; the
+# grid marks these as new alongside the cells a participant supplied rows for.
+NEW_CELLS = set(NEW_RESULTS) | {
+    (track, n) for track in ("general", "skew-sds") for n in range(3, 14, 2)
+}
 NEW_RESULT_NAMES = {"williamson": "Williamson ", "good": "Good ", "kkss": "G-"}
 NEW_RESULT_GROUPS = (
     ("correction", "Correction to a published result"),
@@ -379,9 +384,12 @@ def build(quick=False):
                 ORIGIN_LABELS[o] for o in c["origins"]
             )
             classes = f"{c['status']} {c['artifact_status']}{' contradicted' if c['contradicted'] else ''}"
+            origins = list(c["origins"])
+            if (track, n) in NEW_CELLS and "participant-result" not in origins:
+                origins.insert(0, "participant-result")
             marker = (
                 '<span class="participant" title="New result"></span>'
-                if "participant-result" in c["origins"]
+                if "participant-result" in origins
                 else ""
             )
             count = census_count(c, r)
@@ -393,7 +401,7 @@ def build(quick=False):
                 else {"Published": "pub", "Empty": "–", "Unresolved": "?"}.get(label, "✓")
             )
             cells.append(
-                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(c["origins"]))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}">{esc(text)}{marker}</a></td>'
+                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(origins))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}">{esc(text)}{marker}</a></td>'
             )
         rows.append(f'<tr data-n="{n}"><td>{n}</td>' + "".join(cells) + "</tr>")
     body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>The Goethals–Seidel Challenge</h1><p>Four circulant ±1 matrices of order n whose Gram matrices sum to 4nI give, through the Goethals–Seidel array, a Hadamard matrix of order 4n.</p><p>This board lists the known quadruples of odd order n ≤ 131 by symmetry type. Each entry is rechecked in exact arithmetic, and each search is recorded with what it covered.</p></div>{DEFINITION}</section>
