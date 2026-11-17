@@ -140887,7 +140887,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; the board records existence and census lower bounds because the searches have not been replayed here.",
+          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact.",
           "entry_ids": [
             "n53-34ed46fbcebe2f71b199",
             "n55-faea680bd046e64b3d5a",
@@ -142482,7 +142482,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; the board records existence and census lower bounds because the searches have not been replayed here.",
+          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact.",
           "entry_ids": [
             "n53-34ed46fbcebe2f71b199",
             "n55-faea680bd046e64b3d5a",
@@ -145506,7 +145506,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18 and finished all 32 pieces on 2026-10-22 after 811 cpu-hours: twelve quadruples, two equiv-v1 classes (three under the source's own convention, which does not transpose blocks). Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The rows verify exactly; the board records a lower bound of two because the single run has not been replayed. The first quadruple keeps its hand-entered id and the census maps its class onto it.",
+          "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18 and finished all 32 pieces on 2026-10-22 after 811 cpu-hours: twelve quadruples, two equiv-v1 classes (three under the source's own convention, which does not transpose blocks). Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The rows verify exactly; the count of two became exact on 2026-11-15, when a replay with the pinned kkss-census-c-v3 engine returned the same classes. The first quadruple keeps its hand-entered id and the census maps its class onto it.",
           "entry_ids": [
             "n61-c46dadc965084b5d9e77",
             "vxvware-kkss-n61"
@@ -145817,7 +145817,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; the board records existence and census lower bounds because the searches have not been replayed here.",
+          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact.",
           "entry_ids": [
             "n53-34ed46fbcebe2f71b199",
             "n55-faea680bd046e64b3d5a",
@@ -159976,7 +159976,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18 and finished all 32 pieces on 2026-10-22 after 811 cpu-hours: twelve quadruples, two equiv-v1 classes (three under the source's own convention, which does not transpose blocks). Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The rows verify exactly; the board records a lower bound of two because the single run has not been replayed. The first quadruple keeps its hand-entered id and the census maps its class onto it.",
+          "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18 and finished all 32 pieces on 2026-10-22 after 811 cpu-hours: twelve quadruples, two equiv-v1 classes (three under the source's own convention, which does not transpose blocks). Spence's family does not reach 61, Djokovic and Kotsireas classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The rows verify exactly; the count of two became exact on 2026-11-15, when a replay with the pinned kkss-census-c-v3 engine returned the same classes. The first quadruple keeps its hand-entered id and the census maps its class onto it.",
           "entry_ids": [
             "n61-c46dadc965084b5d9e77",
             "vxvware-kkss-n61"
@@ -161139,7 +161139,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; the board records existence and census lower bounds because the searches have not been replayed here.",
+          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact.",
           "entry_ids": [
             "n53-34ed46fbcebe2f71b199",
             "n55-faea680bd046e64b3d5a",
@@ -161195,7 +161195,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; the board records existence and census lower bounds because the searches have not been replayed here.",
+          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact.",
           "entry_ids": [
             "n53-34ed46fbcebe2f71b199",
             "n55-faea680bd046e64b3d5a",
@@ -161280,7 +161280,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; the board records existence and census lower bounds because the searches have not been replayed here.",
+          "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact.",
           "entry_ids": [
             "n53-34ed46fbcebe2f71b199",
             "n55-faea680bd046e64b3d5a",
