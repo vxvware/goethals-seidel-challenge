@@ -46,7 +46,7 @@ from verify.model import validate  # noqa: E402
 SUBMITTER = "vprusso"
 SOURCE = {
     "title": "Spence, Skew-Hadamard matrices of order 2(q+1), Discrete Math. 18 (1977) 79-85",
-    "url": "https://doi.org/10.1016/0012-365X(77)90009-0",
+    "url": "https://doi.org/10.1016/0012-365X(77)90009-7",
 }
 
 

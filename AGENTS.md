@@ -15,6 +15,16 @@ For entry contributions, keep verifier/schema/baseline/site changes separate.
 Authorship is the submitted_by GitHub handle; discovery credit belongs to the
 original source. Never label receipt validation or a sample as a full proof.
 
+## Citations
+
+Every paper, dataset or software source the board names has one entry in
+baselines/references.bib, with metadata checked against the publisher, arXiv or
+Zenodo record. Prose in baselines/contributions.json cites it as [@key]; a
+source URL in an entry resolves to its entry through the doi, eprint, url and
+urlalias fields. Do not name a work by author and year, or by a bare arXiv
+number, without a key. tests/test_references.py fails on a literature link or
+marker that has no entry.
+
 ## Maintenance
 
 Use uv. Run ruff, pytest, the full seed audit when seed import logic changes,

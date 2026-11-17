@@ -9,8 +9,12 @@ import shutil
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from verify.common import ROOT, TRACKS, write_json
 from verify.board import load, summary
+from references import Bibliography
+
+BIB = Bibliography()
 
 
 ORIGIN_LABELS = {
@@ -43,12 +47,16 @@ MATH_HEAD = (
 # The array below is the one picture.js draws. It differs from the usual
 # textbook layout only in the sign convention of the transposed blocks; both
 # satisfy H H^T = 4n I, and both are verified numerically in the tests.
-DEFINITION = r"""<aside class="definition"><div class="eyebrow">Definition</div>
+DEFINITION = (
+    r"""<aside class="definition"><div class="eyebrow">Definition</div>
 <p>Let \(A, B, C, D\) be circulant \(n \times n\) matrices with entries in \(\{1, -1\}\). Write \(X^{\mathsf T}\) for the transpose of \(X\) and \(I_n\) for the \(n \times n\) identity matrix. The four form a Goethals–Seidel quadruple when</p>
 \[AA^{\mathsf T} + BB^{\mathsf T} + CC^{\mathsf T} + DD^{\mathsf T} = 4nI_n.\]
 <p>A block \(X\) is symmetric when \(X^{\mathsf T} = X\) and skew when \(X^{\mathsf T} = 2I_n - X\). With \(R\) the \(n \times n\) back-diagonal permutation matrix, the Goethals–Seidel array</p>
 \[H = \begin{pmatrix} A & BR & CR & DR \\ -BR & A & -D^{\mathsf T}R & C^{\mathsf T}R \\ -CR & D^{\mathsf T}R & A & -B^{\mathsf T}R \\ -DR & -C^{\mathsf T}R & B^{\mathsf T}R & A \end{pmatrix}\]
-<p>satisfies \(HH^{\mathsf T} = 4nI_{4n}\), so it is a Hadamard matrix of order \(4n\), and a skew-Hadamard matrix whenever \(A\) is skew.</p></aside>"""
+<p>satisfies \(HH^{\mathsf T} = 4nI_{4n}\), so it is a Hadamard matrix of order \(4n\), and a skew-Hadamard matrix whenever \(A\) is skew. The array is due to Goethals and Seidel """
+    + BIB.mark("goethals1970skew")
+    + ".</p></aside>"
+)
 
 
 def esc(value):
@@ -72,15 +80,35 @@ def people(group):
     )
 
 
-def credit_block(group):
+def source_keys(sources):
+    """Bibliography keys of the literature among a list of source objects."""
+    return [key for s in sources if (key := BIB.resolve(s["url"]))]
+
+
+def source_item(s, prefix):
+    """One source as a list item: its link, then the number of its reference."""
+    key = BIB.resolve(s["url"])
+    mark = f" {BIB.mark(key, prefix)}" if key else ""
+    return f'<li><a href="{esc(s["url"])}" rel="noopener">{esc(s["title"])}</a>{mark}</li>'
+
+
+def references_block(keys, prefix):
+    """The full references a page cites, numbered as in the board's reference list."""
+    listing = BIB.listing(keys, prefix)
+    return f"<h2>References</h2>{listing}" if listing else ""
+
+
+def credit_block(group, prefix=""):
     publication = (
         "Not yet published" if group["publication_status"] == "unpublished" else "Published result"
     )
+    cited = list(dict.fromkeys(BIB.keys_in(group["summary"])))
+    authors = "; ".join(f"{esc(BIB.short(key))} {BIB.mark(key, prefix)}" for key in cited)
     return (
         f'<div class="credit">{badges([group["relation"]])}'
         f'<span class="publication">{publication}</span>'
-        f'<p class="byline">{people(group) or "Original authors credited in the sources"}</p>'
-        f"<p>{esc(group['summary'])}</p></div>"
+        f'<p class="byline">{people(group) or authors or "Original authors as cited below"}</p>'
+        f"<p>{BIB.cite(group['summary'], prefix)}</p></div>"
     )
 
 
@@ -89,7 +117,7 @@ def shell(title, body, prefix="", head=""):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Goethals–Seidel Challenge</title><meta name="description" content="An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
 <link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
-<header><a class="brand" href="{prefix}index.html">gs-challenge</a><nav><a href="{prefix}index.html#board">board</a><a href="{prefix}index.html#new-results">new results</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
+<header><a class="brand" href="{prefix}index.html">gs-challenge</a><nav><a href="{prefix}index.html#board">board</a><a href="{prefix}index.html#new-results">new results</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
 <main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a></footer></body></html>'''
 
 
@@ -116,6 +144,20 @@ def cell_links(result, prefix):
     )
 
 
+def published_count(x):
+    """A published complete classification whose every class is stored here.
+
+    The verifier has not rerun the search, so the record's bound stays lower,
+    but the page states the published count rather than a bound.
+    """
+    return (
+        x["bound"] != "exact"
+        and x["claim_kind"] == "published-exact"
+        and x["count"] == x["claimed_count"]
+        and x["count"] > 0
+    )
+
+
 def census_count(c, r):
     """The class count a cell's census record states, as '2 classes' or '≥ 2 classes'."""
     if not c["censuses"]:
@@ -123,7 +165,7 @@ def census_count(c, r):
     x = r[c["censuses"][0]]
     if x["bound"] != "exact" and x["count"] == 0:
         return ""
-    bound = "" if x["bound"] == "exact" else "≥ "
+    bound = "" if x["bound"] == "exact" or published_count(x) else "≥ "
     return f"{bound}{x['count']} {'class' if x['count'] == 1 else 'classes'}"
 
 
@@ -172,7 +214,7 @@ def new_results(stats, r):
         subject = f"{NEW_RESULT_NAMES[track]}matrices of order {n}"
         count = census_count(c, r)
         if c["status"] == "exists" and count:
-            exact = not count.startswith("≥")
+            exact = r[c["censuses"][0]]["bound"] == "exact"
             text = f"{subject}: {'exactly ' if exact else 'at least '}{count.lstrip('≥ ')}."
             kind = "classification" if exact else "unreplayed"
         elif c["status"] == "empty":
@@ -224,14 +266,13 @@ def new_results_section(stats, r):
             link = f'<a href="cells/n{x["n"]}-{x["stratum"]}.html">{esc(x["text"])}</a>'
             if x["source"]:
                 url = x["source"]["url"]
-                label = (
-                    "arXiv:" + url.rsplit("/", 1)[-1]
-                    if "arxiv.org" in url
-                    else x["source"]["title"]
-                )
+                key = BIB.resolve(url)
+                if not key:
+                    raise ValueError(f"contradicted source is not in references.bib: {url}")
                 link += (
                     " A published exhaustive search reports none "
-                    f'(<a href="{esc(url)}" rel="noopener">{esc(label)}</a>).'
+                    f'(<a href="{esc(url)}" rel="noopener">{esc(BIB.short(key))}</a> '
+                    f"{BIB.mark(key)})."
                 )
             parts.append(f"<li>{link}</li>")
         parts.append("</ul>")
@@ -255,7 +296,13 @@ def cell_page(c, d, r):
                 f'<p class="census">published empty census · awaiting a full replay · {link}</p>'
             )
         else:
-            kind = "complete census" if x["bound"] == "exact" else "lower bound from a census"
+            kind = (
+                "complete census"
+                if x["bound"] == "exact"
+                else "published classification, not replayed here"
+                if published_count(x)
+                else "lower bound from a census"
+            )
             if x["equivalence"] == "equiv-v2":
                 kind += " under equiv-v2, which also identifies independent cyclic shifts"
             parts.append(
@@ -268,9 +315,11 @@ def cell_page(c, d, r):
         parts.append(
             '<p class="contradiction">Exactly verified rows on this board contradict a published '
             f'nonexistence claim: <a href="{esc(claim["source"]["url"])}" rel="noopener">'
-            f"{esc(claim['source']['title'])}</a></p>"
+            f"{esc(claim['source']['title'])}</a>"
+            + "".join(f" {BIB.mark(key, '../')}" for key in source_keys([claim["source"]]))
+            + "</p>"
         )
-    parts.extend(credit_block(group) for group in c["contributions"])
+    parts.extend(credit_block(group, "../") for group in c["contributions"])
     if c["quadruples"]:
         count = len(c["quadruples"])
         parts.append(
@@ -300,12 +349,14 @@ def cell_page(c, d, r):
             if result["type"] == "census" and result["bound"] != "exact" and result["count"] == 0:
                 detail += " · published empty, awaiting a full replay"
             elif result["type"] == "census":
-                bound = "" if result["bound"] == "exact" else "≥ "
+                bound = "" if result["bound"] == "exact" or published_count(result) else "≥ "
                 detail += (
                     f" · {bound}{result['count']} {'class' if result['count'] == 1 else 'classes'}"
                 )
                 if result["equivalence"] == "equiv-v2":
                     detail += " · equiv-v2 (shifts identified)"
+                if published_count(result):
+                    detail += " · published count"
             if result.get("tier"):
                 detail += f" · {result['tier']}"
             items.append(
@@ -315,10 +366,7 @@ def cell_page(c, d, r):
     if c["sources"]:
         parts.append(
             "<h2>Sources</h2><ul>"
-            + "".join(
-                f'<li><a href="{esc(s["source"]["url"])}" rel="noopener">{esc(s["source"]["title"])}</a></li>'
-                for s in c["sources"]
-            )
+            + "".join(source_item(s["source"], "../") for s in c["sources"])
             + "</ul>"
         )
     if c["status"] == "unresolved":
@@ -329,6 +377,12 @@ def cell_page(c, d, r):
         parts.append(
             "<p>Open the evidence records for scope, coverage, gaps, and the checks that actually ran.</p>"
         )
+    cited = source_keys(
+        [s["source"] for s in c["sources"]] + [claim["source"] for claim in c["contradicted"]]
+    )
+    for group in c["contributions"]:
+        cited.extend(BIB.keys_in(group["summary"]))
+    parts.append(references_block(cited, "../"))
     parts.append('<p><a href="../index.html#board">Back to the board</a></p></article>')
     if c["quadruples"]:
         parts.append('<script src="../picture.js" defer></script>')
@@ -415,10 +469,11 @@ def build(quick=False):
     (out / "index.html").write_text(shell("The board", body, head=MATH_HEAD))
     for ident, doc in d.items():
         result = r[ident]
-        sources = "".join(
-            f'<li><a href="{esc(s["url"])}">{esc(s["title"])}</a></li>' for s in doc["sources"]
-        )
-        credits = "".join(credit_block(group) for group in result["contributions"])
+        sources = "".join(source_item(s, "../") for s in doc["sources"])
+        cited = source_keys(doc["sources"])
+        for group in result["contributions"]:
+            cited.extend(BIB.keys_in(group["summary"]))
+        credits = "".join(credit_block(group, "../") for group in result["contributions"])
         if not credits:
             label = (
                 "Published result"
@@ -442,8 +497,17 @@ def build(quick=False):
                 f"{quad_figure(doc, result, '')}"
                 f'<script src="../picture.js" defer></script></section>'
             )
-        text = f"""<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div><h1>{esc(ident)}</h1><span class="tag">{esc(result.get("tier") or "attributed / archived claim or lower bound")}</span>{credits}<p>Original source attribution: {esc("; ".join(doc["discovered_by"]))}<br>Submitted / imported by: {esc(doc["submitted_by"])} · {doc["submitted_at"]}<br>Board cell: {cell_links(result, "../")}</p>{picture}<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre><h2>Sources</h2><ul>{sources}</ul><details><summary>Submission JSON</summary><pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"""
+        text = f"""<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div><h1>{esc(ident)}</h1><span class="tag">{esc(result.get("tier") or "attributed / archived claim or lower bound")}</span>{credits}<p>Original source attribution: {esc("; ".join(doc["discovered_by"]))}<br>Submitted / imported by: {esc(doc["submitted_by"])} · {doc["submitted_at"]}<br>Board cell: {cell_links(result, "../")}</p>{picture}<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre><h2>Sources</h2><ul>{sources}</ul>{references_block(cited, "../")}<details><summary>Submission JSON</summary><pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"""
         (out / f"entries/{ident}.html").write_text(shell(ident, text, "../"))
+    refs = (
+        '<article class="entry"><div class="eyebrow">bibliography</div><h1>References</h1>'
+        "<p>Every paper, dataset and software source cited on the board. The numbers are the "
+        "ones used in citations throughout; the list is built from "
+        '<a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/baselines/references.bib">'
+        f"baselines/references.bib</a>.</p>{BIB.listing()}"
+        '<p><a href="index.html#board">Back to the board</a></p></article>'
+    )
+    (out / "references.html").write_text(shell("References", refs))
     for c in stats["cells"]:
         title = f"n = {c['n']} · {TRACK_LABELS[c['stratum']]}"
         (out / f"cells/n{c['n']}-{c['stratum']}.html").write_text(
