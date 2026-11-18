@@ -2,10 +2,10 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 1189,
+  "entry_count": 1195,
   "quadruples": 996,
   "certificates": 76,
-  "censuses": 117,
+  "censuses": 123,
   "contributions": [
     {
       "id": "kkss-49-correction",
@@ -11278,7 +11278,9 @@
         "n15-fd6a931b78b1258119f6"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "skew-sds-n15"
+      ],
       "contributions": [
         {
           "id": "kkss-reproductions",
@@ -11653,7 +11655,9 @@
         "n15-fd6a931b78b1258119f6"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "general-n15"
+      ],
       "contributions": [
         {
           "id": "kkss-reproductions",
@@ -12444,7 +12448,9 @@
         "n17-decc81e046de1e806e4b"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "skew-sds-n17"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -12633,7 +12639,9 @@
         "n17-decc81e046de1e806e4b"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "general-n17"
+      ],
       "contributions": [
         {
           "id": "published-catalogues",
@@ -13437,7 +13445,9 @@
         "n19-f05eb9e7046c3e3ded98"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "skew-sds-n19"
+      ],
       "contributions": [
         {
           "id": "kkss-reproductions",
@@ -13798,7 +13808,9 @@
         "n19-f05eb9e7046c3e3ded98"
       ],
       "evidence": [],
-      "censuses": [],
+      "censuses": [
+        "general-n19"
+      ],
       "contributions": [
         {
           "id": "kkss-reproductions",
@@ -40776,7 +40788,7 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 1110,
+    "reproduced": 1116,
     "spot-checked": 0,
     "receipt-backed": 2
   },
