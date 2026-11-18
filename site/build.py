@@ -107,6 +107,48 @@ def quad_figure(doc, result, caption):
     )
 
 
+# The quadruples the front-page animation cycles through: the first entry, by
+# id, of each (track, order) below. Small orders keep the array legible.
+HERO_CELLS = (
+    ("williamson", 13),
+    ("good", 15),
+    ("best", 13),
+    ("kkss", 19),
+    ("skew-sds", 11),
+    ("general", 9),
+    ("williamson", 25),
+    ("good", 23),
+)
+
+
+def hero_figure(r):
+    quads = []
+    for track, n in HERO_CELLS:
+        ident = min(
+            k
+            for k, x in r.items()
+            if x["type"] == "quadruple" and x["n"] == n and x["tracks"][0] == track
+        )
+        x = r[ident]
+        quads.append(
+            {
+                "id": ident,
+                "n": n,
+                "rows": x["canonical_rows"],
+                "pattern": x["pattern"],
+                "label": TRACK_LABELS[track].lower(),
+            }
+        )
+    payload = json.dumps(quads, separators=(",", ":")).replace("<", "\\u003c")
+    return (
+        '<figure class="hero-anim"><canvas aria-label="A Goethals–Seidel array being filled in">'
+        '</canvas><div><pre aria-hidden="true"></pre><a href="#board"></a>'
+        '<p class="muted">In every matrix picture skew blocks are green, symmetric blocks blue '
+        "and blocks with neither symmetry grey; light is +1 and dark is −1.</p></div>"
+        f'<script type="application/json">{payload}</script></figure>'
+    )
+
+
 def cell_links(result, prefix):
     tracks = result.get("tracks", [result.get("stratum")])
     return ", ".join(
@@ -116,15 +158,33 @@ def cell_links(result, prefix):
     )
 
 
+def published_count(x):
+    """A published complete classification whose every class is stored here.
+
+    The verifier has not rerun the search, so the record's bound stays lower,
+    but the page states the published count rather than a bound.
+    """
+    return (
+        x["bound"] != "exact"
+        and x["claim_kind"] == "published-exact"
+        and x["count"] == x["claimed_count"]
+        and x["count"] > 0
+    )
+
+
 def census_count(c, r):
-    """The class count a cell's census record states, as '2 classes' or '≥ 2 classes'."""
+    """The class count a cell's census record states, as '2 classes', or '' without one."""
     if not c["censuses"]:
         return ""
     x = r[c["censuses"][0]]
     if x["bound"] != "exact" and x["count"] == 0:
         return ""
-    bound = "" if x["bound"] == "exact" else "≥ "
-    return f"{bound}{x['count']} {'class' if x['count'] == 1 else 'classes'}"
+    if x["bound"] != "exact" and not published_count(x):
+        # The search behind this record was not exhaustive, so there is no
+        # count to state: the grid shows existence and the cell page says how
+        # many classes are known.
+        return ""
+    return f"{x['count']} {'class' if x['count'] == 1 else 'classes'}"
 
 
 # Cells whose statement is not in the published literature. The list is curated
@@ -148,17 +208,15 @@ NEW_RESULTS = (
     ("kkss", 59),
     ("kkss", 61),
 )
-# Every cell the section speaks about, including the shift-class counts; the
-# grid marks these as new alongside the cells a participant supplied rows for.
-NEW_CELLS = set(NEW_RESULTS) | {
-    (track, n) for track in ("general", "skew-sds") for n in range(3, 14, 2)
-}
+# The grid marks these cells as new alongside the cells a participant supplied
+# rows for. The shift-class counts at 3 to 13 are not listed: no literature
+# check has established that they were unknown.
+NEW_CELLS = set(NEW_RESULTS)
 NEW_RESULT_NAMES = {"williamson": "Williamson ", "good": "Good ", "kkss": "G-"}
 NEW_RESULT_GROUPS = (
     ("correction", "Correction to a published result"),
     ("classification", "Classifications"),
     ("nonexistence", "Nonexistence"),
-    ("unreplayed", "Not yet replayed"),
 )
 
 
@@ -168,55 +226,35 @@ def new_results(stats, r):
     groups = {key: [] for key, _ in NEW_RESULT_GROUPS}
     for track, n in NEW_RESULTS:
         c = by_cell[n, track]
-        item = {"n": n, "stratum": track, "source": None}
+        item = {"n": n, "stratum": track, "source": None, "qualifier": None}
         subject = f"{NEW_RESULT_NAMES[track]}matrices of order {n}"
-        count = census_count(c, r)
-        if c["status"] == "exists" and count:
-            exact = not count.startswith("≥")
-            text = f"{subject}: {'exactly ' if exact else 'at least '}{count.lstrip('≥ ')}."
-            kind = "classification" if exact else "unreplayed"
+        census = r[c["censuses"][0]] if c["censuses"] else None
+        if c["status"] == "exists" and census and census["count"]:
+            noun = "class" if census["count"] == 1 else "classes"
+            exact = census["bound"] == "exact"
+            text = f"{subject}: {'exactly' if exact else 'at least'} {census['count']} {noun}."
+            kind = "classification"
         elif c["status"] == "empty":
-            replayed = "reproduced" in c["empty_basis"]
-            text = (
-                f"{subject}: none exist."
-                if replayed
-                else f"{subject}: none found by an exhaustive search."
-            )
-            kind = "nonexistence" if replayed else "unreplayed"
+            # The statement is the same whether or not the search has been
+            # rerun here; a single unreplayed search is noted on the item.
+            text = f"{subject}: none exist."
+            if "reproduced" not in c["empty_basis"]:
+                item["qualifier"] = "one exhaustive search, not yet rerun"
+            kind = "nonexistence"
         else:
             raise ValueError(f"new result without a census or an empty cell: {track} n={n}")
         if c["contradicted"]:
             kind = "correction"
             item["source"] = c["contradicted"][0]["source"]
         groups[kind].append(item | {"text": text})
-    # A quick build skips the inline replays, so these counts are only lower
-    # bounds there and the line is left out.
-    shifts = {
-        track: [r[f"{track}-n{n}"] for n in range(3, 14, 2)] for track in ("general", "skew-sds")
-    }
-    if all(x["bound"] == "exact" for xs in shifts.values() for x in xs):
-        general, skew = (
-            ", ".join(str(x["count"]) for x in shifts[track]) for track in ("general", "skew-sds")
-        )
-        groups["classification"].append(
-            {
-                "n": 13,
-                "stratum": "general",
-                "source": None,
-                "text": "Classes up to independent cyclic shifts at orders 3 to 13: "
-                f"{general} with no symmetry condition and {skew} with a skew block.",
-            }
-        )
     return [(title, groups[key]) for key, title in NEW_RESULT_GROUPS if groups[key]]
 
 
 def new_results_section(stats, r):
     parts = [
         '<section id="new-results"><h2>New results</h2><p class="key">Statements on this board '
-        "that are not in the published literature. Counts are equivalence classes. Counts and "
-        "nonexistence statements come from exhaustive computer searches replayed with a pinned "
-        "engine, not from proofs; an item listed as not yet replayed rests on a search that "
-        "has not been rerun that way.</p>"
+        "that are not in the published literature. Counts are equivalence classes. Each "
+        "statement comes from an exhaustive computer search, not from a proof.</p>"
     ]
     for title, items in new_results(stats, r):
         parts.append(f"<h3>{esc(title)}</h3><ul>")
@@ -233,6 +271,8 @@ def new_results_section(stats, r):
                     " A published exhaustive search reports none "
                     f'(<a href="{esc(url)}" rel="noopener">{esc(label)}</a>).'
                 )
+            if x["qualifier"]:
+                link += f' <span class="muted">({esc(x["qualifier"])})</span>'
             parts.append(f"<li>{link}</li>")
         parts.append("</ul>")
     parts.append("</section>")
@@ -255,13 +295,22 @@ def cell_page(c, d, r):
                 f'<p class="census">published empty census · awaiting a full replay · {link}</p>'
             )
         else:
-            kind = "complete census" if x["bound"] == "exact" else "lower bound from a census"
+            kind = (
+                "complete census"
+                if x["bound"] == "exact"
+                else "published classification, not replayed here"
+                if published_count(x)
+                else "the search was not exhaustive"
+            )
             if x["equivalence"] == "equiv-v2":
                 kind += " under equiv-v2, which also identifies independent cyclic shifts"
             if x.get("count_only"):
                 kind += " · a count only, the classes are not stored"
+            stated = census_count(c, r) or (
+                f"{x['count']} {'class' if x['count'] == 1 else 'classes'} known"
+            )
             parts.append(
-                f'<p class="census"><strong>{esc(census_count(c, r))}</strong> · {kind} · '
+                f'<p class="census"><strong>{esc(stated)}</strong> · {kind} · '
                 f"{esc(x['tier'] or 'verified representatives')} · {link}</p>"
             )
     if c["note"]:
@@ -272,25 +321,22 @@ def cell_page(c, d, r):
             f'nonexistence claim: <a href="{esc(claim["source"]["url"])}" rel="noopener">'
             f"{esc(claim['source']['title'])}</a></p>"
         )
-    parts.extend(credit_block(group) for group in c["contributions"])
+    # The catalogue credit is the same paragraph for every imported cell; the
+    # cell's own sources already name the original authors.
+    parts.extend(
+        credit_block(group) for group in c["contributions"] if group["id"] != "published-catalogues"
+    )
     if c["quadruples"]:
         count = len(c["quadruples"])
-        parts.append(
-            f"<h2>{count} verified {'class' if count == 1 else 'classes'}</h2>"
-            "<p>Each figure shows the four canonical rows and the Goethals–Seidel array they "
-            f"generate, a Hadamard matrix of order {4 * n}. Skew blocks are green, symmetric "
-            "blocks blue and blocks with neither symmetry grey; light is +1 and dark is −1. The drawing is computed from the rows in the "
-            'browser; open an entry for the verifier result.</p><div class="gallery">'
+        heading = (
+            "Matrices"
+            if c["censuses"]
+            else f"{count} verified {'class' if count == 1 else 'classes'}"
         )
+        parts.append(f'<h2>{heading}</h2><div class="gallery">')
         for ident in c["quadruples"]:
             result = r[ident]
-            legend = " ".join(
-                f"{name}&thinsp;{kind}" for name, kind in zip("ABCD", result["pattern"])
-            )
-            caption = (
-                f'<a href="../entries/{esc(ident)}.html">{esc(ident)}</a>'
-                f"<br>{legend} · {esc(result.get('tier') or 'verified')}"
-            )
+            caption = f'<a href="../entries/{esc(ident)}.html">{esc(ident)}</a>'
             parts.append(quad_figure(d[ident], result, caption))
         parts.append("</div>")
     records = [*c["evidence"], *c["censuses"]]
@@ -302,12 +348,14 @@ def cell_page(c, d, r):
             if result["type"] == "census" and result["bound"] != "exact" and result["count"] == 0:
                 detail += " · published empty, awaiting a full replay"
             elif result["type"] == "census":
-                bound = "" if result["bound"] == "exact" else "≥ "
+                known = "" if result["bound"] == "exact" or published_count(result) else " known"
                 detail += (
-                    f" · {bound}{result['count']} {'class' if result['count'] == 1 else 'classes'}"
+                    f" · {result['count']} {'class' if result['count'] == 1 else 'classes'}{known}"
                 )
                 if result["equivalence"] == "equiv-v2":
                     detail += " · equiv-v2 (shifts identified)"
+                if published_count(result):
+                    detail += " · published count"
             if result.get("tier"):
                 detail += f" · {result['tier']}"
             items.append(
@@ -323,14 +371,6 @@ def cell_page(c, d, r):
             )
             + "</ul>"
         )
-    if c["status"] == "unresolved":
-        parts.append(
-            "<p>Unresolved in the sourced baseline. Review the literature before claiming novelty.</p>"
-        )
-    if c["evidence"]:
-        parts.append(
-            "<p>Open the evidence records for scope, coverage, gaps, and the checks that actually ran.</p>"
-        )
     parts.append('<p><a href="../index.html#board">Back to the board</a></p></article>')
     if c["quadruples"]:
         parts.append('<script src="../picture.js" defer></script>')
@@ -344,7 +384,14 @@ def build(quick=False):
     out.mkdir(exist_ok=True)
     (out / "entries").mkdir(exist_ok=True)
     (out / "cells").mkdir(exist_ok=True)
-    for name in ("style.css", "app.js", "picture.js", "favicon.png", "vxvware-logo.png"):
+    for name in (
+        "style.css",
+        "app.js",
+        "picture.js",
+        "hero.js",
+        "favicon.png",
+        "vxvware-logo.png",
+    ):
         shutil.copyfile(ROOT / "site" / name, out / name)
     (out / ".nojekyll").touch()
     write_json(out / "stats.json", stats)
@@ -406,21 +453,25 @@ def build(quick=False):
                 f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(origins))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}">{esc(text)}{marker}</a></td>'
             )
         rows.append(f'<tr data-n="{n}"><td>{n}</td>' + "".join(cells) + "</tr>")
-    body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>The Goethals–Seidel Challenge</h1><p>Four circulant ±1 matrices of order n whose Gram matrices sum to 4nI give, through the Goethals–Seidel array, a Hadamard matrix of order 4n.</p><p>This board lists the known quadruples of odd order n ≤ 131 by symmetry type. Each entry is rechecked in exact arithmetic, and each search is recorded with what it covered.</p></div>{DEFINITION}</section>
+    body = f"""<section class="hero"><div><div class="eyebrow">An open combinatorial challenge</div><h1>The Goethals–Seidel Challenge</h1><p>Four circulant ±1 matrices of order n whose Gram matrices sum to 4nI give, through the Goethals–Seidel array, a Hadamard matrix of order 4n.</p><p>This board lists the known quadruples of odd order n ≤ 131 by symmetry type. Each entry is rechecked in exact arithmetic, and each search is recorded with what it covered.</p>{hero_figure(r)}</div>{DEFINITION}</section>
 <section id="board"><h2>Status by order and type</h2><p class="key">Columns are the symmetry types of the blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew. Skew needs one skew block, so it contains the good, best and G-matrix columns; general is any quadruple. Class counts treat reversals as equivalent; the skew and general columns also identify independent cyclic shifts (equiv-v2), without which every class at those orders splits into thousands.</p><div class="controls"><label>Family <select id="track"><option value="">All six strata</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
-<div class="legend"><span class="known">Verified; a number is the class count</span><span class="published">Published, not imported</span><span class="empty">Empty</span><span class="unresolved">Unresolved</span><span class="contradicted">Contradicts a published result</span><span class="participant">New result</span></div>
+<div class="legend"><span class="known">Verified; a number is the class count, ✓ is existence without a count</span><span class="published">Published, not imported</span><span class="empty">Empty</span><span class="unresolved">Unresolved</span><span class="contradicted">Contradicts a published result</span><span class="participant">New result</span></div>
 <div class="grid-wrap"><table id="grid"><thead><tr><th scope="col">n</th>{"".join(f'<th scope="col" data-track="{x}">{esc(TRACK_LABELS[x])}</th>' for x in TRACKS)}</tr></thead><tbody>{"".join(rows)}</tbody></table></div></section>
 {new_results_section(stats, r)}
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Submit four defining rows or negative-index sets. The verifier derives the family, checks the PAF identity, and detects equivalent entries.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
 <noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
-<script src="app.js" defer></script>"""
+<script src="app.js" defer></script><script src="picture.js" defer></script><script src="hero.js" defer></script>"""
     (out / "index.html").write_text(shell("The board", body, head=MATH_HEAD))
     for ident, doc in d.items():
         result = r[ident]
         sources = "".join(
             f'<li><a href="{esc(s["url"])}">{esc(s["title"])}</a></li>' for s in doc["sources"]
         )
-        credits = "".join(credit_block(group) for group in result["contributions"])
+        credits = "".join(
+            credit_block(group)
+            for group in result["contributions"]
+            if group["id"] != "published-catalogues"
+        )
         if not credits:
             label = (
                 "Published result"
@@ -432,15 +483,8 @@ def build(quick=False):
             credits = f'<p class="origin published-import">{label}</p>'
         picture = ""
         if doc["type"] == "quadruple":
-            legend = " · ".join(f"{name} {kind}" for name, kind in zip("ABCD", result["pattern"]))
             picture = (
                 f'<section class="picture"><h2>Picture</h2>'
-                f"<p>The four canonical rows, one row of cells per block ({esc(legend)}; k skew, s symmetric), "
-                f"and the Goethals–Seidel array they generate: a Hadamard matrix of order {4 * doc['n']}. "
-                f"Skew blocks are green, symmetric blocks blue and blocks with neither symmetry grey; "
-                f"light is +1 and dark is −1. "
-                f"The drawing is computed from the rows in the browser; "
-                f"the verifier result below is the evidence.</p>"
                 f"{quad_figure(doc, result, '')}"
                 f'<script src="../picture.js" defer></script></section>'
             )

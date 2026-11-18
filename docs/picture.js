@@ -16,8 +16,9 @@ function paint(canvas,width,height,value,kind){
  }
  ctx.putImageData(img,0,0);
 }
-function draw(figure){
- const quad=JSON.parse(figure.querySelector('script[type="application/json"]').textContent);
+// The Goethals-Seidel array of a quadruple as two functions of a cell (y, x):
+// its entry and the symmetry letter of the block it lies in.
+function gsArray(quad){
  const n=quad.n,rows=quad.rows,[A,B,C,D]=rows,pattern=quad.pattern||'kkkk';
  // Circulant block X: entry (i, j) is x[(j - i) mod n].
  const circ=(x,i,j)=>x[((j-i)%n+n)%n];
@@ -32,7 +33,15 @@ function draw(figure){
   [(i,j)=>-xR(D,i,j),(i,j)=>-Rx(C,i,j),(i,j)=>Rx(B,i,j),(i,j)=>circ(A,i,j)],
  ];
  // Block (bi, bj) of the array is the circulant of row bi XOR bj, up to sign and R.
+ return {
+  value:(y,x)=>layout[Math.floor(y/n)][Math.floor(x/n)](y%n,x%n),
+  kind:(y,x)=>pattern[Math.floor(y/n)^Math.floor(x/n)],
+ };
+}
+function draw(figure){
+ const quad=JSON.parse(figure.querySelector('script[type="application/json"]').textContent);
+ const n=quad.n,rows=quad.rows,pattern=quad.pattern||'kkkk',H=gsArray(quad);
  paint(figure.querySelector('canvas.rows'),n,4,(y,x)=>rows[y][x],(y,x)=>pattern[y]);
- paint(figure.querySelector('canvas.array'),4*n,4*n,(y,x)=>layout[Math.floor(y/n)][Math.floor(x/n)](y%n,x%n),(y,x)=>pattern[Math.floor(y/n)^Math.floor(x/n)]);
+ paint(figure.querySelector('canvas.array'),4*n,4*n,H.value,H.kind);
 }
 document.querySelectorAll('figure.quad').forEach(draw);

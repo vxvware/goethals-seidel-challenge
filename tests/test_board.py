@@ -342,10 +342,11 @@ def test_new_results_are_worded_from_the_board(board):
     texts = {x["text"] for items in groups.values() for x in items}
     assert "Williamson matrices of order 65: none exist." in texts
     assert "G-matrices of order 61: exactly 2 classes." in texts
-    unreplayed = {x["text"] for x in groups["Not yet replayed"]}
-    assert unreplayed == {
-        "Good matrices of order 59: none found by an exhaustive search.",
-        "Good matrices of order 67: none found by an exhaustive search.",
+    assert "Not yet replayed" not in groups
+    single = {x["text"] for x in groups["Nonexistence"] if x["qualifier"]}
+    assert single == {
+        "Good matrices of order 59: none exist.",
+        "Good matrices of order 67: none exist.",
     }
-    # The fixture skips the inline replays, so the shift-class line is absent.
+    # The shift-class counts are not claimed as new.
     assert not any("cyclic shifts" in t for t in texts)
