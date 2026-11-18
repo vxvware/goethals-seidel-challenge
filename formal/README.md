@@ -29,6 +29,10 @@ Build with `lake exe cache get` and then `lake build`. The board's CI does not b
 
 - `Order119.exists_skew_quadruple`: the board entry `n119-f302cc45a2f83e60917b` is a quadruple with a skew block, checked by kernel evaluation.
 
+`GoethalsSeidel/Order49.lean`:
+
+- `Order49.exists_g_quadruple`: the board entry `n49-703082c3c1ffa487f376` is a quadruple with two skew and two symmetric blocks, so G-matrices of order 49 exist. The board records a published exhaustive search that reports none at this order.
+
 `GoethalsSeidel/Circulant.lean`, `GoethalsSeidel/ArrayAlgebra.lean`, `GoethalsSeidel/Array.lean`: the Goethals–Seidel array. `gsArray a b c d` is the matrix of order `4n`, indexed by `Fin 4 × ZMod n`, with blocks
 
 ```

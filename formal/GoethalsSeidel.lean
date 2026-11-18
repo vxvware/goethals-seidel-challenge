@@ -2,6 +2,7 @@ import GoethalsSeidel.Basic
 import GoethalsSeidel.Orbit
 import GoethalsSeidel.Obstruction
 import GoethalsSeidel.Order119
+import GoethalsSeidel.Order49
 import GoethalsSeidel.ArrayAlgebra
 import GoethalsSeidel.Circulant
 import GoethalsSeidel.Array

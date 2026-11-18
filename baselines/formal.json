@@ -7,6 +7,12 @@
       "theorem": "GoethalsSeidel.exists_skew_hadamard_476",
       "file": "formal/GoethalsSeidel/Hadamard.lean",
       "statement": "the Goethals–Seidel array of this entry is a skew-Hadamard matrix of order 476."
+    },
+    {
+      "entry_id": "n49-703082c3c1ffa487f376",
+      "theorem": "GoethalsSeidel.Order49.exists_g_quadruple",
+      "file": "formal/GoethalsSeidel/Order49.lean",
+      "statement": "this entry is a quadruple with two skew and two symmetric blocks, so G-matrices of order 49 exist."
     }
   ]
 }
