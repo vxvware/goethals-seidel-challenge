@@ -6,3 +6,4 @@ import GoethalsSeidel.ArrayAlgebra
 import GoethalsSeidel.Circulant
 import GoethalsSeidel.Array
 import GoethalsSeidel.Hadamard
+import GoethalsSeidel.Types

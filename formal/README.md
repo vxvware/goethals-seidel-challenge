@@ -11,6 +11,12 @@ Build with `lake exe cache get` and then `lake build`. The board's CI does not b
 - `IsQuadruple.rowSum_sq`: the row sums `a, b, c, d` of a quadruple satisfy `a² + b² + c² + d² = 4n`.
 - `IsSkew.rowSum_eq_one`: a skew sequence has row sum `1`.
 
+`GoethalsSeidel/Types.lean`: conditions on the order for the symmetry types on the board, each from the row-sum identity.
+
+- `IsQuadruple.best_order`: best matrices (three skew blocks) of order `n` exist only when `n = r² + r + 1`.
+- `IsQuadruple.kkss_order`: G-matrices (two skew blocks) of order `n` exist only when `2n - 1` is a sum of two squares.
+- `IsQuadruple.good_rowSum`: for good matrices (one skew block) the other row sums satisfy `b² + c² + d² = 4n - 1`.
+
 `GoethalsSeidel/Orbit.lean`:
 
 - `two_mul_card_dvd_rowSum_sub`: for an odd prime `p` and a subgroup `H` of odd order of the units of `ZMod p`, a `±1` sequence that is constant on the orbits of `H` under multiplication has row sum congruent to its entry at `0` modulo `2|H|`.
