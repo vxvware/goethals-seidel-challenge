@@ -439,9 +439,12 @@ def build(quick=False):
             origins = list(c["origins"])
             if (track, n) in NEW_CELLS and "participant-result" not in origins:
                 origins.insert(0, "participant-result")
+            # The diamond means a new result for this cell. A cell can hold
+            # rows or evidence from the challenge without that: a new G-matrix
+            # is also a skew quadruple at an order where those were known.
             marker = (
                 '<span class="participant" title="New result"></span>'
-                if "participant-result" in origins
+                if (track, n) in NEW_CELLS
                 else ""
             )
             count = census_count(c, r)
