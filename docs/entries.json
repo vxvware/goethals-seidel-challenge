@@ -160336,6 +160336,66 @@
       ],
       "contributions": []
     },
+    "general-n15": {
+      "id": "general-n15",
+      "type": "census",
+      "n": 15,
+      "stratum": "general",
+      "equivalence": "equiv-v2",
+      "count": 17870,
+      "bound": "exact",
+      "tier": "reproduced",
+      "claimed_count": 17870,
+      "claim_kind": "computed-exact",
+      "count_only": true,
+      "checks": [
+        "full-enumeration-count-replayed"
+      ],
+      "limitations": [
+        "The count is the pinned engine's Burnside total over its exhaustive enumeration; no representatives are stored and the classes are not re-derived here."
+      ],
+      "contributions": []
+    },
+    "general-n17": {
+      "id": "general-n17",
+      "type": "census",
+      "n": 17,
+      "stratum": "general",
+      "equivalence": "equiv-v2",
+      "count": 103093,
+      "bound": "exact",
+      "tier": "reproduced",
+      "claimed_count": 103093,
+      "claim_kind": "computed-exact",
+      "count_only": true,
+      "checks": [
+        "full-enumeration-count-replayed"
+      ],
+      "limitations": [
+        "The count is the pinned engine's Burnside total over its exhaustive enumeration; no representatives are stored and the classes are not re-derived here."
+      ],
+      "contributions": []
+    },
+    "general-n19": {
+      "id": "general-n19",
+      "type": "census",
+      "n": 19,
+      "stratum": "general",
+      "equivalence": "equiv-v2",
+      "count": 1649523,
+      "bound": "exact",
+      "tier": "reproduced",
+      "claimed_count": 1649523,
+      "claim_kind": "computed-exact",
+      "count_only": true,
+      "checks": [
+        "full-enumeration-count-replayed"
+      ],
+      "limitations": [
+        "The count is the pinned engine's Burnside total over its exhaustive enumeration; no representatives are stored and the classes are not re-derived here."
+      ],
+      "contributions": []
+    },
     "general-n3": {
       "id": "general-n3",
       "type": "census",
@@ -160996,6 +161056,66 @@
         "representative-existence",
         "pairwise-inequivalence",
         "full-enumeration-replayed"
+      ],
+      "contributions": []
+    },
+    "skew-sds-n15": {
+      "id": "skew-sds-n15",
+      "type": "census",
+      "n": 15,
+      "stratum": "skew-sds",
+      "equivalence": "equiv-v2",
+      "count": 4522,
+      "bound": "exact",
+      "tier": "reproduced",
+      "claimed_count": 4522,
+      "claim_kind": "computed-exact",
+      "count_only": true,
+      "checks": [
+        "full-enumeration-count-replayed"
+      ],
+      "limitations": [
+        "The count is the pinned engine's Burnside total over its exhaustive enumeration; no representatives are stored and the classes are not re-derived here."
+      ],
+      "contributions": []
+    },
+    "skew-sds-n17": {
+      "id": "skew-sds-n17",
+      "type": "census",
+      "n": 17,
+      "stratum": "skew-sds",
+      "equivalence": "equiv-v2",
+      "count": 6017,
+      "bound": "exact",
+      "tier": "reproduced",
+      "claimed_count": 6017,
+      "claim_kind": "computed-exact",
+      "count_only": true,
+      "checks": [
+        "full-enumeration-count-replayed"
+      ],
+      "limitations": [
+        "The count is the pinned engine's Burnside total over its exhaustive enumeration; no representatives are stored and the classes are not re-derived here."
+      ],
+      "contributions": []
+    },
+    "skew-sds-n19": {
+      "id": "skew-sds-n19",
+      "type": "census",
+      "n": 19,
+      "stratum": "skew-sds",
+      "equivalence": "equiv-v2",
+      "count": 100746,
+      "bound": "exact",
+      "tier": "reproduced",
+      "claimed_count": 100746,
+      "claim_kind": "computed-exact",
+      "count_only": true,
+      "checks": [
+        "full-enumeration-count-replayed"
+      ],
+      "limitations": [
+        "The count is the pinned engine's Burnside total over its exhaustive enumeration; no representatives are stored and the classes are not re-derived here."
       ],
       "contributions": []
     },
