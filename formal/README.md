@@ -23,7 +23,27 @@ Build with `lake exe cache get` and then `lake build`. The board's CI does not b
 
 - `Order119.exists_skew_quadruple`: the board entry `n119-f302cc45a2f83e60917b` is a quadruple with a skew block, checked by kernel evaluation.
 
+`GoethalsSeidel/Circulant.lean`, `GoethalsSeidel/ArrayAlgebra.lean`, `GoethalsSeidel/Array.lean`: the Goethals–Seidel array. `gsArray a b c d` is the matrix of order `4n`, indexed by `Fin 4 × ZMod n`, with blocks
+
+```
+  A     B R     C R     D R
+ -B R   A      -Dᵀ R    Cᵀ R
+ -C R   Dᵀ R    A      -Bᵀ R
+ -D R  -Cᵀ R    Bᵀ R    A
+```
+
+where `A, B, C, D` are the circulants with first rows `a, b, c, d` (entry `(i, j)` is `a (j - i)`) and `R` is the back-diagonal permutation matrix. This is the array the site draws.
+
+- `IsQuadruple.gsArray_mul_transpose`: the array `H` of a quadruple satisfies `H Hᵀ = 4n I`.
+- `gsArray_entry`: every entry of the array is `1` or `-1`.
+- `IsSkew.gsArray_add_transpose`: when the first block is skew, `H + Hᵀ = 2 I`.
+
+`GoethalsSeidel/Hadamard.lean`:
+
+- `IsQuadruple.gsArray_isHadamard`: the array of a quadruple is a Hadamard matrix in the sense of Mathlib's `Matrix.IsHadamard`.
+- `exists_skew_hadamard_476`: a skew-Hadamard matrix of order 476 exists, namely the array of the order-119 entry above.
+
 ## What is not proved
 
-- That a quadruple gives a Hadamard matrix through the Goethals–Seidel array. The definitions here stop at the autocorrelation identity.
 - Any census or nonexistence result that rests on an exhaustive search.
+- Anything about equivalence of quadruples or the board's canonical form.
