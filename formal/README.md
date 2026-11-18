@@ -1,0 +1,29 @@
+# Lean formalisation
+
+Machine-checked statements about Goethals–Seidel quadruples, in Lean 4 with Mathlib. The toolchain is pinned in `lean-toolchain` and Mathlib in `lake-manifest.json`. Every theorem depends only on the axioms `propext`, `Classical.choice` and `Quot.sound`.
+
+Build with `lake exe cache get` and then `lake build`. The board's CI does not build this directory, and nothing in the verifier depends on it.
+
+## What is proved
+
+`GoethalsSeidel/Basic.lean` defines a quadruple as four sequences `ZMod n → ℤ` with entries `1` or `-1` whose periodic autocorrelations sum to zero at every nonzero shift, and the skew and symmetric conditions on a sequence.
+
+- `IsQuadruple.rowSum_sq`: the row sums `a, b, c, d` of a quadruple satisfy `a² + b² + c² + d² = 4n`.
+- `IsSkew.rowSum_eq_one`: a skew sequence has row sum `1`.
+
+`GoethalsSeidel/Orbit.lean`:
+
+- `two_mul_card_dvd_rowSum_sub`: for an odd prime `p` and a subgroup `H` of odd order of the units of `ZMod p`, a `±1` sequence that is constant on the orbits of `H` under multiplication has row sum congruent to its entry at `0` modulo `2|H|`.
+
+`GoethalsSeidel/Obstruction.lean`:
+
+- `no_skew_orbit_quadruple_89`, `no_skew_orbit_quadruple_101`, `no_skew_orbit_quadruple_107`: at each of these orders there is no quadruple with one skew block and three blocks constant on the orbits of a nontrivial multiplier subgroup of odd order. The skew block itself is unrestricted. These are the three smallest orders `4n` with no known skew-Hadamard matrix, and the theorems say only that this one construction cannot reach them.
+
+`GoethalsSeidel/Order119.lean`:
+
+- `Order119.exists_skew_quadruple`: the board entry `n119-f302cc45a2f83e60917b` is a quadruple with a skew block, checked by kernel evaluation.
+
+## What is not proved
+
+- That a quadruple gives a Hadamard matrix through the Goethals–Seidel array. The definitions here stop at the autocorrelation identity.
+- Any census or nonexistence result that rests on an exhaustive search.
