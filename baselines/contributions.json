@@ -329,6 +329,25 @@
       "stratum": "best"
     },
     {
+      "id": "skew-119-kishan",
+      "title": "Skew quadruple at n=119",
+      "relation": "published-import",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "Kishan",
+          "github": "vatskishan03"
+        }
+      ],
+      "summary": "A cyclic skew quadruple of order 119, giving a skew-Hadamard matrix of order 476, posted on 2026-10-23 in the repository github.com/vatskishan03/Hadamard with no accompanying paper. Imported from its certificate; the discovery is the repository author\u2019s.",
+      "entry_ids": [
+        "n119-f302cc45a2f83e60917b"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "skew-sds"
+    },
+    {
       "id": "published-catalogues",
       "title": "Published constructions and catalogue imports",
       "relation": "published-import",
