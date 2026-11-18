@@ -105,6 +105,15 @@ ENGINES = {
         "orders": range(3, 68, 2),
         "composite": False,
     },
+    "good-hkt-v1": {
+        "stratum": "good",
+        "sources": (
+            "research/starter/good/good_hkt.c",
+            "research/starter/kkss/hkt_solve.h",
+        ),
+        "orders": range(3, 64, 2),
+        "composite": False,
+    },
 }
 REPORT_DIR = "evidence/census-replays/"
 
