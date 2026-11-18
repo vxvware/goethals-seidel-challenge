@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "skew-sds-n17",
+  "type": "census",
+  "n": 17,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      17
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-17",
+  "discovered_by": [
+    "Exhaustive enumeration by this board's pinned census skew-sds-census-c-v1"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned census skew-sds-census-c-v1 (research/starter/general/gencensus.c), count-only build replayed inline by the verifier",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/adc9c3bc05a4f60757d7fe94aa0d516ceb46b3df/research/starter/general/gencensus.c",
+      "commit": "adc9c3bc05a4f60757d7fe94aa0d516ceb46b3df",
+      "source_path": "research/starter/general/gencensus.c"
+    }
+  ],
+  "equivalence": "equiv-v2",
+  "stratum": "skew-sds",
+  "representatives": [],
+  "claimed_count": 6017,
+  "claim_kind": "computed-exact",
+  "enumerator": "skew-sds-census-c-v1",
+  "count_only": true,
+  "notes": "Counted under equiv-v2, which also identifies independent cyclic shifts of each row; the census counts the classes containing a quadruple with a skew row. The count is the engine's Burnside total over its exhaustive enumeration, and no representatives are stored."
+}
