@@ -93,6 +93,12 @@ ENGINES = {
         "orders": range(3, 64, 2),
         "composite": False,
     },
+    "best-census-hkt-v1": {
+        "stratum": "best",
+        "sources": ("research/starter/best/best_hkt.c",),
+        "orders": (3, 7, 13, 21, 31, 43, 57),
+        "composite": False,
+    },
     "good-census-c-v1": {
         "stratum": "good",
         "sources": ("research/starter/good/good_c.c",),

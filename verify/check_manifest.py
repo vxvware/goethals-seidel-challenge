@@ -14,7 +14,7 @@ def trusted_files(root):
             and "__pycache__" not in p.parts
             and p.suffix in (".py", ".json", ".css", ".js")
         )
-    paths.extend(p for p in (root / "research/starter/best").glob("census.c"))
+    paths.extend(p for p in (root / "research/starter/best").glob("*.c"))
     paths.extend(p for p in (root / "research/starter/good").glob("good_c.c"))
     paths.extend(p for p in (root / "research/starter/general").glob("*.c"))
     paths.extend(p for p in (root / "research/starter/williamson").glob("*.c"))
