@@ -2,8 +2,8 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 1195,
-  "quadruples": 996,
+  "entry_count": 1196,
+  "quadruples": 997,
   "certificates": 76,
   "censuses": 123,
   "contributions": [
@@ -459,6 +459,27 @@
       "recorded_at": "2026-10-15"
     },
     {
+      "id": "skew-119-kishan",
+      "title": "Skew quadruple at n=119",
+      "relation": "published-import",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "Kishan",
+          "github": "vatskishan03"
+        }
+      ],
+      "summary": "A cyclic skew quadruple of order 119, giving a skew-Hadamard matrix of order 476, posted on 2026-10-23 in the repository github.com/vatskishan03/Hadamard with no accompanying paper. Imported from its certificate; the discovery is the repository author’s.",
+      "entry_ids": [
+        "n119-f302cc45a2f83e60917b"
+      ],
+      "featured": false,
+      "stratum": "skew-sds",
+      "label": "Published / catalogue import",
+      "position": 14,
+      "recorded_at": "2026-10-15"
+    },
+    {
       "id": "published-catalogues",
       "title": "Published constructions and catalogue imports",
       "relation": "published-import",
@@ -604,7 +625,7 @@
       ],
       "featured": false,
       "label": "Published / catalogue import",
-      "position": 14,
+      "position": 15,
       "recorded_at": "2026-10-15"
     },
     {
@@ -625,7 +646,7 @@
       "featured": false,
       "stratum": "good",
       "label": "Challenge result",
-      "position": 15,
+      "position": 16,
       "recorded_at": "2026-10-15"
     }
   ],
@@ -792,7 +813,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -978,7 +999,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1164,7 +1185,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1350,7 +1371,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1536,7 +1557,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1744,7 +1765,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -1963,7 +1984,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -2149,7 +2170,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -2361,7 +2382,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -2882,7 +2903,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -3241,7 +3262,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -3461,7 +3482,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -3647,7 +3668,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -4190,7 +4211,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -4537,7 +4558,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -4747,7 +4768,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -4935,7 +4956,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -5148,7 +5169,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -5672,7 +5693,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6035,7 +6056,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6257,7 +6278,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6443,7 +6464,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -6995,7 +7016,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -7353,7 +7374,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -7562,7 +7583,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -7750,7 +7771,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -8019,7 +8040,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -8252,7 +8273,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -8452,7 +8473,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -8643,7 +8664,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -8856,7 +8877,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -9626,7 +9647,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -10569,7 +10590,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -10792,7 +10813,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -10988,7 +11009,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -11575,7 +11596,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -11952,7 +11973,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -12164,7 +12185,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -12351,7 +12372,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -12598,7 +12619,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -12789,7 +12810,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -12991,7 +13012,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -13184,7 +13205,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -13742,7 +13763,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -14105,7 +14126,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -14320,7 +14341,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -14515,7 +14536,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -14733,7 +14754,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -15289,7 +15310,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -15678,7 +15699,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -15898,7 +15919,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -16089,7 +16110,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -16649,7 +16670,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -17006,7 +17027,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -17224,7 +17245,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -17418,7 +17439,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -17979,7 +18000,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -18347,7 +18368,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -18561,7 +18582,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -18759,7 +18780,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -19330,7 +19351,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -19701,7 +19722,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -19910,7 +19931,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -20100,7 +20121,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -20348,7 +20369,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -20537,7 +20558,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -20735,7 +20756,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -20923,7 +20944,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -21136,7 +21157,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -21664,7 +21685,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -22028,7 +22049,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -22252,7 +22273,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -23128,7 +23149,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -23558,7 +23579,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -24355,7 +24376,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -24564,7 +24585,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -24891,7 +24912,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -25088,7 +25109,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -25879,7 +25900,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -26078,7 +26099,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -26330,7 +26351,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -26859,7 +26880,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -27224,7 +27245,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -27444,7 +27465,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -28226,7 +28247,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -28651,7 +28672,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -29035,7 +29056,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -29223,7 +29244,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -29653,7 +29674,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -30099,7 +30120,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -30589,7 +30610,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -30787,7 +30808,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -31011,7 +31032,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -31258,7 +31279,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -31457,7 +31478,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -31941,7 +31962,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -32385,7 +32406,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -32584,7 +32605,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -32973,7 +32994,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -33241,7 +33262,7 @@
           "featured": false,
           "stratum": "good",
           "label": "Challenge result",
-          "position": 15,
+          "position": 16,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -33507,7 +33528,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -33787,7 +33808,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -34233,7 +34254,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -34454,7 +34475,7 @@
           ],
           "featured": false,
           "label": "Published / catalogue import",
-          "position": 14,
+          "position": 15,
           "recorded_at": "2026-10-15"
         }
       ],
@@ -37766,36 +37787,106 @@
       "n": 119,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n119-f302cc45a2f83e60917b"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-119-kishan",
+          "title": "Skew quadruple at n=119",
+          "relation": "published-import",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "Kishan",
+              "github": "vatskishan03"
+            }
+          ],
+          "summary": "A cyclic skew quadruple of order 119, giving a skew-Hadamard matrix of order 476, posted on 2026-10-23 in the repository github.com/vatskishan03/Hadamard with no accompanying paper. Imported from its certificate; the discovery is the repository author’s.",
+          "entry_ids": [
+            "n119-f302cc45a2f83e60917b"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Published / catalogue import",
+          "position": 14,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "published-import"
+      ],
       "sources": [],
       "contradicted": [],
-      "flags": [],
+      "flags": [
+        {
+          "kind": "fills-a-baseline-gap",
+          "matrix_type": "skew-Hadamard",
+          "order": 476,
+          "baseline": "cati-pasechnik-2411.18897v2",
+          "baseline_date": "2025-08-30",
+          "discovery_confirmed": false
+        }
+      ],
       "note": ""
     },
     {
       "n": 119,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n119-f302cc45a2f83e60917b"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-119-kishan",
+          "title": "Skew quadruple at n=119",
+          "relation": "published-import",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "Kishan",
+              "github": "vatskishan03"
+            }
+          ],
+          "summary": "A cyclic skew quadruple of order 119, giving a skew-Hadamard matrix of order 476, posted on 2026-10-23 in the repository github.com/vatskishan03/Hadamard with no accompanying paper. Imported from its certificate; the discovery is the repository author’s.",
+          "entry_ids": [
+            "n119-f302cc45a2f83e60917b"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Published / catalogue import",
+          "position": 14,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "published-import"
+      ],
       "sources": [],
       "contradicted": [],
-      "flags": [],
+      "flags": [
+        {
+          "kind": "fills-a-baseline-gap",
+          "matrix_type": "skew-Hadamard",
+          "order": 476,
+          "baseline": "cati-pasechnik-2411.18897v2",
+          "baseline_date": "2025-08-30",
+          "discovery_confirmed": false
+        }
+      ],
       "note": ""
     },
     {
@@ -40363,42 +40454,6 @@
       "note": ""
     },
     {
-      "n": 119,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 119,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 121,
       "stratum": "good",
       "group": "cyclic",
@@ -40788,7 +40843,7 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 1116,
+    "reproduced": 1117,
     "spot-checked": 0,
     "receipt-backed": 2
   },
