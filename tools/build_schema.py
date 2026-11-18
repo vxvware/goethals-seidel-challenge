@@ -162,6 +162,7 @@ census = entry(
             "items": {"type": "string", "pattern": "^[a-z0-9-]+$"},
         },
         "claimed_count": NONNEGATIVE_INTEGER,
+        "count_only": {"const": True},
         "claim_kind": {"enum": ["lower-bound", "published-exact", "computed-exact"]},
         "enumerator": {
             "enum": [

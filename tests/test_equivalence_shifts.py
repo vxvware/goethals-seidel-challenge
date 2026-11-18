@@ -3,7 +3,7 @@
 from itertools import product
 from copy import deepcopy
 import pytest
-from verify.census_engine import C_ENGINES, c_census, verify
+from verify.census_engine import C_ENGINES, c_census, c_census_count, shift_class_totals, verify
 from verify.equivalence import canonical, canonical_shifts
 from verify.gs_verify import memberships, paf, row_types, validate_rows
 
@@ -79,3 +79,41 @@ def test_census_equivalence_must_match_the_enumerator():
     wrong["enumerator"] = "small-exact-v1"
     with pytest.raises(ValueError, match="no trusted enumerator"):
         verify(wrong, quads)
+
+
+@pytest.mark.parametrize("n", sorted(GENERAL))
+def test_count_only_build_agrees_with_the_written_classes(n):
+    assert shift_class_totals(n) == {"classes_all": GENERAL[n], "classes_skew": SKEW[n]}
+
+
+def test_count_only_census():
+    assert c_census_count("general-census-c-v1", 15) == 17870
+    assert c_census_count("skew-sds-census-c-v1", 15) == 4522
+    with pytest.raises(ValueError, match="no count-only replay"):
+        c_census_count("general-census-c-v1", 13)
+    entry = {
+        "id": "skew-sds-n15",
+        "n": 15,
+        "stratum": "skew-sds",
+        "equivalence": "equiv-v2",
+        "representatives": [],
+        "claimed_count": 4522,
+        "claim_kind": "computed-exact",
+        "enumerator": "skew-sds-census-c-v1",
+        "count_only": True,
+    }
+    result = verify(entry, {})
+    assert (result["bound"], result["count"], result["tier"]) == ("exact", 4522, "reproduced")
+    assert result["checks"] == ["full-enumeration-count-replayed"] and result["limitations"]
+    unreplayed = verify(entry, {}, reproduce=False)
+    assert (unreplayed["bound"], unreplayed["tier"]) == ("claimed", None)
+    for change, message in (
+        ({"claimed_count": 4521}, "disagrees with the claimed count"),
+        ({"representatives": ["q"]}, "lists no representatives"),
+        ({"claim_kind": "published-exact"}, "lists no representatives"),
+        ({"enumerator": "general-census-c-v1"}, "no trusted enumerator"),
+        ({"equivalence": "equiv-v1"}, "differs from the enumerator"),
+        ({"n": 13}, "no count-only replay"),
+    ):
+        with pytest.raises(ValueError, match=message):
+            verify({**entry, **change}, {})

@@ -615,6 +615,9 @@
           "type": "integer",
           "minimum": 0
         },
+        "count_only": {
+          "const": true
+        },
         "claim_kind": {
           "enum": [
             "lower-bound",

@@ -258,6 +258,8 @@ def cell_page(c, d, r):
             kind = "complete census" if x["bound"] == "exact" else "lower bound from a census"
             if x["equivalence"] == "equiv-v2":
                 kind += " under equiv-v2, which also identifies independent cyclic shifts"
+            if x.get("count_only"):
+                kind += " · a count only, the classes are not stored"
             parts.append(
                 f'<p class="census"><strong>{esc(census_count(c, r))}</strong> · {kind} · '
                 f"{esc(x['tier'] or 'verified representatives')} · {link}</p>"
