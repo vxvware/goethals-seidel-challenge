@@ -5,6 +5,7 @@ from itertools import combinations_with_replacement, permutations
 from math import gcd
 from pathlib import Path
 import os
+import re
 import subprocess
 import tempfile
 from verify.common import ROOT, TRACKS
@@ -110,6 +111,8 @@ C_ENGINES = {
         "orders": range(3, 14, 2),
         "env": ("GEN_",),
         "equivalence": VERSION_SHIFTS,
+        "count_orders": range(15, 20, 2),
+        "count_key": "classes_all",
     },
     "skew-sds-census-c-v1": {
         "stratum": "skew-sds",
@@ -118,6 +121,8 @@ C_ENGINES = {
         "orders": range(3, 14, 2),
         "env": ("GEN_",),
         "equivalence": VERSION_SHIFTS,
+        "count_orders": range(15, 20, 2),
+        "count_key": "classes_skew",
     },
 }
 
@@ -126,10 +131,20 @@ def engine_equivalence(engine):
     return C_ENGINES[engine].get("equivalence", VERSION)
 
 
-@lru_cache(maxsize=len(C_ENGINES))
+# The count-only build of gencensus.c. It runs the same enumeration of PAF
+# 4-tuples as the row-writing build and counts the classes of each product by
+# Burnside's lemma instead of writing them, so one run yields the general and
+# the skew-sds totals.
+COUNT_SOURCE = "research/starter/general/gencensus.c"
+COUNT_FLAGS = ("-DGEN_SHIFTCLASS", "-DGEN_COUNT_ONLY")
+
+
+@lru_cache(maxsize=len(C_ENGINES) + 1)
 def c_exe(engine):
     """Build a pinned C census once per process; several censuses replay it."""
-    spec = C_ENGINES[engine]
+    spec = (
+        {"flags": COUNT_FLAGS, "source": COUNT_SOURCE} if engine == "count" else C_ENGINES[engine]
+    )
     exe = Path(tempfile.mkdtemp(prefix="gs-census-build-")) / "census"
     build = subprocess.run(
         [
@@ -192,6 +207,75 @@ def c_census(engine, n):
     return {canonical_form(q) for q in rows}
 
 
+@lru_cache(maxsize=8)
+def shift_class_totals(n):
+    """Run the count-only build at order n and return its two class totals."""
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GEN_")}
+    with tempfile.TemporaryDirectory(prefix="gs-census-") as tmp:
+        run = subprocess.run(
+            [str(c_exe("count")), str(n), "2", str(Path(tmp) / "empty.txt")],
+            capture_output=True,
+            text=True,
+            timeout=600,
+            cwd=tmp,
+            env=env,
+        )
+    found = re.findall(rf"^n={n} .*classes_all=(\d+) classes_skew=(\d+) ", run.stderr, re.M)
+    if run.returncode or len(found) != 1:
+        raise ValueError("count-only census replay failed: " + run.stderr[-2000:])
+    return {"classes_all": int(found[0][0]), "classes_skew": int(found[0][1])}
+
+
+def c_census_count(engine, n):
+    """Class count of a pinned engine at an order where it counts without writing rows."""
+    spec = C_ENGINES[engine]
+    if n not in spec.get("count_orders", ()):
+        raise ValueError(f"{engine} has no count-only replay at order {n}")
+    return shift_class_totals(n)[spec["count_key"]]
+
+
+def verify_count_only(entry, reproduce):
+    """A census that states a class count and stores no representatives.
+
+    The count is exact only when the pinned engine's count-only build returns
+    it here. The classes themselves are not re-derived by the board's canonical
+    form at these orders; the two agree at every order where rows are written.
+    """
+    engine = entry.get("enumerator")
+    if entry["representatives"] or entry["claim_kind"] != "computed-exact":
+        raise ValueError("a count-only census is computed-exact and lists no representatives")
+    if engine not in C_ENGINES or C_ENGINES[engine]["stratum"] != entry["stratum"]:
+        raise ValueError("no trusted enumerator for this census")
+    if engine_equivalence(engine) != entry["equivalence"]:
+        raise ValueError("census equivalence differs from the enumerator's")
+    if entry["n"] not in C_ENGINES[engine].get("count_orders", ()):
+        raise ValueError(f"{engine} has no count-only replay at order {entry['n']}")
+    result = {
+        "id": entry["id"],
+        "type": "census",
+        "n": entry["n"],
+        "stratum": entry["stratum"],
+        "equivalence": entry["equivalence"],
+        "count": entry["claimed_count"],
+        "bound": "claimed",
+        "tier": None,
+        "claimed_count": entry["claimed_count"],
+        "claim_kind": entry["claim_kind"],
+        "count_only": True,
+        "checks": [],
+    }
+    if reproduce:
+        if c_census_count(engine, entry["n"]) != entry["claimed_count"]:
+            raise ValueError("count-only census replay disagrees with the claimed count")
+        result.update(bound="exact", tier="reproduced")
+        result["checks"].append("full-enumeration-count-replayed")
+        result["limitations"] = [
+            "The count is the pinned engine's Burnside total over its exhaustive enumeration; "
+            "no representatives are stored and the classes are not re-derived here."
+        ]
+    return result
+
+
 def good_census(n):
     return c_census("good-census-c-v1", n)
 
@@ -203,6 +287,8 @@ def williamson_census(n):
 def verify(entry, quadruples, reproduce=True):
     # Representatives are stored under equiv-v1; a census declared under
     # equiv-v2 compares them, and the enumerator's rows, under that version.
+    if entry.get("count_only"):
+        return verify_count_only(entry, reproduce)
     canonical_form = CANONICAL[entry["equivalence"]]
     reps = []
     for identifier in entry["representatives"]:
