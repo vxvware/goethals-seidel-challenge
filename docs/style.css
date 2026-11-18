@@ -34,6 +34,10 @@ ul{list-style:"- ";padding-left:1.4rem}
 li::marker{color:var(--muted)}
 .hero{display:grid;grid-template-columns:1fr 34rem;gap:3rem;padding:2rem 0 2.667rem;align-items:start}
 .hero p{font-size:1.02rem;color:var(--ink)}
+.hero-anim{display:grid;grid-template-columns:15rem 1fr;gap:1.4rem;margin:2.2rem 0 0;align-items:start}
+.hero-anim canvas{display:block;width:15rem;height:15rem;image-rendering:pixelated;border:1px solid var(--line);background:var(--panel)}
+.hero-anim pre{margin:0 0 .6rem;font:inherit;font-size:.78rem;line-height:1.55;color:#6dffa0;white-space:pre;overflow:hidden;min-height:13.2em}
+.hero-anim a{font-size:.78rem}
 .definition{border:1px solid var(--line);padding:1.3rem 1.6rem;background:var(--panel);font-size:.9rem}
 .definition p{font-size:.9rem;color:var(--ink);line-height:1.6;margin:.5333rem 0}
 .definition .katex-display{margin:.8rem 0;overflow-x:auto;overflow-y:hidden}
@@ -119,6 +123,8 @@ details summary{cursor:pointer;font-size:.8667rem;color:var(--green)}
 .entry .publication{display:inline;margin-left:.5333rem}
 @media(max-width:1000px){.grid-wrap{overflow:auto}.hero{grid-template-columns:1fr;gap:1rem}}
 @media(max-width:760px){
+  .hero-anim{grid-template-columns:1fr}
+  .hero-anim pre{font-size:.62rem}
   header,main,footer{padding:1.333rem}
   header{align-items:flex-start;flex-direction:column}
   nav{flex-wrap:wrap;gap:.8rem;font-size:.8rem}
