@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "n": 59,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      59
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-18",
+  "discovered_by": [
+    "vxvware"
+  ],
+  "sources": [
+    {
+      "title": "vxvware/saw-best-matrix: good matrices at n=59",
+      "url": "https://github.com/vxvware/saw-best-matrix/blob/33477db3deee7d5e4b965af85943ee764289f82b/data/good/good-59.txt",
+      "commit": "33477db3deee7d5e4b965af85943ee764289f82b",
+      "source_path": "data/good/good-59.txt",
+      "artifact": {
+        "path": "evidence/participants/saw-best-matrix/good/good-59.txt",
+        "sha256": "156bedad9b02ec2896722e0fc6c3c6128c6a402792c700c688030c3511d526be"
+      }
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "vxvware-good-n59",
+  "type": "census",
+  "stratum": "good",
+  "representatives": [],
+  "claimed_count": 0,
+  "claim_kind": "lower-bound",
+  "notes": "The archived source file is an empty census output: the source ran its exhaustive search twice and found no circulant good matrices at this order. No published search covers this order. The census is recorded with no representatives; it is exact on the board only through a registered full replay of a pinned engine."
+}
