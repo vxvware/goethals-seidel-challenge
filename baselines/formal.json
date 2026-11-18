@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "note": "Lean theorems in formal/ that are about a specific board entry. The site links each from its entry page.",
+  "theorems": [
+    {
+      "entry_id": "n119-f302cc45a2f83e60917b",
+      "theorem": "GoethalsSeidel.exists_skew_hadamard_476",
+      "file": "formal/GoethalsSeidel/Hadamard.lean",
+      "statement": "the Goethals–Seidel array of this entry is a skew-Hadamard matrix of order 476."
+    }
+  ]
+}

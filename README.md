@@ -123,6 +123,8 @@ Normal board checks use the bundled archives and require no sibling checkouts.
 status, seed inventories, and reviewed replay registrations. `site/` builds the
 static GitHub Pages board. `research/` supplies agent instructions and starters.
 
+`formal/` is a Lean 4 project with machine-checked statements about quadruples, among them that the Goethals–Seidel array of a quadruple is a Hadamard matrix; see `formal/README.md`. CI does not build it and the verifier does not depend on it.
+
 Entry PRs are append-only and cannot change the verifier, schemas, baseline,
 site, or workflows. A trusted-base CI job binds `submitted_by` to the PR author,
 checks scope, and validates candidate data with the base verifier. Changes to
