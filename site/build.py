@@ -13,6 +13,9 @@ from verify.common import ROOT, TRACKS, write_json
 from verify.board import load, summary
 
 
+# Lean theorems about specific entries, linked from the entry pages.
+FORMAL = json.loads((ROOT / "baselines/formal.json").read_text())["theorems"]
+
 ORIGIN_LABELS = {
     "participant-result": "Challenge result",
     "independent-reproduction": "Independent reproduction",
@@ -488,7 +491,15 @@ def build(quick=False):
                 f"{quad_figure(doc, result, '')}"
                 f'<script src="../picture.js" defer></script></section>'
             )
-        text = f"""<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div><h1>{esc(ident)}</h1><span class="tag">{esc(result.get("tier") or "attributed / archived claim or lower bound")}</span>{credits}<p>Original source attribution: {esc("; ".join(doc["discovered_by"]))}<br>Submitted / imported by: {esc(doc["submitted_by"])} · {doc["submitted_at"]}<br>Board cell: {cell_links(result, "../")}</p>{picture}<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre><h2>Sources</h2><ul>{sources}</ul><details><summary>Submission JSON</summary><pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"""
+        formal = "".join(
+            '<p class="census">Machine-checked in Lean: '
+            f"{esc(t['statement'])} "
+            f'<a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/{esc(t["file"])}">'
+            f"<code>{esc(t['theorem'])}</code></a></p>"
+            for t in FORMAL
+            if t["entry_id"] == ident
+        )
+        text = f"""<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div><h1>{esc(ident)}</h1><span class="tag">{esc(result.get("tier") or "attributed / archived claim or lower bound")}</span>{credits}<p>Original source attribution: {esc("; ".join(doc["discovered_by"]))}<br>Submitted / imported by: {esc(doc["submitted_by"])} · {doc["submitted_at"]}<br>Board cell: {cell_links(result, "../")}</p>{formal}{picture}<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre><h2>Sources</h2><ul>{sources}</ul><details><summary>Submission JSON</summary><pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"""
         (out / f"entries/{ident}.html").write_text(shell(ident, text, "../"))
     for c in stats["cells"]:
         title = f"n = {c['n']} · {TRACK_LABELS[c['stratum']]}"
