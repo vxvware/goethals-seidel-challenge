@@ -1,0 +1,25 @@
+# Skew quadruples of order 69 from the pool join of research/starter/skew (commit fe66066).
+# Run on archdesktop, 2026-11-19. This is a sampling search: the rows below are what one run found, not a census.
+# The skew-Hadamard order 276 is not among the open orders of baselines/skew-gaps.json; the rows fill a cell this board had no quadruple for.
+# plan: pool_plan.py 69 4 3
+# pools: pool_gen plan b out 0.7 seed hits, restart length 300000; join: pool_join built with 16-byte entries, THR=512
+# block 0 row 5: 300003 hits, 1.68e+10 evals, 5.61e+04 per hit, 5.94e+07 evals/s on 4 threads
+# block 1 row 9: 300003 hits, 1.12e+10 evals, 3.73e+04 per hit, 5.91e+07 evals/s on 4 threads
+# block 2 row 13: 300003 hits, 1.14e+10 evals, 3.81e+04 per hit, 5.83e+07 evals/s on 4 threads
+# pool 0: row 5, 300003 hits (0 rows outside the windows skipped), 293615 distinct keys (one per orbit)
+# pool 1: row 9, 300003 hits (0 rows outside the windows skipped), 3226344 distinct keys
+# pool 2: row 13, 300003 hits (0 rows outside the windows skipped), 3257672 distinct keys
+# n=69: 2 solution orbits (of 11), 4.03e+09 nodes, 678.4 s on 4 threads
+# The skew block is invariant under the multiplier group H of order 11; one row A,B,C,D per orbit of solutions under H.
+# plan file:
+#   69
+#   +++-+---+----+-++----+-+-++--+++++-+-----++--+-+-++++--+-++++-+++-+--
+#   5
+#   -3 5 -7 1 -3 5 -3 5 -3 5 -3 5 -7 1 -7 1 -3 5 -7 1 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -7 1 -3 5 -3 5 -7 1 1 9 -3 5 -3 5 -7 1 -3 5 -7 1 -7 1 -3 5 -3 5 -7 1 -3 5 -7 1
+#   9
+#   -3 5 -7 1 -3 5 -3 5 -3 5 -3 5 -7 1 -7 1 -3 5 -7 1 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -7 1 -3 5 -3 5 -7 1 5 13 -3 5 -3 5 -7 1 -3 5 -7 1 -7 1 -3 5 -3 5 -7 1 -3 5 -7 1
+#   13
+#   -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 5 13 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5 -3 5
+#   11 1 4 13 16 25 31 49 52 55 58 64
++++-+---+----+-++----+-+-++--+++++-+-----++--+-+-++++--+-++++-+++-+--,+--++++-----+-++-+-+----++-+++--++-+-+++-++-++--++++-+-++---+---+-+++,++--+--+---+-+-+++-++-+++++---++--++-++++-++-+-+++++++-----+--+++---+,--++-+-+--+++-+++-++--+--+--+--+++++-++++-+--+++++++-++++---+++-+-+--
++++-+---+----+-++----+-+-++--+++++-+-----++--+-+-++++--+-++++-+++-+--,++-----++++-+-+++-++++-+++---+-++-+-++-++--++-+-+++-+----+----++--++-,+++-+++-+--+-+++--++++-++++++-----+--++---+-+---+++-+++--+-++-+--++-+,-+--+++--++-+---++++-++++++-++---+++-++-+++++------++-++--+-+-+++++-+
