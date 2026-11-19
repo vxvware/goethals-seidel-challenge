@@ -112,7 +112,9 @@ for rows in pats:
     rb = sum(rowbits(rows))
 
     def score(eps):
-        return rb + sum(math.log2(opt(-v, w)[0]) for v in paf(sequence(eps)))
+        js = [opt(-v, w)[0] for v in paf(sequence(eps))]
+        # a PAF_A value that no in-range window triple can cancel rules the sequence out
+        return rb + sum(math.log2(j) for j in js) if min(js) > 0 else -math.inf
 
     k = len(pairs)
     if k <= 16:
@@ -140,6 +142,8 @@ for rows in pats:
                 best = (sc, rows, tuple(eps))
 
 sc, rows, eps = best
+if sc == -math.inf:
+    sys.exit("no sequence found whose autocorrelations the windows can cancel; try another SEED or more RESTARTS")
 a = sequence(eps)
 p = paf(a)
 opt = setup(rows)
