@@ -161923,6 +161923,35 @@
       ],
       "contributions": []
     },
+    "vxvware-good-n59": {
+      "id": "vxvware-good-n59",
+      "type": "census",
+      "n": 59,
+      "stratum": "good",
+      "equivalence": "equiv-v1",
+      "count": 0,
+      "bound": "exact",
+      "tier": "reproduced",
+      "claimed_count": 0,
+      "claim_kind": "lower-bound",
+      "checks": [
+        "pairwise-inequivalence",
+        "registered-full-census-replay",
+        "representative-existence"
+      ],
+      "replay": {
+        "engine_id": "good-census-c-v1",
+        "host": "archdesktop",
+        "threads": 4,
+        "date": "2026-11-18",
+        "wall_seconds": 31866.0,
+        "raw_rows": 0
+      },
+      "limitations": [
+        "Full offline replay of a pinned engine, re-derived from its raw rows here; the same engine can reproduce its own systematic bugs."
+      ],
+      "contributions": []
+    },
     "vxvware-good-n61": {
       "id": "vxvware-good-n61",
       "type": "census",

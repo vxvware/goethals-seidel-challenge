@@ -2,10 +2,10 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 1196,
+  "entry_count": 1197,
   "quadruples": 997,
   "certificates": 76,
-  "censuses": 123,
+  "censuses": 124,
   "contributions": [
     {
       "id": "kkss-49-correction",
@@ -31569,15 +31569,18 @@
       "group": "cyclic",
       "status": "empty",
       "artifact_status": "none",
-      "tier": null,
+      "tier": "reproduced",
       "empty_basis": [
+        "reproduced",
         "unreplayed-census"
       ],
       "quadruples": [],
       "evidence": [
         "vxvware-good-n59-census"
       ],
-      "censuses": [],
+      "censuses": [
+        "vxvware-good-n59"
+      ],
       "contributions": [
         {
           "id": "good-59-empty",
@@ -40843,7 +40846,7 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 1118,
+    "reproduced": 1119,
     "spot-checked": 0,
     "receipt-backed": 2
   },
