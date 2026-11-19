@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "entry_id": "vxvware-good-n59",
+  "entry_sha256": "ad5d7a67f9e88b8a6439888c200716e8e26f3b7fa63f41979311644d94eeb117",
+  "engine_id": "good-census-c-v1",
+  "engine_sha256": {
+    "research/starter/good/good_c.c": "cdbc20eae5c8b19f48489381e625f9490020f77a6f8c663bc03433f37e2b7c93"
+  },
+  "mode": "full",
+  "status": "passed",
+  "host": "archdesktop",
+  "threads": 4,
+  "date": "2026-11-18",
+  "wall_seconds": 31866.0,
+  "command": "gcc -O3 -march=native -fopenmp -DGS_WIDE -DGC_WIDE good_c.c -lm -o good_c; ./good_c 59 4 good-59.txt",
+  "rows": []
+}
