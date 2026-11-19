@@ -28,8 +28,8 @@ def test_no_false_empty_inherited_to_parent(board):
     assert lookup[47, "williamson"]["status"] == "empty"
     assert lookup[61, "good"]["status"] == "exists"
     assert lookup[59, "good"]["status"] == "empty"
-    assert lookup[59, "good"]["tier"] is None
-    assert lookup[59, "good"]["empty_basis"] == ["unreplayed-census"]
+    assert lookup[59, "good"]["tier"] == "reproduced"
+    assert lookup[59, "good"]["empty_basis"] == ["reproduced", "unreplayed-census"]
     assert lookup[59, "skew-sds"]["status"] == "exists"  # kkss rows, not the empty good cell
 
 
@@ -344,9 +344,6 @@ def test_new_results_are_worded_from_the_board(board):
     assert "G-matrices of order 61: exactly 2 classes." in texts
     assert "Not yet replayed" not in groups
     single = {x["text"] for x in groups["Nonexistence"] if x["qualifier"]}
-    assert single == {
-        "Good matrices of order 59: none exist.",
-        "Good matrices of order 67: none exist.",
-    }
+    assert single == {"Good matrices of order 67: none exist."}
     # The shift-class counts are not claimed as new.
     assert not any("cyclic shifts" in t for t in texts)
