@@ -277,7 +277,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The campaign\u2019s scoped null has an exactly checked row-sum obstruction. It excludes only the stated subgroup family.",
+      "summary": "The campaign’s scoped null has an exactly checked row-sum obstruction. It excludes only the stated subgroup family.",
       "entry_ids": [
         "skew-n89-subgroup11"
       ],
@@ -339,7 +339,7 @@
           "github": "vatskishan03"
         }
       ],
-      "summary": "A cyclic skew quadruple of order 119, giving a skew-Hadamard matrix of order 476, posted on 2026-10-23 in the repository github.com/vatskishan03/Hadamard with no accompanying paper. Imported from its certificate; the discovery is the repository author\u2019s.",
+      "summary": "A cyclic skew quadruple of order 119, giving a skew-Hadamard matrix of order 476, posted on 2026-10-23 in the repository github.com/vatskishan03/Hadamard with no accompanying paper. Imported from its certificate; the discovery is the repository author’s.",
       "entry_ids": [
         "n119-f302cc45a2f83e60917b"
       ],
@@ -491,6 +491,28 @@
       "seed_artifacts": [],
       "featured": false,
       "stratum": "good"
+    },
+    {
+      "id": "skew-pool-join-65-71",
+      "title": "Skew quadruples at n=65, 67, 69 and 71 by pool join",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+      "entry_ids": [
+        "n65-18dd1068d61602ed2938",
+        "n67-e33da00a2a0818664a11",
+        "n69-b5c03eb433648398afed",
+        "n71-dcfc88515e24802641f9"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "skew-sds"
     }
   ]
 }
