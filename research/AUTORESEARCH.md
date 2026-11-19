@@ -21,6 +21,9 @@
 - `starter/cyclotomic_sweep.py`: a bounded coset-union search using exact PAF
   keys. It deliberately avoids the old rounded-PSD key, which is not a
   completeness-safe way to match residual sums. Output is JSONL candidates.
+- `starter/skew/`: a pool join for quadruples with one skew block fixed in advance
+  (`pool_plan.py`, `pool_gen.c`, `pool_join.c`). A sampling search: it can find
+  quadruples and cannot show that none exist. Needs AVX2 and OpenMP.
 - `starter/good_gpu/`: the archived v4 Gaussian engine and its dependencies,
   pinned from good-matrix-campaign @ 018ef2d7754017eca1f9f22c8ddd84b9b6cf5581.
   It requires a CUDA GPU/CuPy and substantial memory at large orders.
