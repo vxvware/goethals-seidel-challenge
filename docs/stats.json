@@ -2,8 +2,8 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 1197,
-  "quadruples": 997,
+  "entry_count": 1201,
+  "quadruples": 1001,
   "certificates": 76,
   "censuses": 124,
   "contributions": [
@@ -647,6 +647,30 @@
       "stratum": "good",
       "label": "Challenge result",
       "position": 16,
+      "recorded_at": "2026-10-15"
+    },
+    {
+      "id": "skew-pool-join-65-71",
+      "title": "Skew quadruples at n=65, 67, 69 and 71 by pool join",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+      "entry_ids": [
+        "n65-18dd1068d61602ed2938",
+        "n67-e33da00a2a0818664a11",
+        "n69-b5c03eb433648398afed",
+        "n71-dcfc88515e24802641f9"
+      ],
+      "featured": false,
+      "stratum": "skew-sds",
+      "label": "Challenge result",
+      "position": 17,
       "recorded_at": "2026-10-15"
     }
   ],
@@ -33159,15 +33183,44 @@
       "n": 65,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n65-18dd1068d61602ed2938"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-pool-join-65-71",
+          "title": "Skew quadruples at n=65, 67, 69 and 71 by pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "entry_ids": [
+            "n65-18dd1068d61602ed2938",
+            "n67-e33da00a2a0818664a11",
+            "n69-b5c03eb433648398afed",
+            "n71-dcfc88515e24802641f9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 17,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -33177,15 +33230,44 @@
       "n": 65,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n65-18dd1068d61602ed2938"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-pool-join-65-71",
+          "title": "Skew quadruples at n=65, 67, 69 and 71 by pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "entry_ids": [
+            "n65-18dd1068d61602ed2938",
+            "n67-e33da00a2a0818664a11",
+            "n69-b5c03eb433648398afed",
+            "n71-dcfc88515e24802641f9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 17,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -33337,15 +33419,44 @@
       "n": 67,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n67-e33da00a2a0818664a11"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-pool-join-65-71",
+          "title": "Skew quadruples at n=65, 67, 69 and 71 by pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "entry_ids": [
+            "n65-18dd1068d61602ed2938",
+            "n67-e33da00a2a0818664a11",
+            "n69-b5c03eb433648398afed",
+            "n71-dcfc88515e24802641f9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 17,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -33355,15 +33466,44 @@
       "n": 67,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n67-e33da00a2a0818664a11"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-pool-join-65-71",
+          "title": "Skew quadruples at n=65, 67, 69 and 71 by pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "entry_ids": [
+            "n65-18dd1068d61602ed2938",
+            "n67-e33da00a2a0818664a11",
+            "n69-b5c03eb433648398afed",
+            "n71-dcfc88515e24802641f9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 17,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -33637,15 +33777,44 @@
       "n": 69,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n69-b5c03eb433648398afed"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-pool-join-65-71",
+          "title": "Skew quadruples at n=65, 67, 69 and 71 by pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "entry_ids": [
+            "n65-18dd1068d61602ed2938",
+            "n67-e33da00a2a0818664a11",
+            "n69-b5c03eb433648398afed",
+            "n71-dcfc88515e24802641f9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 17,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -33660,7 +33829,8 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n69-2d828c8cf271c0b3ff3d"
+        "n69-2d828c8cf271c0b3ff3d",
+        "n69-b5c03eb433648398afed"
       ],
       "evidence": [],
       "censuses": [],
@@ -33813,9 +33983,34 @@
           "label": "Published / catalogue import",
           "position": 15,
           "recorded_at": "2026-10-15"
+        },
+        {
+          "id": "skew-pool-join-65-71",
+          "title": "Skew quadruples at n=65, 67, 69 and 71 by pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "entry_ids": [
+            "n65-18dd1068d61602ed2938",
+            "n67-e33da00a2a0818664a11",
+            "n69-b5c03eb433648398afed",
+            "n71-dcfc88515e24802641f9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 17,
+          "recorded_at": "2026-10-15"
         }
       ],
       "origins": [
+        "participant-result",
         "published-import"
       ],
       "sources": [
@@ -33931,15 +34126,44 @@
       "n": 71,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n71-dcfc88515e24802641f9"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-pool-join-65-71",
+          "title": "Skew quadruples at n=65, 67, 69 and 71 by pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "entry_ids": [
+            "n65-18dd1068d61602ed2938",
+            "n67-e33da00a2a0818664a11",
+            "n69-b5c03eb433648398afed",
+            "n71-dcfc88515e24802641f9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 17,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -33949,15 +34173,44 @@
       "n": 71,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n71-dcfc88515e24802641f9"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-pool-join-65-71",
+          "title": "Skew quadruples at n=65, 67, 69 and 71 by pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "entry_ids": [
+            "n65-18dd1068d61602ed2938",
+            "n67-e33da00a2a0818664a11",
+            "n69-b5c03eb433648398afed",
+            "n71-dcfc88515e24802641f9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 17,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -38765,42 +39018,6 @@
       "note": ""
     },
     {
-      "n": 65,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 65,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 67,
       "stratum": "williamson",
       "group": "cyclic",
@@ -38819,62 +39036,8 @@
       "note": ""
     },
     {
-      "n": 67,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 67,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 69,
       "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 69,
-      "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -38911,42 +39074,6 @@
     {
       "n": 71,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 71,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 71,
-      "stratum": "general",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -40846,7 +40973,7 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 1119,
+    "reproduced": 1123,
     "spot-checked": 0,
     "receipt-backed": 2
   },
