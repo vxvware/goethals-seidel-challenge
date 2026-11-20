@@ -138,3 +138,7 @@ details summary{cursor:pointer;font-size:.8667rem;color:var(--green)}
   .brand:after{animation:blink 1.1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
 }
+.cite{white-space:nowrap}
+.refs{padding-left:2.4rem}
+.refs li{margin:.5333rem 0;overflow-wrap:anywhere}
+.refs li:target{background:var(--panel);outline:1px solid var(--line)}
