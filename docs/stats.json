@@ -2,8 +2,8 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 1201,
-  "quadruples": 1001,
+  "entry_count": 1211,
+  "quadruples": 1011,
   "certificates": 76,
   "censuses": 124,
   "contributions": [
@@ -671,6 +671,56 @@
       "stratum": "skew-sds",
       "label": "Challenge result",
       "position": 17,
+      "recorded_at": "2026-10-15"
+    },
+    {
+      "id": "skew-orbit-93-113",
+      "title": "Skew quadruples at n=93, 95, 97 and 113 by orbit search",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+      "entry_ids": [
+        "n113-580ff9693982eba7bbff",
+        "n93-07a9ff120667b380aca7",
+        "n95-ace39770f4fa01c46ea3",
+        "n97-40920b69e470d2933457"
+      ],
+      "featured": false,
+      "stratum": "skew-sds",
+      "label": "Challenge result",
+      "position": 18,
+      "recorded_at": "2026-10-15"
+    },
+    {
+      "id": "skew-orbit-77-123",
+      "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+      "entry_ids": [
+        "n103-ad768d3456aa19390b56",
+        "n109-45187de0fd01fc49f224",
+        "n111-2847ae82d34f427c1e8f",
+        "n121-b92d2fdd9b233f688b66",
+        "n123-da8a0ba3c142b128832f",
+        "n77-2d84150c86ee2b8841a5"
+      ],
+      "featured": false,
+      "stratum": "skew-sds",
+      "label": "Challenge result",
+      "position": 19,
       "recorded_at": "2026-10-15"
     }
   ],
@@ -35028,15 +35078,46 @@
       "n": 77,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n77-2d84150c86ee2b8841a5"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -35046,15 +35127,46 @@
       "n": 77,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n77-2d84150c86ee2b8841a5"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -36267,15 +36379,44 @@
       "n": 93,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n93-07a9ff120667b380aca7"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-93-113",
+          "title": "Skew quadruples at n=93, 95, 97 and 113 by orbit search",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n113-580ff9693982eba7bbff",
+            "n93-07a9ff120667b380aca7",
+            "n95-ace39770f4fa01c46ea3",
+            "n97-40920b69e470d2933457"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 18,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -36285,15 +36426,44 @@
       "n": 93,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n93-07a9ff120667b380aca7"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-93-113",
+          "title": "Skew quadruples at n=93, 95, 97 and 113 by orbit search",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n113-580ff9693982eba7bbff",
+            "n93-07a9ff120667b380aca7",
+            "n95-ace39770f4fa01c46ea3",
+            "n97-40920b69e470d2933457"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 18,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -36395,15 +36565,44 @@
       "n": 95,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n95-ace39770f4fa01c46ea3"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-93-113",
+          "title": "Skew quadruples at n=93, 95, 97 and 113 by orbit search",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n113-580ff9693982eba7bbff",
+            "n93-07a9ff120667b380aca7",
+            "n95-ace39770f4fa01c46ea3",
+            "n97-40920b69e470d2933457"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 18,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -36413,15 +36612,44 @@
       "n": 95,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n95-ace39770f4fa01c46ea3"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-93-113",
+          "title": "Skew quadruples at n=93, 95, 97 and 113 by orbit search",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n113-580ff9693982eba7bbff",
+            "n93-07a9ff120667b380aca7",
+            "n95-ace39770f4fa01c46ea3",
+            "n97-40920b69e470d2933457"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 18,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -36525,15 +36753,44 @@
       "n": 97,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n97-40920b69e470d2933457"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-93-113",
+          "title": "Skew quadruples at n=93, 95, 97 and 113 by orbit search",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n113-580ff9693982eba7bbff",
+            "n93-07a9ff120667b380aca7",
+            "n95-ace39770f4fa01c46ea3",
+            "n97-40920b69e470d2933457"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 18,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -36548,12 +36805,39 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
+        "n97-40920b69e470d2933457",
         "n97-80f6003b5c1d035ff691"
       ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-93-113",
+          "title": "Skew quadruples at n=93, 95, 97 and 113 by orbit search",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n113-580ff9693982eba7bbff",
+            "n93-07a9ff120667b380aca7",
+            "n95-ace39770f4fa01c46ea3",
+            "n97-40920b69e470d2933457"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 18,
+          "recorded_at": "2026-10-15"
+        }
+      ],
       "origins": [
+        "participant-result",
         "published-import"
       ],
       "sources": [
@@ -36973,15 +37257,46 @@
       "n": 103,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n103-ad768d3456aa19390b56"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -36991,15 +37306,46 @@
       "n": 103,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n103-ad768d3456aa19390b56"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -37357,15 +37703,46 @@
       "n": 109,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n109-45187de0fd01fc49f224"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -37375,15 +37752,46 @@
       "n": 109,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n109-45187de0fd01fc49f224"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -37465,15 +37873,46 @@
       "n": 111,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n111-2847ae82d34f427c1e8f"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -37483,15 +37922,46 @@
       "n": 111,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n111-2847ae82d34f427c1e8f"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -37579,15 +38049,44 @@
       "n": 113,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n113-580ff9693982eba7bbff"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-93-113",
+          "title": "Skew quadruples at n=93, 95, 97 and 113 by orbit search",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n113-580ff9693982eba7bbff",
+            "n93-07a9ff120667b380aca7",
+            "n95-ace39770f4fa01c46ea3",
+            "n97-40920b69e470d2933457"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 18,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -37597,15 +38096,44 @@
       "n": 113,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n113-580ff9693982eba7bbff"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-93-113",
+          "title": "Skew quadruples at n=93, 95, 97 and 113 by orbit search",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n113-580ff9693982eba7bbff",
+            "n93-07a9ff120667b380aca7",
+            "n95-ace39770f4fa01c46ea3",
+            "n97-40920b69e470d2933457"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 18,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -38243,15 +38771,46 @@
       "n": 121,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n121-b92d2fdd9b233f688b66"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -38266,12 +38825,41 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n121-98ab44956daa5b72d69c"
+        "n121-98ab44956daa5b72d69c",
+        "n121-b92d2fdd9b233f688b66"
       ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
       "origins": [
+        "participant-result",
         "published-import"
       ],
       "sources": [
@@ -38373,15 +38961,46 @@
       "n": 123,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n123-da8a0ba3c142b128832f"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -38391,15 +39010,46 @@
       "n": 123,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n123-da8a0ba3c142b128832f"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -39260,42 +39910,6 @@
       "note": ""
     },
     {
-      "n": 77,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 77,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 79,
       "stratum": "good",
       "group": "cyclic",
@@ -39720,42 +40334,6 @@
       "note": ""
     },
     {
-      "n": 93,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 93,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 95,
       "stratum": "williamson",
       "group": "cyclic",
@@ -39792,42 +40370,6 @@
       "note": ""
     },
     {
-      "n": 95,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 95,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 97,
       "stratum": "good",
       "group": "cyclic",
@@ -39848,24 +40390,6 @@
     {
       "n": 97,
       "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 97,
-      "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -40026,42 +40550,6 @@
       "note": ""
     },
     {
-      "n": 103,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 103,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 105,
       "stratum": "williamson",
       "group": "cyclic",
@@ -40226,42 +40714,6 @@
     {
       "n": 109,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 109,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 109,
-      "stratum": "general",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -40350,42 +40802,6 @@
       "note": ""
     },
     {
-      "n": 111,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 111,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 113,
       "stratum": "williamson",
       "group": "cyclic",
@@ -40424,42 +40840,6 @@
     {
       "n": 113,
       "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 113,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 113,
-      "stratum": "general",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -40620,24 +41000,6 @@
       "note": ""
     },
     {
-      "n": 121,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 123,
       "stratum": "williamson",
       "group": "cyclic",
@@ -40676,42 +41038,6 @@
     {
       "n": 123,
       "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 123,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 123,
-      "stratum": "general",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -40973,7 +41299,7 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 1123,
+    "reproduced": 1133,
     "spot-checked": 0,
     "receipt-backed": 2
   },
