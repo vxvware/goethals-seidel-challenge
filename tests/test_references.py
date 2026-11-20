@@ -98,3 +98,17 @@ def test_citation_is_escaped_and_linked():
 def test_malformed_bibliography_is_rejected(text):
     with pytest.raises(ValueError):
         parse(text)
+
+
+def test_an_aliased_doi_links_the_entry_doi():
+    bib = Bibliography()
+    assert bib.link("https://doi.org/10.1016/0012-365X(77)90009-0") == (
+        "https://doi.org/10.1016/0012-365X(77)90009-7"
+    )
+    assert bib.link("https://doi.org/10.1007/s10623-011-9498-9") == (
+        "https://doi.org/10.1007/s10623-011-9492-2"
+    )
+    assert bib.link("https://doi.org/10.1016/0012-365X(77)90009-7") == (
+        "https://doi.org/10.1016/0012-365X(77)90009-7"
+    )
+    assert bib.link("https://arxiv.org/abs/2411.18897") == "https://arxiv.org/abs/2411.18897"
