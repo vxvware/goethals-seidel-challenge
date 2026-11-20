@@ -123,6 +123,15 @@ class Bibliography:
         """The key of the entry a source URL points at, or None for a non-literature URL."""
         return self.index.get(normalize(url))
 
+    def link(self, url):
+        """The URL to link a source by. A stored DOI that is only an alias of an
+        entry is a wrong DOI kept in an append-only record: link the entry's own."""
+        key = self.resolve(url)
+        doi = self.entries[key].get("doi") if key else None
+        if doi and normalize(url).startswith("doi:") and normalize(url) != "doi:" + doi.lower():
+            return "https://doi.org/" + doi
+        return url
+
     def keys_in(self, text):
         keys = MARKER.findall(text)
         for key in keys:

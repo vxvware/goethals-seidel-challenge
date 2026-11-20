@@ -92,7 +92,9 @@ def source_item(s, prefix):
     """One source as a list item: its link, then the number of its reference."""
     key = BIB.resolve(s["url"])
     mark = f" {BIB.mark(key, prefix)}" if key else ""
-    return f'<li><a href="{esc(s["url"])}" rel="noopener">{esc(s["title"])}</a>{mark}</li>'
+    return (
+        f'<li><a href="{esc(BIB.link(s["url"]))}" rel="noopener">{esc(s["title"])}</a>{mark}</li>'
+    )
 
 
 def references_block(keys, prefix):
@@ -348,7 +350,7 @@ def cell_page(c, d, r):
     for claim in c["contradicted"]:
         parts.append(
             '<p class="contradiction">Exactly verified rows on this board contradict a published '
-            f'nonexistence claim: <a href="{esc(claim["source"]["url"])}" rel="noopener">'
+            f'nonexistence claim: <a href="{esc(BIB.link(claim["source"]["url"]))}" rel="noopener">'
             f"{esc(claim['source']['title'])}</a>"
             + "".join(f" {BIB.mark(key, '../')}" for key in source_keys([claim["source"]]))
             + "</p>"
