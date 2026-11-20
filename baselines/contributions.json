@@ -513,6 +513,28 @@
       "seed_artifacts": [],
       "featured": false,
       "stratum": "skew-sds"
+    },
+    {
+      "id": "skew-orbit-93-113",
+      "title": "Skew quadruples at n=93, 95, 97 and 113 by orbit search",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+      "entry_ids": [
+        "n93-07a9ff120667b380aca7",
+        "n95-ace39770f4fa01c46ea3",
+        "n97-40920b69e470d2933457",
+        "n113-580ff9693982eba7bbff"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "skew-sds"
     }
   ]
 }
