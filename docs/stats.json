@@ -2,8 +2,8 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 1211,
-  "quadruples": 1011,
+  "entry_count": 1213,
+  "quadruples": 1013,
   "certificates": 76,
   "censuses": 124,
   "contributions": [
@@ -699,7 +699,7 @@
     },
     {
       "id": "skew-orbit-77-123",
-      "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+      "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
@@ -708,11 +708,13 @@
           "github": "vxvware"
         }
       ],
-      "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+      "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
       "entry_ids": [
         "n103-ad768d3456aa19390b56",
+        "n105-f8e5d3f1f4bedf99403e",
         "n109-45187de0fd01fc49f224",
         "n111-2847ae82d34f427c1e8f",
+        "n117-ad071568725114290eca",
         "n121-b92d2fdd9b233f688b66",
         "n123-da8a0ba3c142b128832f",
         "n77-2d84150c86ee2b8841a5"
@@ -35090,7 +35092,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -35099,11 +35101,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -35139,7 +35143,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -35148,11 +35152,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -37269,7 +37275,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -37278,11 +37284,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -37318,7 +37326,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -37327,11 +37335,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -37447,15 +37457,48 @@
       "n": 105,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n105-f8e5d3f1f4bedf99403e"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -37465,15 +37508,48 @@
       "n": 105,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n105-f8e5d3f1f4bedf99403e"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -37715,7 +37791,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -37724,11 +37800,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -37764,7 +37842,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -37773,11 +37851,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -37885,7 +37965,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -37894,11 +37974,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -37934,7 +38016,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -37943,11 +38025,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -38427,15 +38511,48 @@
       "n": 117,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n117-ad071568725114290eca"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -38450,12 +38567,43 @@
       "tier": "reproduced",
       "empty_basis": [],
       "quadruples": [
-        "n117-86ea347fa01e310c86a2"
+        "n117-86ea347fa01e310c86a2",
+        "n117-ad071568725114290eca"
       ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
+      "contributions": [
+        {
+          "id": "skew-orbit-77-123",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "entry_ids": [
+            "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
+            "n109-45187de0fd01fc49f224",
+            "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
+            "n121-b92d2fdd9b233f688b66",
+            "n123-da8a0ba3c142b128832f",
+            "n77-2d84150c86ee2b8841a5"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 19,
+          "recorded_at": "2026-10-15"
+        }
+      ],
       "origins": [
+        "participant-result",
         "published-import"
       ],
       "sources": [
@@ -38783,7 +38931,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -38792,11 +38940,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -38833,7 +38983,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -38842,11 +38992,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -38973,7 +39125,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -38982,11 +39134,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -39022,7 +39176,7 @@
       "contributions": [
         {
           "id": "skew-orbit-77-123",
-          "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+          "title": "Skew quadruples at n=77, 103, 105, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
           "relation": "participant-result",
           "publication_status": "unpublished",
           "contributors": [
@@ -39031,11 +39185,13 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
+            "n105-f8e5d3f1f4bedf99403e",
             "n109-45187de0fd01fc49f224",
             "n111-2847ae82d34f427c1e8f",
+            "n117-ad071568725114290eca",
             "n121-b92d2fdd9b233f688b66",
             "n123-da8a0ba3c142b128832f",
             "n77-2d84150c86ee2b8841a5"
@@ -40586,42 +40742,6 @@
       "note": ""
     },
     {
-      "n": 105,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 105,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 107,
       "stratum": "williamson",
       "group": "cyclic",
@@ -40894,24 +41014,6 @@
     {
       "n": 117,
       "stratum": "kkss",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 117,
-      "stratum": "skew-sds",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -41299,7 +41401,7 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 1133,
+    "reproduced": 1135,
     "spot-checked": 0,
     "receipt-backed": 2
   },
