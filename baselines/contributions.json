@@ -538,7 +538,7 @@
     },
     {
       "id": "skew-orbit-77-123",
-      "title": "Skew quadruples at n=77, 103, 109, 111, 121 and 123 by orbit-restricted pool join",
+      "title": "Skew quadruples at n=77, 103, 109, 111, 117, 121 and 123 by orbit-restricted pool join",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
@@ -547,12 +547,13 @@
           "github": "vxvware"
         }
       ],
-      "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109 and 111, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 15 and 86. The skew-Hadamard orders 308, 412, 436, 444, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+      "summary": "One quadruple with a skew block at each of n=77, 103, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the others between 7 and 86. The skew-Hadamard orders 308, 412, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
       "entry_ids": [
         "n77-2d84150c86ee2b8841a5",
         "n103-ad768d3456aa19390b56",
         "n109-45187de0fd01fc49f224",
         "n111-2847ae82d34f427c1e8f",
+        "n117-ad071568725114290eca",
         "n121-b92d2fdd9b233f688b66",
         "n123-da8a0ba3c142b128832f"
       ],
