@@ -561,6 +561,40 @@
       "seed_artifacts": [],
       "featured": false,
       "stratum": "skew-sds"
+    },
+    {
+      "id": "skew-paley-83-125",
+      "title": "Skew quadruples at n=83 and 125 from the Paley matrices",
+      "relation": "published-import",
+      "publication_status": "published",
+      "contributors": [],
+      "summary": "One quadruple with a skew block at each of n=83 and 125, in the form A skew, B symmetric, C = D that [@xia2005infinite] proves to exist for every prime power q = 4n - 1 (q = 331 and 499). The rows were generated on 2026-11-21 from the Paley matrices [@paley1933orthogonal] of orders 332 and 500 by the script recorded in evidence/literature/paley-four-circulant.txt; they were not transcribed from the source. These are literature constructions, not new results and not search results, and the credit is the source's. The board had no quadruple with a skew block at those n before.",
+      "entry_ids": [
+        "n83-1d9f76c5e9214b0642c9",
+        "n125-aba29bacd264eba0aa97"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "skew-sds"
+    },
+    {
+      "id": "skew-compression-81",
+      "title": "Skew quadruple at n=81 over the cyclic group by compression search",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "One quadruple with a skew block at n=81 over the cyclic group Z_81, found on 2026-11-21 by a search that fixes the skew block and the 3-compressions of the other three blocks, enumerates every lift of each compressed block, keeps the lifts whose periodic autocorrelations lie in five-value windows, and joins the three pools exactly. The search code is not in the repository; the run record is evidence/participants/compression/skew-81.txt. A skew-Hadamard matrix of order 324 has been known since 1994, from supplementary difference sets in the elementary abelian group of order 81 [@djokovic1994five]; the order is not new and is not among the open orders of baselines/skew-gaps.json. The board's entry is over the cyclic group. A search of current sources on 2026-11-21 found no earlier quadruple with a skew block over Z_81; that is a report of the search, not a proof of priority, and no first existence is claimed. This is the board's first quadruple with a skew block at n=81. The join stopped at its first solution, so the search is a sample and not a census.",
+      "entry_ids": [
+        "n81-2c38a1a70cab436cc5f0"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "skew-sds"
     }
   ]
 }
