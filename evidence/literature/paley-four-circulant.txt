@@ -1,0 +1,157 @@
+# Quadruples with a skew block at n = 83 and 125 from the Paley matrices of orders 332 and 500.
+# These are literature constructions, not search results and not new: for every prime power q = 4n - 1 the
+# source (Xia, Xia, Seberry and Wu, An infinite family of Goethals-Seidel arrays, Discrete Appl. Math. 145 (2005)
+# 498-504, doi:10.1016/j.dam.2003.06.007) proves that circulant A, B, C, D of order n exist with PAFs summing
+# to zero, A of skew type, B symmetric and C = D. Its rows were not transcribed; the rows below were generated on
+# 2026-11-21 from the Paley matrix (Paley, On orthogonal matrices, J. Math. Phys. 12 (1933) 311-320,
+# doi:10.1002/sapm1933121311) and have that form.
+#
+# Construction. Let q = 4n - 1 be prime (n odd, so q = 3 mod 8), GF(q^2) = GF(q)[i] with i^2 = -1, w a generator
+# of GF(q^2)*, chi the quadratic character of GF(q), f(d) = chi(Im w^d) for 0 <= d <= q, and
+# X_r(k) = (-1)^k f(r + 4k) for r = 0..3 and 0 <= k < n. The points w^0, ..., w^q represent the projective line,
+# and M[a][b] = chi(det(w^a, w^b)) is the Paley core: zero diagonal, skew, M M^T = q I. After scaling row r + 4k
+# by (-1)^(r+k) and column r' + 4k' by (-1)^k', M is the block matrix
+#     [  A   B   C   D ]
+#     [ -PD  A   B   C ]
+#     [ -PC -PD  A   B ]
+#     [ -PB -PC -PD  A ]
+# with A, B, C, D the circulants with first rows X_0, X_1, X_2, X_3 and P the cyclic shift. X_0 is skew with
+# X_0(0) = 0; setting X_0(0) = 1 gives four +-1 rows whose PAFs sum to zero. X_2 is symmetric after a shift by
+# (n - 1)/2, and X_3 is a shifted reversal of X_1 up to sign, so (X_0, shifted X_2, X_1, X_1) is again a
+# quadruple. The script below checks each of these statements entry by entry for the q it is given.
+# Not checked: whether the Goethals-Seidel matrix of the stored rows is equivalent to the Paley matrix.
+#
+# n = 83: q = 331, w = 6 + 1i, shift 41, row sums [1, -13, -9, -9]
+# n = 125: q = 499, w = 3 + 1i, shift 62, row sums [1, -7, 15, 15]
+#
+# gen.py:
+#   """Paley core of order q+1 (q prime, q = 3 mod 8) as four circulants of order n=(q+1)/4.
+#
+#   Points of the projective line over GF(q) are w^d GF(q)*, d = 0..q, for a
+#   generator w of GF(q^2)* with GF(q^2) = GF(q)[i], i^2 = -1.  The Paley core is
+#   M[a][b] = chi(det(w^a, w^b)).  With f(d) = chi(Im w^d) and
+#   X_r[k] = (-1)^k f(r + 4k), this script checks, entry by entry, that after
+#   scaling row (r,k) by (-1)^(r+k) and column (r',k') by (-1)^k' the core is
+#
+#       [  A   B   C   D ]
+#       [ -PD  A   B   C ]
+#       [ -PC -PD  A   B ]
+#       [ -PB -PC -PD  A ]
+#
+#   with A,B,C,D the circulants of X_0..X_3 and P the cyclic shift, and that
+#   (X_0 + delta_0, X_1, X_2, X_3) has PAFs summing to zero with X_0 skew.
+#   """
+#   import json
+#   import sys
+#
+#
+#   def isprime(m):
+#       return m > 1 and all(m % d for d in range(2, int(m**0.5) + 1))
+#
+#
+#   def quadruple(q, check_matrix=True):
+#       assert isprime(q) and q % 8 == 3
+#       n = (q + 1) // 4
+#       qr = {x * x % q for x in range(1, q)}
+#       chi = lambda a: 0 if a % q == 0 else (1 if a % q in qr else -1)
+#       mul = lambda x, y: ((x[0] * y[0] - x[1] * y[1]) % q, (x[0] * y[1] + x[1] * y[0]) % q)
+#       # generator of GF(q^2)*: brute force on the order
+#       N = q * q - 1
+#       primes = [p for p in range(2, q + 2) if N % p == 0 and isprime(p)]
+#       rest = N
+#       for p in primes:
+#           while rest % p == 0:
+#               rest //= p
+#       assert rest == 1
+#
+#       def power(x, e):
+#           r = (1, 0)
+#           while e:
+#               if e & 1:
+#                   r = mul(r, x)
+#               x = mul(x, x)
+#               e >>= 1
+#           return r
+#
+#       w = next(
+#           (a, b)
+#           for b in range(1, q)
+#           for a in range(1, q)
+#           if all(power((a, b), N // p) != (1, 0) for p in primes)
+#       )
+#       pts = [(1, 0)]
+#       for _ in range(q):
+#           pts.append(mul(pts[-1], w))
+#       f = [chi(p[1]) for p in pts]
+#       X = [[(-1) ** k * f[r + 4 * k] for k in range(n)] for r in range(4)]
+#       assert X[0][0] == 0 and sum(v == 0 for x in X for v in x) == 1
+#       if check_matrix:
+#           det = lambda x, y: (x[0] * y[1] - x[1] * y[0]) % q
+#           M = [[chi(det(pts[a], pts[b])) for b in range(q + 1)] for a in range(q + 1)]
+#           # Paley core: zero diagonal, skew, M M^T = q I
+#           assert all(M[a][a] == 0 for a in range(q + 1))
+#           assert all(M[a][b] == -M[b][a] for a in range(q + 1) for b in range(a))
+#           pos = [sum(1 << b for b in range(q + 1) if M[a][b] == 1) for a in range(q + 1)]
+#           neg = [sum(1 << b for b in range(q + 1) if M[a][b] == -1) for a in range(q + 1)]
+#           pc = lambda v: bin(v).count("1")
+#           for a in range(q + 1):
+#               for b in range(a, q + 1):
+#                   dot = pc(pos[a] & pos[b]) + pc(neg[a] & neg[b]) - pc(pos[a] & neg[b]) - pc(neg[a] & pos[b])
+#                   assert dot == (q if a == b else 0)
+#           # block form
+#           for r in range(4):
+#               for k in range(n):
+#                   a = r + 4 * k
+#                   for r2 in range(4):
+#                       t, c = (r2 - r) % 4, int(r2 < r)
+#                       for k2 in range(n):
+#                           b = r2 + 4 * k2
+#                           lhs = (-1) ** (r + k + k2) * M[a][b]
+#                           assert lhs == (-1) ** c * X[t][(k2 - k - c) % n], (a, b)
+#       X[0][0] = 1
+#       paf = lambda x, s: sum(x[j] * x[(j + s) % n] for j in range(n))
+#       assert all(sum(paf(x, s) for x in X) == 0 for s in range(1, n))
+#       assert all(X[0][-j % n] == -X[0][j] for j in range(1, n))
+#       return n, w, X
+#
+#
+#   if __name__ == "__main__":
+#       out = {}
+#       for q in map(int, sys.argv[1:]):
+#           n, w, X = quadruple(q)
+#           print(f"q={q} n={n} generator {w[0]}+{w[1]}i row sums {[sum(x) for x in X]}: core is Paley, block form holds, PAF and skew hold")
+#           out[str(n)] = X
+#       json.dump(out, open("blocks.json", "w"))
+#
+# xia_form.py (run as: python3 xia_form.py 331 499):
+#   """Put the Paley four-circulant quadruple of gen.py in the form A skew, B symmetric, C = D.
+#
+#   X_2 is symmetric after a cyclic shift, and X_3 is a shifted reversal of X_1 up
+#   to sign, so (X_0, shift(X_2), X_1, X_1) has the same PAF sum.  Each step is
+#   checked, not assumed.
+#   """
+#   import json
+#   import sys
+#
+#   from gen import quadruple
+#
+#   out = {}
+#   for q in map(int, sys.argv[1:]):
+#       n, w, X = quadruple(q, check_matrix=q < 600)
+#       sh = lambda x, s: [x[(j + s) % n] for j in range(n)]
+#       rev = lambda x: [x[-j % n] for j in range(n)]
+#       sym = [s for s in range(n) if sh(X[2], s) == rev(sh(X[2], s))]
+#       assert len(sym) == 1
+#       B = sh(X[2], sym[0])
+#       assert any(sh(rev(X[3]), s) in (X[1], [-v for v in X[1]]) for s in range(n))
+#       rows = [X[0], B, X[1], X[1]]
+#       paf = lambda x, s: sum(x[j] * x[(j + s) % n] for j in range(n))
+#       assert all(sum(paf(x, s) for x in rows) == 0 for s in range(1, n))
+#       assert all(rows[0][-j % n] == -rows[0][j] for j in range(1, n)) and rows[0][0] == 1
+#       print(f"q={q} n={n} w={w[0]}+{w[1]}i shift {sym[0]} row sums {[sum(x) for x in rows]}")
+#       out[str(n)] = {"q": q, "w": list(w), "shift": sym[0], "rows": rows}
+#   json.dump(out, open("xia_blocks.json", "w"))
+#
+# one row A,B,C,D per order:
++++------+-+++----+-+-+----+----++-+--+++-+---++-+--++++-++++-+-+-++++---+-++++++--,+-+---+---+-++--+-++-+++--+--+++--++------------++--+++--+--+++-++-+--++-+---+---+-,+-+-----++---+-+----+-++++---+--+-+--+--+--+++++++-++-----++--+-++---+---+++-+-+--+,+-+-----++---+-+----+-++++---+--+-+--+--+--+++++++-++-----++--+-++---+---+++-+-+--+
++-+--+++-++++-+++-+++---++++-+---+-+-++++++--+++-++-+-+--++-++-+--+--++-+-+--+---++------+-+-+++-+----+++---+---+----+---++-+,++++----+--+-++++-+--+-++-----+-----+-+++-+--++--+++----+++-+-++-+-+++----+++--++--+-+++-+-----+-----++-+--+-++++-+--+----+++,++++-+--++-+++-++-+++-+-+++--+-+--+---+-++-+-++-++++--++--++++++++--++-----+++-+-+---++--+--++++++---+-+---+-+----++-++++++--,++++-+--++-+++-++-+++-+-+++--+-+--+---+-++-+-++-++++--++--++++++++--++-----+++-+-+---++--+--++++++---+-+---+-+----++-++++++--
