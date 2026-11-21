@@ -2,8 +2,8 @@
   "schema_version": 1,
   "equivalence": "equiv-v1",
   "group": "cyclic",
-  "entry_count": 1213,
-  "quadruples": 1013,
+  "entry_count": 1216,
+  "quadruples": 1016,
   "certificates": 76,
   "censuses": 124,
   "contributions": [
@@ -660,7 +660,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+      "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 65 and 67 are recounted in [@djokovic1994five], 69 is in [@djokovic2023skew], and 71 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 283). The search is not a census and says nothing about how many classes exist.",
       "entry_ids": [
         "n65-18dd1068d61602ed2938",
         "n67-e33da00a2a0818664a11",
@@ -684,7 +684,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+      "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 93 and 113 are recounted in [@djokovic1994five], 95 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 379), and 97 is in [@djokovic2008skew]. The searches cover one orbit space each and are not a census of the cells.",
       "entry_ids": [
         "n113-580ff9693982eba7bbff",
         "n93-07a9ff120667b380aca7",
@@ -708,7 +708,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+      "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
       "entry_ids": [
         "n103-ad768d3456aa19390b56",
         "n105-f8e5d3f1f4bedf99403e",
@@ -723,6 +723,44 @@
       "stratum": "skew-sds",
       "label": "Challenge result",
       "position": 19,
+      "recorded_at": "2026-10-15"
+    },
+    {
+      "id": "skew-paley-83-125",
+      "title": "Skew quadruples at n=83 and 125 from the Paley matrices",
+      "relation": "published-import",
+      "publication_status": "published",
+      "contributors": [],
+      "summary": "One quadruple with a skew block at each of n=83 and 125, in the form A skew, B symmetric, C = D that [@xia2005infinite] proves to exist for every prime power q = 4n - 1 (q = 331 and 499). The rows were generated on 2026-11-21 from the Paley matrices [@paley1933orthogonal] of orders 332 and 500 by the script recorded in evidence/literature/paley-four-circulant.txt; they were not transcribed from the source. These are literature constructions, not new results and not search results, and the credit is the source's. The board had no quadruple with a skew block at those n before.",
+      "entry_ids": [
+        "n125-aba29bacd264eba0aa97",
+        "n83-1d9f76c5e9214b0642c9"
+      ],
+      "featured": false,
+      "stratum": "skew-sds",
+      "label": "Published / catalogue import",
+      "position": 20,
+      "recorded_at": "2026-10-15"
+    },
+    {
+      "id": "skew-compression-81",
+      "title": "Skew quadruple at n=81 over the cyclic group by compression search",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "One quadruple with a skew block at n=81 over the cyclic group Z_81, found on 2026-11-21 by a search that fixes the skew block and the 3-compressions of the other three blocks, enumerates every lift of each compressed block, keeps the lifts whose periodic autocorrelations lie in five-value windows, and joins the three pools exactly. The search code is not in the repository; the run record is evidence/participants/compression/skew-81.txt. A skew-Hadamard matrix of order 324 has been known since 1994, from supplementary difference sets in the elementary abelian group of order 81 [@djokovic1994five]; the order is not new and is not among the open orders of baselines/skew-gaps.json. The board's entry is over the cyclic group. A search of current sources on 2026-11-21 found no earlier quadruple with a skew block over Z_81; that is a report of the search, not a proof of priority, and no first existence is claimed. This is the board's first quadruple with a skew block at n=81. The join stopped at its first solution, so the search is a sample and not a census.",
+      "entry_ids": [
+        "n81-2c38a1a70cab436cc5f0"
+      ],
+      "featured": false,
+      "stratum": "skew-sds",
+      "label": "Challenge result",
+      "position": 21,
       "recorded_at": "2026-10-15"
     }
   ],
@@ -33256,7 +33294,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 65 and 67 are recounted in [@djokovic1994five], 69 is in [@djokovic2023skew], and 71 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 283). The search is not a census and says nothing about how many classes exist.",
           "entry_ids": [
             "n65-18dd1068d61602ed2938",
             "n67-e33da00a2a0818664a11",
@@ -33303,7 +33341,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 65 and 67 are recounted in [@djokovic1994five], 69 is in [@djokovic2023skew], and 71 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 283). The search is not a census and says nothing about how many classes exist.",
           "entry_ids": [
             "n65-18dd1068d61602ed2938",
             "n67-e33da00a2a0818664a11",
@@ -33492,7 +33530,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 65 and 67 are recounted in [@djokovic1994five], 69 is in [@djokovic2023skew], and 71 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 283). The search is not a census and says nothing about how many classes exist.",
           "entry_ids": [
             "n65-18dd1068d61602ed2938",
             "n67-e33da00a2a0818664a11",
@@ -33539,7 +33577,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 65 and 67 are recounted in [@djokovic1994five], 69 is in [@djokovic2023skew], and 71 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 283). The search is not a census and says nothing about how many classes exist.",
           "entry_ids": [
             "n65-18dd1068d61602ed2938",
             "n67-e33da00a2a0818664a11",
@@ -33850,7 +33888,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 65 and 67 are recounted in [@djokovic1994five], 69 is in [@djokovic2023skew], and 71 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 283). The search is not a census and says nothing about how many classes exist.",
           "entry_ids": [
             "n65-18dd1068d61602ed2938",
             "n67-e33da00a2a0818664a11",
@@ -34047,7 +34085,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 65 and 67 are recounted in [@djokovic1994five], 69 is in [@djokovic2023skew], and 71 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 283). The search is not a census and says nothing about how many classes exist.",
           "entry_ids": [
             "n65-18dd1068d61602ed2938",
             "n67-e33da00a2a0818664a11",
@@ -34199,7 +34237,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 65 and 67 are recounted in [@djokovic1994five], 69 is in [@djokovic2023skew], and 71 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 283). The search is not a census and says nothing about how many classes exist.",
           "entry_ids": [
             "n65-18dd1068d61602ed2938",
             "n67-e33da00a2a0818664a11",
@@ -34246,7 +34284,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The search is not a census and says nothing about how many classes exist.",
+          "summary": "One quadruple with a skew block at each of n=65, 67, 69 and 71, found on 2026-11-19 by the sampling search in research/starter/skew: the skew block is fixed in advance, invariant under a multiplier subgroup of odd order, and the other three blocks are sampled inside per-lag autocorrelation windows and joined exactly. The skew-Hadamard orders 260, 268, 276 and 284 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 65 and 67 are recounted in [@djokovic1994five], 69 is in [@djokovic2023skew], and 71 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 283). The search is not a census and says nothing about how many classes exist.",
           "entry_ids": [
             "n65-18dd1068d61602ed2938",
             "n67-e33da00a2a0818664a11",
@@ -35101,7 +35139,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -35152,7 +35190,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -35464,15 +35502,41 @@
       "n": 81,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n81-2c38a1a70cab436cc5f0"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-compression-81",
+          "title": "Skew quadruple at n=81 over the cyclic group by compression search",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at n=81 over the cyclic group Z_81, found on 2026-11-21 by a search that fixes the skew block and the 3-compressions of the other three blocks, enumerates every lift of each compressed block, keeps the lifts whose periodic autocorrelations lie in five-value windows, and joins the three pools exactly. The search code is not in the repository; the run record is evidence/participants/compression/skew-81.txt. A skew-Hadamard matrix of order 324 has been known since 1994, from supplementary difference sets in the elementary abelian group of order 81 [@djokovic1994five]; the order is not new and is not among the open orders of baselines/skew-gaps.json. The board's entry is over the cyclic group. A search of current sources on 2026-11-21 found no earlier quadruple with a skew block over Z_81; that is a report of the search, not a proof of priority, and no first existence is claimed. This is the board's first quadruple with a skew block at n=81. The join stopped at its first solution, so the search is a sample and not a census.",
+          "entry_ids": [
+            "n81-2c38a1a70cab436cc5f0"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 21,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -35482,15 +35546,41 @@
       "n": 81,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n81-2c38a1a70cab436cc5f0"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-compression-81",
+          "title": "Skew quadruple at n=81 over the cyclic group by compression search",
+          "relation": "participant-result",
+          "publication_status": "unpublished",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "One quadruple with a skew block at n=81 over the cyclic group Z_81, found on 2026-11-21 by a search that fixes the skew block and the 3-compressions of the other three blocks, enumerates every lift of each compressed block, keeps the lifts whose periodic autocorrelations lie in five-value windows, and joins the three pools exactly. The search code is not in the repository; the run record is evidence/participants/compression/skew-81.txt. A skew-Hadamard matrix of order 324 has been known since 1994, from supplementary difference sets in the elementary abelian group of order 81 [@djokovic1994five]; the order is not new and is not among the open orders of baselines/skew-gaps.json. The board's entry is over the cyclic group. A search of current sources on 2026-11-21 found no earlier quadruple with a skew block over Z_81; that is a report of the search, not a proof of priority, and no first existence is claimed. This is the board's first quadruple with a skew block at n=81. The join stopped at its first solution, so the search is a sample and not a census.",
+          "entry_ids": [
+            "n81-2c38a1a70cab436cc5f0"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Challenge result",
+          "position": 21,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "participant-result"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -35592,15 +35682,37 @@
       "n": 83,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n83-1d9f76c5e9214b0642c9"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-paley-83-125",
+          "title": "Skew quadruples at n=83 and 125 from the Paley matrices",
+          "relation": "published-import",
+          "publication_status": "published",
+          "contributors": [],
+          "summary": "One quadruple with a skew block at each of n=83 and 125, in the form A skew, B symmetric, C = D that [@xia2005infinite] proves to exist for every prime power q = 4n - 1 (q = 331 and 499). The rows were generated on 2026-11-21 from the Paley matrices [@paley1933orthogonal] of orders 332 and 500 by the script recorded in evidence/literature/paley-four-circulant.txt; they were not transcribed from the source. These are literature constructions, not new results and not search results, and the credit is the source's. The board had no quadruple with a skew block at those n before.",
+          "entry_ids": [
+            "n125-aba29bacd264eba0aa97",
+            "n83-1d9f76c5e9214b0642c9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Published / catalogue import",
+          "position": 20,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "published-import"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -35610,15 +35722,37 @@
       "n": 83,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n83-1d9f76c5e9214b0642c9"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-paley-83-125",
+          "title": "Skew quadruples at n=83 and 125 from the Paley matrices",
+          "relation": "published-import",
+          "publication_status": "published",
+          "contributors": [],
+          "summary": "One quadruple with a skew block at each of n=83 and 125, in the form A skew, B symmetric, C = D that [@xia2005infinite] proves to exist for every prime power q = 4n - 1 (q = 331 and 499). The rows were generated on 2026-11-21 from the Paley matrices [@paley1933orthogonal] of orders 332 and 500 by the script recorded in evidence/literature/paley-four-circulant.txt; they were not transcribed from the source. These are literature constructions, not new results and not search results, and the credit is the source's. The board had no quadruple with a skew block at those n before.",
+          "entry_ids": [
+            "n125-aba29bacd264eba0aa97",
+            "n83-1d9f76c5e9214b0642c9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Published / catalogue import",
+          "position": 20,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "published-import"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -36406,7 +36540,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 93 and 113 are recounted in [@djokovic1994five], 95 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 379), and 97 is in [@djokovic2008skew]. The searches cover one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n113-580ff9693982eba7bbff",
             "n93-07a9ff120667b380aca7",
@@ -36453,7 +36587,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 93 and 113 are recounted in [@djokovic1994five], 95 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 379), and 97 is in [@djokovic2008skew]. The searches cover one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n113-580ff9693982eba7bbff",
             "n93-07a9ff120667b380aca7",
@@ -36592,7 +36726,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 93 and 113 are recounted in [@djokovic1994five], 95 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 379), and 97 is in [@djokovic2008skew]. The searches cover one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n113-580ff9693982eba7bbff",
             "n93-07a9ff120667b380aca7",
@@ -36639,7 +36773,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 93 and 113 are recounted in [@djokovic1994five], 95 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 379), and 97 is in [@djokovic2008skew]. The searches cover one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n113-580ff9693982eba7bbff",
             "n93-07a9ff120667b380aca7",
@@ -36780,7 +36914,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 93 and 113 are recounted in [@djokovic1994five], 95 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 379), and 97 is in [@djokovic2008skew]. The searches cover one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n113-580ff9693982eba7bbff",
             "n93-07a9ff120667b380aca7",
@@ -36828,7 +36962,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 93 and 113 are recounted in [@djokovic1994five], 95 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 379), and 97 is in [@djokovic2008skew]. The searches cover one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n113-580ff9693982eba7bbff",
             "n93-07a9ff120667b380aca7",
@@ -37284,7 +37418,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -37335,7 +37469,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -37478,7 +37612,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -37529,7 +37663,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -37800,7 +37934,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -37851,7 +37985,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -37974,7 +38108,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -38025,7 +38159,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -38154,7 +38288,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 93 and 113 are recounted in [@djokovic1994five], 95 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 379), and 97 is in [@djokovic2008skew]. The searches cover one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n113-580ff9693982eba7bbff",
             "n93-07a9ff120667b380aca7",
@@ -38201,7 +38335,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches cover one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=93, 95, 97 and 113, found on 2026-11-20 by the orbit-restricted searches in research/starter/skew: all four blocks are constant on the orbits of a multiplier subgroup of odd order (5, 9, 3 and 7). The quadruples at 93, 95 and 113 come from the exhaustive search of that orbit space (complete at 95 and 113, stopped at the tenth solution at 93), the one at 97 from the pool join restricted to it. The skew-Hadamard orders 372, 380, 388 and 452 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all four orders: constructions of 1992 at 93 and 113 are recounted in [@djokovic1994five], 95 belongs to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 379), and 97 is in [@djokovic2008skew]. The searches cover one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n113-580ff9693982eba7bbff",
             "n93-07a9ff120667b380aca7",
@@ -38532,7 +38666,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -38584,7 +38718,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -38940,7 +39074,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -38992,7 +39126,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -39134,7 +39268,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -39185,7 +39319,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n. The searches are samples of one orbit space each and are not a census of the cells.",
+          "summary": "One quadruple with a skew block at each of n=77, 103, 105, 109, 111, 117, 121 and 123, found on 2026-11-20 by the pool join of research/starter/skew restricted to quadruples in which all four blocks are constant on the orbits of a multiplier subgroup: order 3 at 77, 103, 105, 109, 111 and 117, order 5 at 121 and 123. The skew block and the row sums are fixed by the plan; the runs at 77 and 109 found one solution each, the run at 105 two, the others between 7 and 86. The skew-Hadamard orders 308, 412, 420, 436, 444, 468, 484 and 492 are not among the open orders of baselines/skew-gaps.json; these are the board's first quadruples with a skew block at those n, without a claim of first existence. Quadruples with a skew block over the cyclic group were already published at all eight orders: 77, 105, 111, 117 and 123 belong to the family of [@xia2005infinite] for prime powers q = 4n - 1 (q = 307, 419, 443, 467 and 491), 103 is in [@djokovic1994five], which also recounts a construction of 1992 at 121, and 109 is in [@djokovic2008orders]. The searches are samples of one orbit space each and are not a census of the cells.",
           "entry_ids": [
             "n103-ad768d3456aa19390b56",
             "n105-f8e5d3f1f4bedf99403e",
@@ -39307,15 +39441,37 @@
       "n": 125,
       "stratum": "skew-sds",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n125-aba29bacd264eba0aa97"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-paley-83-125",
+          "title": "Skew quadruples at n=83 and 125 from the Paley matrices",
+          "relation": "published-import",
+          "publication_status": "published",
+          "contributors": [],
+          "summary": "One quadruple with a skew block at each of n=83 and 125, in the form A skew, B symmetric, C = D that [@xia2005infinite] proves to exist for every prime power q = 4n - 1 (q = 331 and 499). The rows were generated on 2026-11-21 from the Paley matrices [@paley1933orthogonal] of orders 332 and 500 by the script recorded in evidence/literature/paley-four-circulant.txt; they were not transcribed from the source. These are literature constructions, not new results and not search results, and the credit is the source's. The board had no quadruple with a skew block at those n before.",
+          "entry_ids": [
+            "n125-aba29bacd264eba0aa97",
+            "n83-1d9f76c5e9214b0642c9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Published / catalogue import",
+          "position": 20,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "published-import"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -39325,15 +39481,37 @@
       "n": 125,
       "stratum": "general",
       "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
+      "status": "exists",
+      "artifact_status": "verified-on-board",
+      "tier": "reproduced",
       "empty_basis": [],
-      "quadruples": [],
+      "quadruples": [
+        "n125-aba29bacd264eba0aa97"
+      ],
       "evidence": [],
       "censuses": [],
-      "contributions": [],
-      "origins": [],
+      "contributions": [
+        {
+          "id": "skew-paley-83-125",
+          "title": "Skew quadruples at n=83 and 125 from the Paley matrices",
+          "relation": "published-import",
+          "publication_status": "published",
+          "contributors": [],
+          "summary": "One quadruple with a skew block at each of n=83 and 125, in the form A skew, B symmetric, C = D that [@xia2005infinite] proves to exist for every prime power q = 4n - 1 (q = 331 and 499). The rows were generated on 2026-11-21 from the Paley matrices [@paley1933orthogonal] of orders 332 and 500 by the script recorded in evidence/literature/paley-four-circulant.txt; they were not transcribed from the source. These are literature constructions, not new results and not search results, and the credit is the source's. The board had no quadruple with a skew block at those n before.",
+          "entry_ids": [
+            "n125-aba29bacd264eba0aa97",
+            "n83-1d9f76c5e9214b0642c9"
+          ],
+          "featured": false,
+          "stratum": "skew-sds",
+          "label": "Published / catalogue import",
+          "position": 20,
+          "recorded_at": "2026-10-15"
+        }
+      ],
+      "origins": [
+        "published-import"
+      ],
       "sources": [],
       "contradicted": [],
       "flags": [],
@@ -40120,42 +40298,6 @@
       "note": ""
     },
     {
-      "n": 81,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 81,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 83,
       "stratum": "williamson",
       "group": "cyclic",
@@ -40176,42 +40318,6 @@
     {
       "n": 83,
       "stratum": "good",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 83,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 83,
-      "stratum": "general",
       "group": "cyclic",
       "status": "unresolved",
       "artifact_status": "none",
@@ -41192,42 +41298,6 @@
       "note": ""
     },
     {
-      "n": 125,
-      "stratum": "skew-sds",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
-      "n": 125,
-      "stratum": "general",
-      "group": "cyclic",
-      "status": "unresolved",
-      "artifact_status": "none",
-      "tier": null,
-      "empty_basis": [],
-      "quadruples": [],
-      "evidence": [],
-      "censuses": [],
-      "contributions": [],
-      "origins": [],
-      "sources": [],
-      "contradicted": [],
-      "flags": [],
-      "note": ""
-    },
-    {
       "n": 127,
       "stratum": "williamson",
       "group": "cyclic",
@@ -41401,7 +41471,7 @@
   },
   "tier_counts": {
     "proven": 56,
-    "reproduced": 1135,
+    "reproduced": 1138,
     "spot-checked": 0,
     "receipt-backed": 2
   },
