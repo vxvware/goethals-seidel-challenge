@@ -226,12 +226,13 @@ def census_count(c, r):
 # existence was already published still counts here. The wording is derived
 # from the live board, so a statement cannot outrun its evidence.
 #
-# Not listed: Williamson 65, which two earlier public records report (see the
-# contribution williamson-65-confirmation), and G-matrices at 53, where no
-# parameter set exists, so the empty cell is arithmetic and not a search result.
+# Not listed: Williamson 61, whose single class is reported in a 2012 paper
+# (see the contribution williamson-61-reproduction); Williamson 65, which two
+# earlier public records report (see the contribution
+# williamson-65-confirmation); and G-matrices at 53, where no parameter set
+# exists, so the empty cell is arithmetic and not a search result.
 LITERATURE_SEARCH_DATE = "2026-11-21"
 NEW_RESULTS = (
-    ("williamson", 61),
     ("good", 53),
     ("good", 55),
     ("good", 59),

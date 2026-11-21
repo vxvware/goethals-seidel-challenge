@@ -24,6 +24,18 @@ def add(track, n, status, url, title):
 
 
 for n in range(1, 64, 2):
+    if n == 61:
+        # The classification at 61 is not in the paper cited for the other
+        # orders, which attributes it to this one.
+        add(
+            "williamson",
+            n,
+            "exists",
+            "https://doi.org/10.1007/s10623-011-9492-2",
+            "Lang, Schneider, Turyn type Williamson matrices up to order 99, Des. Codes "
+            "Cryptogr. 62 (2012): exactly one class at order 61, reported in the introduction",
+        )
+        continue
     add(
         "williamson",
         n,

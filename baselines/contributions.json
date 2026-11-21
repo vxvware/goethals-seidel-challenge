@@ -614,6 +614,25 @@
       "seed_artifacts": [],
       "featured": false,
       "stratum": "williamson"
+    },
+    {
+      "id": "williamson-61-reproduction",
+      "title": "Williamson census at n=61, one class, reproducing a published classification",
+      "relation": "independent-reproduction",
+      "publication_status": "published",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "Lang and Schneider [@lang2012turyn] report in their introduction that they implemented the exhaustive algorithm of Holzmann, Kharaghani and Tayfeh-Rezaie [@holzmann2008williamson], extended its results from order 59 to order 61, and found exactly one equivalence class of Williamson matrices of order 61, which is of Turyn type; Bright, Kotsireas and Ganesh [@bright2020williamson] cite the enumeration at 61 to that paper. Only the first two pages of [@lang2012turyn] were read for this record. The board's own census is a full run of the pinned engine williamson-hkt-v2 on 2026-11-14 (17,359 s on 8 threads), registered as a replay: it returned one class, the Turyn-type quadruple already on the board, so the board's count agrees with the published one. The run is an independent reproduction of a published classification, not a first result.",
+      "entry_ids": [
+        "williamson-n61"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "williamson"
     }
   ]
 }
