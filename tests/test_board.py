@@ -335,12 +335,16 @@ def test_new_results_are_worded_from_the_board(board):
     new_results = module.new_results
     d, r, b = board
     groups = dict(new_results(summary(d, r, b), r))
-    correction = groups["Correction to a published result"]
+    correction = groups["Contradicts a published result"]
     assert [(x["stratum"], x["n"]) for x in correction] == [("kkss", 49)]
     assert correction[0]["text"] == "G-matrices of order 49: exactly 1 class."
     assert "1802.00556" in correction[0]["source"]["url"]
     texts = {x["text"] for items in groups.values() for x in items}
-    assert "Williamson matrices of order 65: none exist." in texts
+    # Williamson 65 has earlier public records and G-matrices at 53 have no
+    # parameter set: neither is listed as new.
+    assert "Williamson matrices of order 65: none exist." not in texts
+    assert "G-matrices of order 53: none exist." not in texts
+    assert "G-matrices of order 57: none exist." in texts
     assert "G-matrices of order 61: exactly 2 classes." in texts
     assert "Not yet replayed" not in groups
     single = {x["text"] for x in groups["Nonexistence"] if x["qualifier"]}

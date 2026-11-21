@@ -220,14 +220,18 @@ def census_count(c, r):
     return f"{x['count']} {'class' if x['count'] == 1 else 'classes'}"
 
 
-# Cells whose statement is not in the published literature. The list is curated
-# because a cell's origins only say who supplied the rows: an exact class count
-# at an order whose existence was already published still counts here. The
-# wording is derived from the live board, so a statement cannot outrun its
-# evidence.
+# Cells whose statement the literature search of LITERATURE_SEARCH_DATE did not
+# find in a source it could read. The list is curated because a cell's origins
+# only say who supplied the rows: an exact class count at an order whose
+# existence was already published still counts here. The wording is derived
+# from the live board, so a statement cannot outrun its evidence.
+#
+# Not listed: Williamson 65, which two earlier public records report (see the
+# contribution williamson-65-confirmation), and G-matrices at 53, where no
+# parameter set exists, so the empty cell is arithmetic and not a search result.
+LITERATURE_SEARCH_DATE = "2026-11-21"
 NEW_RESULTS = (
     ("williamson", 61),
-    ("williamson", 65),
     ("good", 53),
     ("good", 55),
     ("good", 59),
@@ -235,7 +239,6 @@ NEW_RESULTS = (
     ("good", 67),
     ("kkss", 49),
     ("kkss", 51),
-    ("kkss", 53),
     ("kkss", 55),
     ("kkss", 57),
     ("kkss", 59),
@@ -246,8 +249,17 @@ NEW_RESULTS = (
 # check has established that they were unknown.
 NEW_CELLS = set(NEW_RESULTS)
 NEW_RESULT_NAMES = {"williamson": "Williamson ", "good": "Good ", "kkss": "G-"}
+# What a contradicted source says and what was read of it, by bibliography key.
+# {cite} is the linked reference.
+CONTRADICTION_NOTES = {
+    "djokovic2018goethals": (
+        "Version 1 of the arXiv text of {cite} reports that an exhaustive search found none "
+        "at this order; the journal version was not read. The rows on this board certify "
+        "existence. The count of one class rests on this board's search."
+    ),
+}
 NEW_RESULT_GROUPS = (
-    ("correction", "Correction to a published result"),
+    ("correction", "Contradicts a published result"),
     ("classification", "Classifications"),
     ("nonexistence", "Nonexistence"),
 )
@@ -286,8 +298,10 @@ def new_results(stats, r):
 def new_results_section(stats, r):
     parts = [
         '<section id="new-results"><h2>New results</h2><p class="key">Statements on this board '
-        "that are not in the published literature. Counts are equivalence classes. Each "
-        "statement comes from an exhaustive computer search, not from a proof.</p>"
+        f"that a literature search made on {LITERATURE_SEARCH_DATE} did not find in any source "
+        "it could read. Some relevant papers could not be read, so this reports the search and "
+        "does not claim priority. Counts are equivalence classes. Each statement comes from an "
+        "exhaustive computer search, not from a proof.</p>"
     ]
     for title, items in new_results(stats, r):
         parts.append(f"<h3>{esc(title)}</h3><ul>")
@@ -298,11 +312,12 @@ def new_results_section(stats, r):
                 key = BIB.resolve(url)
                 if not key:
                     raise ValueError(f"contradicted source is not in references.bib: {url}")
-                link += (
-                    " A published exhaustive search reports none "
-                    f'(<a href="{esc(url)}" rel="noopener">{esc(BIB.short(key))}</a> '
-                    f"{BIB.mark(key)})."
+                if key not in CONTRADICTION_NOTES:
+                    raise ValueError(f"contradicted source has no note on what was read: {key}")
+                cite = (
+                    f'<a href="{esc(url)}" rel="noopener">{esc(BIB.short(key))}</a> {BIB.mark(key)}'
                 )
+                link += " " + esc(CONTRADICTION_NOTES[key]).replace("{cite}", cite)
             if x["qualifier"]:
                 link += f' <span class="muted">({esc(x["qualifier"])})</span>'
             parts.append(f"<li>{link}</li>")
@@ -445,7 +460,7 @@ def build(quick=False):
         for track in TRACKS:
             c = by_cell[n, track]
             label = (
-                "Corrects published"
+                "Contradicts published"
                 if c["contradicted"]
                 else "Verified"
                 if c["quadruples"]
