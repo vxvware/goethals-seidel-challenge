@@ -5,7 +5,7 @@
   "contributions": [
     {
       "id": "kkss-49-correction",
-      "title": "G-matrices at n=49, correcting a published nonexistence",
+      "title": "G-matrices at n=49, contradicting a published nonexistence statement",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
@@ -14,7 +14,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The exhaustive search of Đoković and Kotsireas [@djokovic2018goethals] reports no G-matrices (type kkss) at v=49 for the parameter set (49; 24,24,22,18; 39). The vxvware census finds eight quadruples with exactly that parameter set, one equiv-v1 class, and the rows verify exactly on this board. The same program reproduces the published counts at v=33, 37, 41, 43, and 45.",
+      "summary": "Version 1 of the arXiv text of [@djokovic2018goethals], the only version posted there, reports that an exhaustive search found no cyclic families of type (kkss) at v=49, where the only parameter set of that type is (49; 24,24,22,18; 39). The journal version was not read. The vxvware census finds eight quadruples with exactly that parameter set, and the rows verify exactly on this board, so existence is certified by the rows and depends on no search. That they form exactly one equiv-v1 class rests on this board's search and its replay. The same program reproduces the published counts at v=33, 37, 41, 43, and 45.",
       "entry_ids": [
         "vxvware-kkss-n49"
       ],
@@ -35,7 +35,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Complete vxvware censuses past the range classified by Đoković and Kotsireas [@djokovic2018goethals]: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's infinite family [@spence1977skew] (q = 101 and 109); the class counts at 51 and 55, the nonexistence at 57, and the existence and count at 59 are new. Replays with pinned engines between 2026-11-14 and 2026-11-15 returned the same classes at each order, so the four counts are exact.",
+      "summary": "Complete vxvware censuses past the range classified by Đoković and Kotsireas [@djokovic2018goethals]: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's infinite family [@spence1977skew] (q = 101 and 109); the class counts at 51 and 55, the nonexistence at 57, and the existence and count at 59 are new. Replays with pinned engines between 2026-11-14 and 2026-11-15 returned the same classes at each order, so the four counts are exact. The empty cell at 53 is not a search result: a (kkss) parameter set exists only when 2v - 1 is a sum of two squares, by the parameter-set condition of [@djokovic2018goethals], and 105 is not.",
       "entry_ids": [
         "vxvware-kkss-n51",
         "vxvware-kkss-n55",
@@ -61,7 +61,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18 and finished all 32 pieces on 2026-10-22 after 811 cpu-hours: twelve quadruples, two equiv-v1 classes (three under the source's own convention, which does not transpose blocks). Spence's family [@spence1977skew] does not reach 61, Đoković and Kotsireas [@djokovic2018goethals] classify through 49, and Djokovic (2024) left the parameter set (61; 24, 28, 28, 28; 47) open. The rows verify exactly; the count of two became exact on 2026-11-15, when a replay with the pinned kkss-census-c-v3 engine returned the same classes. The first quadruple keeps its hand-entered id and the census maps its class onto it.",
+      "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18 and finished all 32 pieces on 2026-10-22 after 811 cpu-hours: twelve quadruples, two equiv-v1 classes (three under the source's own convention, which does not transpose blocks). Spence's family [@spence1977skew] does not reach 61, Đoković and Kotsireas [@djokovic2018goethals] classify through 49, and the 2009 table of cyclic families in [@djokovic2009supplementary] leaves type (kkss) unresolved at (61; 30, 30, 25, 25; 49), the only parameter set of that type at 61. The rows verify exactly; the count of two became exact on 2026-11-15, when a replay with the pinned kkss-census-c-v3 engine returned the same classes. The first quadruple keeps its hand-entered id and the census maps its class onto it.",
       "entry_ids": [
         "n61-c46dadc965084b5d9e77",
         "vxvware-kkss-n61"
@@ -83,7 +83,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact.",
+      "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact. At 55 a repository note in a commit dated 2026-10-25 [@kishan2026notes] reports an independent exhaustive classification with exactly one class; it cites this board for existence.",
       "entry_ids": [
         "vxvware-good-n53",
         "vxvware-good-n55",
@@ -239,7 +239,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The campaign reports nonexistence. A missing early receipt chain leaves this an archived claim, with participant credit retained.",
+      "summary": "The campaign reports nonexistence. A missing early receipt chain leaves this an archived claim, with participant credit retained. A repository note in a commit dated 2026-10-25 [@kishan2026notes] reports an independent exhaustive search of 67,437 compressed instances that found no good matrices of order 65; it describes this board's claim as unverified.",
       "entry_ids": [
         "good-n65-campaign"
       ],
@@ -595,6 +595,25 @@
       "seed_artifacts": [],
       "featured": false,
       "stratum": "skew-sds"
+    },
+    {
+      "id": "williamson-65-confirmation",
+      "title": "Williamson census at n=65, empty, confirming earlier public records",
+      "relation": "independent-reproduction",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "The board's compression census at n=65 lifted all 72,478 of its compressed instances and found no Williamson matrices; the census entry is dated 2026-11-14. Two public records are earlier and report the same result: a Zenodo preprint whose version 1 is dated 2026-10-22 [@graham2026williamson65], and a repository note in a commit dated 2026-10-25 [@kishan2026notes]. Neither is peer reviewed. The board's run is an independent confirmation, not a first result. Each of the earlier records counts 70,699 compressed instances against the board's 72,478; the difference has not been reconciled.",
+      "entry_ids": [
+        "williamson-n65"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "williamson"
     }
   ]
 }
