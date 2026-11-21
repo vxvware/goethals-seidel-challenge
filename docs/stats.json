@@ -783,6 +783,27 @@
       "label": "Independent reproduction",
       "position": 22,
       "recorded_at": "2026-10-15"
+    },
+    {
+      "id": "williamson-61-reproduction",
+      "title": "Williamson census at n=61, one class, reproducing a published classification",
+      "relation": "independent-reproduction",
+      "publication_status": "published",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "Lang and Schneider [@lang2012turyn] report in their introduction that they implemented the exhaustive algorithm of Holzmann, Kharaghani and Tayfeh-Rezaie [@holzmann2008williamson], extended its results from order 59 to order 61, and found exactly one equivalence class of Williamson matrices of order 61, which is of Turyn type; Bright, Kotsireas and Ganesh [@bright2020williamson] cite the enumeration at 61 to that paper. Only the first two pages of [@lang2012turyn] were read for this record. The board's own census is a full run of the pinned engine williamson-hkt-v2 on 2026-11-14 (17,359 s on 8 threads), registered as a replay: it returned one class, the Turyn-type quadruple already on the board, so the board's count agrees with the published one. The run is an independent reproduction of a published classification, not a first result.",
+      "entry_ids": [
+        "williamson-n61"
+      ],
+      "featured": false,
+      "stratum": "williamson",
+      "label": "Independent reproduction",
+      "position": 23,
+      "recorded_at": "2026-10-15"
     }
   ],
   "cells": [
@@ -32102,9 +32123,31 @@
           "label": "Published / catalogue import",
           "position": 15,
           "recorded_at": "2026-10-15"
+        },
+        {
+          "id": "williamson-61-reproduction",
+          "title": "Williamson census at n=61, one class, reproducing a published classification",
+          "relation": "independent-reproduction",
+          "publication_status": "published",
+          "contributors": [
+            {
+              "name": "vxvware",
+              "github": "vxvware"
+            }
+          ],
+          "summary": "Lang and Schneider [@lang2012turyn] report in their introduction that they implemented the exhaustive algorithm of Holzmann, Kharaghani and Tayfeh-Rezaie [@holzmann2008williamson], extended its results from order 59 to order 61, and found exactly one equivalence class of Williamson matrices of order 61, which is of Turyn type; Bright, Kotsireas and Ganesh [@bright2020williamson] cite the enumeration at 61 to that paper. Only the first two pages of [@lang2012turyn] were read for this record. The board's own census is a full run of the pinned engine williamson-hkt-v2 on 2026-11-14 (17,359 s on 8 threads), registered as a replay: it returned one class, the Turyn-type quadruple already on the board, so the board's count agrees with the published one. The run is an independent reproduction of a published classification, not a first result.",
+          "entry_ids": [
+            "williamson-n61"
+          ],
+          "featured": false,
+          "stratum": "williamson",
+          "label": "Independent reproduction",
+          "position": 23,
+          "recorded_at": "2026-10-15"
         }
       ],
       "origins": [
+        "independent-reproduction",
         "published-import"
       ],
       "sources": [
@@ -32114,8 +32157,8 @@
           "group": "cyclic",
           "status": "exists",
           "source": {
-            "title": "Williamson classification and Turyn construction",
-            "url": "https://cs.uwaterloo.ca/~cbright/reports/jsc-willsat.pdf"
+            "title": "Lang, Schneider, Turyn type Williamson matrices up to order 99, Des. Codes Cryptogr. 62 (2012): exactly one class at order 61, reported in the introduction",
+            "url": "https://doi.org/10.1007/s10623-011-9492-2"
           },
           "baseline_date": "2026-10-14"
         }
@@ -32559,8 +32602,8 @@
           "group": "cyclic",
           "status": "exists",
           "source": {
-            "title": "Williamson classification and Turyn construction",
-            "url": "https://cs.uwaterloo.ca/~cbright/reports/jsc-willsat.pdf"
+            "title": "Lang, Schneider, Turyn type Williamson matrices up to order 99, Des. Codes Cryptogr. 62 (2012): exactly one class at order 61, reported in the introduction",
+            "url": "https://doi.org/10.1007/s10623-011-9492-2"
           },
           "baseline_date": "2026-10-14"
         },
