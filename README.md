@@ -1,4 +1,6 @@
-# Goethals–Seidel Challenge
+# Hunting Hadamards
+
+The Goethals–Seidel challenge.
 
 ![Verified quadruples](https://vxvware.github.io/goethals-seidel-challenge/badges/quadruples.svg)
 ![Census records](https://vxvware.github.io/goethals-seidel-challenge/badges/censuses.svg)
