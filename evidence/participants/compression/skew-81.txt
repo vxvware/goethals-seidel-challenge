@@ -1,0 +1,30 @@
+# Skew quadruple of order 81 over the cyclic group Z_81, from a 3-compression lift search with a three-pool join.
+# Run on a laptop, 2026-11-21, at most 3 threads. The search code (st1.c, mkplan.py, lf.c, tj5c.c, check.py) is not in the repository;
+# this file is the run record.
+# Method. For a +-1 row x of length 81 its 3-compression is c(j) = x(j) + x(j + 27) + x(j + 54), 0 <= j < 27, with entries in
+# {+-1, +-3}. A cell is a skew first block A and three compressed blocks cB, cC, cD that solve the compressed problem over Z_27
+# together with the compression of A. Inside the cell every lift of each compressed block is enumerated (one lift per orbit of the
+# shift by 27), the lifts whose periodic autocorrelation lies in a five-value window at every lag are kept as a pool, and the three
+# pools are joined exactly on the lags the compression does not already fix.
+# The join was cut into 32 parts and stopped at the first solution, in part 1; parts 2 to 31 were not run. This is a sample of one
+# cell, not a census, and it says nothing about how many classes exist.
+# A skew-Hadamard matrix of order 324 was already known: Djokovic, Five new orders for Hadamard matrices of skew type,
+# Australas. J. Combin. 10 (1994) 259-264, builds one from supplementary difference sets in the elementary abelian group of order 81.
+# The rows below are over the cyclic group. A search of current sources on 2026-11-21 found no earlier quadruple with a skew block
+# over Z_81; that is a statement about the search, not a proof that none was published.
+# run record:
+#   cell 0: row sums of B, C, D 9, 11, 11; entries of absolute value 3 per compressed block 9, 6, 4
+#   A:  +--+--+++-+--+++++-++-+--+-+--++++--+++-+-+---++----++-+-++-+--+-----++-+---++-++
+#   cB: 1,3,-1,-3,-3,1,-1,3,-1,1,3,1,1,3,3,-3,1,-1,-1,1,1,1,-3,-1,1,1,1
+#   cC: 1,-1,3,1,1,-1,1,-3,-1,-1,1,1,1,-1,3,-1,1,1,1,1,3,3,-1,-1,1,1,-3
+#   cD: 1,1,3,1,1,-1,1,1,1,1,1,1,-1,-1,-1,1,-1,-1,-3,-1,3,-1,1,1,1,3,-1
+#   block 0 row 9: 17 free cosets, 1.291e+08 lifts (all 3^17), 1.937e+08 swap updates, 1589110 rows inside the windows
+#   block 1 row 11: 20 free cosets, 3.487e+09 lifts (all 3^20), 5.23e+09 swap updates, 5227232 rows inside the windows
+#   block 2 row 11: 22 free cosets, 3.138e+10 lifts (all 3^22), 4.707e+10 swap updates, 12447057 rows inside the windows
+#   join part 0 of 32: 2.33e+09 nodes, 250.8 s on 3 threads, no solution
+#   join part 1 of 32: 5.2e+09 nodes, 363.8 s on 3 threads, 1 solution
+#   check.py (separate code: +-1 entries, A skew, PAF sum 0 at every nonzero lag, G G^T = 324 I and G + G^T = 2 I for the
+#   Goethals-Seidel matrix G of order 324): checked 1 solution lines, 1 distinct, 0 failed
+#   41 minutes from the start of the production loop to the solution
+# one row A,B,C,D per solution:
++--+--+++-+--+++++-++-+--+-+--++++--+++-+-+---++----++-+-++-+--+-----++-+---++-++,-+-----++++++++--++-++--++++++--+++-++-+++-+--++----++++---+-+--++-++-+--+-+-++--,--+++---+-+++-+---++++-+++-+++++++---+-+-+++++-++-----+-+---+--+-+-++-++-++++-++-,-+++--++++++---+----++++-+-+-+-+--+-+++-++--+-++-++++-+++++++-+---+--++---+---+++
