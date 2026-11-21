@@ -340,8 +340,10 @@ def test_new_results_are_worded_from_the_board(board):
     assert correction[0]["text"] == "G-matrices of order 49: exactly 1 class."
     assert "1802.00556" in correction[0]["source"]["url"]
     texts = {x["text"] for items in groups.values() for x in items}
-    # Williamson 65 has earlier public records and G-matrices at 53 have no
-    # parameter set: neither is listed as new.
+    # Williamson 61 was classified in a 2012 paper, Williamson 65 has earlier
+    # public records and G-matrices at 53 have no parameter set: none is listed
+    # as new.
+    assert "Williamson matrices of order 61: exactly 1 class." not in texts
     assert "Williamson matrices of order 65: none exist." not in texts
     assert "G-matrices of order 53: none exist." not in texts
     assert "G-matrices of order 57: none exist." in texts
