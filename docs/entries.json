@@ -142953,7 +142953,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Version 1 of the arXiv text of [@djokovic2018goethals], the only version posted there, reports that an exhaustive search found no cyclic families of type (kkss) at v=49, where the only parameter set of that type is (49; 24,24,22,18; 39). The journal version was not read. The vxvware census finds eight quadruples with exactly that parameter set, and the rows verify exactly on this board, so existence is certified by the rows and depends on no search. That they form exactly one equiv-v1 class rests on this board's search and its replay. The same program reproduces the published counts at v=33, 37, 41, 43, and 45.",
+          "summary": "[@djokovic2018goethals] report a complete classification of cyclic families with symmetric or skew blocks for odd v < 50 and find none of type (kkss) at v=49, where the only parameter set of that type is (49; 24,24,22,18; 39). The vxvware census finds eight quadruples with exactly that parameter set, one equiv-v1 class, and the rows verify exactly on this board. The same program reproduces the published counts at v=33, 37, 41, 43, and 45.",
           "entry_ids": [
             "n49-703082c3c1ffa487f376",
             "vxvware-kkss-n49"
@@ -173306,7 +173306,7 @@
               "github": "vxvware"
             }
           ],
-          "summary": "Version 1 of the arXiv text of [@djokovic2018goethals], the only version posted there, reports that an exhaustive search found no cyclic families of type (kkss) at v=49, where the only parameter set of that type is (49; 24,24,22,18; 39). The journal version was not read. The vxvware census finds eight quadruples with exactly that parameter set, and the rows verify exactly on this board, so existence is certified by the rows and depends on no search. That they form exactly one equiv-v1 class rests on this board's search and its replay. The same program reproduces the published counts at v=33, 37, 41, 43, and 45.",
+          "summary": "[@djokovic2018goethals] report a complete classification of cyclic families with symmetric or skew blocks for odd v < 50 and find none of type (kkss) at v=49, where the only parameter set of that type is (49; 24,24,22,18; 39). The vxvware census finds eight quadruples with exactly that parameter set, one equiv-v1 class, and the rows verify exactly on this board. The same program reproduces the published counts at v=33, 37, 41, 43, and 45.",
           "entry_ids": [
             "n49-703082c3c1ffa487f376",
             "vxvware-kkss-n49"
