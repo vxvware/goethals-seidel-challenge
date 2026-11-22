@@ -4,8 +4,8 @@
     {
       "id": "vxvware-good-n45",
       "source": {
-        "title": "vxvware/saw-best-matrix: good matrices at n=45",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/0061ad63796971e767971ff82756b32500291f62/data/good/good-45.txt",
+        "title": "vxvware/saw-best-matrix: good matrices at n=45 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/good/good-45.txt",
         "commit": "0061ad63796971e767971ff82756b32500291f62",
         "source_path": "data/good/good-45.txt",
         "artifact": {
@@ -28,8 +28,8 @@
     {
       "id": "vxvware-good-n53",
       "source": {
-        "title": "vxvware/saw-best-matrix: good matrices at n=53",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/020601f6e15db4e2ca023b602bc460204ce40236/data/good/good-53.txt",
+        "title": "vxvware/saw-best-matrix: good matrices at n=53 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/good/good-53.txt",
         "commit": "020601f6e15db4e2ca023b602bc460204ce40236",
         "source_path": "data/good/good-53.txt",
         "artifact": {
@@ -49,8 +49,8 @@
     {
       "id": "vxvware-good-n55",
       "source": {
-        "title": "vxvware/saw-best-matrix: good matrices at n=55",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/020601f6e15db4e2ca023b602bc460204ce40236/data/good/good-55.txt",
+        "title": "vxvware/saw-best-matrix: good matrices at n=55 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/good/good-55.txt",
         "commit": "020601f6e15db4e2ca023b602bc460204ce40236",
         "source_path": "data/good/good-55.txt",
         "artifact": {
@@ -70,8 +70,8 @@
     {
       "id": "vxvware-good-n57",
       "source": {
-        "title": "vxvware/saw-best-matrix: good matrices at n=57",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/0061ad63796971e767971ff82756b32500291f62/data/good/good-57.txt",
+        "title": "vxvware/saw-best-matrix: good matrices at n=57 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/good/good-57.txt",
         "commit": "0061ad63796971e767971ff82756b32500291f62",
         "source_path": "data/good/good-57.txt",
         "artifact": {
@@ -91,8 +91,8 @@
     {
       "id": "vxvware-good-n61",
       "source": {
-        "title": "vxvware/saw-best-matrix: good matrices at n=61",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/2c46a00ee0b450957ed7ac2281cf22bec0edd344/data/good/good-61.txt",
+        "title": "vxvware/saw-best-matrix: good matrices at n=61 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/good/good-61.txt",
         "commit": "2c46a00ee0b450957ed7ac2281cf22bec0edd344",
         "source_path": "data/good/good-61.txt",
         "artifact": {
@@ -112,8 +112,8 @@
     {
       "id": "vxvware-kkss-n3",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=3",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-03.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=3 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-03.txt",
         "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
         "source_path": "data/gmat/gmat-03.txt",
         "artifact": {
@@ -133,8 +133,8 @@
     {
       "id": "vxvware-kkss-n5",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=5",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-05.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=5 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-05.txt",
         "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
         "source_path": "data/gmat/gmat-05.txt",
         "artifact": {
@@ -154,8 +154,8 @@
     {
       "id": "vxvware-kkss-n7",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=7",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-07.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=7 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-07.txt",
         "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
         "source_path": "data/gmat/gmat-07.txt",
         "artifact": {
@@ -175,8 +175,8 @@
     {
       "id": "vxvware-kkss-n9",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=9",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/43aec6a329165d179eca48a900f0ac6d5f6a8e53/data/gmat/gmat-09.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=9 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-09.txt",
         "commit": "43aec6a329165d179eca48a900f0ac6d5f6a8e53",
         "source_path": "data/gmat/gmat-09.txt",
         "artifact": {
@@ -197,8 +197,8 @@
     {
       "id": "vxvware-kkss-n13",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=13",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-13.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=13 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-13.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-13.txt",
         "artifact": {
@@ -223,8 +223,8 @@
     {
       "id": "vxvware-kkss-n15",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=15",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-15.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=15 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-15.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-15.txt",
         "artifact": {
@@ -261,8 +261,8 @@
     {
       "id": "vxvware-kkss-n19",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=19",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-19.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=19 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-19.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-19.txt",
         "artifact": {
@@ -286,8 +286,8 @@
     {
       "id": "vxvware-kkss-n21",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=21",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-21.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=21 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-21.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-21.txt",
         "artifact": {
@@ -318,8 +318,8 @@
     {
       "id": "vxvware-kkss-n23",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=23",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-23.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=23 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-23.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-23.txt",
         "artifact": {
@@ -346,8 +346,8 @@
     {
       "id": "vxvware-kkss-n25",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=25",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-25.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=25 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-25.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-25.txt",
         "artifact": {
@@ -373,8 +373,8 @@
     {
       "id": "vxvware-kkss-n27",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=27",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-27.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=27 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-27.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-27.txt",
         "artifact": {
@@ -403,8 +403,8 @@
     {
       "id": "vxvware-kkss-n31",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=31",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-31.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=31 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-31.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-31.txt",
         "artifact": {
@@ -427,8 +427,8 @@
     {
       "id": "vxvware-kkss-n33",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=33",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-33.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=33 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-33.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-33.txt",
         "artifact": {
@@ -467,8 +467,8 @@
     {
       "id": "vxvware-kkss-n37",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=37",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-37.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=37 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-37.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-37.txt",
         "artifact": {
@@ -494,8 +494,8 @@
     {
       "id": "vxvware-kkss-n41",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=41",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-41.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=41 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-41.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-41.txt",
         "artifact": {
@@ -517,8 +517,8 @@
     {
       "id": "vxvware-kkss-n43",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=43",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-43.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=43 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-43.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-43.txt",
         "artifact": {
@@ -541,8 +541,8 @@
     {
       "id": "vxvware-kkss-n45",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=45",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/3b25375351a3eb9041a49b920fff40c6e1d891d3/data/gmat/gmat-45.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=45 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-45.txt",
         "commit": "3b25375351a3eb9041a49b920fff40c6e1d891d3",
         "source_path": "data/gmat/gmat-45.txt",
         "artifact": {
@@ -562,8 +562,8 @@
     {
       "id": "vxvware-kkss-n49",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=49",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/8aaf08f4352a0b0787e7ff6c670a9c326de2f23f/data/gmat/gmat-49.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=49 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-49.txt",
         "commit": "8aaf08f4352a0b0787e7ff6c670a9c326de2f23f",
         "source_path": "data/gmat/gmat-49.txt",
         "artifact": {
@@ -583,8 +583,8 @@
     {
       "id": "vxvware-kkss-n51",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=51",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/5348f02f19b9824aabbb77ed26febad092a54b92/data/gmat/gmat-51.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=51 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-51.txt",
         "commit": "5348f02f19b9824aabbb77ed26febad092a54b92",
         "source_path": "data/gmat/gmat-51.txt",
         "artifact": {
@@ -607,8 +607,8 @@
     {
       "id": "vxvware-kkss-n55",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=55",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/a38ad7b0dc6b6108273c3a549181edab6b7f8a6e/data/gmat/gmat-55.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=55 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-55.txt",
         "commit": "a38ad7b0dc6b6108273c3a549181edab6b7f8a6e",
         "source_path": "data/gmat/gmat-55.txt",
         "artifact": {
@@ -630,8 +630,8 @@
     {
       "id": "vxvware-kkss-n59",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=59",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/aaa2c7952b52762b8811e3772ba8760b9eecdbac/data/gmat/gmat-59.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=59 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-59.txt",
         "commit": "aaa2c7952b52762b8811e3772ba8760b9eecdbac",
         "source_path": "data/gmat/gmat-59.txt",
         "artifact": {
@@ -651,8 +651,8 @@
     {
       "id": "vxvware-kkss-n61-census",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=61",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/a886481c349391608e258d76e28b6e5dd65bccf7/data/gmat/gmat-61.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=61 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-61.txt",
         "commit": "a886481c349391608e258d76e28b6e5dd65bccf7",
         "source_path": "data/gmat/gmat-61.txt",
         "artifact": {
@@ -673,8 +673,8 @@
     {
       "id": "vxvware-kkss-n63",
       "source": {
-        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=63",
-        "url": "https://github.com/vxvware/saw-best-matrix/blob/a6cef295734124cbb8ed07fb935209a8ecb51a2f/data/gmat/gmat-63.txt",
+        "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=63 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-63.txt",
         "commit": "a6cef295734124cbb8ed07fb935209a8ecb51a2f",
         "source_path": "data/gmat/gmat-63.txt",
         "artifact": {

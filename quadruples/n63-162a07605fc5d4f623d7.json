@@ -14,8 +14,8 @@
   ],
   "sources": [
     {
-      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=63",
-      "url": "https://github.com/vxvware/saw-best-matrix/blob/a6cef295734124cbb8ed07fb935209a8ecb51a2f/data/gmat/gmat-63.txt",
+      "title": "vxvware/saw-best-matrix: G-matrices (kkss) at n=63 (archived in this repository)",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-63.txt",
       "commit": "a6cef295734124cbb8ed07fb935209a8ecb51a2f",
       "source_path": "data/gmat/gmat-63.txt",
       "artifact": {

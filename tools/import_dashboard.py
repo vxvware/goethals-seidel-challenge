@@ -22,7 +22,10 @@ from verify.equivalence import canonical, fingerprint
 from verify.gs_verify import memberships, validate_rows
 from verify.model import validate
 
-REPO = "https://github.com/vxvware/saw-best-matrix"
+# vxvware/saw-best-matrix is private. A source record links the copy of the file
+# archived in this repository at a pinned commit; its commit and source_path
+# fields keep the identity of the original.
+ARCHIVE = "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f"
 SUBMITTER = "vxvware"
 SUBMITTED_AT = "2026-10-15"
 # Orders imported after the initial import carry their own import date and the
@@ -265,12 +268,13 @@ def source_record(family, n, raw):
     commit, _, _, _ = SOURCES[family, n]
     path = f"data/{FILES[family]}/{FILES[family]}-{n:02d}.txt"
     label = "good matrices" if family == "good" else "G-matrices (kkss)"
+    archived = raw.relative_to(ROOT).as_posix()
     return {
-        "title": f"vxvware/saw-best-matrix: {label} at n={n}",
-        "url": f"{REPO}/blob/{commit}/{path}",
+        "title": f"vxvware/saw-best-matrix: {label} at n={n} (archived in this repository)",
+        "url": f"{ARCHIVE}/{archived}",
         "commit": commit,
         "source_path": path,
-        "artifact": {"path": raw.relative_to(ROOT).as_posix(), "sha256": digest(raw)},
+        "artifact": {"path": archived, "sha256": digest(raw)},
     }
 
 

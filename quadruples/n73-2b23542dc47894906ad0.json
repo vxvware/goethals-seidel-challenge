@@ -16,8 +16,8 @@
   ],
   "sources": [
     {
-      "title": "skew356-campaign: data/sweep_p73_d9.json",
-      "url": "https://github.com/vxvware/skew356-campaign/blob/44bd9927d392818ad112d43506ce8f58fa2df510/data/sweep_p73_d9.json",
+      "title": "skew356-campaign: data/sweep_p73_d9.json (the repository vxvware/skew356-campaign no longer exists and no copy of this file is known; the link is the archive in this repository of the 15360 rows imported from it)",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/seeds/skew-p73-d9.jsonl.gz",
       "commit": "44bd9927d392818ad112d43506ce8f58fa2df510",
       "source_path": "data/sweep_p73_d9.json"
     }
