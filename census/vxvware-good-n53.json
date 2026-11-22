@@ -14,8 +14,8 @@
   ],
   "sources": [
     {
-      "title": "vxvware/saw-best-matrix: good matrices at n=53",
-      "url": "https://github.com/vxvware/saw-best-matrix/blob/020601f6e15db4e2ca023b602bc460204ce40236/data/good/good-53.txt",
+      "title": "vxvware/saw-best-matrix: good matrices at n=53 (archived in this repository)",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/saw-best-matrix/good/good-53.txt",
       "commit": "020601f6e15db4e2ca023b602bc460204ce40236",
       "source_path": "data/good/good-53.txt",
       "artifact": {

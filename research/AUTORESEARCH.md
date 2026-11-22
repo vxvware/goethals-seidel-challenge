@@ -28,11 +28,7 @@
   pinned from good-matrix-campaign @ 018ef2d7754017eca1f9f22c8ddd84b9b6cf5581.
   It requires a CUDA GPU/CuPy and substantial memory at large orders.
 
-GPU campaign sources:
-
-- https://github.com/vxvware/best-matrix-campaign
-- https://github.com/vxvware/good-matrix-campaign
-- https://github.com/vxvware/skew356-campaign
+The GPU campaigns ran in vxvware/best-matrix-campaign, vxvware/good-matrix-campaign and vxvware/skew356-campaign. The first two are private and the third no longer exists. The files the board cites from them are archived in this repository and listed in [the index of private sources](../evidence/participants/private-sources.json).
 
 The CPU-only normal workflow never invokes these GPU engines. Recheck reports
 must be reviewed and registered through a separate maintainer change before
