@@ -651,7 +651,7 @@
         "n89-b2a223b0fb7500feb95f"
       ],
       "seed_artifacts": [],
-      "featured": false,
+      "featured": true,
       "stratum": "skew-sds"
     }
   ]
