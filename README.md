@@ -123,6 +123,8 @@ Normal board checks use the bundled archives and require no sibling checkouts.
 status, seed inventories, and reviewed replay registrations. `site/` builds the
 static GitHub Pages board. `research/` supplies agent instructions and starters.
 
+[baselines/hadamard-orders.json](baselines/hadamard-orders.json) records, for the orders 4 to 1200, which have no Hadamard or skew-Hadamard matrix in the sources it cites and what has been reported since; its `structure` field describes the layout. The site's orders page and the first two columns of the board grid are built from it, and `tests/test_orders.py` checks it against the board.
+
 `formal/` is a Lean 4 project with machine-checked statements about quadruples, among them that the Goethals–Seidel array of a quadruple is a Hadamard matrix; see `formal/README.md`. CI does not build it and the verifier does not depend on it.
 
 Entry PRs are append-only and cannot change the verifier, schemas, baseline,

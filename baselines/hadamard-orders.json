@@ -1,0 +1,111 @@
+{
+  "id": "hadamard-orders-2026-11-22",
+  "compiled": "2026-11-22",
+  "range": {
+    "min": 4,
+    "max": 1200,
+    "step": 4
+  },
+  "structure": "For each matrix type: listed_open is the list of orders in the range for which the sources named in listed_open_sources give no matrix, copied unchanged. since holds later statements about orders of that list, each with its orders, a status (board: this board holds a verified matrix of the order; reported: a matrix is reported in a source that is not peer reviewed), the keys of the sources in baselines/references.bib, and what was read or checked. open is listed_open without the orders of since: the orders for which none of the sources read gives or reports a matrix. Every other order in the range is known according to known_sources. The sources object records the version and date of each source and how it was read. Nothing here is a statement about priority, and an order is called open only relative to the sources named.",
+  "sources": {
+    "sage2026unknown": {
+      "as_of": "2026-11-14",
+      "version": "SageMath develop, commit 8de8dad7bcb38e1baa43508cbe944bf04a2d0401; the file was last changed on 2026-09-30",
+      "read": "The module documentation and the lists unknown_hadamard and unknown_skew_hadamard in its doctest, which cover orders up to 1200.",
+      "pending": "Pull requests sagemath/sage#43079 (opened 2026-10-28) and sagemath/sage#43184 (opened 2026-11-20) each change unknown_hadamard to the empty list. Both were open on 2026-11-22. Neither changes unknown_skew_hadamard."
+    },
+    "cati2024database": {
+      "as_of": "2025-08-30",
+      "version": "arXiv version 2, a preprint",
+      "read": "Read in full from the TeX source. The open lists were recomputed from its tables of the least m with a matrix of order 2^m n known (Hadamard, odd n up to 2999; skew, odd n up to 999) and agree with the SageMath lists for every order up to 1200."
+    },
+    "djokovic2023skew": {
+      "as_of": "2024-11-24",
+      "version": "arXiv version 3, a preprint",
+      "read": "Read in full from the TeX source. Its list of the odd v below 200 with skew order 4v undecided (89, 101, 107, 119, 149, 153, 167, 177, 179, 191, 193) agrees with the two sources above."
+    },
+    "egan2026recent": {
+      "as_of": "2026-11-03",
+      "version": "arXiv version 2, a preprint",
+      "read": "Read in full from the TeX source. It states that a Hadamard matrix is known at every order below 2000 divisible by 4, that the smallest order with none known is 2396, and that the smallest order with no skew-Hadamard matrix known is 356."
+    },
+    "epoch2026hadamard": {
+      "as_of": "2026-11-22",
+      "version": "Web page as served on 2026-11-22",
+      "read": "Read in full. It states that a solution encoding Hadamard matrices of every admissible order up to 2000 at which none was known, among them 668, has been reported. It gives no matrix."
+    },
+    "kishan2026hadamard": {
+      "as_of": "2026-11-06",
+      "version": "Repository commit d885022144ba6bf4efa8315e14871a3736947527, not peer reviewed",
+      "read": "skew/476 of the same repository. Its four sequences are the board entry n119-f302cc45a2f83e60917b, which the board's verifier checks exactly."
+    },
+    "kishan2026skew": {
+      "as_of": "2026-11-06",
+      "version": "Repository commit d885022144ba6bf4efa8315e14871a3736947527, not peer reviewed",
+      "read": "skew/README.md read in full. The stored matrices of orders 476, 820, 836, 980, 1004, 1012, 1036, 1044, 1100, 1140 and 1148 were checked exactly on 2026-11-22 (entries 1 and -1, H H^T = nI, H + H^T = 2I). Order 996 has no stored matrix: its four sequences were placed in the Goethals-Seidel array over the cyclic group of order 249 and the result was checked in the same way."
+    }
+  },
+  "types": {
+    "hadamard": {
+      "known_sources": ["cati2024database", "sage2026unknown"],
+      "listed_open": [668, 716, 892, 1132],
+      "listed_open_sources": ["cati2024database", "sage2026unknown"],
+      "since": [
+        {
+          "orders": [668, 716, 892, 1132],
+          "status": "reported",
+          "date": "2026-08-12",
+          "sources": ["egan2026recent", "epoch2026hadamard"],
+          "note": "Announced on 12 August 2026 by Alpöge, Voinov and Reynolds-Haertle, with eight larger orders, according to [@egan2026recent], whose authors state that they verified the matrices; see also [@epoch2026hadamard]. The matrices were not checked for this table."
+        }
+      ],
+      "open": []
+    },
+    "skew-hadamard": {
+      "known_sources": ["cati2024database", "sage2026unknown"],
+      "listed_open": [
+        356, 404, 428, 476, 596, 612, 668, 708, 712, 716, 764, 772, 804, 808, 820, 836, 856, 892,
+        900, 916, 932, 940, 952, 980, 996, 1004, 1012, 1028, 1036, 1044, 1060, 1076, 1100, 1108,
+        1132, 1140, 1148, 1156, 1180, 1192, 1196
+      ],
+      "listed_open_sources": ["cati2024database", "sage2026unknown", "djokovic2023skew", "egan2026recent"],
+      "since": [
+        {
+          "orders": [356],
+          "status": "board",
+          "date": "2026-11-22",
+          "sources": [],
+          "entry_ids": ["n89-b2a223b0fb7500feb95f", "n89-eec2e43c042090883c04"],
+          "note": "Two verified quadruples with a skew block at n = 89, found on 2026-11-22. A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356; this reports the search and does not claim priority."
+        },
+        {
+          "orders": [476],
+          "status": "board",
+          "date": "2026-11-06",
+          "sources": ["kishan2026hadamard"],
+          "entry_ids": ["n119-f302cc45a2f83e60917b"],
+          "note": "A quadruple with a skew block at n = 119 from [@kishan2026hadamard], imported and verified on this board."
+        },
+        {
+          "orders": [820, 836, 980, 996, 1004, 1012, 1036, 1044, 1100, 1140, 1148],
+          "status": "reported",
+          "date": "2026-11-06",
+          "sources": ["kishan2026skew"],
+          "note": "Matrices in [@kishan2026skew], a software repository that is not peer reviewed. Each was checked exactly on 2026-11-22; none is held on this board."
+        },
+        {
+          "orders": [712, 952],
+          "status": "reported",
+          "date": "2026-11-22",
+          "sources": ["cati2024database"],
+          "doubles": [356, 476],
+          "note": "Twice the orders 356 and 476. The doubling construction stated in [@cati2024database] turns a skew-Hadamard matrix of order n into one of order 2n; applied to the matrices of this board it gives these two orders. No source read states them, and the doubled matrices are not held here."
+        }
+      ],
+      "open": [
+        404, 428, 596, 612, 668, 708, 716, 764, 772, 804, 808, 856, 892, 900, 916, 932, 940, 1028,
+        1060, 1076, 1108, 1132, 1156, 1180, 1192, 1196
+      ]
+    }
+  }
+}
