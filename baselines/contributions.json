@@ -636,7 +636,7 @@
     },
     {
       "id": "skew-pool-join-89",
-      "title": "Two skew quadruples at n=89: a skew-Hadamard matrix of order 356",
+      "title": "Three skew quadruples at n=89: a skew-Hadamard matrix of order 356",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
@@ -645,10 +645,11 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Two quadruples with a skew block at n=89 over the cyclic group Z_89, found on 2026-11-22 by two slices of one run. The Goethals–Seidel matrix of each is a skew-Hadamard matrix of order 356. The search fixes a skew first block invariant under the multiplier group of order 11, collects rows of the other three blocks whose periodic autocorrelations lie in fixed windows into three pools, and joins the pools exactly. The two quadruples share the skew block and differ in the other three blocks, which have no symmetry. It is a sampling search: these are two solutions, not a census. The search code is not in the repository; the run record is evidence/participants/pool-join/skew-89.txt, written before the second quadruple was reported. Order 356 is the smallest order for which the existence of a skew-Hadamard matrix is stated to be undecided in [@djokovic2023skew]; it is given as the smallest unknown order in [@araya2024classification] and as the smallest open order in the survey [@egan2026recent]; the database of [@cati2024database] has no construction for it; and it is the smallest open order of baselines/skew-gaps.json. It is already among the orders below 1004 listed as not yet known in [@wallis1970configurations]. A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356; that is a report of the search, not a proof of priority, and the result has not been reviewed.",
+      "summary": "Three quadruples with a skew block at n=89 over the cyclic group Z_89, found on 2026-11-22: two by two slices of one run and a third by a further round with larger pools. The Goethals–Seidel matrix of each is a skew-Hadamard matrix of order 356. The search fixes a skew first block invariant under the multiplier group of order 11, collects rows of the other three blocks whose periodic autocorrelations lie in fixed windows into three pools, and joins the pools exactly. The three quadruples share the skew block and differ in the other three blocks, which have no symmetry. It is a sampling search: these are three solutions, not a census. The search code is not in the repository; the run record is evidence/participants/pool-join/skew-89.txt, written before the second quadruple was reported; skew-89-slice-2-0.txt and skew-89-round-3.txt in the same directory record the second and third. Order 356 is the smallest order for which the existence of a skew-Hadamard matrix is stated to be undecided in [@djokovic2023skew]; it is given as the smallest unknown order in [@araya2024classification] and as the smallest open order in the survey [@egan2026recent]; the database of [@cati2024database] has no construction for it; and it is the smallest open order of baselines/skew-gaps.json. It is already among the orders below 1004 listed as not yet known in [@wallis1970configurations]. A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356; that is a report of the search, not a proof of priority, and the result has not been reviewed.",
       "entry_ids": [
         "n89-eec2e43c042090883c04",
-        "n89-b2a223b0fb7500feb95f"
+        "n89-b2a223b0fb7500feb95f",
+        "n89-f41d2ad6797d337bba02"
       ],
       "seed_artifacts": [],
       "featured": true,
