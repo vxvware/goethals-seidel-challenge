@@ -4,5 +4,23 @@
   "matrix_type": "skew-Hadamard",
   "source": "https://arxiv.org/html/2411.18897v2",
   "coverage": "The listed baseline gaps through order 524; not a current novelty claim.",
-  "orders": [356, 404, 428, 476]
+  "orders": [356, 404, 428, 476],
+  "filled_on_board": [
+    {
+      "order": 356,
+      "entry_ids": [
+        "n89-eec2e43c042090883c04",
+        "n89-b2a223b0fb7500feb95f"
+      ],
+      "recorded": "2026-11-22"
+    },
+    {
+      "order": 476,
+      "entry_ids": [
+        "n119-f302cc45a2f83e60917b"
+      ],
+      "recorded": "2026-11-17"
+    }
+  ],
+  "filled_note": "The orders list is the gap list of the source at its date and is kept unchanged, because the verifier flags an entry of one of these orders. The filled_on_board records name verified board entries whose Goethals-Seidel matrix is a skew-Hadamard matrix of that order; the remaining listed orders have no board entry."
 }
