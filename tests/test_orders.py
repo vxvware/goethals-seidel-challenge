@@ -93,10 +93,10 @@ def test_board_records_match_the_board_and_the_gap_baseline(board, data, states)
     assert set(gaps["orders"]) <= set(data["types"]["skew-hadamard"]["listed_open"])
     assert states[356]["skew-hadamard"]["state"] == "board"
     assert states[356]["skew-hadamard"]["listed_open"]
-    assert states[356]["skew-hadamard"]["entries"] == [
-        "n89-b2a223b0fb7500feb95f",
-        "n89-eec2e43c042090883c04",
-    ]
+    # The board may hold further quadruples of this order before the baselines list them.
+    assert {"n89-b2a223b0fb7500feb95f", "n89-eec2e43c042090883c04"} <= set(
+        states[356]["skew-hadamard"]["entries"]
+    )
     assert states[476]["skew-hadamard"]["state"] == "board"
     missing = copy.deepcopy(data)
     missing["types"]["skew-hadamard"]["since"][0]["entry_ids"] = ["n89-0000"]
