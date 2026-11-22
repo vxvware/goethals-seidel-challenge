@@ -88,6 +88,7 @@ td .cell:hover{border-color:var(--green);background:#0d3b20;color:var(--bright)}
 .entry pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--panel);border:1px solid var(--line);padding:1.067rem;font:inherit;font-size:.8rem;color:#6dffa0}
 .entry summary{cursor:pointer}
 .picture canvas{display:block;image-rendering:pixelated;width:100%;max-width:37.33rem;border:1px solid var(--line);background:var(--panel)}
+.rows-text pre{white-space:pre;overflow-x:auto}
 .picture canvas.rows{margin-bottom:.8rem}
 .picture p{max-width:70ch}
 .quad{margin:0}
