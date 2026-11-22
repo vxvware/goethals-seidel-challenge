@@ -14,8 +14,8 @@
   ],
   "sources": [
     {
-      "title": "vxvware/saw-best-matrix: good matrices at n=67",
-      "url": "https://github.com/vxvware/saw-best-matrix/blob/0061ad63796971e767971ff82756b32500291f62/data/good/good-67.txt",
+      "title": "vxvware/saw-best-matrix: good matrices at n=67 (archived in this repository)",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/saw-best-matrix/good/good-67.txt",
       "commit": "0061ad63796971e767971ff82756b32500291f62",
       "source_path": "data/good/good-67.txt",
       "artifact": {
@@ -24,8 +24,8 @@
       }
     },
     {
-      "title": "vxvware/saw-best-matrix: shard logs of the n=67 census",
-      "url": "https://github.com/vxvware/saw-best-matrix/blob/0061ad63796971e767971ff82756b32500291f62/data/good/good-67-shards.txt",
+      "title": "vxvware/saw-best-matrix: shard logs of the n=67 census (archived in this repository)",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/saw-best-matrix/good/good-67-shards.txt",
       "commit": "0061ad63796971e767971ff82756b32500291f62",
       "source_path": "data/good/good-67-shards.txt",
       "artifact": {

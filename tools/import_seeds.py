@@ -12,7 +12,7 @@ import ast
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import numpy as np
-from verify.common import ROOT, digest, write_json
+from verify.common import ROOT, digest, read_json, write_json
 from verify.equivalence import canonical, fingerprint
 from verify.gs_verify import validate_rows
 
@@ -41,16 +41,53 @@ def copy_artifact(src, dest):
     return {"path": dest.relative_to(ROOT).as_posix(), "sha256": digest(dest)}
 
 
+# The campaign repositories are private and vxvware/skew356-campaign no longer
+# exists, so a source record links the copy of the file archived in this
+# repository at a pinned commit. The commit and source_path fields keep the
+# identity of the original.
+ARCHIVE = "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f"
+UNARCHIVED = {
+    ("skew356-campaign", "data/sweep_p73_d9.json"): (
+        "evidence/seeds/skew-p73-d9.jsonl.gz",
+        " (the repository vxvware/skew356-campaign no longer exists and no copy of this file"
+        " is known; the link is the archive in this repository of the 15360 rows imported"
+        " from it)",
+    ),
+    ("skew356-campaign", "benchmark/cyclotomic_sweep.py"): (
+        "research/starter/cyclotomic_sweep.py",
+        " (the repository vxvware/skew356-campaign no longer exists and the original file is"
+        " not archived; the link is the separate implementation of the same search scope in"
+        " this repository, not the original file)",
+    ),
+}
+
+
+def record(name, commit, path, title=None):
+    """The source record of one file of a campaign repository at a commit."""
+    title = title or f"{name}: {path}"
+    index = read_json(ROOT / "evidence/participants/private-sources.json")
+    copies = {(r["repository"], r["commit"], r["path"]): r["copy"] for r in index["files"]}
+    if (f"vxvware/{name}", commit, path) in copies:
+        copy = copies[f"vxvware/{name}", commit, path]
+        title += " (archived in this repository)"
+    elif (name, path) in UNARCHIVED:
+        copy, note = UNARCHIVED[name, path]
+        title += note
+    else:
+        raise ValueError(f"no archived copy of {name}:{path} at {commit}")
+    return {
+        "title": title,
+        "url": f"{ARCHIVE}/{copy}",
+        "commit": commit,
+        "source_path": path,
+    }
+
+
 def source(repo, path, title=None):
     commit = subprocess.check_output(
         ["git", "-C", str(repo), "rev-parse", "HEAD"], text=True
     ).strip()
-    return {
-        "title": title or f"{repo.name}: {path}",
-        "url": f"https://github.com/vxvware/{repo.name}/blob/{commit}/{path}",
-        "commit": commit,
-        "source_path": path,
-    }
+    return record(repo.name, commit, path, title)
 
 
 def main():

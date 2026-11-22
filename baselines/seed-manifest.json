@@ -4,8 +4,8 @@
     {
       "id": "best-n3",
       "source": {
-        "title": "Best catalogue n=3",
-        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "title": "Best catalogue n=3 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/best-matrix-campaign/data/catalogue_solutions.npz",
         "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
         "source_path": "data/catalogue_solutions.npz"
       },
@@ -21,8 +21,8 @@
     {
       "id": "best-n7",
       "source": {
-        "title": "Best catalogue n=7",
-        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "title": "Best catalogue n=7 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/best-matrix-campaign/data/catalogue_solutions.npz",
         "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
         "source_path": "data/catalogue_solutions.npz"
       },
@@ -39,8 +39,8 @@
     {
       "id": "best-n13",
       "source": {
-        "title": "Best catalogue n=13",
-        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "title": "Best catalogue n=13 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/best-matrix-campaign/data/catalogue_solutions.npz",
         "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
         "source_path": "data/catalogue_solutions.npz"
       },
@@ -57,8 +57,8 @@
     {
       "id": "best-n21",
       "source": {
-        "title": "Best catalogue n=21",
-        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "title": "Best catalogue n=21 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/best-matrix-campaign/data/catalogue_solutions.npz",
         "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
         "source_path": "data/catalogue_solutions.npz"
       },
@@ -80,8 +80,8 @@
     {
       "id": "best-n31",
       "source": {
-        "title": "Best catalogue n=31",
-        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "title": "Best catalogue n=31 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/best-matrix-campaign/data/catalogue_solutions.npz",
         "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
         "source_path": "data/catalogue_solutions.npz"
       },
@@ -98,8 +98,8 @@
     {
       "id": "best-n43",
       "source": {
-        "title": "Best catalogue n=43",
-        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "title": "Best catalogue n=43 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/best-matrix-campaign/data/catalogue_solutions.npz",
         "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
         "source_path": "data/catalogue_solutions.npz"
       },
@@ -119,8 +119,8 @@
     {
       "id": "best-n57",
       "source": {
-        "title": "Best catalogue n=57",
-        "url": "https://github.com/vxvware/best-matrix-campaign/blob/9a14955f88c411b5ab2803005ee6e83e02a66e22/data/catalogue_solutions.npz",
+        "title": "Best catalogue n=57 (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/best-matrix-campaign/data/catalogue_solutions.npz",
         "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
         "source_path": "data/catalogue_solutions.npz"
       },
@@ -138,8 +138,8 @@
     {
       "id": "good-n3",
       "source": {
-        "title": "good-matrix-campaign: benchmark/good_matrices_n3.npz",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n3.npz",
+        "title": "good-matrix-campaign: benchmark/good_matrices_n3.npz (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/benchmark/good_matrices_n3.npz",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "benchmark/good_matrices_n3.npz"
       },
@@ -155,8 +155,8 @@
     {
       "id": "good-n5",
       "source": {
-        "title": "good-matrix-campaign: benchmark/good_matrices_n5.npz",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n5.npz",
+        "title": "good-matrix-campaign: benchmark/good_matrices_n5.npz (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/benchmark/good_matrices_n5.npz",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "benchmark/good_matrices_n5.npz"
       },
@@ -172,8 +172,8 @@
     {
       "id": "good-n7",
       "source": {
-        "title": "good-matrix-campaign: benchmark/good_matrices_n7.npz",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n7.npz",
+        "title": "good-matrix-campaign: benchmark/good_matrices_n7.npz (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/benchmark/good_matrices_n7.npz",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "benchmark/good_matrices_n7.npz"
       },
@@ -191,8 +191,8 @@
     {
       "id": "good-n9",
       "source": {
-        "title": "good-matrix-campaign: benchmark/good_matrices_n9.npz",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n9.npz",
+        "title": "good-matrix-campaign: benchmark/good_matrices_n9.npz (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/benchmark/good_matrices_n9.npz",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "benchmark/good_matrices_n9.npz"
       },
@@ -208,8 +208,8 @@
     {
       "id": "good-n11",
       "source": {
-        "title": "good-matrix-campaign: benchmark/good_matrices_n11.npz",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n11.npz",
+        "title": "good-matrix-campaign: benchmark/good_matrices_n11.npz (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/benchmark/good_matrices_n11.npz",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "benchmark/good_matrices_n11.npz"
       },
@@ -227,8 +227,8 @@
     {
       "id": "good-n13",
       "source": {
-        "title": "good-matrix-campaign: benchmark/good_matrices_n13.npz",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n13.npz",
+        "title": "good-matrix-campaign: benchmark/good_matrices_n13.npz (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/benchmark/good_matrices_n13.npz",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "benchmark/good_matrices_n13.npz"
       },
@@ -249,8 +249,8 @@
     {
       "id": "good-n15",
       "source": {
-        "title": "good-matrix-campaign: benchmark/good_matrices_n15.npz",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_matrices_n15.npz",
+        "title": "good-matrix-campaign: benchmark/good_matrices_n15.npz (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/benchmark/good_matrices_n15.npz",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "benchmark/good_matrices_n15.npz"
       },
@@ -276,8 +276,8 @@
     {
       "id": "russo-n15",
       "source": {
-        "title": "good-matrix-campaign: benchmark/good_solution_n15.npy",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_solution_n15.npy",
+        "title": "good-matrix-campaign: benchmark/good_solution_n15.npy (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/benchmark/good_solution_n15.npy",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "benchmark/good_solution_n15.npy"
       },
@@ -293,8 +293,8 @@
     {
       "id": "russo-n21",
       "source": {
-        "title": "good-matrix-campaign: benchmark/good_solution_n21.npy",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_solution_n21.npy",
+        "title": "good-matrix-campaign: benchmark/good_solution_n21.npy (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/benchmark/good_solution_n21.npy",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "benchmark/good_solution_n21.npy"
       },
@@ -310,8 +310,8 @@
     {
       "id": "good-all-cpu-n13",
       "source": {
-        "title": "good-matrix-campaign: benchmark/good_all_cpu_n13.npy",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/benchmark/good_all_cpu_n13.npy",
+        "title": "good-matrix-campaign: benchmark/good_all_cpu_n13.npy (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/benchmark/good_all_cpu_n13.npy",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "benchmark/good_all_cpu_n13.npy"
       },
@@ -332,8 +332,8 @@
     {
       "id": "good-all-gpu-n13",
       "source": {
-        "title": "good-matrix-campaign: data/box_192.222.50.112/good_all_n13.npy",
-        "url": "https://github.com/vxvware/good-matrix-campaign/blob/018ef2d7754017eca1f9f22c8ddd84b9b6cf5581/data/box_192.222.50.112/good_all_n13.npy",
+        "title": "good-matrix-campaign: data/box_192.222.50.112/good_all_n13.npy (archived in this repository)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/good-matrix-campaign/data/box-a/good_all_n13.npy",
         "commit": "018ef2d7754017eca1f9f22c8ddd84b9b6cf5581",
         "source_path": "data/box_192.222.50.112/good_all_n13.npy"
       },
@@ -354,8 +354,8 @@
     {
       "id": "skew-p73-d9",
       "source": {
-        "title": "skew356-campaign: data/sweep_p73_d9.json",
-        "url": "https://github.com/vxvware/skew356-campaign/blob/44bd9927d392818ad112d43506ce8f58fa2df510/data/sweep_p73_d9.json",
+        "title": "skew356-campaign: data/sweep_p73_d9.json (the repository vxvware/skew356-campaign no longer exists and no copy of this file is known; the link is the archive in this repository of the 15360 rows imported from it)",
+        "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/seeds/skew-p73-d9.jsonl.gz",
         "commit": "44bd9927d392818ad112d43506ce8f58fa2df510",
         "source_path": "data/sweep_p73_d9.json"
       },

@@ -16,8 +16,8 @@
   ],
   "sources": [
     {
-      "title": "skew356-campaign: benchmark/cyclotomic_sweep.py",
-      "url": "https://github.com/vxvware/skew356-campaign/blob/44bd9927d392818ad112d43506ce8f58fa2df510/benchmark/cyclotomic_sweep.py",
+      "title": "skew356-campaign: benchmark/cyclotomic_sweep.py (the repository vxvware/skew356-campaign no longer exists and the original file is not archived; the link is the separate implementation of the same search scope in this repository, not the original file)",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/research/starter/cyclotomic_sweep.py",
       "commit": "44bd9927d392818ad112d43506ce8f58fa2df510",
       "source_path": "benchmark/cyclotomic_sweep.py"
     }
