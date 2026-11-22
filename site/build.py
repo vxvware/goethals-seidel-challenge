@@ -38,6 +38,66 @@ TRACK_LABELS = {
 
 
 PRIMARY = ("williamson", "good", "best", "kkss")
+# Tracks in which every quadruple has a skew block, so that its array is a
+# skew-Hadamard matrix once that block is placed first.
+SKEW_TRACKS = ("good", "best", "kkss", "skew-sds")
+REPOSITORY = "https://github.com/vxvware/goethals-seidel-challenge"
+FOLDERS = {"quadruple": "quadruples", "certificate": "certificates", "census": "census"}
+DESCRIPTION = (
+    "An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, "
+    "and computational evidence."
+)
+
+
+def tier_label(tier, rows=False):
+    """The displayed name of a tier. The schema value stays `reproduced`; for a
+    quadruple, or a cell that holds one, that tier means its rows were verified."""
+    return "rows verified" if rows and tier == "reproduced" else tier
+
+
+def scope_text(scope):
+    """The family a scoped emptiness certificate covers, in words."""
+    if scope["kind"] == "same-subgroup-coset-unions":
+        zero = ", each with or without 0" if scope.get("include_zero") else ""
+        return (
+            "quadruples whose four blocks are unions of cosets of the multiplier subgroup "
+            f"of order {scope['subgroup_order']}{zero}"
+        )
+    return scope["kind"]
+
+
+def certificate_label(result):
+    """What a certificate establishes, so that a proof about a restricted family
+    is not read as a statement about the whole cell."""
+    tier = result.get("tier")
+    if tier == "proven" and result["scope"]["kind"] != "full":
+        return "proven empty within a restricted family, not for the whole cell"
+    if tier == "proven":
+        return "proven empty"
+    return tier
+
+
+def display_rows(result):
+    """The rows and symmetry pattern in the order the site draws and lists them.
+
+    The canonical order sorts the rows, so a skew block need not come first, and
+    the Goethals–Seidel array is skew only when its first block is. A quadruple
+    with a skew block is shown with its first skew block moved to the front and
+    the other rows in canonical order. The order of the blocks does not affect
+    the autocorrelation identity, so the array is Hadamard either way.
+    """
+    rows, pattern = list(result["canonical_rows"]), result["pattern"]
+    k = pattern.find("k")
+    if k > 0:
+        order = [k, *(i for i in range(4) if i != k)]
+        rows = [rows[i] for i in order]
+        pattern = "".join(pattern[i] for i in order)
+    return rows, pattern
+
+
+def signs(row):
+    return "".join("+" if v > 0 else "-" for v in row)
+
 
 KATEX = "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/"
 MATH_HEAD = (
@@ -92,9 +152,17 @@ def source_item(s, prefix):
     """One source as a list item: its link, then the number of its reference."""
     key = BIB.resolve(s["url"])
     mark = f" {BIB.mark(key, prefix)}" if key else ""
-    return (
-        f'<li><a href="{esc(BIB.link(s["url"]))}" rel="noopener">{esc(s["title"])}</a>{mark}</li>'
-    )
+    url, extra = BIB.link(s["url"]), ""
+    if "artifact" in s:
+        # A source that only names the repository links the archived file
+        # itself; a source with its own address keeps it and gains the file.
+        path = s["artifact"]["path"]
+        file = f"{REPOSITORY}/blob/main/{path}"
+        if url.rstrip("/") == REPOSITORY:
+            url = file
+        else:
+            extra = f' · <a href="{esc(file)}" rel="noopener">{esc(path)}</a>'
+    return f'<li><a href="{esc(url)}" rel="noopener">{esc(s["title"])}</a>{mark}{extra}</li>'
 
 
 def references_block(keys, prefix):
@@ -117,19 +185,20 @@ def credit_block(group, prefix=""):
     )
 
 
-def shell(title, body, prefix="", head=""):
+def shell(title, body, prefix="", head="", description=DESCRIPTION):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{esc(title)} · Hunting Hadamards</title><meta name="description" content="An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, and computational evidence.">
+<title>{esc(title)} · Hunting Hadamards</title><meta name="description" content="{esc(description)}"><meta property="og:title" content="{esc(title)} · Hunting Hadamards"><meta property="og:description" content="{esc(description)}">
 <link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
 <header><a class="brand" href="{prefix}index.html">hunting-hadamards</a><nav><a href="{prefix}index.html#board">board</a><a href="{prefix}index.html#new-results">new results</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
 <main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a></footer></body></html>'''
 
 
 def quad_figure(doc, result, caption):
-    """A figure that picture.js paints from the embedded canonical rows."""
+    """A figure that picture.js paints from the embedded rows, in display order."""
+    rows, pattern = display_rows(result)
     payload = json.dumps(
-        {"n": doc["n"], "rows": result["canonical_rows"], "pattern": result["pattern"]},
+        {"n": doc["n"], "rows": rows, "pattern": pattern},
         separators=(",", ":"),
     ).replace("<", "\\u003c")
     return (
@@ -162,13 +231,13 @@ def hero_figure(r):
             for k, x in r.items()
             if x["type"] == "quadruple" and x["n"] == n and x["tracks"][0] == track
         )
-        x = r[ident]
+        rows, pattern = display_rows(r[ident])
         quads.append(
             {
                 "id": ident,
                 "n": n,
-                "rows": x["canonical_rows"],
-                "pattern": x["pattern"],
+                "rows": rows,
+                "pattern": pattern,
                 "label": TRACK_LABELS[track].lower(),
             }
         )
@@ -257,17 +326,70 @@ CONTRADICTION_NOTES = {
         "{cite} report a complete classification for odd v < 50 with none at this order."
     ),
 }
-NEW_RESULT_GROUPS = (
-    ("correction", "Contradicts a published result"),
-    ("classification", "Classifications"),
-    ("nonexistence", "Nonexistence"),
+# Existence results, by contribution id, with the date of the search of the
+# literature and public repositories that found no earlier matrix. An item is
+# shown only while its contribution is marked featured in
+# baselines/contributions.json, which is the maintainer's decision.
+NEW_EXISTENCE = {"skew-pool-join-89": "2026-11-22"}
+EXHAUSTIVE_NOTE = (
+    f"Not found by a literature search made on {LITERATURE_SEARCH_DATE}. Counts are "
+    "equivalence classes. Each statement comes from an exhaustive computer search, not from "
+    "a proof."
 )
+EXISTENCE_NOTE = (
+    "Each statement is about explicit rows on the board, which the verifier checks exactly; "
+    "no exhaustive search is involved. The date of the search for earlier matrices is given "
+    "with each item."
+)
+NEW_RESULT_GROUPS = (
+    ("correction", "Contradicts a published result", EXHAUSTIVE_NOTE),
+    ("classification", "Classifications", EXHAUSTIVE_NOTE),
+    ("nonexistence", "Nonexistence", EXHAUSTIVE_NOTE),
+    ("existence", "Existence", EXISTENCE_NOTE),
+)
+GROUP_NOTES = {title: note for _, title, note in NEW_RESULT_GROUPS}
+
+
+def existence_results(stats, r):
+    """The featured existence results, each worded from its verified entries."""
+    groups = {g["id"]: g for g in stats["contributions"]}
+    items = []
+    for ident, searched in NEW_EXISTENCE.items():
+        group = groups.get(ident)
+        if not group or not group["featured"]:
+            continue
+        entries = [r[e] for e in group["entry_ids"]]
+        orders = {x["n"] for x in entries}
+        if len(orders) != 1 or any(
+            x["type"] != "quadruple" or "skew-sds" not in x["tracks"] for x in entries
+        ):
+            raise ValueError(f"existence result is not skew quadruples of one order: {ident}")
+        n, count = orders.pop(), len(entries)
+        noun = "quadruple" if count == 1 else "quadruples"
+        items.append(
+            {
+                "n": n,
+                "stratum": "skew-sds",
+                "source": None,
+                "text": f"A skew-Hadamard matrix of order {4 * n}: {count} verified {noun} "
+                f"with a skew block at n = {n}.",
+                "qualifier": "a search of the literature and public repositories on "
+                f"{searched} found no earlier skew-Hadamard matrix of order {4 * n}; this "
+                "reports the search and does not claim priority",
+            }
+        )
+    return items
+
+
+def new_cells(stats, r):
+    """The cells the grid marks as new: the curated list and the featured existence results."""
+    return NEW_CELLS | {(x["stratum"], x["n"]) for x in existence_results(stats, r)}
 
 
 def new_results(stats, r):
     """The curated new results, grouped, each worded from its cell's evidence."""
     by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
-    groups = {key: [] for key, _ in NEW_RESULT_GROUPS}
+    groups = {key: [] for key, _, _ in NEW_RESULT_GROUPS}
     for track, n in NEW_RESULTS:
         c = by_cell[n, track]
         item = {"n": n, "stratum": track, "source": None, "qualifier": None}
@@ -291,19 +413,18 @@ def new_results(stats, r):
             kind = "correction"
             item["source"] = c["contradicted"][0]["source"]
         groups[kind].append(item | {"text": text})
-    return [(title, groups[key]) for key, title in NEW_RESULT_GROUPS if groups[key]]
+    groups["existence"] = existence_results(stats, r)
+    return [(title, groups[key]) for key, title, _ in NEW_RESULT_GROUPS if groups[key]]
 
 
 def new_results_section(stats, r):
     parts = [
         '<section id="new-results"><h2>New results</h2><p class="key">Statements on this board '
-        f"that a literature search made on {LITERATURE_SEARCH_DATE} did not find in any source "
-        "it could read. Some relevant papers could not be read, so this reports the search and "
-        "does not claim priority. Counts are equivalence classes. Each statement comes from an "
-        "exhaustive computer search, not from a proof.</p>"
+        "that a literature search did not find in any source it could read. Some relevant "
+        "papers could not be read, so this reports the searches and does not claim priority.</p>"
     ]
     for title, items in new_results(stats, r):
-        parts.append(f"<h3>{esc(title)}</h3><ul>")
+        parts.append(f'<h3>{esc(title)}</h3><p class="key">{esc(GROUP_NOTES[title])}</p><ul>')
         for x in items:
             link = f'<a href="cells/n{x["n"]}-{x["stratum"]}.html">{esc(x["text"])}</a>'
             if x["source"]:
@@ -325,14 +446,92 @@ def new_results_section(stats, r):
     return "".join(parts)
 
 
+def cell_description(c):
+    """The meta description of a cell page, for search results and link previews."""
+    n, track = c["n"], c["stratum"]
+    head = f"Order n = {n}, {TRACK_LABELS[track]}: "
+    count = len(c["quadruples"])
+    if count:
+        noun = "quadruple" if count == 1 else "quadruples"
+        kind = (
+            f"with a skew block, each giving a skew-Hadamard matrix of order {4 * n}"
+            if track in SKEW_TRACKS
+            else f"each giving a Hadamard matrix of order {4 * n}"
+        )
+        return f"{head}{count} exactly verified Goethals–Seidel {noun} {kind}."
+    return (
+        head
+        + {
+            "exists": "existence is published and no rows are on the board yet.",
+            "empty": "recorded as empty.",
+            "unresolved": "unresolved, with no quadruple and no proof of emptiness on the board.",
+        }[c["status"]]
+    )
+
+
+def entry_description(doc, result):
+    """The meta description of an entry page."""
+    ident, n = doc["id"], doc["n"]
+    if doc["type"] == "quadruple":
+        _, pattern = display_rows(result)
+        kind = "skew-Hadamard" if "k" in pattern else "Hadamard"
+        return (
+            f"Goethals–Seidel quadruple {ident} of order n = {n}, exactly verified. Its array "
+            f"is a {kind} matrix of order {4 * n}."
+        )
+    label = TRACK_LABELS[result["stratum"]]
+    if doc["type"] == "census":
+        return f"Census record {ident} at order n = {n}, {label}: {result['count']} recorded."
+    what = certificate_label(result) or "attributed claim"
+    return f"Evidence record {ident} at order n = {n}, {label}: {what}."
+
+
+def rows_block(doc, result):
+    """The four rows of a quadruple as sign strings, in the order the picture uses."""
+    rows, pattern = display_rows(result)
+    n = doc["n"]
+    kind = "skew-Hadamard" if pattern[0] == "k" else "Hadamard"
+    text = (
+        "The four rows A, B, C, D of the canonical representative, with + for 1 and - for −1. "
+        "The letter after each name is its symmetry: k skew, s symmetric, · neither. "
+    )
+    if pattern[0] == "k":
+        text += "A skew row is listed first, so the "
+    else:
+        text += "The "
+    text += f"Goethals–Seidel array of the rows in this order is a {kind} matrix of order {4 * n}."
+    if pattern != result["pattern"]:
+        text += (
+            " The verifier result below lists the same rows as canonical_rows in sorted order, "
+            "in which the skew row is not first."
+        )
+    lines = "\n".join(
+        f"{name} {letter} {signs(row)}" for name, letter, row in zip("ABCD", pattern, rows)
+    )
+    return f'<section class="rows-text"><h2>Rows</h2><p>{esc(text)}</p><pre>{esc(lines)}</pre></section>'
+
+
 def cell_page(c, d, r):
     """One page per order and track: status, credit, sources, and the matrices."""
     n, track = c["n"], c["stratum"]
-    status = " · ".join(x for x in (c["status"], c["artifact_status"], c["tier"]) if x)
+    tier = tier_label(c["tier"], rows=bool(c["quadruples"]))
+    status = " · ".join(x for x in (c["status"], c["artifact_status"], tier) if x)
+    expanded = " (sds: supplementary difference sets)" if track == "skew-sds" else ""
     parts = [
-        f'<article class="entry"><div class="eyebrow">cell · order {n} · {esc(track)}</div>'
-        f'<h1>n = {n} · {esc(TRACK_LABELS[track])}</h1><span class="tag">{esc(status)}</span>'
+        f'<article class="entry"><div class="eyebrow">cell · order {n} · {esc(track)}{expanded}'
+        f'</div><h1>n = {n} · {esc(TRACK_LABELS[track])}</h1><span class="tag">{esc(status)}</span>'
     ]
+    if c["quadruples"] and track in SKEW_TRACKS:
+        count = len(c["quadruples"])
+        subject = (
+            "The verified quadruple on this page has"
+            if count == 1
+            else f"Each of the {count} verified quadruples on this page has"
+        )
+        parts.append(
+            f'<p class="census">{subject} a skew block, so its Goethals–Seidel array with that '
+            f"block first is a skew-Hadamard matrix of order {4 * n}.</p>"
+        )
     if c["censuses"]:
         x = r[c["censuses"][0]]
         link = f'<a href="../entries/{esc(x["id"])}.html">{esc(x["id"])}</a>'
@@ -406,7 +605,12 @@ def cell_page(c, d, r):
                     detail += " · equiv-v2 (shifts identified)"
                 if published_count(result):
                     detail += " · published count"
-            if result.get("tier"):
+            if result["type"] == "certificate":
+                if label := certificate_label(result):
+                    detail += f" · {label}"
+                if result["scope"]["kind"] != "full":
+                    detail += f" · covers only {scope_text(result['scope'])}"
+            elif result.get("tier"):
                 detail += f" · {result['tier']}"
             items.append(
                 f'<li><a href="../entries/{esc(ident)}.html">{esc(ident)}</a> · {esc(detail)}</li>'
@@ -453,6 +657,7 @@ def build(quick=False):
 <text x="78" y="16">{label}</text><text x="178" y="16">{value}</text></g></svg>'''
         (out / f"badges/{key}.svg").write_text(badge)
     by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
+    marked = new_cells(stats, r)
     rows = []
     for n in range(1, 132, 2):
         cells = []
@@ -469,7 +674,7 @@ def build(quick=False):
                 if c["status"] == "empty"
                 else "Unresolved"
             )
-            small = c["tier"] or (
+            small = tier_label(c["tier"], rows=bool(c["quadruples"])) or (
                 " / ".join(c["empty_basis"]) or "literature"
                 if c["status"] == "empty"
                 else "claim / partial evidence"
@@ -481,14 +686,14 @@ def build(quick=False):
             )
             classes = f"{c['status']} {c['artifact_status']}{' contradicted' if c['contradicted'] else ''}"
             origins = list(c["origins"])
-            if (track, n) in NEW_CELLS and "participant-result" not in origins:
+            if (track, n) in marked and "participant-result" not in origins:
                 origins.insert(0, "participant-result")
             # The diamond means a new result for this cell. A cell can hold
             # rows or evidence from the challenge without that: a new G-matrix
             # is also a skew quadruple at an order where those were known.
             marker = (
                 '<span class="participant" title="New result"></span>'
-                if (track, n) in NEW_CELLS
+                if (track, n) in marked
                 else ""
             )
             count = census_count(c, r)
@@ -530,8 +735,11 @@ def build(quick=False):
             )
             credits = f'<p class="origin published-import">{label}</p>'
         picture = ""
+        tag = result.get("tier")
         if doc["type"] == "quadruple":
+            tag = tier_label(tag, rows=True)
             picture = (
+                f"{rows_block(doc, result)}"
                 f'<section class="picture"><h2>Picture</h2>'
                 f"{quad_figure(doc, result, '')}"
                 f'<script src="../picture.js" defer></script></section>'
@@ -544,8 +752,19 @@ def build(quick=False):
             for t in FORMAL
             if t["entry_id"] == ident
         )
-        text = f"""<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div><h1>{esc(ident)}</h1><span class="tag">{esc(result.get("tier") or "attributed / archived claim or lower bound")}</span>{credits}<p>Original source attribution: {esc("; ".join(doc["discovered_by"]))}<br>Submitted / imported by: {esc(doc["submitted_by"])} · {doc["submitted_at"]}<br>Board cell: {cell_links(result, "../")}</p>{formal}{picture}<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre><h2>Sources</h2><ul>{sources}</ul><details><summary>Submission JSON</summary><pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"""
-        (out / f"entries/{ident}.html").write_text(shell(ident, text, "../"))
+        if doc["type"] == "certificate":
+            tag = certificate_label(result)
+        file = f"{FOLDERS[doc['type']]}/{ident}.json"
+        raw = f"https://raw.githubusercontent.com/vxvware/goethals-seidel-challenge/main/{file}"
+        links = (
+            f'<br>Entry file: <a href="{REPOSITORY}/blob/main/{file}">{esc(file)}</a> · '
+            f'<a href="{raw}">raw JSON</a>'
+        )
+        notes = f"<h2>Notes</h2><p>{esc(doc['notes'])}</p>" if doc.get("notes") else ""
+        text = f"""<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div><h1>{esc(ident)}</h1><span class="tag">{esc(tag or "attributed / archived claim or lower bound")}</span>{credits}<p>Original source attribution: {esc("; ".join(doc["discovered_by"]))}<br>Submitted / imported by: {esc(doc["submitted_by"])} · {doc["submitted_at"]}<br>Board cell: {cell_links(result, "../")}{links}</p>{formal}{picture}{notes}<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre><h2>Sources</h2><ul>{sources}</ul><details><summary>Submission JSON</summary><pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"""
+        (out / f"entries/{ident}.html").write_text(
+            shell(ident, text, "../", description=entry_description(doc, result))
+        )
     refs = (
         '<article class="entry"><div class="eyebrow">bibliography</div><h1>References</h1>'
         "<p>Every paper, dataset and software source cited on the board. The numbers are the "
@@ -558,7 +777,7 @@ def build(quick=False):
     for c in stats["cells"]:
         title = f"n = {c['n']} · {TRACK_LABELS[c['stratum']]}"
         (out / f"cells/n{c['n']}-{c['stratum']}.html").write_text(
-            shell(title, cell_page(c, d, r), "../")
+            shell(title, cell_page(c, d, r), "../", description=cell_description(c))
         )
     print(
         f"Built docs/: {stats['quadruples']} quadruples, {stats['certificates']} evidence records, {stats['censuses']} censuses."
