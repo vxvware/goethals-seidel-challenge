@@ -353,3 +353,15 @@ def test_new_results_are_worded_from_the_board(board):
     assert single == {"Good matrices of order 67: none exist."}
     # The shift-class counts are not claimed as new.
     assert not any("cyclic shifts" in t for t in texts)
+
+
+def test_filled_baseline_gaps_name_flagged_entries(board):
+    gaps = read_json(ROOT / "baselines/skew-gaps.json")
+    filled = {x["order"]: x["entry_ids"] for x in gaps["filled_on_board"]}
+    assert set(filled) <= set(gaps["orders"])
+    assert {356, 476} <= set(filled)
+    for order, idents in filled.items():
+        assert idents
+        for ident in idents:
+            flags = board[1][ident]["flags"]
+            assert any(f["kind"] == "fills-a-baseline-gap" and f["order"] == order for f in flags)
