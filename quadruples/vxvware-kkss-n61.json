@@ -17,7 +17,7 @@
   "sources": [
     {
       "title": "vxvware/saw-best-matrix gmat_c (nearwill/gmat_c.c at 7e1d261 with the gmat61 memory patch): exhaustive (kkss) census at n=61, piece a2q0, A codes [268435456, 402653184) x B codes [0, 268435456), found 2026-10-18; census still running (the repository is private; the link is the archived copy in this repository of its census file data/gmat/gmat-61.txt, which holds this class)",
-      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/saw-best-matrix/gmat/gmat-61.txt"
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/saw-best-matrix/gmat/gmat-61.txt"
     }
   ],
   "equivalence": "equiv-v1",

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "entry_id": "vxvware-good-n57",
-  "entry_sha256": "1cb7c449a65956bf355df9f7ea7856d8f6d9b8fb9f7e1e37fb8f14a14717a811",
+  "entry_sha256": "d4e83c9ce2df7d20a5245013255a3c1cd755f76f3b1c425b0f4245278e69181f",
   "engine_id": "good-census-c-v1",
   "engine_sha256": {
     "research/starter/good/good_c.c": "cdbc20eae5c8b19f48489381e625f9490020f77a6f8c663bc03433f37e2b7c93"

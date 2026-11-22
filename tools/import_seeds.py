@@ -45,7 +45,7 @@ def copy_artifact(src, dest):
 # exists, so a source record links the copy of the file archived in this
 # repository at a pinned commit. The commit and source_path fields keep the
 # identity of the original.
-ARCHIVE = "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f"
+ARCHIVE = "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f"
 UNARCHIVED = {
     ("skew356-campaign", "data/sweep_p73_d9.json"): (
         "evidence/seeds/skew-p73-d9.jsonl.gz",

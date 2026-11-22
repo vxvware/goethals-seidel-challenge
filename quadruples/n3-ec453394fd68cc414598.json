@@ -17,7 +17,7 @@
   "sources": [
     {
       "title": "Best catalogue n=3 (archived in this repository)",
-      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f/evidence/participants/best-matrix-campaign/data/catalogue_solutions.npz",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f/evidence/participants/best-matrix-campaign/data/catalogue_solutions.npz",
       "commit": "9a14955f88c411b5ab2803005ee6e83e02a66e22",
       "source_path": "data/catalogue_solutions.npz"
     }

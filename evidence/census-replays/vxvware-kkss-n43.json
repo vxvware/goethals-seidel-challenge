@@ -1,7 +1,7 @@
 {
   "version": 1,
   "entry_id": "vxvware-kkss-n43",
-  "entry_sha256": "c1cb82159fdc1a10f0763edbab35b8987dd66971aa3bfa0ba034c571021e2f49",
+  "entry_sha256": "5e6a577f59451b4c366d9402af2781980def14d2526689ca16839893339ba7d1",
   "engine_id": "kkss-census-c-v1",
   "engine_sha256": {
     "research/starter/kkss/gmat_c.c": "7949e441ac507d81ff2d84048737cc02024e4db7c92d5ddd9914ec3ea312de2a",

@@ -25,7 +25,7 @@ from verify.model import validate
 # vxvware/saw-best-matrix is private. A source record links the copy of the file
 # archived in this repository at a pinned commit; its commit and source_path
 # fields keep the identity of the original.
-ARCHIVE = "https://github.com/vxvware/goethals-seidel-challenge/blob/099dfef128d85011d5b8255b407acb3546d78d8f"
+ARCHIVE = "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f"
 SUBMITTER = "vxvware"
 SUBMITTED_AT = "2026-10-15"
 # Orders imported after the initial import carry their own import date and the
