@@ -1,0 +1,19 @@
+# Two skew quadruples of order 83 over the cyclic group Z_83 from a three-pool join with a fixed skew block. Each gives a skew-Hadamard matrix of order 332.
+# Run on 2026-11-22. This is a sampling search: the rows below are what one round found, not a census.
+# The skew-Hadamard order 332 is not among the open orders of baselines/skew-gaps.json, and this board already holds a quadruple with a skew block at n=83 from a published family. The rows below add two classes in which B, C and D have no symmetry.
+# Block A is the Paley block (entry j is the Legendre symbol of j mod 83, entry 0 is +1). It is skew and invariant under the 41 squares mod 83, and its periodic autocorrelation is -1 at every nonzero lag, so B, C, D must have autocorrelations summing to 1 at every nonzero lag.
+# Plan: row sums 9, 9, 13; windows of allowed autocorrelation values [-5, 3] at every lag for B and C (one pool serves both) and [-5, 7] at every lag for D.
+# Terms. hit: a row whose periodic autocorrelations lie inside its block's window at every nonzero lag. pool: the hits collected for one block. join: the exact step that reports every triple of rows, one per pool, whose autocorrelations sum with that of A to zero at every nonzero lag. key: the value under which the join indexes a row; its definition is in the search code.
+# Pools. Row sum 9: 3999463 distinct rows from a local search, on a laptop. Row sum 13: 100000000 rows generated on the 16-thread machine that ran the join:
+#   block 2 row 13: 100000000 hits, 1.86e+11 evals, 1.86e+03 per hit, 1.45e+09 evals/s on 16 threads
+# Join output:
+#   pool 0: row 9, 3999463 hits (0 rows outside the windows skipped), 79825401 distinct keys
+#   pool 1: row 9, 3999463 hits (0 rows outside the windows skipped), 79825401 distinct keys
+#   pool 2: row 13, 100000000 hits (0 rows outside the windows skipped), 99987952 distinct keys (one per orbit)
+#   n=83: 4 solution orbits (of 41), 9.91e+08 nodes, 2414.9 s on 16 threads
+# The join reported four lines. Because one pool serves both B and C, each solution appears twice, as (B, C, D) and (C, B, D); the two lines below are one of each pair.
+# Checks on 2026-11-22 in code separate from the search: A skew; the Goethals-Seidel matrix G of order 332 satisfies G G^T = 332 I and G + G^T = 2 I for all four reported lines.
+# The search code is not in the repository.
+# one row A,B,C,D per solution:
+++-++--+-++++---++---+-+-+++++++-+--+++-++--+---++-+-------+-+-+++--+++----+-++--+-,+++-+++++--+-+---+--++++--+----+++++-+-+--++----+-++----+-+-++++--+++-++-+++--+-+++,+--+-+--++--++----+++-+-+-++-+++++++-++++-+--+++-++-----+++-+-++--+-----+-+--++++++,+---+--++-+-+-+--+++-++++-+-+-+++---+++++--+++--++-+---++-++-+--+-++--+--++-+++++++
+++-++--+-++++---++---+-+-+++++++-+--+++-++--+---++-+-------+-+-+++--+++----+-++--+-,-+---+-++++++++-+-+-++--+++++-++--+++-++++-----++-+-+--+++-++-+--++-+--++++-----+--,-+---+--+-++-+--+---+++++--+-+---++++++++-++++++-+-+---++--++--++++---+-+++-+--+++-,++-+-++---+-+--++-+-+++--+----+-++++--+-++++--++++-++-+----+++-+-+++--++-+++-++-+++
