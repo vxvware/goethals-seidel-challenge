@@ -205,7 +205,7 @@ def shell(title, body, prefix="", head="", description=DESCRIPTION):
 <title>{esc(title)} · Hunting Hadamards</title><meta name="description" content="{esc(description)}"><meta property="og:title" content="{esc(title)} · Hunting Hadamards"><meta property="og:description" content="{esc(description)}">
 <link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
 <header><a class="brand" href="{prefix}index.html">hunting-hadamards</a><nav><a href="{prefix}index.html#board">board</a><a href="{prefix}index.html#new-results">new results</a><a href="{prefix}orders.html">orders</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
-<main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a><p class="credit">Vincent Russo and Trevor Vincent</p></footer></body></html>'''
+<main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a><p class="credit"><a href="https://vprusso.github.io/">Vincent Russo</a> and Trevor Vincent</p></footer></body></html>'''
 
 
 def quad_figure(doc, result, caption):
