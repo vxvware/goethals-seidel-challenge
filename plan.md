@@ -2,8 +2,7 @@
 
 *Drafted 2026-09-24; revised 2026-10-14 after [plan_review.md](plan_review.md)
 (all six review findings accepted — the revision notes below mark what changed).
-Target repo: `vxvware/goethals-seidel-challenge`. Modeled on `qldpc-challenge`
-(see `~/Codes/vxvware/qldpc-challenge-work/qldpc-challenge/`), adapted to a
+Target repo: `vxvware/goethals-seidel-challenge`. Modeled on `qldpc-challenge`, adapted to a
 domain where verification is exact, integer, and millisecond-cheap.*
 
 ## 1. What the board is
@@ -18,14 +17,13 @@ a symmetry stratum of this one object:
 | ssss | Williamson | Hadamard 4n |
 | ksss | good matrices | skew-Hadamard 4n |
 | kkks | best matrices | skew-Hadamard 4n (forces n = r²+r+1) |
-| kkss | (unnamed, barely studied) | skew-Hadamard 4n |
+| kkss | G-matrices | skew-Hadamard 4n |
 | k··· | skew GS difference family | skew-Hadamard 4n (this cracked order 292) |
 | ···· | general GS family / 4-SDS | Hadamard 4n |
 
 Submit a quadruple; the verifier recomputes everything from the four rows; if
 it holds up it goes on the board. **The flagship bounty cell:** any verified
-k···-or-stronger quadruple at n=89 constructs the first skew-Hadamard matrix of
-order 356 — the smallest open order. The verifier flags
+k···-or-stronger quadruple at n=89 gives a skew-Hadamard matrix of order 356, the smallest order listed as open in the baseline when this plan was written. (Two such quadruples were added to the board on 2026-11-22. A search of the literature and public repositories on that date found no earlier skew-Hadamard matrix of order 356; that reports the search and is not a claim of priority.) The verifier flags
 "fills-a-baseline-gap" automatically; the flag is **typed and dated** (review
 §6): it requires the derived **skew predicate** (≥1 skew block — a general ····
 quadruple at a gap order gives only an ordinary Hadamard matrix, which is

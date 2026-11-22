@@ -2,21 +2,20 @@
 
 The Goethals–Seidel challenge.
 
-![Verified quadruples](https://vxvware.github.io/goethals-seidel-challenge/badges/quadruples.svg)
-![Census records](https://vxvware.github.io/goethals-seidel-challenge/badges/censuses.svg)
+![Verified quadruples](https://hadamards.com/badges/quadruples.svg)
+![Census records](https://hadamards.com/badges/censuses.svg)
 
 An exactly verified catalogue of four circulant ±1 rows satisfying
 `AAᵀ + BBᵀ + CCᵀ + DDᵀ = 4nI`, with research targets, equivalence-class
 censuses, and scoped computational evidence.
 
-[Browse the board](https://vxvware.github.io/goethals-seidel-challenge/) ·
+[Browse the board](https://hadamards.com) ·
 [Track definitions](TRACKS.md) · [Contribute](CONTRIBUTING.md) ·
 [Mathematical contract](notes/mathematical-contract.md)
 
-The flagship historical gap is a skew-Hadamard matrix of order **356**, obtained
-from a skew GS quadruple at n=89. The baseline is
-[Cati–Pasechnik, arXiv:2411.18897v2](https://arxiv.org/html/2411.18897v2), dated
-2025-08-30. A baseline-gap flag never automatically establishes current novelty.
+The board flags a skew quadruple whose order is in a dated baseline list of open skew-Hadamard orders, [baselines/skew-gaps.json](baselines/skew-gaps.json). The list is 356, 404, 428 and 476, taken from version 2 of the database paper with key `cati2024database` in [baselines/references.bib](baselines/references.bib) ([arXiv:2411.18897v2](https://arxiv.org/html/2411.18897v2), dated 2025-08-30). A baseline-gap flag never automatically establishes current novelty.
+
+State on 2026-11-22: two of the four orders have board entries. Two skew quadruples at n=89 were added on 2026-11-22 ([n89-eec2e43c042090883c04](quadruples/n89-eec2e43c042090883c04.json) and [n89-b2a223b0fb7500feb95f](quadruples/n89-b2a223b0fb7500feb95f.json)); the Goethals–Seidel array of each is a skew-Hadamard matrix of order 356. A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356. That is a report of the search, not a claim of priority, and the result has not been reviewed. A skew quadruple at n=119, giving order 476, was imported on 2026-11-17 from a public repository whose author found it ([n119-f302cc45a2f83e60917b](quadruples/n119-f302cc45a2f83e60917b.json)). Orders 404 and 428 have no board entry.
 
 ## Run locally
 
@@ -103,8 +102,7 @@ The board does not inflate historical receipts into proofs. See
   claim; the board does not present it as fully verified emptiness.
 - Good-67 is partial coverage. Good-41 has a full archived coverage receipt,
   but has not been replayed on this CPU-only implementation machine.
-- The p=89 order-11-subgroup null has an independently checked, exact row-sum
-  obstruction. It does not close the full n=89 skew-sds cell.
+- The order-11-subgroup certificate at n=89 is an exact row-sum obstruction for one restricted family: quadruples with a skew block whose four blocks are all unions of cosets of the order-11 multiplier subgroup. It says nothing about other quadruples at n=89. Since 2026-11-22 the n=89 skew-sds cell holds two verified quadruples, each with three blocks outside that family.
 - Literature nonexistence is sourced per order, separately from local proof
   or computation tiers. Published census totals remain attributed claims
   unless the full enumerator is replayed.
