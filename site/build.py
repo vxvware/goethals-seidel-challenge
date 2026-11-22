@@ -677,6 +677,7 @@ def build(quick=False):
     by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
     marked = new_cells(stats, r)
     states = orders.table(ORDERS, r)
+    new_skew = {x["n"] for x in existence_results(stats, r)}
     rows = []
     for n in range(1, 132, 2):
         cells = []
@@ -727,7 +728,7 @@ def build(quick=False):
                 f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(origins))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}">{esc(text)}{marker}</a></td>'
             )
         rows.append(
-            f'<tr data-n="{n}"><td>{n}</td>{orders.grid_cells(n, states)}'
+            f'<tr data-n="{n}"><td>{n}</td>{orders.grid_cells(n, states, new_skew)}'
             + "".join(cells)
             + "</tr>"
         )
