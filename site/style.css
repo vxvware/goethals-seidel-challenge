@@ -111,7 +111,7 @@ td .cell:hover{border-color:var(--green);background:#0d3b20;color:var(--bright)}
 .census{font-size:1rem}
 .contradiction{border-left:3px solid var(--red);padding-left:1.2rem}
 .note{border-left:3px solid var(--gold);padding-left:1.2rem}
-footer{border-top:1px dashed var(--line);display:flex;justify-content:center;padding:3rem 2rem}
+footer{border-top:1px dashed var(--line);display:flex;flex-direction:column;align-items:center;padding:3rem 2rem}
 footer .logo{display:inline-block;line-height:0;border:0}
 footer .logo:hover{background:none}
 footer .logo img{width:12rem;max-width:70vw;opacity:.78;transition:opacity .2s,filter .2s,transform .2s}
@@ -155,3 +155,4 @@ details summary{cursor:pointer;font-size:.8667rem;color:var(--green)}
 .refs{padding-left:2.4rem}
 .refs li{margin:.5333rem 0;overflow-wrap:anywhere}
 .refs li:target{background:var(--panel);outline:1px solid var(--line)}
+footer .credit{margin:1rem 0 0;font-size:.8rem;color:var(--muted)}
