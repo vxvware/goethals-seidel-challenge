@@ -142,24 +142,41 @@ def marks(bib, keys, prefix=""):
     return " ".join(bib.mark(key, prefix) for key in sorted(set(keys), key=bib.number.get))
 
 
-def state_cell(order, name, info, href, text=None):
-    """One table cell for an order and a type, in the grid's cell style."""
+def state_cell(order, name, info, href, text=None, new=False):
+    """One table cell for an order and a type, in the grid's cell style.
+
+    With new set, the cell carries the grid's new-result marker.
+    """
     label, classes = STATES[info["state"]]
     spoken = f"{TYPE_NAMES[name]} matrix of order {order}: {STATE_WORDS[info['state']]}"
     if info["listed_open"] and info["state"] == "board":
         spoken += "; listed as open in the older sources"
+    marker = '<span class="participant" title="New result"></span>' if new else ""
+    if new:
+        spoken += "; new result of this board"
     return (
         f'<td class="{classes}" data-type="{name}" data-order="{order}" '
         f'data-state="{info["state"]}"><a class="cell" href="{esc(href)}" '
-        f'aria-label="{esc(spoken)}" title="{esc(spoken)}">{esc(text or label)}</a></td>'
+        f'aria-label="{esc(spoken)}" title="{esc(spoken)}">{esc(text or label)}{marker}</a></td>'
     )
 
 
-def grid_cells(n, states):
-    """The two existence cells of the front-page grid row of n, showing the order 4n."""
+def grid_cells(n, states, new_skew=()):
+    """The two existence cells of the front-page grid row of n, showing the order 4n.
+
+    new_skew holds the n whose skew-Hadamard order is a featured existence
+    result of this board; that cell gets the new-result marker.
+    """
     order = 4 * n
     return "".join(
-        state_cell(order, name, states[order][name], f"orders.html#o{order}", text=order)
+        state_cell(
+            order,
+            name,
+            states[order][name],
+            f"orders.html#o{order}",
+            text=order,
+            new=name == "skew-hadamard" and n in new_skew,
+        )
         for name in TYPES
     )
 

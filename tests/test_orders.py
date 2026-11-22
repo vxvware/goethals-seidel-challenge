@@ -246,3 +246,20 @@ def test_cell_page_lists_the_quadruples_before_a_restricted_obstruction(board):
     found = page.index("Two quadruples with a skew block at n=89")
     obstruction = page.index("No quadruple at n=89 has one skew block and all four blocks")
     assert found < obstruction
+
+
+def test_new_skew_order_carries_the_new_result_marker():
+    import importlib.util
+    import pathlib
+
+    spec = importlib.util.spec_from_file_location(
+        "orders_for_marker", pathlib.Path(__file__).parents[1] / "site" / "orders.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    info = {"state": "board", "listed_open": True}
+    states = {356: {name: info for name in module.TYPES}}
+    marked = module.grid_cells(89, states, {89})
+    plain = module.grid_cells(89, states)
+    assert marked.count('class="participant"') == 1 and 'class="participant"' not in plain
+    assert marked.index('data-type="skew-hadamard"') < marked.index('class="participant"')
