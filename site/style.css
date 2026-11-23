@@ -64,7 +64,10 @@ button{cursor:pointer}
 #grid th.group{white-space:normal;font-weight:400;color:var(--muted);box-shadow:none;line-height:1.3}
 #grid .sep{border-left:1px solid var(--line)}
 #grid td[data-track="williamson"]{border-left:1px solid var(--line)}
-.orders li{line-height:1.65;max-width:92ch}
+.open-orders{margin:0 0 1.2rem;padding:.8rem 1.2rem;background:var(--panel);border:1px solid var(--line);max-width:92ch;font-size:.8667rem}
+.open-orders h3{font-size:1rem;margin:0 0 .4rem;color:var(--green)}
+.open-orders ul{margin:0;padding-left:1.2rem}
+.open-orders li{line-height:1.6}
 table{border-collapse:collapse;width:100%}
 th,td{padding:.2rem .45rem;text-align:left;border-bottom:1px solid #0b1f15;font-size:.82rem}
 th{font-weight:600;white-space:nowrap;background:#04100a;color:var(--green);text-transform:lowercase}
