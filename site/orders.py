@@ -160,7 +160,18 @@ def state_cell(order, name, info, href, text=None, new=False, board=None):
     if info["listed_open"] and info["state"] == "board":
         spoken += "; listed as open in the older sources"
     board = board or {}
-    attrs = "".join(f' data-{key}="{esc(value)}"' for key, value in board.get("data", {}).items())
+    data = dict(board.get("data", {}))
+    # The origin filter asks who settled the order, not who supplied the board cell's rows:
+    # an order the sources listed as open and the board now holds takes the board cell's
+    # origins, an order known from the sources is a literature result, and an open order
+    # has no origin.
+    if info["state"] == "board" and info["listed_open"]:
+        pass
+    elif info["state"] in ("board", "known"):
+        data["origins"] = "published-import"
+    else:
+        data["origins"] = ""
+    attrs = "".join(f' data-{key}="{esc(value)}"' for key, value in data.items())
     count = board.get("count", "") if info["state"] == "board" else ""
     if board.get("contradicted") and info["state"] == "board":
         classes += " contradicted"
