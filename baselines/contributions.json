@@ -277,7 +277,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "No quadruple at n=89 has one skew block and all four blocks unions of cosets of the order-11 subgroup of the multiplier group of Z_89, each with or without 0. A skew block has row sum 1, so the squared row sums of the other three blocks must add to 4n - 1 = 355, and no three row sums of such coset unions do. This excludes only that family and says nothing about other quadruples at n=89: the verified quadruples in the cell each have a skew block of this kind and three blocks outside the family.",
+      "summary": "Rules out one restricted family at n = 89 only: quadruples with a skew block whose four blocks are unions of cosets of the order-11 multiplier subgroup, by their row sums. The verified quadruples at n = 89 lie outside it.",
       "entry_ids": [
         "skew-n89-subgroup11"
       ],
@@ -645,7 +645,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Eleven quadruples with a skew block at n=89 over the cyclic group Z_89, found between 2026-11-22 05:06 and 2026-11-23 02:26 UTC: two by two slices of one run and nine more by a further round with larger pools, which has finished. The Goethals–Seidel matrix of each is a skew-Hadamard matrix of order 356. The search fixes a skew first block invariant under the multiplier group of order 11, collects rows of the other three blocks whose periodic autocorrelations lie in fixed windows into three pools, and joins the pools exactly. The eleven quadruples share the skew block and differ in the other three blocks, which have no symmetry. It is a sampling search: these are eleven solutions, not a census. The search code is not in the repository; the run record is evidence/participants/pool-join/skew-89.txt, written before the second quadruple was reported; the other files named skew-89-* in the same directory record the later ones. Order 356 is the smallest order for which the existence of a skew-Hadamard matrix is stated to be undecided in [@djokovic2023skew]; it is given as the smallest unknown order in [@araya2024classification] and as the smallest open order in the survey [@egan2026recent]; the database of [@cati2024database] has no construction for it; and it is the smallest open order of baselines/skew-gaps.json. It is already among the orders below 1004 listed as not yet known in [@wallis1970configurations]. A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356; that is a report of the search, not a proof of priority, and the result has not been reviewed.",
+      "summary": "Eleven skew quadruples at n = 89, found on 2026-11-22 and 2026-11-23 (UTC) by a search that fixes one skew block and joins pools of candidate rows for the other three. Each gives a skew-Hadamard matrix of order 356, the smallest order listed as open in [@djokovic2023skew], [@araya2024classification] and [@egan2026recent], and already listed as unknown in [@wallis1970configurations]. A literature search found no earlier one; this does not claim priority, and the result has not been reviewed.",
       "entry_ids": [
         "n89-eec2e43c042090883c04",
         "n89-b2a223b0fb7500feb95f",

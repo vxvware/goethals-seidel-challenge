@@ -59,16 +59,11 @@ button{cursor:pointer}
 .legend .participant:before{background:var(--violet);width:.4667rem;height:.4667rem;transform:rotate(45deg);margin:0 .6rem 0 2px;vertical-align:1px}
 .scroll{overflow:auto;border:1px solid var(--line);background:var(--panel)}
 .grid-wrap{border:1px solid var(--line);background:var(--panel)}
-#grid thead,#orders thead{position:sticky;top:0;z-index:2}
-#grid th,#orders th{box-shadow:inset 0 -1px 0 var(--green)}
+#grid thead{position:sticky;top:0;z-index:2}
+#grid th{box-shadow:inset 0 -1px 0 var(--green)}
 #grid th.group{white-space:normal;font-weight:400;color:var(--muted);box-shadow:none;line-height:1.3}
 #grid .sep{border-left:1px solid var(--line)}
 #grid td[data-track="williamson"]{border-left:1px solid var(--line)}
-#orders tr{scroll-margin-top:3rem}
-#orders tr:target td{background:#0d3b20}
-#orders td.held{white-space:nowrap}
-.orders .legend{flex-direction:column;gap:.4rem}
-.orders h3{font-size:1rem;margin:1.2rem 0 .4rem;color:var(--green)}
 .orders li{line-height:1.65;max-width:92ch}
 table{border-collapse:collapse;width:100%}
 th,td{padding:.2rem .45rem;text-align:left;border-bottom:1px solid #0b1f15;font-size:.82rem}

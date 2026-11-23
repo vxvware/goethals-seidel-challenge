@@ -160,42 +160,25 @@ def test_doubled_board_matrices_are_skew_hadamard(board, data):
         assert np.array_equal(double @ double.T, m * np.eye(m, dtype=int))
 
 
-def test_page_lists_and_rows_equal_the_data_file(board, data, states):
+def test_page_lists_equal_the_data_file(board, data, states):
     bib = Bibliography()
     page = orders.page(data, board[1], bib)
     for name in orders.TYPES:
-        listed = re.search(rf'<p id="open-{name}" data-orders="([^"]*)">', page).group(1)
+        listed = re.search(rf'<li id="open-{name}" data-orders="([^"]*)">', page).group(1)
         assert [int(o) for o in listed.split()] == data["types"][name]["open"]
-    found = cells(page)
-    assert len(found) == 2 * len(orders.in_range(data))
-    shown_open = {name: [] for name in orders.TYPES}
-    for classes, name, order, state, text in found:
-        order = int(order)
-        assert state == states[order][name]["state"]
-        assert (text, classes) == orders.STATES[state]
-        if state == "open":
-            shown_open[name].append(order)
-    for name in orders.TYPES:
-        assert shown_open[name] == data["types"][name]["open"]
-    assert [int(o) for o in re.findall(r'<tr id="o(\d+)"', page)] == list(orders.in_range(data))
-    # Open and reported rows are marked for the filter and styled apart.
-    assert '<tr id="o404" data-flag="open">' in page
-    assert '<tr id="o668" data-flag="open reported">' in page
-    assert '<tr id="o356" data-flag="">' in page
-    assert "found no earlier skew-Hadamard matrix of order 356" in page
-    assert "first" not in page.split('<section id="status">')[1].split("</section>")[0].lower()
-    # Every source of the data file is cited by number and listed in full.
+        assert listed.split() == [str(o) for o, s in states.items() if s[name]["state"] == "open"]
+        # Every order settled or reported since the sources is listed on the page.
+        for record in data["types"][name]["since"]:
+            for order in record["orders"]:
+                assert re.search(rf"\b{order}\b", page), order
+    assert "found no earlier one" in page and "first" not in page.lower()
+    assert 'href="cells/n89-skew-sds.html">356</a>' in page
+    assert 'href="cells/n119-skew-sds.html">476</a>' in page
+    # Every source of the data file is cited by number.
     for key in data["sources"]:
         assert f'href="references.html#ref-{key}">[{bib.number[key]}]' in page
-    assert 'href="cells/n89-skew-sds.html">skew</a>' in page
-    held = orders.board_holdings(board[1])
-    for n in range(1, orders.BOARD_MAX_N + 1, 2):
-        slot = held.get(4 * n, {})
-        if slot.get("hadamard") and not slot.get("skew-hadamard"):
-            assert f'href="cells/n{n}-skew-sds.html">no skew</a>' in page
-    for n in range(1, orders.BOARD_MAX_N + 1, 2):
-        word = "any" if held.get(4 * n, {}).get("hadamard") else "none"
-        assert f'<td class="held"><a href="cells/n{n}-general.html">{word}</a>' in page
+    # The page no longer carries the full table of orders.
+    assert "<table" not in page and 'id="o404"' not in page
 
 
 def test_grid_columns_agree_with_the_data_file(data, states):
@@ -214,6 +197,9 @@ def test_grid_columns_agree_with_the_data_file(data, states):
             else:
                 assert state == "board" and states[4 * n][name]["entries"]
             assert classes == orders.STATES[state][1]
+        # Each existence cell links to the board cell of n for its type.
+        hrefs = re.findall(r'href="([^"]+)"', orders.grid_cells(n, states))
+        assert hrefs == [f"cells/n{n}-general.html", f"cells/n{n}-skew-sds.html"]
     row = dict(
         (name, (state, text)) for _, name, _, state, text in cells(orders.grid_cells(89, states))
     )
@@ -248,7 +234,7 @@ def test_track_labels_and_groups():
     assert tuple(module.TRACK_LABELS) == TRACKS
     assert module.EXISTENCE_GROUP == "matrix of order 4n, any construction"
     assert module.TRACK_GROUP == "cyclic Goethals–Seidel quadruples at n"
-    assert 'href="orders.html">orders</a>' in module.shell("x", "")
+    assert 'href="orders.html">open orders</a>' in module.shell("x", "")
 
 
 def test_cell_page_lists_the_quadruples_before_a_restricted_obstruction(board):
@@ -257,8 +243,8 @@ def test_cell_page_lists_the_quadruples_before_a_restricted_obstruction(board):
     cell = next(c for c in summary(d, r, b)["cells"] if (c["n"], c["stratum"]) == (89, "skew-sds"))
     page = module.cell_page(cell, d, r)
     assert "n = 89 · With a skew block" in page
-    found = page.index("Eleven quadruples with a skew block at n=89")
-    obstruction = page.index("No quadruple at n=89 has one skew block and all four blocks")
+    found = page.index("Eleven skew quadruples at n = 89")
+    obstruction = page.index("Rules out one restricted family at n = 89 only")
     assert found < obstruction
 
 

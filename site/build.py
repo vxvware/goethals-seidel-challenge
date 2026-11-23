@@ -57,9 +57,8 @@ DESCRIPTION = (
 
 
 ORDERS_DESCRIPTION = (
-    "For each order 4n up to "
-    f"{ORDERS['range']['max']}: whether a Hadamard matrix and a skew-Hadamard matrix is known, "
-    "with sources, and what this board holds."
+    f"The orders up to {ORDERS['range']['max']} with no known Hadamard or skew-Hadamard matrix "
+    "in the sources read, and the orders reported or settled since."
 )
 
 
@@ -204,7 +203,7 @@ def shell(title, body, prefix="", head="", description=DESCRIPTION):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Hunting Hadamards</title><meta name="description" content="{esc(description)}"><meta property="og:title" content="{esc(title)} · Hunting Hadamards"><meta property="og:description" content="{esc(description)}">
 <link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
-<header><a class="brand" href="{prefix}index.html">hunting-hadamards</a><nav><a href="{prefix}index.html#board">board</a><a href="{prefix}index.html#new-results">new results</a><a href="{prefix}orders.html">orders</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
+<header><a class="brand" href="{prefix}index.html">hunting-hadamards</a><nav><a href="{prefix}index.html#board">board</a><a href="{prefix}index.html#new-results">new results</a><a href="{prefix}orders.html">open orders</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
 <main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a><p class="credit"><a href="https://vprusso.github.io/">Vincent Russo</a> and Trevor Vincent</p></footer></body></html>'''
 
 
@@ -739,7 +738,7 @@ def build(quick=False):
         + "</tr>"
     )
     body = f"""<section class="hero"><div><h1>Hunting Hadamards</h1><p>Hadamard matrices are believed to exist in every size divisible by 4, but some sizes have never been found. This board tracks the search.</p><p class="latest">Latest: <a href="cells/n89-skew-sds.html">a skew-Hadamard matrix of order 356</a>, an order listed as unknown since 1970.</p>{hero_figure(r)}</div>{DEFINITION}</section>
-<section id="board"><h2>The board</h2><p class="key">Each row is an order 4n. The first two columns say whether a Hadamard and a skew-Hadamard matrix of that order is known at all (see the <a href="orders.html">orders page</a>); the others count cyclic Goethals–Seidel quadruples at n by family, with ✓ where one exists but no count is known (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>).</p><div class="controls"><label>Family <select id="track"><option value="">All six families</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
+<section id="board"><h2>The board</h2><p class="key">Each row is an order 4n. The first two columns say whether a Hadamard and a skew-Hadamard matrix of that order is known at all (see the <a href="orders.html">open orders</a>); the others count cyclic Goethals–Seidel quadruples at n by family, with ✓ where one exists but no count is known (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>).</p><div class="controls"><label>Family <select id="track"><option value="">All six families</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
 <div class="legend"><span class="known">verified here</span><span class="published">known elsewhere</span><span class="empty">empty</span><span class="unresolved">open</span><span class="reported">reported, unreviewed</span><span class="contradicted">contradicts the literature</span><span class="participant">new result</span></div>
 <div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{"".join(rows)}</tbody></table></div></section>
 {new_results_section(stats, r)}
@@ -806,9 +805,8 @@ def build(quick=False):
     (out / "references.html").write_text(shell("References", refs))
     (out / "orders.html").write_text(
         shell(
-            "Orders",
+            "Open orders",
             orders.page(ORDERS, r, BIB),
-            head=MATH_HEAD,
             description=ORDERS_DESCRIPTION,
         )
     )
