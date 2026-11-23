@@ -1,19 +1,19 @@
 """Apply maintainer-registered replay reports, never submission-declared tiers."""
 
-from verify.common import ROOT, artifact, digest, read_json
+from pathlib import Path
+
+from verify.common import ROOT, ById, JSONObject, artifact, digest, read_json
 from verify.evidence import expected_passes
 from verify.recheck_slices import ENGINE, sample_classes, validate_replayed
 
 
-def apply_report(entry, result, report, entry_sha256):
+def apply_report(entry: JSONObject, result: JSONObject, report: JSONObject, entry_sha256: str) -> None:
     if report.get("entry_id") != entry["id"] or report.get("entry_sha256") != entry_sha256:
         raise ValueError("registered replay is stale or bound to a different entry")
     if report.get("engine_id") != "good-gpu-v4" or report.get("engine_sha256") != digest(ENGINE):
         raise ValueError("registered replay engine differs from the pinned engine")
     if report.get("status") != "passed":
-        raise ValueError(
-            "registered replay failed or is incomplete; evidence cannot retain its tier"
-        )
+        raise ValueError("registered replay failed or is incomplete; evidence cannot retain its tier")
     samples = report.get("samples", [])
     if not samples or report.get("sample_count") != len(samples):
         raise ValueError("registered replay has missing samples")
@@ -28,23 +28,16 @@ def apply_report(entry, result, report, entry_sha256):
     elif report.get("mode") == "sample":
         if type(report.get("seed")) is not int:
             raise ValueError("sample replay must record its integer random seed")
-        tasks = [
-            (s, i, i + 1)
-            for s, i in sample_classes(result["coverage"], len(samples), report["seed"])
-        ]
+        tasks = [(s, i, i + 1) for s, i in sample_classes(result["coverage"], len(samples), report["seed"])]
     else:
         raise ValueError("unknown replay mode")
     for receipt, (s, start, end) in zip(samples, tasks, strict=True):
         validate_replayed(receipt, entry["n"], s, start, end, coverage.get(s))
-    result["checks"] = sorted(
-        set(result["checks"] + ["registered-pinned-engine-replay", "regenerated-class-order"])
-    )
+    result["checks"] = sorted(set(result["checks"] + ["registered-pinned-engine-replay", "regenerated-class-order"]))
     result["replay"] = {k: report[k] for k in ("mode", "seed", "sample_count", "status")}
     if full:
         result["tier"] = "reproduced"
-        result["limitations"] = [
-            "Full replay uses the same archived engine; systematic engine bugs remain possible."
-        ]
+        result["limitations"] = ["Full replay uses the same archived engine; systematic engine bugs remain possible."]
     else:
         # A sample cannot repair gaps in an archived full-coverage claim.
         if result["tier"] == "receipt-backed":
@@ -58,7 +51,7 @@ def apply_report(entry, result, report, entry_sha256):
         ]
 
 
-def apply_registered(documents, results, root=ROOT):
+def apply_registered(documents: ById, results: ById, root: Path = ROOT) -> None:
     registry = read_json(root / "baselines/rechecks.json")
     if registry.get("version") != 1:
         raise ValueError("unsupported replay registry version")
@@ -69,6 +62,4 @@ def apply_registered(documents, results, root=ROOT):
         ident = report.get("entry_id")
         if ident not in documents or documents[ident]["type"] != "certificate":
             raise ValueError("registered replay refers to an absent certificate")
-        apply_report(
-            documents[ident], results[ident], report, digest(root / f"certificates/{ident}.json")
-        )
+        apply_report(documents[ident], results[ident], report, digest(root / f"certificates/{ident}.json"))

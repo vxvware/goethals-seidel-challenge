@@ -1,10 +1,19 @@
 """Fail-closed receipt validation and small, exactly checked proof rules."""
 
 from math import isqrt
-from verify.common import artifact, read_json
+from typing import TypedDict
+
+from verify.common import JSONObject, PathLike, RowsLike, artifact, read_json
 
 
-def intervals_union(intervals, total):
+class PassReceipts(TypedDict):
+    """The receipts of one row-sum pass: its class identity and the intervals they cover."""
+
+    identity: tuple[int, str]
+    intervals: list[list[int]]
+
+
+def intervals_union(intervals: list[list[int]], total: int) -> tuple[int, list[list[int]]]:
     current = 0
     covered = 0
     gaps = []
@@ -22,21 +31,19 @@ def intervals_union(intervals, total):
     return covered, gaps
 
 
-def good_decompositions(n):
+def good_decompositions(n: int) -> list[tuple[int, int, int]]:
     # Origin-normalized symmetric rows have sum == n (mod 4).
     choices = [s if s % 4 == n % 4 else -s for s in range(1, isqrt(4 * n - 1) + 1, 2)]
     from itertools import combinations_with_replacement
 
-    return [
-        t for t in combinations_with_replacement(choices, 3) if sum(s * s for s in t) == 4 * n - 1
-    ]
+    return [t for t in combinations_with_replacement(choices, 3) if sum(s * s for s in t) == 4 * n - 1]
 
 
-def expected_passes(n):
+def expected_passes(n: int) -> list[int]:
     return sorted({max(t, key=abs) for t in good_decompositions(n)})
 
 
-def in_scope(rows, scope):
+def in_scope(rows: RowsLike, scope: JSONObject) -> bool:
     if scope["kind"] == "full":
         return True
     n = len(rows[0])
@@ -50,7 +57,7 @@ def in_scope(rows, scope):
     return all(all(row[(h * j) % n] == row[j] for h in subgroup for j in range(n)) for row in rows)
 
 
-def proof(entry):
+def proof(entry: JSONObject) -> str:
     n = entry["n"]
     if entry["claim"] != "empty":
         raise ValueError("proof must assert empty in its stated scope")
@@ -77,8 +84,8 @@ def proof(entry):
     return "No three admissible coset-block squared row sums add to 4n-1"
 
 
-def verify_good_records(entry, root):
-    passes = {}
+def verify_good_records(entry: JSONObject, root: PathLike) -> tuple[list[JSONObject], list[str]]:
+    passes: dict[int, PassReceipts] = {}
     checks = ["artifact-sha256", "receipt-identity", "zero-pending", "coverage-intervals"]
     for ref in entry["records"]:
         rec = read_json(artifact(root, ref))
@@ -129,7 +136,7 @@ def verify_good_records(entry, root):
     return coverage, checks
 
 
-def verify(entry, root):
+def verify(entry: JSONObject, root: PathLike) -> JSONObject:
     result = {
         "id": entry["id"],
         "type": "certificate",
@@ -173,9 +180,7 @@ def verify(entry, root):
         result["tier"] = None if archived else "receipt-backed"
         if archived:
             result["provenance"] = "archived-computation"
-            result["gaps"].append(
-                "Receipt coverage is incomplete; full emptiness is a historical claim."
-            )
+            result["gaps"].append("Receipt coverage is incomplete; full emptiness is a historical claim.")
         result["checks"].append("engine-snapshot-sha256")
         result["limitations"] = [
             "Class-order digest is compared across receipts, not independently regenerated.",

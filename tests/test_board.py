@@ -1,8 +1,10 @@
 from copy import deepcopy
+
 import pytest
-from verify.board import load, summary, check_consistency
+
+from verify.board import check_consistency, load, summary
+from verify.census_engine import best_census, good_census, small_exact, williamson_census
 from verify.common import ROOT, TRACKS, read_json
-from verify.census_engine import small_exact, best_census, good_census, williamson_census
 
 
 @pytest.fixture(scope="module")
@@ -36,10 +38,7 @@ def test_no_false_empty_inherited_to_parent(board):
 def test_targets_and_import_tasks_separate(board):
     s = summary(*board)
     assert all(c["status"] == "unresolved" for c in s["research_targets"])
-    assert all(
-        c["status"] == "exists" and c["artifact_status"] == "published-not-imported"
-        for c in s["import_tasks"]
-    )
+    assert all(c["status"] == "exists" and c["artifact_status"] == "published-not-imported" for c in s["import_tasks"])
 
 
 def test_known_larger_constructions_and_impossible_g_orders_are_not_targets(board):
@@ -204,8 +203,9 @@ def test_submitter_is_not_automatically_discoverer(board):
 @pytest.mark.parametrize("bad_reference", ["seed", "entry", "stratum", "duplicate", "schema"])
 def test_invalid_contribution_registry_rejected(board, tmp_path, bad_reference):
     import shutil
-    from verify.contributions import apply
+
     from verify.common import write_json
+    from verify.contributions import apply
 
     shutil.copytree(ROOT / "baselines", tmp_path / "baselines")
     registry = read_json(tmp_path / "baselines/contributions.json")
@@ -255,7 +255,7 @@ def test_pictured_array_is_hadamard(board, ident):
 
 
 def test_registered_census_replays_make_published_counts_exact(board):
-    d, r, b = board
+    _d, r, _b = board
     for n, count, engine in (
         (39, 1, "williamson-census-c-v1"),
         (41, 1, "williamson-census-c-v1"),
@@ -283,7 +283,7 @@ def test_registered_census_replay_rejects_tampering(board):
     from verify.census_replays import apply_report
     from verify.common import digest, read_json
 
-    d, r, b = board
+    d, r, _b = board
     entry = d["williamson-n43"]
     report = read_json(ROOT / "evidence/census-replays/williamson-n43.json")
     sha = digest(ROOT / "census/williamson-n43.json")
@@ -306,7 +306,7 @@ def test_registered_census_replay_rejects_tampering(board):
 
 
 def test_registered_good_replays_make_counts_exact(board):
-    d, r, b = board
+    _d, r, _b = board
     for ident, count in (
         ("vxvware-good-n45", 4),
         ("good-n47", 0),

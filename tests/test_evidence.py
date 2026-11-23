@@ -1,7 +1,9 @@
 import json
+
 import pytest
-from verify.common import ROOT, read_json, write_json, digest
-from verify.evidence import intervals_union, verify, proof
+
+from verify.common import ROOT, digest, read_json, write_json
+from verify.evidence import intervals_union, proof, verify
 from verify.recheck_slices import sample_classes, validate_replayed
 
 
@@ -96,9 +98,7 @@ def test_random_slices_bind_actual_intervals():
     sample = sample_classes(coverage, 25, 123)
     assert len(set(sample)) == 25
     assert sample == sorted(
-        [(-3, i) for i in range(10, 20)]
-        + [(-3, i) for i in range(30, 40)]
-        + [(5, i) for i in range(5)]
+        [(-3, i) for i in range(10, 20)] + [(-3, i) for i in range(30, 40)] + [(5, i) for i in range(5)]
     )
     with pytest.raises(ValueError):
         sample_classes(coverage, 26, 1)
@@ -124,8 +124,9 @@ def test_replay_receipt_rejects_changed_deck_and_cursor():
 
 def test_registered_replay_promotion_and_failure():
     from copy import deepcopy
-    from verify.replay_registry import apply_report
+
     from verify.recheck_slices import ENGINE
+    from verify.replay_registry import apply_report
 
     entry = read_json(ROOT / "certificates/good-n41-campaign.json")
     result = verify(entry, ROOT)
@@ -158,8 +159,8 @@ def test_registered_replay_promotion_and_failure():
 
 
 def test_sampling_does_not_repair_archived_coverage():
-    from verify.replay_registry import apply_report
     from verify.recheck_slices import ENGINE
+    from verify.replay_registry import apply_report
 
     entry = read_json(ROOT / "certificates/good-n65-campaign.json")
     result = verify(entry, ROOT)

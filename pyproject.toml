@@ -2,11 +2,11 @@
 name = "goethals-seidel-challenge"
 version = "0.1.0"
 description = "Exactly verified circulant Goethals–Seidel quadruples and evidence"
-requires-python = ">=3.11"
+requires-python = ">=3.15"
 dependencies = ["jsonschema>=4.23,<5"]
 
 [dependency-groups]
-dev = ["pytest>=8,<10", "numpy>=2,<3", "ruff>=0.14,<1"]
+dev = ["pytest>=8,<10", "numpy>=2,<3", "ruff>=0.17,<1", "mypy>=2.4,<3"]
 
 [tool.uv]
 package = false
@@ -16,8 +16,39 @@ testpaths = ["tests"]
 pythonpath = ["."]
 
 [tool.ruff]
-line-length = 100
+line-length = 120
+target-version = "py315"
 extend-include = ["tools/gs"]
+# research/ engine sources are pinned by sha256 and evidence/ holds vendored records.
+extend-exclude = ["research", "evidence"]
+
+[tool.ruff.format]
+quote-style = "double"
 
 [tool.ruff.lint]
-select = ["E4", "E7", "E9", "F"]
+select = ["E", "W", "F", "I", "UP", "B", "SIM", "C4", "ANN", "RUF", "Q"]
+# The site prints real mathematical characters (en dashes, the Đ in Đoković, −1).
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["verify", "references", "orders", "build"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["ANN"]
+
+[tool.mypy]
+python_version = "3.15"
+files = ["verify", "tools", "tools/gs", "site", "assets"]
+exclude = ["^research/", "^evidence/"]
+mypy_path = ["$MYPY_CONFIG_FILE_DIR", "$MYPY_CONFIG_FILE_DIR/site"]
+explicit_package_bases = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = ["jsonschema", "jsonschema.*"]
+ignore_missing_imports = true

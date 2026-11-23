@@ -2,25 +2,24 @@
 """Replay uniformly sampled classes using a pinned, bundled GPU engine."""
 
 import argparse
-from datetime import datetime, timezone
 import json
-from pathlib import Path
 import random
 import secrets
 import subprocess
 import sys
 import tempfile
+from datetime import UTC, datetime
+from pathlib import Path
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from verify.common import ROOT, read_json, digest, write_json
-from verify.evidence import verify, expected_passes
-
+from verify.common import ROOT, JSONObject, digest, read_json, write_json
+from verify.evidence import expected_passes, verify
 
 ENGINE = ROOT / "research/starter/good_gpu/good_gpu_complete.py"
 
 
-def sample_classes(coverage, k, seed):
+def sample_classes(coverage: list[JSONObject], k: int, seed: int) -> list[tuple[int, int]]:
     intervals = [(p["pass"], a, b) for p in coverage for a, b in p["intervals"]]
     total = sum(b - a for _, a, b in intervals)
     if not 1 <= k <= total:
@@ -36,7 +35,7 @@ def sample_classes(coverage, k, seed):
     return sorted(selected)
 
 
-def validate_replayed(receipt, n, s, start, end, expected):
+def validate_replayed(receipt: JSONObject, n: int, s: int, start: int, end: int, expected: JSONObject | None) -> None:
     for k in ("n", "sB", "start", "end", "classes", "order_digest", "unsettled", "pending"):
         if k not in receipt:
             raise ValueError(f"replay receipt lacks {k}")
@@ -46,9 +45,7 @@ def validate_replayed(receipt, n, s, start, end, expected):
         raise ValueError("replay left pending work")
     if receipt.get("solutions", receipt.get("sols", 0)) != 0:
         raise ValueError("replay found a solution")
-    if any(
-        type(receipt[k]) is not int for k in ("n", "sB", "start", "end", "classes", "unsettled")
-    ):
+    if any(type(receipt[k]) is not int for k in ("n", "sB", "start", "end", "classes", "unsettled")):
         raise ValueError("invalid replay integer fields")
     if not 0 <= start < end <= receipt["classes"]:
         raise ValueError("invalid replay bounds")
@@ -59,7 +56,7 @@ def validate_replayed(receipt, n, s, start, end, expected):
         raise ValueError("regenerated class count/order digest differs from archived receipt")
 
 
-def main():
+def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("entry", type=Path)
     p.add_argument("--samples", type=int, default=3)
@@ -97,7 +94,7 @@ def main():
             "seed": seed,
             "sample_count": len(tasks),
             "samples": [],
-            "started_at": datetime.now(timezone.utc).isoformat(),
+            "started_at": datetime.now(UTC).isoformat(),
             "status": "running",
         }
         output = args.output or ROOT / ".gs/rechecks" / f"{entry['id']}-{seed}.json"
@@ -115,20 +112,12 @@ def main():
                 ]
                 if end is not None:
                     command += ["--dmax", str(end)]
-                proc = subprocess.run(
-                    command, cwd=tmp, capture_output=True, text=True, timeout=args.timeout
-                )
+                proc = subprocess.run(command, cwd=tmp, capture_output=True, text=True, timeout=args.timeout)
                 receipt_path = Path(tmp) / f"coverage_n{entry['n']}_sB{s}.json"
-                if (
-                    proc.returncode
-                    or not receipt_path.exists()
-                    or list(Path(tmp).glob("good_solution_*.npy"))
-                ):
+                if proc.returncode or not receipt_path.exists() or list(Path(tmp).glob("good_solution_*.npy")):
                     report.update(status="failed", error=(proc.stderr or proc.stdout)[-4000:])
                     write_json(output, report)
-                    raise ValueError(
-                        f"engine failed, found a solution, or omitted receipt; see {output}"
-                    )
+                    raise ValueError(f"engine failed, found a solution, or omitted receipt; see {output}")
                 receipt = read_json(receipt_path)
                 validate_replayed(
                     receipt,
@@ -142,20 +131,14 @@ def main():
                 write_json(output, report)
         report.update(
             status="passed",
-            finished_at=datetime.now(timezone.utc).isoformat(),
+            finished_at=datetime.now(UTC).isoformat(),
             covered_population=sum(x["covered"] for x in result["coverage"]),
         )
         write_json(output, report)
-        print(
-            json.dumps(
-                {"report": str(output), "status": "passed", "mode": report["mode"]}, indent=2
-            )
-        )
+        print(json.dumps({"report": str(output), "status": "passed", "mode": report["mode"]}, indent=2))
     except (ValueError, OSError, KeyError, subprocess.SubprocessError) as exc:
         if report is not None and output is not None:
-            report.update(
-                status="failed", error=str(exc), finished_at=datetime.now(timezone.utc).isoformat()
-            )
+            report.update(status="failed", error=str(exc), finished_at=datetime.now(UTC).isoformat())
             write_json(output, report)
         p.exit(1, f"FAIL: {exc}\n")
 

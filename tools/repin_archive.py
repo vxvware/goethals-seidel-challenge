@@ -12,10 +12,10 @@ the trusted manifest.
 
 import argparse
 import hashlib
-from pathlib import Path
 import re
 import subprocess
 import sys
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from verify.check_manifest import snapshot
@@ -24,14 +24,17 @@ from verify.common import ROOT, digest, read_json, write_json
 PREFIX = "https://github.com/vxvware/goethals-seidel-challenge/blob/"
 
 
-def main():
+def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("commit")
     new = p.parse_args().commit
     if not re.fullmatch(r"[0-9a-f]{40}", new):
         p.exit(1, "FAIL: the commit must be a full 40-character sha\n")
     text = (ROOT / "tools/import_seeds.py").read_text()
-    old = re.search(rf'ARCHIVE = "{re.escape(PREFIX)}([0-9a-f]{{40}})"', text).group(1)
+    pinned = re.search(rf'ARCHIVE = "{re.escape(PREFIX)}([0-9a-f]{{40}})"', text)
+    if pinned is None:
+        p.exit(1, "FAIL: tools/import_seeds.py has no ARCHIVE pin\n")
+    old = pinned.group(1)
     tracked = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT, text=True).split("\0")
     changed = 0
     for name in tracked:

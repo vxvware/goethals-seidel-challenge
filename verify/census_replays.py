@@ -9,7 +9,10 @@ placed in the report is that the engine ran to completion on the stated
 sources; the count and the class set are recomputed here, never copied.
 """
 
-from verify.common import ROOT, artifact, digest, read_json
+from pathlib import Path
+from typing import TypedDict
+
+from verify.common import ROOT, ById, JSONObject, Rows, artifact, digest, read_json
 from verify.equivalence import canonical
 from verify.gs_verify import memberships, validate_rows
 
@@ -20,7 +23,18 @@ COMPRESS_SOURCES = (
     "research/starter/compress/pc_compress.c",
     "research/starter/compress/pc_lift.c",
 )
-ENGINES = {
+
+
+class ReplayEngine(TypedDict):
+    """A pinned offline census engine: its stratum, sources, orders and whether it compresses."""
+
+    stratum: str
+    sources: tuple[str, ...]
+    orders: range | tuple[int, ...]
+    composite: bool
+
+
+ENGINES: dict[str, ReplayEngine] = {
     "williamson-census-c-v1": {
         "stratum": "williamson",
         "sources": ("research/starter/williamson/williamson_c.c",),
@@ -155,13 +169,13 @@ ENGINES = {
 REPORT_DIR = "evidence/census-replays/"
 
 
-def engine_digests(engine, root=ROOT):
+def engine_digests(engine: str, root: Path = ROOT) -> dict[str, str]:
     return {path: digest(root / path) for path in ENGINES[engine]["sources"]}
 
 
-def replayed_classes(report, n, stratum):
+def replayed_classes(report: JSONObject, n: int, stratum: str) -> set[Rows]:
     """Canonical classes of the report's raw quadruples, each exactly rechecked."""
-    classes = set()
+    classes: set[Rows] = set()
     for line in report["rows"]:
         words = line.split()
         if len(words) != 4 or any(len(w) != n or set(w) - set("+-") for w in words):
@@ -173,7 +187,14 @@ def replayed_classes(report, n, stratum):
     return classes
 
 
-def apply_report(entry, result, report, entry_sha256, representatives, root=ROOT):
+def apply_report(
+    entry: JSONObject,
+    result: JSONObject,
+    report: JSONObject,
+    entry_sha256: str,
+    representatives: list[Rows],
+    root: Path = ROOT,
+) -> None:
     if report.get("entry_id") != entry["id"] or report.get("entry_sha256") != entry_sha256:
         raise ValueError("registered census replay is stale or bound to a different entry")
     engine = report.get("engine_id")
@@ -212,11 +233,11 @@ def apply_report(entry, result, report, entry_sha256, representatives, root=ROOT
     ]
 
 
-def apply_registered(documents, results, root=ROOT):
+def apply_registered(documents: ById, results: ById, root: Path = ROOT) -> None:
     registry = read_json(root / "baselines/census_replays.json")
     if registry.get("version") != 1:
         raise ValueError("unsupported census replay registry version")
-    seen = set()
+    seen: set[str] = set()
     for ref in registry["reports"]:
         if not ref["path"].startswith(REPORT_DIR):
             raise ValueError(f"registered census replay must live under {REPORT_DIR}")

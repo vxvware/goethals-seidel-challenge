@@ -12,16 +12,17 @@ quadruple of order 1.
 """
 
 import argparse
-from pathlib import Path
+import json
 import sys
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 from tools.import_dashboard import store
 from verify.census_engine import C_ENGINES, c_census
-from verify.common import ROOT, TRACKS
+from verify.common import ROOT, TRACKS, JSONObject, Rows
 from verify.equivalence import canonical, fingerprint
 from verify.gs_verify import memberships, validate_rows
-import json
 from verify.model import validate
 
 SUBMITTER = "vprusso"
@@ -46,9 +47,9 @@ DISCOVERED = [
 ORDER_ONE = "n1-0a982ea1a0df30b3b8d9"
 
 
-def board_representatives(n, stratum):
+def board_representatives(n: int, stratum: str) -> dict[Rows, str]:
     """Canonical rows of every quadruple entry at order n in the stratum, by entry id."""
-    found = {}
+    found: dict[Rows, str] = {}
     for path in sorted((ROOT / "quadruples").glob("*.json")):
         doc = json.loads(path.read_text())
         if doc.get("type") == "quadruple" and doc.get("n") == n:
@@ -58,7 +59,7 @@ def board_representatives(n, stratum):
     return found
 
 
-def common(n, date):
+def common(n: int, date: str) -> JSONObject:
     return {
         "schema_version": 1,
         "n": n,
@@ -68,7 +69,7 @@ def common(n, date):
     }
 
 
-def engine_source(engine, commit, n):
+def engine_source(engine: str, commit: str, n: int) -> dict[str, str]:
     path = C_ENGINES[engine]["source"]
     return {
         "title": f"This board's pinned census {engine}, replayed at n={n}",
@@ -78,21 +79,18 @@ def engine_source(engine, commit, n):
     }
 
 
-def import_replayed(engine, n, commit, date):
+def import_replayed(engine: str, n: int, commit: str, date: str) -> None:
     stratum = C_ENGINES[engine]["stratum"]
     reps = c_census(engine, n)
     paper = PAPER if stratum == "good" else HKT
     discovered = (
         DISCOVERED
         if stratum == "good"
-        else [
-            "Holzmann, Kharaghani, Tayfeh-Rezaie 2008 classification; earlier constructions "
-            "credited there"
-        ]
+        else ["Holzmann, Kharaghani, Tayfeh-Rezaie 2008 classification; earlier constructions credited there"]
     )
     sources = [engine_source(engine, commit, n), paper]
     existing = board_representatives(n, stratum)
-    ids = set()
+    ids: set[str] = set()
     new = 0
     for rep in sorted(reps):
         if rep in existing:
@@ -146,20 +144,17 @@ def import_replayed(engine, n, commit, date):
     print(f"{stratum} n={n}: {len(ids)} classes, {new} new quadruples")
 
 
-def import_published_williamson(n, date):
+def import_published_williamson(n: int, date: str) -> None:
     """The published classification over the representatives already imported from it."""
     reps = board_representatives(n, "williamson")
     ids = sorted(set(reps.values()))
     if len(ids) != HKT_COUNTS[n]:
-        raise ValueError(
-            f"n={n}: board holds {len(ids)} Williamson classes, paper lists {HKT_COUNTS[n]}"
-        )
+        raise ValueError(f"n={n}: board holds {len(ids)} Williamson classes, paper lists {HKT_COUNTS[n]}")
     census = validate(
         {
             **common(n, date),
             "discovered_by": [
-                "Holzmann, Kharaghani, Tayfeh-Rezaie 2008 classification; earlier "
-                "constructions credited there"
+                "Holzmann, Kharaghani, Tayfeh-Rezaie 2008 classification; earlier constructions credited there"
             ],
             "sources": [HKT],
             "equivalence": "equiv-v1",
@@ -180,7 +175,7 @@ def import_published_williamson(n, date):
     print(f"williamson n={n}: published count {len(ids)}")
 
 
-def import_order_one(date):
+def import_order_one(date: str) -> None:
     for stratum in TRACKS:
         census = validate(
             {
@@ -200,7 +195,10 @@ def import_order_one(date):
                 "claimed_count": 1,
                 "claim_kind": "computed-exact",
                 "enumerator": "small-exact-v1",
-                "notes": "The row (1) is both symmetric and skew, so the one quadruple of order 1 is the whole census of every stratum.",
+                "notes": (
+                    "The row (1) is both symmetric and skew, so the one quadruple of order 1 "
+                    "is the whole census of every stratum."
+                ),
             }
         )
         store(ROOT / f"census/order-one-{stratum}.json", census)

@@ -36,12 +36,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from tools.import_dashboard import store  # noqa: E402
-from tools.import_turyn_williamson import GF, prime_power  # noqa: E402
-from verify.common import ROOT  # noqa: E402
-from verify.equivalence import canonical, fingerprint  # noqa: E402
-from verify.gs_verify import memberships, validate_rows  # noqa: E402
-from verify.model import validate  # noqa: E402
+from tools.import_dashboard import store
+from tools.import_turyn_williamson import GF, Element, prime_power
+from verify.common import ROOT, Rows
+from verify.equivalence import canonical, fingerprint
+from verify.gs_verify import memberships, validate_rows
+from verify.model import validate
 
 SUBMITTER = "vprusso"
 SOURCE = {
@@ -50,7 +50,7 @@ SOURCE = {
 }
 
 
-def trace_one_set(F, theta, q, modulus):
+def trace_one_set(F: GF, theta: Element, q: int, modulus: int) -> set[int]:
     """Residues i mod `modulus` with theta^i + theta^(qi) = 1 in GF(q^2)."""
     found = set()
     x = F.one
@@ -61,7 +61,7 @@ def trace_one_set(F, theta, q, modulus):
     return found
 
 
-def spence_rows(n):
+def spence_rows(n: int) -> Rows | None:
     q = 2 * n - 1
     pe = prime_power(q)
     if pe is None or q % 8 != 5:
@@ -83,11 +83,7 @@ def spence_rows(n):
     )
     if fixed is None:
         raise ValueError(f"no translate fixed by q at n={n}")
-    fixed = next(
-        shifted
-        for shifted in ({(2 * n * i + s) % big for s in fixed} for i in range(big))
-        if 0 in shifted
-    )
+    fixed = next(shifted for shifted in ({(2 * n * i + s) % big for s in fixed} for i in range(big)) if 0 in shifted)
     union = fixed | {(s + 2 * n) % big for s in fixed}
     inv8 = pow(8, -1, n)
     blocks = [{(el * inv8) % n for el in union if el % 8 == i} for i in range(4)]
@@ -97,8 +93,8 @@ def spence_rows(n):
     return validate_rows([a, b, c, d], n)
 
 
-def board_classes(n):
-    found = {}
+def board_classes(n: int) -> dict[Rows, str]:
+    found: dict[Rows, str] = {}
     for path in sorted((ROOT / "quadruples").glob("*.json")):
         doc = json.loads(path.read_text())
         if doc.get("type") == "quadruple" and doc.get("n") == n:
@@ -106,7 +102,7 @@ def board_classes(n):
     return found
 
 
-def main():
+def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--max", type=int, default=131)
     ap.add_argument("--date", default="2026-11-14")

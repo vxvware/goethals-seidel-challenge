@@ -13,19 +13,21 @@ of the site colours a cell. A violet mark is a cell the site marks as new.
 Run from the repository root: uv run python assets/make_readme_image.py
 """
 
-from pathlib import Path
 import struct
 import sys
 import zlib
+from collections.abc import Sequence
+from pathlib import Path
 
 import numpy as np
+from numpy.typing import NDArray
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "site"))
-from verify.board import load, summary  # noqa: E402
-from verify.common import TRACKS  # noqa: E402
 import build as site  # noqa: E402
+from verify.board import load, summary  # noqa: E402
+from verify.common import TRACKS, JSONObject  # noqa: E402
 
 ENTRY = "n89-eec2e43c042090883c04"
 OUT = ROOT / "assets/skew-hadamard-356.png"
@@ -47,16 +49,16 @@ MARGIN, PAD, GAP = 12, 6, 14
 PITCH, CELL = 11, 9  # grid strip
 
 
-def gs_array(rows):
+def gs_array(rows: Sequence[Sequence[int]]) -> NDArray[np.int64]:
     """The array of site/picture.js: circulant X has entry (i, j) equal to x[(j - i) mod n]."""
     n = len(rows[0])
     index = (np.arange(n)[None, :] - np.arange(n)[:, None]) % n
     a, b, c, d = (np.array(row, dtype=np.int64)[index] for row in rows)
 
-    def xr(x):
+    def xr(x: NDArray[np.int64]) -> NDArray[np.int64]:
         return x[:, ::-1]
 
-    def rx(x):
+    def rx(x: NDArray[np.int64]) -> NDArray[np.int64]:
         return x[::-1, :]
 
     return np.block(
@@ -69,7 +71,7 @@ def gs_array(rows):
     )
 
 
-def cell_state(c):
+def cell_state(c: JSONObject) -> str:
     """The legend class of a grid cell, as the board grid labels it."""
     if c["quadruples"]:
         return "known"
@@ -78,12 +80,12 @@ def cell_state(c):
     return "empty" if c["status"] == "empty" else "unresolved"
 
 
-def png(pixels):
+def png(pixels: NDArray[np.uint8]) -> bytes:
     """An 8-bit RGB PNG from an array of shape (height, width, 3)."""
     height, width, _ = pixels.shape
     raw = b"".join(b"\x00" + pixels[y].tobytes() for y in range(height))
 
-    def chunk(kind, data):
+    def chunk(kind: bytes, data: bytes) -> bytes:
         body = kind + data
         return struct.pack(">I", len(data)) + body + struct.pack(">I", zlib.crc32(body))
 
@@ -95,7 +97,7 @@ def png(pixels):
     )
 
 
-def main():
+def main() -> None:
     documents, results, baseline = load(reproduce=False)
     stats = summary(documents, results, baseline)
     rows, pattern = site.display_rows(results[ENTRY])
@@ -129,9 +131,7 @@ def main():
             light, dark = TONES.get(pattern[block[y] ^ block[x]], PLAIN)
             colours[y, x] = light if h[y, x] > 0 else dark
     top = MARGIN + PAD
-    image[top : top + SCALE * order, top : top + SCALE * order] = colours.repeat(
-        SCALE, axis=0
-    ).repeat(SCALE, axis=1)
+    image[top : top + SCALE * order, top : top + SCALE * order] = colours.repeat(SCALE, axis=0).repeat(SCALE, axis=1)
 
     # Grid strip.
     by_cell = {(c["n"], c["stratum"]): c for c in stats["cells"]}

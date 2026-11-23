@@ -35,21 +35,35 @@ import argparse
 import json
 import sys
 from pathlib import Path
+from typing import NotRequired, TypedDict
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from tools.import_dashboard import store  # noqa: E402
-from verify.common import ROOT  # noqa: E402
-from verify.equivalence import canonical, fingerprint  # noqa: E402
-from verify.gs_verify import memberships, validate_rows  # noqa: E402
-from verify.model import validate  # noqa: E402
+from tools.import_dashboard import store
+from verify.common import ROOT, Rows
+from verify.equivalence import canonical, fingerprint
+from verify.gs_verify import memberships, validate_rows
+from verify.model import validate
 
 SUBMITTER = "vprusso"
 DATE = "2026-11-14"
 
+
+class LiteratureSet(TypedDict):
+    """One published quadruple, given as the four sets of positions of -1."""
+
+    n: int
+    label: str
+    parameters: str
+    source: dict[str, str]
+    discovered_by: list[str]
+    sets: list[list[int]]
+    expect: str
+    notes: NotRequired[str]
+
+
 DJOKOVIC_2008 = {
-    "title": "Djokovic, Skew-Hadamard matrices of orders 188 and 388 exist, "
-    "Int. Math. Forum 3 (2008) 1063-1068",
+    "title": "Djokovic, Skew-Hadamard matrices of orders 188 and 388 exist, Int. Math. Forum 3 (2008) 1063-1068",
     "url": "https://arxiv.org/abs/0704.0640",
 }
 DJOKOVIC_2009 = {
@@ -63,7 +77,7 @@ DJOKOVIC_1993 = {
 }
 
 
-def paley(n):
+def paley(n: int) -> list[int]:
     return sorted({(x * x) % n for x in range(1, n)})
 
 
@@ -72,20 +86,20 @@ def paley(n):
 COSET_REPS = [1, 3, 5, 7, 9, 11, 13, 19, 21]
 
 
-def coset(index, n=127):
+def coset(index: int, n: int = 127) -> set[int]:
     r = COSET_REPS[index // 2] * (-1 if index % 2 else 1)
     return {(r * pow(2, i, n)) % n for i in range(7)}
 
 
-def coset_union(indices, with_zero, n=127):
-    out = {0} if with_zero else set()
+def coset_union(indices: list[int], with_zero: bool, n: int = 127) -> list[int]:
+    out: set[int] = {0} if with_zero else set()
     for k in indices:
         out |= coset(k, n)
     return sorted(out)
 
 
 # fmt: off
-TABLE = [
+TABLE: list[LiteratureSet] = [
     {
         "n": 47,
         "label": "Djokovic 2008, Proposition 2.1, family {X1, X2, X3}",
@@ -207,12 +221,12 @@ TABLE = [
 # fmt: on
 
 
-def rows_from_sets(n, sets):
+def rows_from_sets(n: int, sets: list[list[int]]) -> Rows:
     return validate_rows([[-1 if j in set(s) else 1 for j in range(n)] for s in sets], n)
 
 
-def board_classes(n):
-    found = {}
+def board_classes(n: int) -> dict[Rows, str]:
+    found: dict[Rows, str] = {}
     for path in sorted((ROOT / "quadruples").glob("*.json")):
         doc = json.loads(path.read_text())
         if doc.get("type") == "quadruple" and doc.get("n") == n:
@@ -220,12 +234,12 @@ def board_classes(n):
     return found
 
 
-def main():
+def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", default=DATE)
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
-    seen = {}
+    seen: dict[int, dict[Rows, str]] = {}
     for item in TABLE:
         n = item["n"]
         rows = rows_from_sets(n, item["sets"])

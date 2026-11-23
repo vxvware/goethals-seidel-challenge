@@ -3,9 +3,9 @@
 
 import gzip
 import json
-from pathlib import Path
 import re
 import sys
+from pathlib import Path
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -15,7 +15,7 @@ from verify.gs_verify import validate_rows
 from verify.seed_inventory import inventory
 
 
-def audit(root=ROOT):
+def audit(root: Path = ROOT) -> dict[str, int]:
     manifest = inventory(root)
     total = 0
     all_ids = set()

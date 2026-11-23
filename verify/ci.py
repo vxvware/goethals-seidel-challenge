@@ -2,17 +2,17 @@
 """PR gate executed from the base checkout against candidate data."""
 
 import argparse
-from pathlib import Path
 import subprocess
 import sys
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from verify.common import ROOT, read_json
-from verify.check_manifest import check
-from verify.check_submission_scope import check_changes
-from verify.check_authorship import check_author
-from verify.check_prose import check as check_prose
 from verify.board import load
+from verify.check_authorship import check_author
+from verify.check_manifest import check
+from verify.check_prose import check as check_prose
+from verify.check_submission_scope import check_changes
+from verify.common import ROOT, read_json
 
 # GitHub reports a private organisation member as CONTRIBUTOR or NONE, so the
 # association alone cannot identify a maintainer. The PR author login is set by
@@ -21,7 +21,7 @@ from verify.board import load
 MAINTAINERS = ("vprusso", "trevor-vincent")
 
 
-def main():
+def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--candidate", type=Path, required=True)
     p.add_argument("--base", required=True)
@@ -33,12 +33,10 @@ def main():
         ["git", "diff", "--name-status", "--no-renames", f"{a.base}...HEAD"], cwd=root, text=True
     )
     changes = [line.split("\t", 1) for line in output.splitlines()]
-    entries = any(
-        Path(path).parts[0] in ("quadruples", "certificates", "census") for _, path in changes
-    )
+    entries = any(Path(path).parts[0] in ("quadruples", "certificates", "census") for _, path in changes)
     if entries:
         check_changes(changes)
-        for status, path in changes:
+        for _status, path in changes:
             parts = Path(path).parts
             if parts[0] in ("quadruples", "certificates", "census"):
                 check_author(read_json(root / path), a.author)
@@ -50,9 +48,7 @@ def main():
     else:
         maintainer = a.author.casefold() in MAINTAINERS
         if not maintainer and a.association not in ("OWNER", "MEMBER", "COLLABORATOR"):
-            raise ValueError(
-                "trusted-stack changes require maintainer review and a maintainer-authored PR"
-            )
+            raise ValueError("trusted-stack changes require maintainer review and a maintainer-authored PR")
         # No candidate code runs in this read-only base gate. Maintenance code
         # is tested in the ordinary isolated PR test job, without secrets.
         print("Maintainer infrastructure change; candidate checks run in isolated validation job.")

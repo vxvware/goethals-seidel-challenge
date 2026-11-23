@@ -13,23 +13,33 @@ import glob
 import json
 import re
 import sys
+from collections.abc import Iterator
 from pathlib import Path
+from typing import TypedDict
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from verify import gs_verify
-from verify.common import ROOT, digest, read_json
+from verify.common import ROOT, JSONObject, digest, read_json
+
+
+class Spec(TypedDict):
+    """One archived literature file and how its entries cite it."""
+
+    file: str
+    title: str
+    url: str
+    discoverers: list[str]
+
 
 LITERATURE = ROOT / "evidence/literature"
-HKT = {
+HKT: Spec = {
     "file": "hkt2008-williamson-tables.txt",
     "title": "Holzmann, Kharaghani, Tayfeh-Rezaie, Williamson matrices up to order 59, "
     "Des. Codes Cryptogr. 46 (2008), Tables 2 and 3",
     "url": "https://doi.org/10.1007/s10623-007-9163-5",
-    "discoverers": [
-        "Holzmann, Kharaghani, Tayfeh-Rezaie 2008 classification; earlier constructions credited there"
-    ],
+    "discoverers": ["Holzmann, Kharaghani, Tayfeh-Rezaie 2008 classification; earlier constructions credited there"],
 }
-MATHCHECK = {
+MATHCHECK: dict[int, Spec] = {
     63: {
         "file": "mathcheck-williamson-63.txt",
         "title": "MathCheck Williamson sequences of order 63 (Bright, Kotsireas, Ganesh), Zenodo record 1195693",
@@ -45,22 +55,22 @@ MATHCHECK = {
 }
 
 
-def hkt_rows():
+def hkt_rows() -> Iterator[tuple[int, list[list[int]]]]:
     for line in (LITERATURE / HKT["file"]).read_text().splitlines():
         if not line or line.startswith("#"):
             continue
-        n, *words = line.split()
-        n = int(n)
+        order, *words = line.split()
+        n = int(order)
         if len(words) != 4 or any(len(w) != (n - 1) // 2 for w in words):
             raise ValueError(f"malformed HKT line: {line}")
         rows = []
         for w in words:
             half = [1 if c == "+" else -1 for c in w]
-            rows.append([1] + half + half[::-1])
+            rows.append([1, *half, *half[::-1]])
         yield n, rows
 
 
-def mathcheck_rows(n, spec):
+def mathcheck_rows(n: int, spec: Spec) -> Iterator[tuple[int, list[list[int]]]]:
     for line in (LITERATURE / spec["file"]).read_text().splitlines():
         words = re.findall(r"[+-]+", line)
         if not words:
@@ -70,7 +80,7 @@ def mathcheck_rows(n, spec):
         yield n, [[1 if c == "+" else -1 for c in w] for w in words]
 
 
-def entry(n, rows, spec, author, date):
+def entry(n: int, rows: list[list[int]], spec: Spec, author: str, date: str) -> JSONObject:
     path = LITERATURE / spec["file"]
     return {
         "schema_version": 1,
@@ -93,14 +103,14 @@ def entry(n, rows, spec, author, date):
     }
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--author", required=True)
     parser.add_argument("--date", required=True)
     parser.add_argument("--write", action="store_true")
     args = parser.parse_args()
     baseline = read_json(ROOT / "baselines/skew-gaps.json")
-    held = {}
+    held: dict[str, str] = {}
     for path in glob.glob(str(ROOT / "quadruples/*.json")):
         doc = read_json(Path(path))
         held[gs_verify.verify(doc, baseline)["fingerprint"]] = doc["id"]
@@ -122,12 +132,8 @@ def main():
         held[fp] = doc["id"]
         written += 1
         if args.write:
-            (ROOT / f"quadruples/{doc['id']}.json").write_text(
-                json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
-            )
-    print(
-        f"{len(candidates)} published sets: {written} new entries, {skipped} already on the board"
-    )
+            (ROOT / f"quadruples/{doc['id']}.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n")
+    print(f"{len(candidates)} published sets: {written} new entries, {skipped} already on the board")
 
 
 if __name__ == "__main__":

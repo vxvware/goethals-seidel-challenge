@@ -2,11 +2,12 @@
 
 import argparse
 from pathlib import Path
-from verify.common import ROOT, read_json
+
 from verify.check_submission_scope import git_changes
+from verify.common import ROOT, JSONObject, read_json
 
 
-def check_author(document, author):
+def check_author(document: JSONObject, author: str) -> None:
     if document["submitted_by"].casefold() != author.casefold():
         raise ValueError(f"{document['id']}: submitted_by must match PR author {author}")
 

@@ -1,7 +1,11 @@
 """Attach curated origin and credit without changing mathematical verdicts."""
 
+from collections.abc import Iterable
+from pathlib import Path
+
 from jsonschema import Draft202012Validator, FormatChecker
-from verify.common import ROOT, read_json
+
+from verify.common import ROOT, JSONObject, read_json
 from verify.seed_inventory import inventory
 
 LABELS = {
@@ -11,7 +15,7 @@ LABELS = {
 }
 
 
-def apply(documents, results, root=ROOT):
+def apply(documents: dict[str, JSONObject], results: dict[str, JSONObject], root: Path = ROOT) -> None:
     registry = read_json(root / "baselines/contributions.json")
     validator = Draft202012Validator(
         read_json(ROOT / "schema/contributions.schema.json"), format_checker=FormatChecker()
@@ -48,7 +52,7 @@ def apply(documents, results, root=ROOT):
             result["contributions"].append(item)
 
 
-def collect(results):
+def collect(results: Iterable[JSONObject]) -> list[JSONObject]:
     """Stable, deduplicated credits for a cell or the whole board."""
     groups = {}
     for result in results:

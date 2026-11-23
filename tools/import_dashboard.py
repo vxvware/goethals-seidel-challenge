@@ -13,11 +13,11 @@ import argparse
 import gzip
 import io
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from verify.common import ROOT, digest, write_json
+from verify.common import ROOT, JSONObject, Rows, digest, write_json
 from verify.equivalence import canonical, fingerprint
 from verify.gs_verify import memberships, validate_rows
 from verify.model import validate
@@ -43,7 +43,7 @@ EVIDENCE = "evidence/participants/saw-best-matrix"
 DK2018 = "https://arxiv.org/abs/1802.00556"
 
 # (family, n): commit, sha256, classes reported by the source, note on prior work.
-SOURCES = {
+SOURCES: dict[tuple[str, int], tuple[str, str, int, str]] = {
     ("good", 45): (
         "0061ad63796971e767971ff82756b32500291f62",
         "0aa8365833698f3e6c1ce0d327065b993ade2a424c2fb8c3d0b7be12c6c8e470",
@@ -55,15 +55,13 @@ SOURCES = {
         "0061ad63796971e767971ff82756b32500291f62",
         "da76918b69771ac4540fc6d9fe89c41ccae9911f9da38a58553b0eb2d4c1b121",
         0,
-        "The published searches surveyed in arXiv:1811.05094 also find no good "
-        "matrices at this order.",
+        "The published searches surveyed in arXiv:1811.05094 also find no good matrices at this order.",
     ),
     ("good", 49): (
         "0061ad63796971e767971ff82756b32500291f62",
         "5bee790585ddbf13b99fab03638e67a69b9d908fe753469d815015d3ddbdca5b",
         0,
-        "The published searches surveyed in arXiv:1811.05094 also find no good "
-        "matrices at this order.",
+        "The published searches surveyed in arXiv:1811.05094 also find no good matrices at this order.",
     ),
     ("good", 51): (
         "0061ad63796971e767971ff82756b32500291f62",
@@ -229,8 +227,7 @@ SOURCES = {
         "298ff0aff7c09a7f4de4adc5f5456490522affd3",
         "e91ea95154b2d135a35f38cbca46d5e77f657f77864afda12477560f37954b97",
         0,
-        "The only admissible parameter set is (57; 28,28,28,21; 48); no published search "
-        "covers it.",
+        "The only admissible parameter set is (57; 28,28,28,21; 48); no published search covers it.",
     ),
     ("kkss", 59): (
         "aaa2c7952b52762b8811e3772ba8760b9eecdbac",
@@ -264,7 +261,7 @@ FULL_CENSUS = {key for key in SOURCES if key != ("kkss", 63)}
 FILES = {"good": "good", "kkss": "gmat"}
 
 
-def source_record(family, n, raw):
+def source_record(family: str, n: int, raw: Path) -> JSONObject:
     commit, _, _, _ = SOURCES[family, n]
     path = f"data/{FILES[family]}/{FILES[family]}-{n:02d}.txt"
     label = "good matrices" if family == "good" else "G-matrices (kkss)"
@@ -278,7 +275,7 @@ def source_record(family, n, raw):
     }
 
 
-def read_rows(original, family, n):
+def read_rows(original: Path, family: str, n: int) -> list[Rows]:
     rows = []
     for line in original.read_text().splitlines():
         if not line.strip() or line.startswith("#"):
@@ -293,7 +290,7 @@ def read_rows(original, family, n):
     return rows
 
 
-def store(path, doc, rows_may_match=False):
+def store(path: Path, doc: JSONObject, rows_may_match: bool = False) -> None:
     if path.exists():
         previous = json.loads(path.read_text())
         same_rows = rows_may_match and previous.get("rows") == doc.get("rows")
@@ -302,7 +299,7 @@ def store(path, doc, rows_may_match=False):
     write_json(path, doc)
 
 
-def census_notes(family, n, rows, ids):
+def census_notes(family: str, n: int, rows: list[Rows], ids: set[str]) -> str:
     _, _, reported, note = SOURCES[family, n]
     kind = "full census" if (family, n) in FULL_CENSUS else "orbit-restricted search"
     text = (
@@ -315,14 +312,14 @@ def census_notes(family, n, rows, ids):
     return f"{text} {note}".strip()
 
 
-def existing_representatives(n):
+def existing_representatives(n: int) -> dict[Rows, str]:
     """Canonical rows of the hand-submitted quadruple entries already on the board at n.
 
     An entry submitted before its census finished keeps its id and submission
     date; the census maps rows of its class onto it instead of writing an
     equivalent duplicate, which the board rejects.
     """
-    found = {}
+    found: dict[Rows, str] = {}
     for path in sorted((ROOT / "quadruples").glob("*.json")):
         if path.stem.startswith(f"n{n}-"):
             continue
@@ -332,7 +329,7 @@ def existing_representatives(n):
     return found
 
 
-def import_order(family, n, source_dir, folder):
+def import_order(family: str, n: int, source_dir: Path, folder: Path) -> JSONObject | None:
     original = source_dir / FILES[family] / f"{FILES[family]}-{n:02d}.txt"
     if digest(original) != SOURCES[family, n][1]:
         raise ValueError(f"source differs from the pinned saw-best-matrix file: {original.name}")
@@ -379,8 +376,8 @@ def import_order(family, n, source_dir, folder):
         store(ROOT / f"certificates/{certificate['id']}.json", certificate)
         print(f"{family} n={n}: empty census -> {certificate['id']}")
         return None
-    mappings = []
-    ids = set()
+    mappings: list[JSONObject] = []
+    ids: set[str] = set()
     existing = existing_representatives(n)
     for q in rows:
         rep = canonical(q)
@@ -434,10 +431,10 @@ def import_order(family, n, source_dir, folder):
     }
 
 
-def import_all(source_dir):
+def import_all(source_dir: Path) -> None:
     folder = ROOT / EVIDENCE
-    records = []
-    all_ids = set()
+    records: list[JSONObject] = []
+    all_ids: set[str] = set()
     for family, n in sorted(SOURCES, key=lambda key: (key[0] != "good", key[1])):
         record = import_order(family, n, source_dir, folder)
         if record:

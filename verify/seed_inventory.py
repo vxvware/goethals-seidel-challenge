@@ -1,10 +1,11 @@
 """Combine the original catalogue and later participant archives."""
 
 from pathlib import Path
-from verify.common import ROOT, read_json
+
+from verify.common import ROOT, JSONObject, PathLike, read_json
 
 
-def inventory(root=ROOT):
+def inventory(root: PathLike = ROOT) -> JSONObject:
     artifacts = {}
     total = 0
     representatives = set()

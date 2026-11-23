@@ -1,7 +1,11 @@
 """Generate the strict, self-contained submission schema."""
 
-from pathlib import Path
 import json
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from verify.common import JSONObject
 
 S = {"type": "string", "minLength": 1, "maxLength": 2000}
 NONNEGATIVE_INTEGER = {"type": "integer", "minimum": 0}
@@ -27,7 +31,7 @@ SOURCE = {
         "artifact": REF,
     },
 }
-COMMON = {
+COMMON: JSONObject = {
     "schema_version": {"const": 1},
     "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,100}$"},
     "n": {"type": "integer", "minimum": 1, "maximum": 511},
@@ -53,7 +57,7 @@ COMMON = {
 }
 
 
-def entry(kind, properties, required):
+def entry(kind: str, properties: JSONObject, required: list[str]) -> JSONObject:
     props = {**COMMON, "type": {"const": kind}, **properties}
     return {
         "type": "object",

@@ -4,10 +4,11 @@ import argparse
 import re
 from pathlib import Path
 from urllib.parse import unquote, urlparse
-from verify.common import ROOT, MAX_FILE
+
+from verify.common import MAX_FILE, ROOT, PathLike
 
 
-def check(path, root=ROOT):
+def check(path: PathLike, root: Path = ROOT) -> None:
     path = Path(path)
     if path.is_symlink() or path.stat().st_size > MAX_FILE:
         raise ValueError(f"{path.name}: symlink or oversized Markdown")
