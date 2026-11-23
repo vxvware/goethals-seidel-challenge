@@ -202,7 +202,7 @@ def shell(title, body, prefix="", head="", description=DESCRIPTION):
 <title>{esc(title)} · Hunting Hadamards</title><meta name="description" content="{esc(description)}"><meta property="og:title" content="{esc(title)} · Hunting Hadamards"><meta property="og:description" content="{esc(description)}">
 <link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
 <header><a class="brand" href="{prefix}./">hunting-hadamards</a><nav><a href="{prefix}./#board">board</a><a href="{prefix}./#new-results">new results</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
-<main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a><p class="credit"><a href="https://vprusso.github.io/">Vincent Russo</a> and Trevor Vincent</p></footer></body></html>'''
+<main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a><p class="credit"><a href="https://vprusso.github.io/">Vincent Russo</a> and <a href="https://trevorvincent.com/">Trevor Vincent</a></p></footer></body></html>'''
 
 
 # The colour convention of picture.js, stated once on every page that draws one.
@@ -369,15 +369,13 @@ def existence_results(stats, r):
             x["type"] != "quadruple" or "skew-sds" not in x["tracks"] for x in entries
         ):
             raise ValueError(f"existence result is not skew quadruples of one order: {ident}")
-        n, count = orders.pop(), len(entries)
-        noun = "quadruple" if count == 1 else "quadruples"
+        n = orders.pop()
         items.append(
             {
                 "n": n,
                 "stratum": "skew-sds",
                 "source": None,
-                "text": f"A skew-Hadamard matrix of order {4 * n}: {count} verified {noun} "
-                f"with a skew block at n = {n}.",
+                "text": f"A skew-Hadamard matrix of order {4 * n}.",
                 # The section's own sentence carries the search qualifier.
                 "qualifier": None,
             }
@@ -785,11 +783,11 @@ def build(quick=False):
         (out / f"badges/{key}.svg").write_text(badge)
     head, rows, options = grid(stats, r)
     body = f"""<section class="hero"><div><h1>Hunting Hadamards</h1><p>Hadamard matrices are believed to exist in every size divisible by 4, but some sizes have never been found. This board tracks the search.</p>{hero_figure(r)}</div>{DEFINITION}</section>
-<section id="board"><h2>The board</h2><p class="key">Each row is an order 4n. The hadamard and skew-hadamard columns say whether a matrix of that order is known (see <a href="#open-orders">open orders</a>). The other columns count those quadruples by family, with ✓ where one exists but no count is known (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>).</p>{orders.box(ORDERS, r, BIB)}<div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
+<section id="board"><h2>The board</h2><p class="key">{orders.intro(ORDERS)} (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>)</p><div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
 <div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="participant">new result</span></div>
 <div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{rows}</tbody></table></div></section>
 {new_results_section(stats, r)}
-<section class="columns"><article class="card"><h3>Bring a construction</h3><p>Submit four defining rows or negative-index sets. The verifier derives the family, checks the PAF identity, and detects equivalent entries.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
+<section class="columns"><article class="card"><h3>Bring a construction</h3><p>Found four sequences that fit? The verifier checks them exactly, works out their family and rejects duplicates of entries already here.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
 <noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
 <script src="app.js" defer></script><script src="picture.js" defer></script><script src="hero.js" defer></script>"""
     (out / "index.html").write_text(shell("The board", body, head=MATH_HEAD))

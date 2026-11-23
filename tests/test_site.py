@@ -82,9 +82,7 @@ def test_existence_results_appear_only_when_featured(board):
     assert ("skew-sds", 89) not in module.new_cells(stats, r)
     group["featured"] = True
     (item,) = dict(module.new_results(stats, r))["Existence"]
-    assert item["text"] == (
-        "A skew-Hadamard matrix of order 356: 2 verified quadruples with a skew block at n = 89."
-    )
+    assert item["text"] == ("A skew-Hadamard matrix of order 356.")
     assert item["qualifier"] is None
     assert ("skew-sds", 89) in module.new_cells(stats, r)
     html = module.new_results_section(stats, r)
