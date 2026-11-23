@@ -520,17 +520,6 @@ def cell_page(c, d, r):
         f'<article class="entry"><div class="eyebrow">cell · order {n} · {esc(track)}{expanded}'
         f'</div><h1>n = {n} · {esc(TRACK_LABELS[track])}</h1><span class="tag">{esc(status)}</span>'
     ]
-    if c["quadruples"] and track in SKEW_TRACKS:
-        count = len(c["quadruples"])
-        subject = (
-            "The verified quadruple on this page has"
-            if count == 1
-            else f"Each of the {count} verified quadruples on this page has"
-        )
-        parts.append(
-            f'<p class="census">{subject} a skew block, so its Goethals–Seidel array with that '
-            f"block first is a skew-Hadamard matrix of order {4 * n}.</p>"
-        )
     if c["censuses"]:
         x = r[c["censuses"][0]]
         link = f'<a href="../entries/{esc(x["id"])}.html">{esc(x["id"])}</a>'
