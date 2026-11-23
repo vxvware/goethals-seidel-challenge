@@ -156,3 +156,4 @@ details summary{cursor:pointer;font-size:.8667rem;color:var(--green)}
 .refs li{margin:.5333rem 0;overflow-wrap:anywhere}
 .refs li:target{background:var(--panel);outline:1px solid var(--line)}
 footer .credit{margin:1rem 0 0;font-size:.8rem;color:var(--muted)}
+.hero .latest{margin-top:1rem;color:var(--muted)}
