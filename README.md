@@ -14,7 +14,7 @@ Take an odd number n and four sequences a, b, c, d of length n with entries +1 a
 
 Let A, B, C, D be the circulant matrices whose first rows are a, b, c, d. The Goethals-Seidel array [[goethals1970skew](https://hadamards.com/references.html#ref-goethals1970skew)] arranges these four blocks, with signs and reversals, into a matrix H of order 4n with entries +1 and -1 such that H Hᵀ = 4n I, where I is the identity matrix: a Hadamard matrix. If the first sequence is skew, meaning a<sub>0</sub> = 1 and a<sub>n-i</sub> = -a<sub>i</sub> for every nonzero i, then also H + Hᵀ = 2I, and H is a skew-Hadamard matrix.
 
-The board covers odd n up to 131 in six tracks, named by how many of the sequences are symmetric or skew: Williamson, good, best, G-matrices, with a skew block, and any; the front-page grid shows the last two through its hadamard and skew-hadamard columns. [TRACKS.md](TRACKS.md) defines them and the verification tiers, and [the mathematical contract](notes/mathematical-contract.md) states what the verifier checks. The front page lists the [open Hadamard and skew-Hadamard orders](https://hadamards.com/#board) up to 1200, and the site has a [reference list](https://hadamards.com/references.html).
+The board covers odd n up to 131 in six tracks, named by how many of the sequences are symmetric or skew: Williamson, good, best, G-matrices, with a skew block, and any; the front-page grid shows the last two through its hadamard and skew-hadamard columns. [TRACKS.md](TRACKS.md) defines them and the verification tiers, and [the mathematical contract](notes/mathematical-contract.md) states what the verifier checks. The site has a [reference list](https://hadamards.com/references.html).
 
 ## Order 356
 
@@ -50,10 +50,10 @@ Open cells are listed by `./gs targets`. [AGENTS.md](AGENTS.md) and [research/AU
 | `baselines/` | sourced status of each cell and order, the contribution registry, `references.bib` |
 | `verify/`, `schema/` | the trusted verifier and the entry schemas |
 | `tools/`, `gs` | the command line and the importers |
-| `site/`, `docs/` | the site generator and its output, served at hadamards.com |
+| `site/` | the site generator; `./gs build` writes the site to `docs/`, which is not tracked |
 | `formal/` | Lean 4 statements about quadruples; not built by CI |
 | `research/` | instructions and starter engines for searches |
-| `notes/` | the mathematical contract, [commands and maintenance](notes/board-operations.md), import and audit notes |
+| `notes/` | the mathematical contract and [commands and maintenance](notes/board-operations.md) |
 | `assets/` | the picture above and the script that draws it |
 | `tests/` | pytest suite |
 

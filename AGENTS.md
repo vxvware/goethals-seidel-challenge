@@ -30,7 +30,7 @@ marker that has no entry.
 Use uv. Run ruff, pytest, the full seed audit when seed import logic changes,
 and a full site build. Changes to trusted files require regenerating
 verify/validator_manifest.json with `uv run python -m verify.check_manifest --update`
-after review, then checking it. Regenerate docs/ for maintenance changes.
+after review, then checking it. docs/ is build output and is not tracked.
 Do not silently overwrite existing research results or source archives.
 
 The tracked campaign engines are reference sources, not permission to launch
