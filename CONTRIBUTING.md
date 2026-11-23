@@ -58,8 +58,7 @@ uv run pytest -q
 uv run python -m verify.check_manifest
 ```
 
-Do not regenerate `docs/` in an entry PR. The trusted publishing build generates
-it from the accepted data after merge.
+`docs/` is not tracked: the publishing workflow builds the site from the accepted data after merge.
 
 ## Agent prompt
 

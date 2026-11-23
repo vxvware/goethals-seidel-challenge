@@ -13,7 +13,7 @@ uv sync --locked --group dev
 ./gs import-tasks                  # known constructions awaiting imported rows
 ./gs census                       # class counts and verification bounds
 ./gs recent --limit 5
-./gs build                        # validated, deterministic output in docs/
+./gs build                        # validated, deterministic output in docs/ (not tracked)
 python3 -m http.server 8769 --directory docs
 ```
 
@@ -54,11 +54,44 @@ Two of the four orders have board entries. Eleven skew quadruples at n=89 are da
 
 The inventories are [the original seeds](../baselines/seed-manifest.json) and [later participant constructions](../baselines/participant-seed-manifest.json). All 36,931 raw imported quadruples remain in compact archives under `evidence/`, with source commits, hashes, counts, and representative mappings. The explicit plan inventory is imported, including best/good catalogues, the campaign's n=15 and n=21 examples, the n=13 CPU/GPU fixtures, 15,360 p=73 families, and published Williamson and good rows. The 1,228 rows imported from vxvware/saw-best-matrix, a private repository whose imported files are [archived here](../evidence/participants/saw-best-matrix), supply one verified good-matrix class at each of n=53, 55, and 61 and the G-matrix (kkss) classes at every admissible odd order through 61, plus an orbit-restricted family at 63. The source reports complete censuses; the board records lower bounds where those searches have not been replayed here. The empty censuses at good n=59 and kkss n=57 are attributed claims without a tier.
 
-To repeat the original import, check out the campaign repositories at the commits recorded in the seed manifest. Download the Sage table from the pinned source in [the import instructions](reimport.md), then use `./gs import`. Normal board checks use the bundled archives and require no sibling checkouts.
+Normal board checks use the bundled archives and need no other checkouts.
+
+### Repeating the seed import
+
+The import is a maintainer operation that regenerates seed entries and archives. Use a clean working tree and retain any later contribution files. Supply a parent directory containing `best-matrix-campaign`, `good-matrix-campaign`, and `skew356-campaign`, each at the source commit in [the manifest](../baselines/seed-manifest.json).
+
+The first two repositories are private and `vxvware/skew356-campaign` no longer exists, so only a maintainer who holds all three checkouts can repeat this step. Nothing else needs them. Every file of the private repositories that an entry or manifest record cites is archived in this repository, and [the index](../evidence/participants/private-sources.json) gives its original repository, commit, path and SHA-256 next to the path of the copy: the catalogues and fixtures under `evidence/participants/best-matrix-campaign/` and `evidence/participants/good-matrix-campaign/`, the campaign receipts and write-ups under `evidence/seeds/`. Source records link those copies at the commit pinned as `ARCHIVE` in `tools/import_seeds.py` and `tools/import_dashboard.py`, and keep the original commit and path in their `commit` and `source_path` fields. No copy of `data/sweep_p73_d9.json` from `skew356-campaign` is known; the 15,360 rows imported from it are in `evidence/seeds/skew-p73-d9.jsonl.gz`, which the audit checks row by row. To move the pinned commit, run `uv run python tools/repin_archive.py <commit>`: it rewrites the links, rebinds the registered census replays whose entries changed by the pin alone, and updates the trusted manifest.
+
+The literal Sage tables were extracted from [this pinned source](https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py). Download it as `hadamard_matrix.py`. Create a text file `sage-source.txt` with exactly these two lines:
+
+```text
+0835358cba62dc19fccdff54f32e52fded9f22b0
+https://raw.githubusercontent.com/sagemath/sage/0835358cba62dc19fccdff54f32e52fded9f22b0/src/sage/combinat/matrices/hadamard_matrix.py
+```
+
+```sh
+./gs import --source-root /path/to/checkouts --sage-file /path/to/hadamard_matrix.py --sage-source /path/to/sage-source.txt
+uv run python -m verify.audit_seeds
+uv run python -m verify.check_manifest --update
+./gs build
+```
+
+The parser extracts literal numerical tables with Python's AST utilities; it does not execute Sage code. Every extracted quadruple is independently checked. Review all changed source identities before updating the trusted manifest.
+
+### The vxvware/saw-best-matrix census files
+
+The supplemental import reads the good-matrix and G-matrix sign-row files from `vxvware/saw-best-matrix`, each pinned in `tools/import_dashboard.py` to the commit that last changed it and to its SHA-256. Their original bytes are bundled under `evidence/participants/saw-best-matrix/`; the source repository is private and access to it is not needed to repeat the import. The importer checks the pinned hashes, exactly verifies all 1,228 quadruples, writes empty census files as unreplayed-census certificates, and refuses to replace different records.
+
+```sh
+uv run python tools/import_dashboard.py --source-dir evidence/participants/saw-best-matrix
+uv run python -m verify.audit_seeds
+```
+
+This writes the separate participant seed manifest. The audit and site combine both inventories, deduplicating representatives across them. Update the trusted manifest and run a full build after reviewing any intentional import changes.
 
 ## Evidence that is incomplete
 
-The board does not inflate historical receipts into proofs. See [the artifact audit](artifact-audit.md) and [implementation status](implementation-status.md):
+The board does not inflate historical receipts into proofs:
 
 - Best-73 retains its documented 104,500-class legacy identity gap.
 - Good-65 retains a newly detected missing prefix in the available machine receipt chain. The reported campaign conclusion is preserved as an archived claim; the board does not present it as fully verified emptiness.
@@ -73,5 +106,3 @@ The board does not inflate historical receipts into proofs. See [the artifact au
 `formal/` is a Lean 4 project with machine-checked statements about quadruples, among them that the Goethals–Seidel array of a quadruple is a Hadamard matrix; see [formal/README.md](../formal/README.md). CI does not build it and the verifier does not depend on it.
 
 Entry PRs are append-only and cannot change the verifier, schemas, baseline, site, or workflows. A trusted-base CI job binds `submitted_by` to the PR author, checks scope, and validates candidate data with the base verifier. Changes to the trusted stack require a separate maintainer PR and a reviewed manifest update.
-
-[plan.md](plan.md) is the design plan drafted before the implementation and [plan_review.md](plan_review.md) is its review. Both are historical; where they disagree with the repository, the repository is current.
