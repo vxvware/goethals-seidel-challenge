@@ -1,0 +1,8 @@
+# Eleventh skew quadruple of order 89 over the cyclic group Z_89, the one solution line of slice 1,1 of round 3 of the three-pool join. It gives a skew-Hadamard matrix of order 356.
+# Run, pools and terms: as recorded in evidence/participants/pool-join/skew-89-round-3.txt (same fixed skew block A, same pools, same join program and plan).
+# Round 3 finished on 2026-11-23 at 02:42Z. Solution lines and join size per slice: 1,0: 2 (5972789100 nodes); 2,0: 6 (7216989513 nodes); 1,1: 1 (212840771 nodes); 2,1: 0 (217449821 nodes); 0,1: 0 (178020337 nodes); 0,2: 0 (58486 nodes); 1,2: 0 (66204 nodes). That is nine solutions of this round in all; with the two of the earlier round the board holds eleven. The second stage of the round, which would add the block-1 classes outside the core windows, was not run.
+# This is a sampling search, not a census: the pools hold part of the rows inside the windows, and the windows are a choice. The search code is not in the repository.
+# Relation to the earlier solutions. Block A is the same row. The board's equivalence check gives this quadruple a fingerprint different from the ten quadruples at n=89 already on the board.
+# Checks in code separate from the search: A skew; the four periodic autocorrelations sum to zero at every nonzero lag; the Goethals-Seidel matrix G of order 356 satisfies G G^T = 356 I and G + G^T = 2 I.
+# one row A,B,C,D per solution:
++++++++++-+-+-+-++-++--++--+++--+-+--++++----++++----++-+-++---++--++--+--+-+-+-+--------,+--+-+--+++--+----+-+++---++++--++-+++--++++-+-++--++-++-+++-+-+-+--+--+--------++++-++-+,---+++++--+++-+++-+--+-+-++-+-+--++-+++++++-++++--+---+++++--++----+---++-+---+-+++-+-++-,-++-++---++-+-++++-+--+++----++++++++-+--++--++++++-+-+++++-++--+-+---+--+---+-+-+++++--+
