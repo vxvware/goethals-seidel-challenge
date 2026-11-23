@@ -75,8 +75,8 @@
           "status": "board",
           "date": "2026-11-22",
           "sources": [],
-          "entry_ids": ["n89-b2a223b0fb7500feb95f", "n89-eec2e43c042090883c04", "n89-f41d2ad6797d337bba02", "n89-c82ada9f9de878de4d04", "n89-355e2d80dd11b3ac970c", "n89-38c0995e6853388715ad", "n89-4a683c095abff6da14f6", "n89-9df0d34a61f08cd1d12e", "n89-c34f749d6f11059b70dc", "n89-c6c238cee648f0a2291f"],
-          "note": "Ten verified quadruples with a skew block at n = 89, found on 2026-11-22 and 2026-11-23 (UTC). A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356; this reports the search and does not claim priority."
+          "entry_ids": ["n89-b2a223b0fb7500feb95f", "n89-eec2e43c042090883c04", "n89-f41d2ad6797d337bba02", "n89-c82ada9f9de878de4d04", "n89-355e2d80dd11b3ac970c", "n89-38c0995e6853388715ad", "n89-4a683c095abff6da14f6", "n89-9df0d34a61f08cd1d12e", "n89-c34f749d6f11059b70dc", "n89-c6c238cee648f0a2291f", "n89-f386470503eae7d52c58"],
+          "note": "Eleven verified quadruples with a skew block at n = 89, found on 2026-11-22 and 2026-11-23 (UTC). A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356; this reports the search and does not claim priority."
         },
         {
           "orders": [476],
