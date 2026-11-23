@@ -31,10 +31,10 @@ def states(board, data):
 
 
 def cells(markup):
-    """(type, order, state, class, text) of every existence cell in a piece of HTML."""
+    """(class, type, order, state, text) of every order cell in a piece of HTML."""
     return re.findall(
-        r'<td class="([^"]*)" data-type="([a-z-]+)" data-order="(\d+)" data-state="([a-z]+)">'
-        r"<a [^>]*>([^<]*)</a></td>",
+        r'<td class="([^"]*)" data-type="([a-z-]+)" data-order="(\d+)" data-state="([a-z]+)"'
+        r'[^>]*><a [^>]*><span>([^<]*)(?:<span class="classes">[^<]*</span>)?</span>',
         markup,
     )
 
@@ -232,9 +232,62 @@ def test_track_labels_and_groups():
     assert module.TRACK_LABELS["skew-sds"] == "With a skew block"
     assert module.TRACK_LABELS["general"] == "Any"
     assert tuple(module.TRACK_LABELS) == TRACKS
-    assert module.EXISTENCE_GROUP == "matrix of order 4n, any construction"
-    assert module.TRACK_GROUP == "cyclic Goethals–Seidel quadruples at n"
+    assert module.EXISTENCE_GROUP == "matrix of order 4n"
+    assert module.TRACK_GROUP == "cyclic Goethals–Seidel quadruples at n, by family"
     assert 'href="orders.html">open orders</a>' in module.shell("x", "")
+
+
+def test_front_page_grid_merges_the_order_and_track_columns(board, states):
+    module = site_build()
+    d, r, b = board
+    stats = summary(d, r, b)
+    head, rows, options = module.grid(stats, r)
+    # n, the two order columns, then the four named families; the tracks for
+    # any quadruple and for a skew block have no columns of their own.
+    columns = re.findall(r'<th scope="col"[^>]*>([^<]*)</th>', head)
+    assert columns == ["n", "hadamard", "skew-hadamard"] + [
+        module.TRACK_LABELS[x] for x in module.PRIMARY
+    ]
+    assert "With a skew block<" not in head and ">Any<" not in head
+    # The column filter offers every column, the two tracks through their order columns.
+    values = re.findall(r'<option value="([a-z-]+)">', options)
+    assert values == ["general", "skew-sds", *module.PRIMARY]
+    by_cell = {(c["n"], c["stratum"]): c for c in stats["cells"]}
+    marked = module.new_cells(stats, r)
+    for n, row in zip(range(1, orders.BOARD_MAX_N + 1, 2), rows.split("</tr>")):
+        found = {name: (classes, state) for classes, name, _, state, _ in cells(row)}
+        assert {name: state for name, (_, state) in found.items()} == {
+            name: states[4 * n][name]["state"] for name in orders.TYPES
+        }
+        hrefs = re.findall(r'href="([^"]+)"', row)
+        assert hrefs == [f"cells/n{n}-{t}.html" for t in ("general", "skew-sds", *module.PRIMARY)]
+        tracks = re.findall(r'data-track="([a-z-]+)"', row)
+        assert tracks == ["general", "skew-sds", *module.PRIMARY]
+        # Markers of the merged tracks sit on the order cells.
+        cells_html = row.split("<td")[2:]
+        for track, html in zip(("general", "skew-sds", *module.PRIMARY), cells_html):
+            assert ('class="participant"' in html) == ((track, n) in marked), (n, track)
+            c = by_cell[n, track]
+            assert f'data-status="{c["status"]}"' in html
+            if c["contradicted"]:
+                assert "contradicted" in html.split('"')[1]
+    row = dict(zip(range(1, orders.BOARD_MAX_N + 1, 2), rows.split("</tr>")))
+    # At 85 the board's cyclic skew cell is unresolved and the order is known elsewhere.
+    skew85 = dict((name, (state, text)) for _, name, _, state, text in cells(row[85]))
+    assert skew85["skew-hadamard"] == ("known", "340")
+    assert 'data-status="unresolved"' in row[85].split("<td")[3]
+    assert row[89].split("<td")[3].count('class="participant"') == 1
+
+
+def test_order_cell_shows_the_class_count_only_when_the_board_holds_the_matrix():
+    info = {"state": "board", "listed_open": False}
+    board = {"hadamard": {"count": "588 classes"}, "skew-hadamard": {"count": "247 classes"}}
+    held = orders.grid_cells(13, {52: {name: info for name in orders.TYPES}}, board=board)
+    assert '52<span class="classes">588</span>' in held and "; 588 classes" in held
+    assert '52<span class="classes">247</span>' in held and "; 247 classes" in held
+    known = {"state": "known", "listed_open": False}
+    other = orders.grid_cells(13, {52: {name: known for name in orders.TYPES}}, board=board)
+    assert 'class="classes"' not in other
 
 
 def test_cell_page_lists_the_quadruples_before_a_restricted_obstruction(board):
