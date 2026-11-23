@@ -18,6 +18,14 @@ Cyclic groups are supported now. Noncyclic abelian invariant factors are
 reserved in the schema and fail validation until a future version implements
 the required operations.
 
+## Reading the board
+
+Each row of the front-page grid is an odd n and the order 4n. The first two columns say whether a Hadamard matrix and a skew-Hadamard matrix of order 4n is known by any construction, according to the sources of the [orders page](https://hadamards.com/orders.html); each links to its row there. The other six columns are the tracks above, about cyclic Goethals–Seidel quadruples at n, named by the symmetry types of the blocks A, B, C, D: `s` symmetric, `k` skew. The column for quadruples with a skew block (skew-sds) contains the good, best and G-matrix columns, and the last column (general) is any quadruple. A cell of the skew-sds column can be unresolved while a skew-Hadamard matrix of order 4n is known by another construction; the skew-hadamard column then shows it as known elsewhere.
+
+A number in a cell is a count of equivalence classes and ✓ means a quadruple exists with no class count. Class counts use `equiv-v1`, which treats independent reversals, sign changes, block permutations and multipliers as equivalent (see the [mathematical contract](notes/mathematical-contract.md)). The skew-sds and general columns also identify independent cyclic shifts of each row (`equiv-v2`), without which every class at those orders splits into thousands.
+
+The same colours mean the same thing in both groups of columns: green is verified here, blue is known elsewhere (published, rows not on this board), dark is empty, amber is open, an amber outline is reported in a source that is not reviewed (order columns only), a red outline contradicts a published result (track columns only), and a violet diamond is a new result.
+
 ## Verification levels
 
 Origin is a separate dimension from these levels. **Participant work** covers

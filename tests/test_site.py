@@ -88,7 +88,11 @@ def test_existence_results_appear_only_when_featured(board):
     assert "found no earlier" in item["qualifier"] and "first" not in item["qualifier"]
     assert ("skew-sds", 89) in module.new_cells(stats, r)
     html = module.new_results_section(stats, r)
-    assert "cells/n89-skew-sds.html" in html and "no exhaustive search is involved" in html
+    assert "cells/n89-skew-sds.html" in html
+    # The section states its search qualifier once, and the existence item keeps its own.
+    assert "did not find in the sources it read" in html and "does not claim priority" in html
+    assert "found no earlier skew-Hadamard matrix of order 356" in html
+    assert "first" not in html.lower()
 
 
 def test_restricted_certificate_is_not_labelled_as_a_statement_about_the_cell(board):

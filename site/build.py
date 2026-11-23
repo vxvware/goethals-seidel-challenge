@@ -208,6 +208,13 @@ def shell(title, body, prefix="", head="", description=DESCRIPTION):
 <main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a><p class="credit"><a href="https://vprusso.github.io/">Vincent Russo</a> and Trevor Vincent</p></footer></body></html>'''
 
 
+# The colour convention of picture.js, stated once on every page that draws one.
+PICTURE_KEY = (
+    '<p class="muted">Skew blocks are green, symmetric blue, others grey; '
+    "light is +1, dark is −1.</p>"
+)
+
+
 def quad_figure(doc, result, caption):
     """A figure that picture.js paints from the embedded rows, in display order."""
     rows, pattern = display_rows(result)
@@ -258,9 +265,7 @@ def hero_figure(r):
     payload = json.dumps(quads, separators=(",", ":")).replace("<", "\\u003c")
     return (
         '<figure class="hero-anim"><canvas aria-label="A Goethals–Seidel array being filled in">'
-        '</canvas><div><pre aria-hidden="true"></pre><a href="#board"></a>'
-        '<p class="muted">In every matrix picture skew blocks are green, symmetric blocks blue '
-        "and blocks with neither symmetry grey; light is +1 and dark is −1.</p></div>"
+        '</canvas><div><pre aria-hidden="true"></pre><a href="#board"></a></div>'
         f'<script type="application/json">{payload}</script></figure>'
     )
 
@@ -345,23 +350,12 @@ CONTRADICTION_NOTES = {
 # shown only while its contribution is marked featured in
 # baselines/contributions.json, which is the maintainer's decision.
 NEW_EXISTENCE = {"skew-pool-join-89": "2026-11-22"}
-EXHAUSTIVE_NOTE = (
-    f"Not found by a literature search made on {LITERATURE_SEARCH_DATE}. Counts are "
-    "equivalence classes. Each statement comes from an exhaustive computer search, not from "
-    "a proof."
-)
-EXISTENCE_NOTE = (
-    "Each statement is about explicit rows on the board, which the verifier checks exactly; "
-    "no exhaustive search is involved. The date of the search for earlier matrices is given "
-    "with each item."
-)
 NEW_RESULT_GROUPS = (
-    ("correction", "Contradicts a published result", EXHAUSTIVE_NOTE),
-    ("classification", "Classifications", EXHAUSTIVE_NOTE),
-    ("nonexistence", "Nonexistence", EXHAUSTIVE_NOTE),
-    ("existence", "Existence", EXISTENCE_NOTE),
+    ("correction", "Contradicts a published result"),
+    ("classification", "Classifications"),
+    ("nonexistence", "Nonexistence"),
+    ("existence", "Existence"),
 )
-GROUP_NOTES = {title: note for _, title, note in NEW_RESULT_GROUPS}
 
 
 def existence_results(stats, r):
@@ -403,7 +397,7 @@ def new_cells(stats, r):
 def new_results(stats, r):
     """The curated new results, grouped, each worded from its cell's evidence."""
     by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
-    groups = {key: [] for key, _, _ in NEW_RESULT_GROUPS}
+    groups = {key: [] for key, _ in NEW_RESULT_GROUPS}
     for track, n in NEW_RESULTS:
         c = by_cell[n, track]
         item = {"n": n, "stratum": track, "source": None, "qualifier": None}
@@ -428,17 +422,16 @@ def new_results(stats, r):
             item["source"] = c["contradicted"][0]["source"]
         groups[kind].append(item | {"text": text})
     groups["existence"] = existence_results(stats, r)
-    return [(title, groups[key]) for key, title, _ in NEW_RESULT_GROUPS if groups[key]]
+    return [(title, groups[key]) for key, title in NEW_RESULT_GROUPS if groups[key]]
 
 
 def new_results_section(stats, r):
     parts = [
-        '<section id="new-results"><h2>New results</h2><p class="key">Statements on this board '
-        "that a literature search did not find in any source it could read. Some relevant "
-        "papers could not be read, so this reports the searches and does not claim priority.</p>"
+        '<section id="new-results"><h2>New results</h2><p class="key">Statements that a literature '
+        "search did not find in the sources it read. This does not claim priority.</p>"
     ]
     for title, items in new_results(stats, r):
-        parts.append(f'<h3>{esc(title)}</h3><p class="key">{esc(GROUP_NOTES[title])}</p><ul>')
+        parts.append(f"<h3>{esc(title)}</h3><ul>")
         for x in items:
             link = f'<a href="cells/n{x["n"]}-{x["stratum"]}.html">{esc(x["text"])}</a>'
             if x["source"]:
@@ -600,7 +593,7 @@ def cell_page(c, d, r):
             if c["censuses"]
             else f"{count} verified {'class' if count == 1 else 'classes'}"
         )
-        parts.append(f'<h2>{heading}</h2><div class="gallery">')
+        parts.append(f'<h2>{heading}</h2>{PICTURE_KEY}<div class="gallery">')
         for ident in c["quadruples"]:
             result = r[ident]
             caption = f'<a href="../entries/{esc(ident)}.html">{esc(ident)}</a>'
@@ -719,34 +712,21 @@ def build(quick=False):
             count = census_count(c, r)
             if count:
                 accessible += f"; {count}"
+            elif label in ("Verified", "Contradicts published"):
+                accessible += "; exists, no class count"
             text = (
                 count.replace(" classes", "").replace(" class", "")
                 if count
                 else {"Published": "pub", "Empty": "–", "Unresolved": "?"}.get(label, "✓")
             )
             cells.append(
-                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(origins))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}">{esc(text)}{marker}</a></td>'
+                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(origins))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}" title="{esc(accessible)}">{esc(text)}{marker}</a></td>'
             )
         rows.append(
             f'<tr data-n="{n}"><td>{n}</td>{orders.grid_cells(n, states, new_skew)}'
             + "".join(cells)
             + "</tr>"
         )
-    # Orders with a matrix known by another construction while the board's cell
-    # for quadruples with a skew block is unresolved.
-    elsewhere = [
-        n
-        for n in range(1, 132, 2)
-        if by_cell[n, "skew-sds"]["status"] == "unresolved"
-        and states[4 * n]["skew-hadamard"]["state"] == "known"
-    ]
-    example = (
-        " A cell of the second group can be unresolved while a matrix of order 4n is known by "
-        f"another construction, as for skew-Hadamard matrices at n = "
-        f"{', '.join(map(str, elsewhere[:-1]))} and {elsewhere[-1]}."
-        if len(elsewhere) > 1
-        else ""
-    )
     head = (
         '<tr><th scope="col" rowspan="2">n</th>'
         f'<th scope="colgroup" colspan="2" class="group">{esc(EXISTENCE_GROUP)}</th>'
@@ -759,9 +739,8 @@ def build(quick=False):
         + "</tr>"
     )
     body = f"""<section class="hero"><div><h1>Hunting Hadamards</h1><p>Hadamard matrices are believed to exist in every size divisible by 4, but some sizes have never been found. This board tracks the search.</p><p class="latest">Latest: <a href="cells/n89-skew-sds.html">a skew-Hadamard matrix of order 356</a>, an order listed as unknown since 1970.</p>{hero_figure(r)}</div>{DEFINITION}</section>
-<section id="board"><h2>Status by order and type</h2><p class="key">The first two columns are about the order 4n itself: whether a Hadamard matrix and a skew-Hadamard matrix of that order is known by any construction, according to the sources of the <a href="orders.html">orders page</a>. Each shows the order and links to its row there. The other columns are about cyclic Goethals–Seidel quadruples at n, by the symmetry types of the blocks A, B, C, D: <strong>s</strong> symmetric, <strong>k</strong> skew. The column for quadruples with a skew block contains the good, best and G-matrix columns, and the last column is any quadruple.{example} Class counts treat reversals as equivalent; the last two columns also identify independent cyclic shifts (equiv-v2), without which every class at those orders splits into thousands.</p><div class="controls"><label>Family <select id="track"><option value="">All six families</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
-<div class="legend"><span class="known">Verified; a number is the class count, ✓ is existence without a count</span><span class="published">Published, not imported</span><span class="empty">Empty</span><span class="unresolved">Unresolved</span><span class="contradicted">Contradicts a published result</span><span class="participant">New result</span></div>
-<div class="legend"><span class="known">Order 4n: a verified matrix is on this board</span><span class="published">known by some construction, not held here</span><span class="reported">reported, not yet in a reviewed source</span><span class="unresolved">open in the sources read</span></div>
+<section id="board"><h2>The board</h2><p class="key">Each row is an order 4n. The first two columns say whether a Hadamard and a skew-Hadamard matrix of that order is known at all (see the <a href="orders.html">orders page</a>); the others count cyclic Goethals–Seidel quadruples at n by family, with ✓ where one exists but no count is known (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>).</p><div class="controls"><label>Family <select id="track"><option value="">All six families</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
+<div class="legend"><span class="known">verified here</span><span class="published">known elsewhere</span><span class="empty">empty</span><span class="unresolved">open</span><span class="reported">reported, unreviewed</span><span class="contradicted">contradicts the literature</span><span class="participant">new result</span></div>
 <div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{"".join(rows)}</tbody></table></div></section>
 {new_results_section(stats, r)}
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Submit four defining rows or negative-index sets. The verifier derives the family, checks the PAF identity, and detects equivalent entries.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
@@ -791,7 +770,7 @@ def build(quick=False):
             tag = tier_label(tag, rows=True)
             picture = (
                 f"{rows_block(doc, result)}"
-                f'<section class="picture"><h2>Picture</h2>'
+                f'<section class="picture"><h2>Picture</h2>{PICTURE_KEY}'
                 f"{quad_figure(doc, result, '')}"
                 f'<script src="../picture.js" defer></script></section>'
             )
