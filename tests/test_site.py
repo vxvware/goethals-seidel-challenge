@@ -85,13 +85,12 @@ def test_existence_results_appear_only_when_featured(board):
     assert item["text"] == (
         "A skew-Hadamard matrix of order 356: 2 verified quadruples with a skew block at n = 89."
     )
-    assert "found no earlier" in item["qualifier"] and "first" not in item["qualifier"]
+    assert item["qualifier"] is None
     assert ("skew-sds", 89) in module.new_cells(stats, r)
     html = module.new_results_section(stats, r)
     assert "cells/n89-skew-sds.html" in html
-    # The section states its search qualifier once, and the existence item keeps its own.
+    # The section states its search qualifier once, for every item in it.
     assert "did not find in the sources it read" in html and "does not claim priority" in html
-    assert "found no earlier skew-Hadamard matrix of order 356" in html
     assert "first" not in html.lower()
 
 

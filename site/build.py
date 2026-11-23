@@ -378,9 +378,8 @@ def existence_results(stats, r):
                 "source": None,
                 "text": f"A skew-Hadamard matrix of order {4 * n}: {count} verified {noun} "
                 f"with a skew block at n = {n}.",
-                "qualifier": "a search of the literature and public repositories on "
-                f"{searched} found no earlier skew-Hadamard matrix of order {4 * n}; this "
-                "reports the search and does not claim priority",
+                # The section's own sentence carries the search qualifier.
+                "qualifier": None,
             }
         )
     return items
@@ -406,11 +405,9 @@ def new_results(stats, r):
             text = f"{subject}: {'exactly' if exact else 'at least'} {census['count']} {noun}."
             kind = "classification"
         elif c["status"] == "empty":
-            # The statement is the same whether or not the search has been
-            # rerun here; a single unreplayed search is noted on the item.
+            # Whether the board has replayed the search is shown on the cell page,
+            # not on the front page.
             text = f"{subject}: none exist."
-            if "reproduced" not in c["empty_basis"]:
-                item["qualifier"] = "one exhaustive search, not yet rerun"
             kind = "nonexistence"
         else:
             raise ValueError(f"new result without a census or an empty cell: {track} n={n}")
