@@ -1,0 +1,93 @@
+# Quadruple at n = 101 from T-sequences of length 101 built from a Golay pair of length 100.
+# A literature construction, not a search result and not new. Turyn (Hadamard matrices, Baumert-Hall units,
+# four-symbol sequences, pulse compression, and surface wave encodings, J. Combin. Theory Ser. A 16 (1974)
+# 313-333, doi:10.1016/0097-3165(74)90056-9) gives the product of Golay pairs of lengths g and h as a Golay pair
+# of length gh, and T-sequences of length 2n + p from base sequences of lengths n + p, n + p, n, n. Golay pairs of
+# length 10 were given by Golay (Complementary series, IRE Trans. Inform. Theory 7 (1961) 82-87,
+# doi:10.1109/TIT.1961.1057620). The rows were generated on 2026-11-23 by the script below, not transcribed from
+# either paper.
+#
+# Construction. (a, b) is a Golay pair of length 10. With p = (a+b)/2 and m = (a-b)/2, X = a x p + rev(b) x m and
+# Y = b x p - rev(a) x m (x the Kronecker product, a the outer index) are a Golay pair of length 100. A, B, C, D =
+# X, Y, [1], [1] are base sequences of lengths 100, 100, 1, 1. T_1 = (A+B)/2;0, T_2 = (A-B)/2;0, T_3 = 0_100;1,
+# T_4 = 0_101 are T-sequences of length 101. The rows are T_1+T_2+T_3+T_4, -T_1+T_2+T_3-T_4, -T_1-T_2+T_3+T_4
+# and -T_1+T_2-T_3+T_4, the four circulants of the Cooper-Wallis construction (Cooper and Wallis, A construction
+# for Hadamard arrays, Bull. Austral. Math. Soc. 7 (1972) 269-277, doi:10.1017/S0004972700045019); SageMath's
+# hadamard_matrix_cooper_wallis_construction with 1 x 1 Williamson matrices produces the Goethals-Seidel array of
+# these four rows. The script checks the Golay identities at both lengths, the base-sequence identity, the
+# T-sequence support and identity, and the PAF identity of the rows.
+#
+# n = 101: row sums [3, -13, -1, -15]
+#
+# golay101.py (run as: python3 golay101.py rows.json):
+#   """Goethals-Seidel quadruple of order 101 from a Golay pair of length 100.
+#
+#   (a, b) is a Golay complementary pair of length 10, a length first given by
+#   Golay (1961); step 1 checks it.  Turyn's product gives a Golay pair (X, Y) of
+#   length 100; (X, Y, [1], [1]) are base sequences of lengths 100, 100, 1, 1, which
+#   give T-sequences of length 101 (Turyn 1974).
+#   Each step is checked, not assumed.
+#   """
+#   import json
+#   import sys
+#
+#   a = [1, 1, -1, 1, -1, 1, -1, -1, 1, 1]
+#   b = [1, 1, -1, 1, 1, 1, 1, 1, -1, -1]
+#
+#
+#   def naf(x, s):
+#       return sum(x[i] * x[i + s] for i in range(len(x) - s))
+#
+#
+#   def paf(x, s):
+#       return sum(x[i] * x[(i + s) % len(x)] for i in range(len(x)))
+#
+#
+#   def kron(x, u):
+#       return [x[i] * u[j] for i in range(len(x)) for j in range(len(u))]
+#
+#
+#   # 1. Golay pair of length 10
+#   assert all(naf(a, s) + naf(b, s) == 0 for s in range(1, 10))
+#
+#   # 2. Turyn's product of (a, b) with (c, d) = (a, b): with p = (c + d)/2 and
+#   #    m = (c - d)/2, X = a x p + rev(b) x m and Y = b x p - rev(a) x m
+#   p = [(x + y) // 2 for x, y in zip(a, b)]
+#   m = [(x - y) // 2 for x, y in zip(a, b)]
+#   X = [u + v for u, v in zip(kron(a, p), kron(b[::-1], m))]
+#   Y = [u - v for u, v in zip(kron(b, p), kron(a[::-1], m))]
+#   assert all(abs(v) == 1 for v in X + Y)
+#   assert all(naf(X, s) + naf(Y, s) == 0 for s in range(1, 100))
+#
+#   # 3. Base sequences A, B, C, D = X, Y, [1], [1] of lengths 100, 100, 1, 1 and
+#   #    T-sequences of length t = 100 + 1 = 101
+#   A, B, C, D = X, Y, [1], [1]
+#   assert all(sum(naf(x, s) for x in (A, B, C, D)) == 0 for s in range(1, 100))
+#   k, q = len(C), len(A) - len(C)
+#   T1 = [(u + v) // 2 for u, v in zip(A, B)] + [0] * k
+#   T2 = [(u - v) // 2 for u, v in zip(A, B)] + [0] * k
+#   T3 = [0] * (k + q) + [(u + v) // 2 for u, v in zip(C, D)]
+#   T4 = [0] * (k + q) + [(u - v) // 2 for u, v in zip(C, D)]
+#   T = [T1, T2, T3, T4]
+#   t = len(T1)
+#   assert t == 101
+#   assert all(sum(abs(x[i]) for x in T) == 1 for i in range(t))
+#   assert all(sum(naf(x, s) for x in T) == 0 for s in range(1, t))
+#
+#   # 4. Cooper-Wallis: these four +-1 sequences have nonperiodic, hence periodic,
+#   #    autocorrelations summing to zero
+#   rows = [
+#       [T1[i] + T2[i] + T3[i] + T4[i] for i in range(t)],
+#       [-T1[i] + T2[i] + T3[i] - T4[i] for i in range(t)],
+#       [-T1[i] - T2[i] + T3[i] + T4[i] for i in range(t)],
+#       [-T1[i] + T2[i] - T3[i] + T4[i] for i in range(t)],
+#   ]
+#   assert all(abs(v) == 1 for r in rows for v in r)
+#   assert all(sum(naf(r, s) for r in rows) == 0 for s in range(1, t))
+#   assert all(sum(paf(r, s) for r in rows) == 0 for s in range(1, t))
+#   print(f"n={t} row sums {[sum(r) for r in rows]}: Golay, base sequences, T-sequences and PAF checks hold")
+#   if len(sys.argv) > 1:
+#       json.dump(rows, open(sys.argv[1], "w"))
+#
+# one row A,B,C,D:
+++-+++++--++-+++++----+-----++++-+-+--++--+-----++++-+-+--++--+-----++--+-+-++--++-+-+--++++-+-+--+++,--+-----++--+-----++++-+++++----+-+-++----+-----++--+-+-++----+-----++--+-+-++--++-+-+--++++-+-+--+++,--+-----++--+-----++++-+++++----+-+-++--++-+++++----+-+-++--++-+++++--++-+-+--++--+-+-++----+-+-++--+,--+-----++--+-----++++-+++++----+-+-++----+-----++--+-+-++----+-----++--+-+-++--++-+-+--++++-+-+--++-
