@@ -13,6 +13,13 @@ from verify.common import ROOT, artifact, digest, read_json
 from verify.equivalence import canonical
 from verify.gs_verify import memberships, validate_rows
 
+# pc_compress.c writes the compressed instances of one block pattern and
+# pc_lift.c lifts them back; the stratum fixes the pattern (ssss, ksss, kkss,
+# kkks), and a report records the divisor d of the order it compressed by.
+COMPRESS_SOURCES = (
+    "research/starter/compress/pc_compress.c",
+    "research/starter/compress/pc_lift.c",
+)
 ENGINES = {
     "williamson-census-c-v1": {
         "stratum": "williamson",
@@ -119,6 +126,30 @@ ENGINES = {
         ),
         "orders": range(3, 64, 2),
         "composite": False,
+    },
+    "williamson-compress-v3": {
+        "stratum": "williamson",
+        "sources": COMPRESS_SOURCES,
+        "orders": range(9, 126, 2),
+        "composite": True,
+    },
+    "good-compress-v1": {
+        "stratum": "good",
+        "sources": COMPRESS_SOURCES,
+        "orders": range(9, 126, 2),
+        "composite": True,
+    },
+    "kkss-compress-v1": {
+        "stratum": "kkss",
+        "sources": COMPRESS_SOURCES,
+        "orders": range(9, 126, 2),
+        "composite": True,
+    },
+    "best-compress-v1": {
+        "stratum": "best",
+        "sources": COMPRESS_SOURCES,
+        "orders": range(9, 126, 2),
+        "composite": True,
     },
 }
 REPORT_DIR = "evidence/census-replays/"
