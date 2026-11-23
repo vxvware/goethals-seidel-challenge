@@ -48,7 +48,7 @@ The board flags a skew quadruple whose order is in a dated baseline list of open
 
 Two of the four orders have board entries. Eleven skew quadruples at n=89 are dated 2026-11-22 (the entry [n89-eec2e43c042090883c04](../quadruples/n89-eec2e43c042090883c04.json) and ten more listed on the [n=89 cell page](https://hadamards.com/cells/n89-skew-sds.html)); the Goethals–Seidel array of each is a skew-Hadamard matrix of order 356. A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356. That is a report of the search, not a claim of priority, and the result has not been reviewed. A skew quadruple at n=119, giving order 476, was imported on 2026-11-17 from a public repository whose author found it ([n119-f302cc45a2f83e60917b](../quadruples/n119-f302cc45a2f83e60917b.json)). Orders 404 and 428 have no board entry.
 
-[baselines/hadamard-orders.json](../baselines/hadamard-orders.json) records, for the orders 4 to 1200, which have no Hadamard or skew-Hadamard matrix in the sources it cites and what has been reported since; its `structure` field describes the layout. The site's orders page and the first two columns of the board grid are built from it, and `tests/test_orders.py` checks it against the board.
+[baselines/hadamard-orders.json](../baselines/hadamard-orders.json) records, for the orders 4 to 1200, which have no Hadamard or skew-Hadamard matrix in the sources it cites and what has been reported since; its `structure` field describes the layout. The open-orders box of the front page and the first two columns of the board grid are built from it, and `tests/test_orders.py` checks it against the board.
 
 ## Seed data and evidence
 

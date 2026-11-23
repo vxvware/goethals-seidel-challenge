@@ -3,7 +3,8 @@
 baselines/hadamard-orders.json records, for each matrix type, the orders that
 the cited sources list without a matrix and the later statements about them.
 This module checks that file, joins it with the verified entries of the board,
-and renders the orders page and the two order columns of the front-page grid.
+and renders the two order columns of the front-page grid and the open-orders
+box beside it.
 """
 
 import html
@@ -149,7 +150,8 @@ def state_cell(order, name, info, href, text=None, new=False, board=None):
 
     With new set, the cell carries the grid's new-result marker. board, when
     given, describes the board cell the grid cell links to: its class count
-    (shown when the board holds a matrix of this type), whether it contradicts
+    (named in the tooltip when the board holds a matrix of this type; the cell
+    shows only the order), whether it contradicts
     a published result, the words appended to the tooltip, and the attributes
     the grid filters read.
     """
@@ -168,15 +170,12 @@ def state_cell(order, name, info, href, text=None, new=False, board=None):
     marker = '<span class="participant" title="New result"></span>' if new else ""
     if new:
         spoken += "; new result of this board"
-    # The cell shows the bare number; the legend and the tooltip name it.
-    number = count.split()[0] if count else ""
-    small = f'<span class="classes">{esc(number)}</span>' if count else ""
     if count and count not in spoken:
         spoken += f"; {count}"
     return (
         f'<td class="{classes}" data-type="{name}" data-order="{order}" '
         f'data-state="{info["state"]}"{attrs}><a class="cell" href="{esc(href)}" '
-        f'aria-label="{esc(spoken)}" title="{esc(spoken)}"><span>{esc(text or label)}{small}'
+        f'aria-label="{esc(spoken)}" title="{esc(spoken)}"><span>{esc(text or label)}'
         f"</span>{marker}</a></td>"
     )
 
@@ -209,51 +208,63 @@ def grid_cells(n, states, new_skew=(), board=None):
     )
 
 
-def page(data, results, bib):
-    """The body of orders.html: the open, reported and newly settled orders of each type."""
+def listing(values):
+    """Orders joined as prose: "1, 2 and 3"."""
+    values = [str(v) for v in values]
+    return values[0] if len(values) == 1 else ", ".join(values[:-1]) + " and " + values[-1]
+
+
+def box(data, results, bib):
+    """The open-orders box of the front page, kept short: the full lists are data attributes."""
     states = table(data, results)
     top = data["range"]["max"]
-    sections = []
-    for name in TYPES:
-        t = data["types"][name]
-        current = t["open"]
-        items = [
-            f'<li id="open-{name}" data-orders="{" ".join(map(str, current))}">Open: '
-            + (", ".join(map(str, current)) if current else "none")
-            + ".</li>"
-        ]
-        board = []
-        for record in t["since"]:
-            listed = ", ".join(map(str, record["orders"]))
-            cite = f" {marks(bib, record['sources'])}" if record["sources"] else ""
-            if record["status"] == "board":
-                links = ", ".join(
-                    f'<a href="cells/n{o // 4}-{CELL_TRACKS[name]}.html">{o}</a>'
-                    for o in record["orders"]
-                    if states[o][name]["state"] == "board"
-                )
-                found = (
-                    cite
-                    if record["sources"]
-                    else " (found here; a literature search found no earlier one)"
-                )
-                board.append(f"{links}{found}")
-            elif "doubles" in record:
-                twice = " and ".join(map(str, record["doubles"]))
-                items.append(f"<li>By doubling {twice}: {listed}{cite}.</li>")
-            else:
-                items.append(f"<li>Reported, not reviewed: {listed}{cite}.</li>")
-        if board:
-            items.insert(1, f"<li>On this board: {', '.join(board)}.</li>")
-        title = TYPE_NAMES[name][0].upper() + TYPE_NAMES[name][1:]
-        sections.append(f"<h2>{title}</h2><ul>{''.join(items)}</ul>")
-    sources = marks(bib, data["sources"])
+    h, s = data["types"]["hadamard"], data["types"]["skew-hadamard"]
+    lines = []
+    h_rep = [o for x in h["since"] if x["status"] == "reported" for o in x["orders"]]
+    h_src = sorted({k for x in h["since"] if x["status"] == "reported" for k in x["sources"]})
+    line = (
+        f"Hadamard: open up to {top}: {listing(h['open'])}"
+        if h["open"]
+        else f"Hadamard: none open up to {top}"
+    ) + f" {marks(bib, h['listed_open_sources'])}"
+    if h_rep:
+        line += f"; {listing(h_rep)} reported, not reviewed {marks(bib, h_src)}"
+    lines.append(
+        f'<li id="open-hadamard" data-orders="{" ".join(map(str, h["open"]))}" '
+        f'data-reported="{" ".join(map(str, h_rep))}">{line}.</li>'
+    )
+    s_rep = [o for x in s["since"] if x["status"] == "reported" for o in x["orders"]]
+    s_src = sorted({k for x in s["since"] if x["status"] == "reported" for k in x["sources"]})
+    op = s["open"]
+    shown = (
+        "none"
+        if not op
+        else f"smallest {listing(op[:3])}, {len(op)} in all"
+        if len(op) > 3
+        else listing(op)
+    )
+    sline = f"Skew-Hadamard: open up to {top}: {shown} {marks(bib, s['listed_open_sources'])}"
+    if s_rep:
+        sline += f"; {len(s_rep)} more reported, not reviewed {marks(bib, s_src)}"
+    lines.append(
+        f'<li id="open-skew-hadamard" data-orders="{" ".join(map(str, op))}" '
+        f'data-reported="{" ".join(map(str, s_rep))}" '
+        f'title="Open: {", ".join(map(str, op))}">{sline}.</li>'
+    )
+    board = []
+    for x in s["since"]:
+        if x["status"] != "board":
+            continue
+        for o in x["orders"]:
+            if states[o]["skew-hadamard"]["state"] != "board":
+                continue
+            link = f'<a href="cells/n{o // 4}-{CELL_TRACKS["skew-hadamard"]}.html">{o}</a>'
+            board.append(
+                f"{link} {marks(bib, x['sources'])}" if x["sources"] else f"{link} (found here)"
+            )
+    if board:
+        lines.append(f"<li>Settled on this board: {listing(board)}.</li>")
     return (
-        '<article class="entry orders"><div class="eyebrow">open orders</div>'
-        f"<h1>Open orders up to {top}</h1>"
-        "<p>Hadamard and skew-Hadamard matrices are conjectured to exist in every order "
-        f"divisible by 4. An order is open here when none of the sources read gives a matrix "
-        f"of it. Sources, as read on {esc(data['compiled'])}: {sources}.</p>"
-        + "".join(sections)
-        + '<p><a href="index.html#board">Back to the board</a></p></article>'
+        '<aside class="open-orders" id="open-orders"><h3>Open orders</h3>'
+        f"<ul>{''.join(lines)}</ul></aside>"
     )

@@ -1,4 +1,4 @@
-"""The table of Hadamard and skew-Hadamard orders: its data file, page and grid columns."""
+"""The table of Hadamard and skew-Hadamard orders: its data file, grid columns and front-page box."""
 
 import copy
 import re
@@ -34,7 +34,7 @@ def cells(markup):
     """(class, type, order, state, text) of every order cell in a piece of HTML."""
     return re.findall(
         r'<td class="([^"]*)" data-type="([a-z-]+)" data-order="(\d+)" data-state="([a-z]+)"'
-        r'[^>]*><a [^>]*><span>([^<]*)(?:<span class="classes">[^<]*</span>)?</span>',
+        r"[^>]*><a [^>]*><span>([^<]*)</span>",
         markup,
     )
 
@@ -160,25 +160,46 @@ def test_doubled_board_matrices_are_skew_hadamard(board, data):
         assert np.array_equal(double @ double.T, m * np.eye(m, dtype=int))
 
 
-def test_page_lists_equal_the_data_file(board, data, states):
+def test_box_lists_exactly_the_open_orders_of_the_data_file(board, data, states):
     bib = Bibliography()
-    page = orders.page(data, board[1], bib)
+    box = orders.box(data, board[1], bib)
+    assert box.startswith('<aside class="open-orders" id="open-orders"><h3>Open orders</h3>')
     for name in orders.TYPES:
-        listed = re.search(rf'<li id="open-{name}" data-orders="([^"]*)">', page).group(1)
-        assert [int(o) for o in listed.split()] == data["types"][name]["open"]
-        assert listed.split() == [str(o) for o, s in states.items() if s[name]["state"] == "open"]
-        # Every order settled or reported since the sources is listed on the page.
-        for record in data["types"][name]["since"]:
-            for order in record["orders"]:
-                assert re.search(rf"\b{order}\b", page), order
-    assert "found no earlier one" in page and "first" not in page.lower()
-    assert 'href="cells/n89-skew-sds.html">356</a>' in page
-    assert 'href="cells/n119-skew-sds.html">476</a>' in page
-    # Every source of the data file is cited by number.
+        item = re.search(
+            rf'<li id="open-{name}" data-orders="([^"]*)" data-reported="([^"]*)"', box
+        )
+        assert [int(o) for o in item.group(1).split()] == data["types"][name]["open"]
+        assert item.group(1).split() == [
+            str(o) for o, s in states.items() if s[name]["state"] == "open"
+        ]
+        reported = [
+            o
+            for x in data["types"][name]["since"]
+            if x["status"] == "reported"
+            for o in x["orders"]
+        ]
+        assert [int(o) for o in item.group(2).split()] == reported
+    # The smallest open skew order is shown in the text.
+    smallest = data["types"]["skew-hadamard"]["open"][0]
+    assert re.search(rf"smallest {smallest}\b", box)
+    assert box.count("<li") <= 3
+    assert "first" not in box.lower()
+    assert 'href="cells/n89-skew-sds.html">356</a> (found here)' in box
+    assert 'href="cells/n119-skew-sds.html">476</a>' in box
+    # Every source of the data file is cited by number and resolves to the references page.
     for key in data["sources"]:
-        assert f'href="references.html#ref-{key}">[{bib.number[key]}]' in page
-    # The page no longer carries the full table of orders.
-    assert "<table" not in page and 'id="o404"' not in page
+        assert f'href="references.html#ref-{key}">[{bib.number[key]}]' in box, key
+
+
+def test_front_page_carries_the_box_and_no_orders_page():
+    module = site_build()
+    source = (ROOT / "site/build.py").read_text()
+    assert "orders.box(ORDERS, r, BIB)" in source
+    assert "orders.html" not in source and not hasattr(orders, "page")
+    assert '<a href="#open-orders">open orders</a>' in source
+    assert "orders.html" not in module.shell("x", "")
+    for name in ("README.md", "TRACKS.md", "notes/board-operations.md"):
+        assert "orders.html" not in (ROOT / name).read_text(), name
 
 
 def test_grid_columns_agree_with_the_data_file(data, states):
@@ -234,7 +255,6 @@ def test_track_labels_and_groups():
     assert tuple(module.TRACK_LABELS) == TRACKS
     assert module.EXISTENCE_GROUP == "matrix of order 4n"
     assert module.TRACK_GROUP == "cyclic Goethals–Seidel quadruples at n, by family"
-    assert 'href="orders.html">open orders</a>' in module.shell("x", "")
 
 
 def test_front_page_grid_merges_the_order_and_track_columns(board, states):
@@ -279,15 +299,19 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     assert row[89].split("<td")[3].count('class="participant"') == 1
 
 
-def test_order_cell_shows_the_class_count_only_when_the_board_holds_the_matrix():
+def test_order_cell_shows_only_the_order():
     info = {"state": "board", "listed_open": False}
     board = {"hadamard": {"count": "588 classes"}, "skew-hadamard": {"count": "247 classes"}}
     held = orders.grid_cells(13, {52: {name: info for name in orders.TYPES}}, board=board)
-    assert '52<span class="classes">588</span>' in held and "; 588 classes" in held
-    assert '52<span class="classes">247</span>' in held and "; 247 classes" in held
+    assert [text for *_, text in cells(held)] == ["52", "52"]
+    assert "<span>52</span>" in held and 'class="classes"' not in held
+    # The class count stays in the tooltip while the board holds the matrix.
+    assert "; 588 classes" in held and "; 247 classes" in held
     known = {"state": "known", "listed_open": False}
     other = orders.grid_cells(13, {52: {name: known for name in orders.TYPES}}, board=board)
-    assert 'class="classes"' not in other
+    assert "classes" not in other
+    source = (ROOT / "site/build.py").read_text() + (ROOT / "site/style.css").read_text()
+    assert "count-key" not in source and ".classes" not in source
 
 
 def test_cell_page_lists_the_quadruples_before_a_restricted_obstruction(board):
