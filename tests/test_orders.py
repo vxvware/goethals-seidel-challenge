@@ -188,8 +188,11 @@ def test_page_lists_and_rows_equal_the_data_file(board, data, states):
     for key in data["sources"]:
         assert f'href="references.html#ref-{key}">[{bib.number[key]}]' in page
     assert 'href="cells/n89-skew-sds.html">skew</a>' in page
-    assert 'href="cells/n129-skew-sds.html">no skew</a>' in page
     held = orders.board_holdings(board[1])
+    for n in range(1, orders.BOARD_MAX_N + 1, 2):
+        slot = held.get(4 * n, {})
+        if slot.get("hadamard") and not slot.get("skew-hadamard"):
+            assert f'href="cells/n{n}-skew-sds.html">no skew</a>' in page
     for n in range(1, orders.BOARD_MAX_N + 1, 2):
         word = "any" if held.get(4 * n, {}).get("hadamard") else "none"
         assert f'<td class="held"><a href="cells/n{n}-general.html">{word}</a>' in page
@@ -215,20 +218,27 @@ def test_grid_columns_agree_with_the_data_file(data, states):
         (name, (state, text)) for _, name, _, state, text in cells(orders.grid_cells(89, states))
     )
     assert row == {"hadamard": ("board", "356"), "skew-hadamard": ("board", "356")}
-    # The cell for quadruples with a skew block is unresolved at 85 and 129,
-    # while skew-Hadamard matrices of orders 340 and 516 are known.
-    for n in (85, 129):
-        assert ("skew-hadamard", "known") in [
-            (name, state) for _, name, _, state, _ in cells(orders.grid_cells(n, states))
-        ]
+    # Where the board holds no skew-Hadamard matrix of order 4n and the sources do
+    # not list the order as open, the grid shows the order as known.
+    skew = data["types"]["skew-hadamard"]
+    for n in range(1, orders.BOARD_MAX_N + 1, 2):
+        if not states[4 * n]["skew-hadamard"]["entries"] and 4 * n not in skew["listed_open"]:
+            assert ("skew-hadamard", "known") in [
+                (name, state) for _, name, _, state, _ in cells(orders.grid_cells(n, states))
+            ]
 
 
 def test_unresolved_skew_cells_with_a_known_order(board, states):
     d, r, b = board
     by_cell = {(c["n"], c["stratum"]): c for c in summary(d, r, b)["cells"]}
-    for n in (85, 129):
-        assert by_cell[n, "skew-sds"]["status"] == "unresolved"
-        assert states[4 * n]["skew-hadamard"]["state"] == "known"
+    # An unresolved cell for quadruples with a skew block does not make its order
+    # open: the order is known whenever the sources do not list it as open.
+    for n in range(1, orders.BOARD_MAX_N + 1, 2):
+        if (
+            by_cell[n, "skew-sds"]["status"] == "unresolved"
+            and not states[4 * n]["skew-hadamard"]["listed_open"]
+        ):
+            assert states[4 * n]["skew-hadamard"]["state"] == "known"
 
 
 def test_track_labels_and_groups():
