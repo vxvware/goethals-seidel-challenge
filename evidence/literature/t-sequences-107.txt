@@ -1,0 +1,94 @@
+# Quadruple at n = 107 from the Turyn-type sequences TT(36) of Kharaghani and Tayfeh-Rezaie.
+# A literature construction, not a search result and not new. Kharaghani and Tayfeh-Rezaie (A Hadamard matrix of
+# order 428, J. Combin. Des. 13 (2005) 435-440, doi:10.1002/jcd.20043) found Turyn-type sequences TT(36), built
+# from them base sequences of lengths 71, 71, 36, 36 and T-sequences of length 107, and so a Hadamard matrix of
+# order 428. Their sequences were not transcribed from the paper: TT(36) was taken from SageMath, which stores it
+# as the hexadecimal string for n = 36 in turyn_type_sequences_smallcases and credits it to that paper, in
+# https://raw.githubusercontent.com/sagemath/sage/8de8dad7bcb38e1baa43508cbe944bf04a2d0401/src/sage/combinat/t_sequences.py
+# (commit 8de8dad7bcb38e1baa43508cbe944bf04a2d0401, file sha256
+# ed77587b27a7d6e48d97928dc6a984c733a511503a01eccf995fd8565f54b133, read on 2026-11-23).
+#
+# Construction. Decode TT(36) = (X, Y, Z, W) of lengths 36, 36, 36, 35 as Sage does. A = Z;W, B = Z;-W, C = X,
+# D = Y are base sequences (Theorem 1 of the 2005 paper; Sage's base_sequences_construction). T_1 = (A+B)/2;0_36,
+# T_2 = (A-B)/2;0_36, T_3 = 0_71;(C+D)/2, T_4 = 0_71;(C-D)/2 are T-sequences of length 107 (Turyn, Hadamard
+# matrices, Baumert-Hall units, four-symbol sequences, pulse compression, and surface wave encodings, J. Combin.
+# Theory Ser. A 16 (1974) 313-333, doi:10.1016/0097-3165(74)90056-9; Sage's
+# T_sequences_construction_from_base_sequences). The rows are T_1+T_2+T_3+T_4, -T_1+T_2+T_3-T_4,
+# -T_1-T_2+T_3+T_4 and -T_1+T_2-T_3+T_4, the four circulants of the Cooper-Wallis construction (Cooper and
+# Wallis, A construction for Hadamard arrays, Bull. Austral. Math. Soc. 7 (1972) 269-277,
+# doi:10.1017/S0004972700045019). Sage's hadamard_matrix_cooper_wallis_construction with 1 x 1 Williamson
+# matrices sums four Goethals-Seidel arrays; by linearity of the array that sum is the Goethals-Seidel array of
+# these four rows. The script checks the Turyn-type identity, the base-sequence identity, the T-sequence support
+# and identity, and the PAF identity of the rows.
+#
+# n = 107: row sums [13, 3, -13, -9]
+#
+# tt107.py (run as: python3 tt107.py rows.json):
+#   """Goethals-Seidel quadruple of order 107 from the Turyn-type sequences TT(36).
+#
+#   TT36 is the hexadecimal string stored for n = 36 in turyn_type_sequences_smallcases
+#   of SageMath src/sage/combinat/t_sequences.py at commit 8de8dad, which credits it to
+#   Kharaghani and Tayfeh-Rezaie (2005).  Each step is checked, not assumed.
+#   """
+#   import json
+#   import sys
+#
+#   TT36 = "060989975b685d8fc80750b21c0212eceb26"
+#
+#
+#   def naf(x, s):
+#       return sum(x[i] * x[i + s] for i in range(len(x) - s))
+#
+#
+#   def paf(x, s):
+#       return sum(x[i] * x[(i + s) % len(x)] for i in range(len(x)))
+#
+#
+#   # 1. Decode as Sage does: hex digit i gives entry i of X, Y, Z, W (bit 0 -> +1,
+#   #    bit 1 -> -1); the last digit, as 3 bits, gives the last entry of X, Y, Z.
+#   S = [[], [], [], []]
+#   for c in TT36[:-1]:
+#       b = bin(int(c, 16))[2:].zfill(4)
+#       for i in range(4):
+#           S[i].append(1 if b[i] == "0" else -1)
+#   b = bin(int(TT36[-1], 16))[2:].zfill(3)
+#   for i in range(3):
+#       S[i].append(1 if b[i] == "0" else -1)
+#   X, Y, Z, W = S
+#   assert [len(s) for s in S] == [36, 36, 36, 35]
+#   # Turyn-type: N_X + N_Y + 2 N_Z + 2 N_W = 0 at every shift s >= 1
+#   assert all(naf(X, s) + naf(Y, s) + 2 * naf(Z, s) + 2 * naf(W, s) == 0 for s in range(1, 36))
+#
+#   # 2. Base sequences of lengths 71, 71, 36, 36 (Theorem 1 of Kharaghani and Tayfeh-Rezaie)
+#   A, B, C, D = Z + W, Z + [-w for w in W], X, Y
+#   assert all(sum(naf(x, s) for x in (A, B, C, D)) == 0 for s in range(1, 71))
+#
+#   # 3. T-sequences of length t = 71 + 36 = 107 (Turyn)
+#   m, p = len(C), len(A) - len(C)
+#   T1 = [(a + b) // 2 for a, b in zip(A, B)] + [0] * m
+#   T2 = [(a - b) // 2 for a, b in zip(A, B)] + [0] * m
+#   T3 = [0] * (m + p) + [(c + d) // 2 for c, d in zip(C, D)]
+#   T4 = [0] * (m + p) + [(c - d) // 2 for c, d in zip(C, D)]
+#   T = [T1, T2, T3, T4]
+#   t = len(T1)
+#   assert t == 107
+#   assert all(sum(abs(x[i]) for x in T) == 1 for i in range(t))
+#   assert all(sum(naf(x, s) for x in T) == 0 for s in range(1, t))
+#
+#   # 4. Cooper-Wallis: these four +-1 sequences have nonperiodic, hence periodic,
+#   #    autocorrelations summing to zero
+#   rows = [
+#       [T1[i] + T2[i] + T3[i] + T4[i] for i in range(t)],
+#       [-T1[i] + T2[i] + T3[i] - T4[i] for i in range(t)],
+#       [-T1[i] - T2[i] + T3[i] + T4[i] for i in range(t)],
+#       [-T1[i] + T2[i] - T3[i] + T4[i] for i in range(t)],
+#   ]
+#   assert all(abs(v) == 1 for r in rows for v in r)
+#   assert all(sum(naf(r, s) for r in rows) == 0 for s in range(1, t))
+#   assert all(sum(paf(r, s) for r in rows) == 0 for s in range(1, t))
+#   print(f"n={t} row sums {[sum(r) for r in rows]}: TT(36), base sequences, T-sequences and PAF checks hold")
+#   if len(sys.argv) > 1:
+#       json.dump(rows, open(sys.argv[1], "w"))
+#
+# one row A,B,C,D:
++-+++++-+--++++-+++-++--+++-+--+---++++-+-----++--+-+++--+-+-+++-++++-++++----++-+-+-----++++-++-++++----+-,-+-----+-++----+---+--++---+-++-+++-+++-+-----++--+-+++--+-+-+++-++++-++-+++++--+-+--+--++--++++-++++---++-,-+-----+-++----+---+--++---+-++-+++----+-+++++--++-+---++-+-+---+----+-+++----++-+-+-----++++-++-++++----+-,-+-----+-++----+---+--++---+-++-+++-+++-+-----++--+-+++--+-+-+++-++++-+-+-----++-+-++-++--++----+----+++--+
