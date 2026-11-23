@@ -201,7 +201,7 @@ def shell(title, body, prefix="", head="", description=DESCRIPTION):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Hunting Hadamards</title><meta name="description" content="{esc(description)}"><meta property="og:title" content="{esc(title)} · Hunting Hadamards"><meta property="og:description" content="{esc(description)}">
 <link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
-<header><a class="brand" href="{prefix}index.html">hunting-hadamards</a><nav><a href="{prefix}index.html#board">board</a><a href="{prefix}index.html#new-results">new results</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
+<header><a class="brand" href="{prefix}./">hunting-hadamards</a><nav><a href="{prefix}./#board">board</a><a href="{prefix}./#new-results">new results</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
 <main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a><p class="credit"><a href="https://vprusso.github.io/">Vincent Russo</a> and Trevor Vincent</p></footer></body></html>'''
 
 
@@ -630,7 +630,7 @@ def cell_page(c, d, r):
             + "".join(source_item(s["source"], "../") for s in c["sources"])
             + "</ul>"
         )
-    parts.append('<p><a href="../index.html#board">Back to the board</a></p></article>')
+    parts.append('<p><a href="../#board">Back to the board</a></p></article>')
     if c["quadruples"]:
         parts.append('<script src="../picture.js" defer></script>')
     return "".join(parts)
@@ -850,7 +850,7 @@ def build(quick=False):
         "ones used in citations throughout; the list is built from "
         '<a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/baselines/references.bib">'
         f"baselines/references.bib</a>.</p>{BIB.listing()}"
-        '<p><a href="index.html#board">Back to the board</a></p></article>'
+        '<p><a href="./#board">Back to the board</a></p></article>'
     )
     (out / "references.html").write_text(shell("References", refs))
     for c in stats["cells"]:
