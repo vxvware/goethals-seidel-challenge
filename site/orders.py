@@ -17,7 +17,7 @@ TYPE_NAMES = {"hadamard": "Hadamard", "skew-hadamard": "skew-Hadamard"}
 # The state of an order for one type, as displayed, with the grid's cell class.
 STATES = {
     "board": ("on board", "exists verified-on-board"),
-    "known": ("known", "exists published-not-imported"),
+    "known": ("known", "exists"),
     "reported": ("reported", "reported"),
     "open": ("open", "unresolved"),
 }
