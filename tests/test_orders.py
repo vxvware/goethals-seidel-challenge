@@ -292,7 +292,7 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
             if c["contradicted"]:
                 assert "contradicted" in html.split('"')[1]
     row = dict(zip(range(1, orders.BOARD_MAX_N + 1, 2), rows.split("</tr>")))
-    # At 85 the board's cyclic skew cell is unresolved and the order is known elsewhere.
+    # At 85 the board's cyclic skew cell is unresolved and the order is known from the sources.
     skew85 = dict((name, (state, text)) for _, name, _, state, text in cells(row[85]))
     assert skew85["skew-hadamard"] == ("known", "340")
     assert 'data-status="unresolved"' in row[85].split("<td")[3]
