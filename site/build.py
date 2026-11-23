@@ -37,11 +37,15 @@ TRACK_LABELS = {
     "skew-sds": "With a skew block",
     "general": "Any",
 }
-# The grid has two groups of columns. The first is about the order 4n by any
-# construction, from baselines/hadamard-orders.json; the second is the six
-# tracks, which are about cyclic Goethals–Seidel quadruples at n.
-EXISTENCE_GROUP = "matrix of order 4n, any construction"
-TRACK_GROUP = "cyclic Goethals–Seidel quadruples at n"
+# The grid has two groups of columns. The first is the order 4n, one column
+# for Hadamard and one for skew-Hadamard matrices, coloured by
+# baselines/hadamard-orders.json and the board, each linked to the board cell
+# of its track and showing that cell's class count; the second is the four
+# named families of cyclic Goethals–Seidel quadruples at n.
+EXISTENCE_GROUP = "matrix of order 4n"
+TRACK_GROUP = "cyclic Goethals–Seidel quadruples at n, by family"
+# The track behind each order column, in words, for the column filter.
+COLUMN_TRACKS = {"hadamard": "any quadruple", "skew-hadamard": "with a skew block"}
 
 
 PRIMARY = ("williamson", "good", "best", "kkss")
@@ -638,6 +642,128 @@ def cell_page(c, d, r):
     return "".join(parts)
 
 
+def grid_cell(c, marked, r):
+    """What the front-page grid shows for one board cell, and the words of its tooltip."""
+    track, n = c["stratum"], c["n"]
+    label = (
+        "Contradicts published"
+        if c["contradicted"]
+        else "Verified"
+        if c["quadruples"]
+        else "Published"
+        if c["artifact_status"] == "published-not-imported"
+        else "Empty"
+        if c["status"] == "empty"
+        else "Unresolved"
+    )
+    small = tier_label(c["tier"], rows=bool(c["quadruples"])) or (
+        " / ".join(c["empty_basis"]) or "literature"
+        if c["status"] == "empty"
+        else "claim / partial evidence"
+        if c["evidence"]
+        else ""
+    )
+    origin_words = ", ".join(ORIGIN_LABELS[o] for o in c["origins"])
+    accessible = "; ".join(
+        x for x in (f"Order {n}, {TRACK_LABELS[track]}: {label}", small, origin_words) if x
+    )
+    origins = list(c["origins"])
+    new = (track, n) in marked
+    if new and "participant-result" not in origins:
+        origins.insert(0, "participant-result")
+    count = census_count(c, r)
+    if count:
+        accessible += f"; {count}"
+    elif label in ("Verified", "Contradicts published"):
+        accessible += "; exists, no class count"
+    text = (
+        count.replace(" classes", "").replace(" class", "")
+        if count
+        else {"Published": "pub", "Empty": "–", "Unresolved": "?"}.get(label, "✓")
+    )
+    return {
+        "track": track,
+        "status": c["status"],
+        "artifact": c["artifact_status"],
+        "origins": origins,
+        "classes": f"{c['status']} {c['artifact_status']}{' contradicted' if c['contradicted'] else ''}",
+        "contradicted": c["contradicted"],
+        "accessible": accessible,
+        "count": count,
+        "text": text,
+        "new": new,
+        # The diamond means a new result for this cell. A cell can hold
+        # rows or evidence from the challenge without that: a new G-matrix
+        # is also a skew quadruple at an order where those were known.
+        "marker": '<span class="participant" title="New result"></span>' if new else "",
+    }
+
+
+def filter_data(x):
+    """The data attributes of a grid cell that the filters in app.js read."""
+    return {
+        "track": x["track"],
+        "status": x["status"],
+        "artifact": x["artifact"],
+        "origins": " ".join(x["origins"]),
+    }
+
+
+def filter_attributes(x):
+    return "".join(f' data-{key}="{esc(value)}"' for key, value in filter_data(x).items())
+
+
+def grid(stats, r):
+    """The front-page grid: its header rows, its body rows and the options of its column filter."""
+    by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
+    marked = new_cells(stats, r)
+    states = orders.table(ORDERS, r)
+    new_skew = {x["n"] for x in existence_results(stats, r)}
+    rows = []
+    for n in range(1, 132, 2):
+        found = {track: grid_cell(by_cell[n, track], marked, r) for track in TRACKS}
+        cells = [
+            f'<td class="{esc(x["classes"])}"{filter_attributes(x)}><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(x["accessible"])}" title="{esc(x["accessible"])}">{esc(x["text"])}{x["marker"]}</a></td>'
+            for track, x in found.items()
+            if track in PRIMARY
+        ]
+        board = {
+            name: {
+                "count": found[track]["count"],
+                "contradicted": found[track]["contradicted"],
+                "new": found[track]["new"],
+                "words": f"board cell: {found[track]['accessible']}",
+                "data": filter_data(found[track]),
+            }
+            for name, track in orders.CELL_TRACKS.items()
+        }
+        rows.append(
+            f'<tr data-n="{n}"><td>{n}</td>{orders.grid_cells(n, states, new_skew, board)}'
+            + "".join(cells)
+            + "</tr>"
+        )
+    head = (
+        '<tr><th scope="col" rowspan="2">n</th>'
+        f'<th scope="colgroup" colspan="2" class="group">{esc(EXISTENCE_GROUP)}</th>'
+        f'<th scope="colgroup" colspan="{len(PRIMARY)}" class="group sep">{esc(TRACK_GROUP)}</th>'
+        "</tr><tr>"
+        + "".join(
+            f'<th scope="col" data-track="{orders.CELL_TRACKS[name]}">{name}</th>'
+            for name in orders.TYPES
+        )
+        + "".join(
+            f'<th scope="col" data-track="{x}"{sep}>{esc(TRACK_LABELS[x])}</th>'
+            for x, sep in zip(PRIMARY, (' class="sep"', *[""] * len(PRIMARY)))
+        )
+        + "</tr>"
+    )
+    columns = [
+        (orders.CELL_TRACKS[name], f"{name} ({COLUMN_TRACKS[name]})") for name in orders.TYPES
+    ] + [(x, TRACK_LABELS[x]) for x in PRIMARY]
+    options = "".join(f'<option value="{x}">{esc(label)}</option>' for x, label in columns)
+    return head, "".join(rows), options
+
+
 def build(quick=False):
     d, r, b = load(reproduce=not quick)
     stats = summary(d, r, b)
@@ -666,81 +792,11 @@ def build(quick=False):
 <g fill="white" font-family="Verdana,sans-serif" font-size="11" text-anchor="middle">
 <text x="78" y="16">{label}</text><text x="178" y="16">{value}</text></g></svg>'''
         (out / f"badges/{key}.svg").write_text(badge)
-    by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
-    marked = new_cells(stats, r)
-    states = orders.table(ORDERS, r)
-    new_skew = {x["n"] for x in existence_results(stats, r)}
-    rows = []
-    for n in range(1, 132, 2):
-        cells = []
-        for track in TRACKS:
-            c = by_cell[n, track]
-            label = (
-                "Contradicts published"
-                if c["contradicted"]
-                else "Verified"
-                if c["quadruples"]
-                else "Published"
-                if c["artifact_status"] == "published-not-imported"
-                else "Empty"
-                if c["status"] == "empty"
-                else "Unresolved"
-            )
-            small = tier_label(c["tier"], rows=bool(c["quadruples"])) or (
-                " / ".join(c["empty_basis"]) or "literature"
-                if c["status"] == "empty"
-                else "claim / partial evidence"
-                if c["evidence"]
-                else ""
-            )
-            accessible = f"Order {n}, {TRACK_LABELS[track]}: {label}; {small}; " + ", ".join(
-                ORIGIN_LABELS[o] for o in c["origins"]
-            )
-            classes = f"{c['status']} {c['artifact_status']}{' contradicted' if c['contradicted'] else ''}"
-            origins = list(c["origins"])
-            if (track, n) in marked and "participant-result" not in origins:
-                origins.insert(0, "participant-result")
-            # The diamond means a new result for this cell. A cell can hold
-            # rows or evidence from the challenge without that: a new G-matrix
-            # is also a skew quadruple at an order where those were known.
-            marker = (
-                '<span class="participant" title="New result"></span>'
-                if (track, n) in marked
-                else ""
-            )
-            count = census_count(c, r)
-            if count:
-                accessible += f"; {count}"
-            elif label in ("Verified", "Contradicts published"):
-                accessible += "; exists, no class count"
-            text = (
-                count.replace(" classes", "").replace(" class", "")
-                if count
-                else {"Published": "pub", "Empty": "–", "Unresolved": "?"}.get(label, "✓")
-            )
-            cells.append(
-                f'<td class="{esc(classes)}" data-track="{track}" data-status="{c["status"]}" data-artifact="{c["artifact_status"]}" data-origins="{esc(" ".join(origins))}"><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(accessible)}" title="{esc(accessible)}">{esc(text)}{marker}</a></td>'
-            )
-        rows.append(
-            f'<tr data-n="{n}"><td>{n}</td>{orders.grid_cells(n, states, new_skew)}'
-            + "".join(cells)
-            + "</tr>"
-        )
-    head = (
-        '<tr><th scope="col" rowspan="2">n</th>'
-        f'<th scope="colgroup" colspan="2" class="group">{esc(EXISTENCE_GROUP)}</th>'
-        f'<th scope="colgroup" colspan="{len(TRACKS)}" class="group sep">{esc(TRACK_GROUP)}</th>'
-        '</tr><tr><th scope="col">hadamard</th><th scope="col">skew-hadamard</th>'
-        + "".join(
-            f'<th scope="col" data-track="{x}"{sep}>{esc(TRACK_LABELS[x])}</th>'
-            for x, sep in zip(TRACKS, (' class="sep"', *[""] * len(TRACKS)))
-        )
-        + "</tr>"
-    )
+    head, rows, options = grid(stats, r)
     body = f"""<section class="hero"><div><h1>Hunting Hadamards</h1><p>Hadamard matrices are believed to exist in every size divisible by 4, but some sizes have never been found. This board tracks the search.</p>{hero_figure(r)}</div>{DEFINITION}</section>
-<section id="board"><h2>The board</h2><p class="key">Each row is an order 4n. The first two columns say whether a Hadamard and a skew-Hadamard matrix of that order is known at all (see the <a href="orders.html">open orders</a>); the others count cyclic Goethals–Seidel quadruples at n by family, with ✓ where one exists but no count is known (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>).</p><div class="controls"><label>Family <select id="track"><option value="">All six families</option>{"".join(f'<option value="{x}">{esc(TRACK_LABELS[x])}</option>' for x in TRACKS)}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
-<div class="legend"><span class="known">verified here</span><span class="published">known elsewhere</span><span class="empty">empty</span><span class="unresolved">open</span><span class="reported">reported, unreviewed</span><span class="contradicted">contradicts the literature</span><span class="participant">new result</span></div>
-<div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{"".join(rows)}</tbody></table></div></section>
+<section id="board"><h2>The board</h2><p class="key">Each row is an order 4n. The hadamard and skew-hadamard columns say whether a matrix of that order is known (see the <a href="orders.html">open orders</a>); where the board holds one, the small number beside the order is its count of classes of cyclic Goethals–Seidel quadruples at n, any or with a skew block. The other columns count those quadruples by family, with ✓ where one exists but no count is known (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>).</p><div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
+<div class="legend"><span class="known">verified here</span><span class="published">known elsewhere</span><span class="empty">empty</span><span class="unresolved">open</span><span class="reported">reported, unreviewed</span><span class="contradicted">contradicts the literature</span><span class="participant">new result</span><span class="count-key">52 <small>588</small>: order 4n, classes of quadruples</span></div>
+<div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{rows}</tbody></table></div></section>
 {new_results_section(stats, r)}
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Submit four defining rows or negative-index sets. The verifier derives the family, checks the PAF identity, and detects equivalent entries.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
 <noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>

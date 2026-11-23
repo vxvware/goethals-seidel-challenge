@@ -3,7 +3,7 @@
 baselines/hadamard-orders.json records, for each matrix type, the orders that
 the cited sources list without a matrix and the later statements about them.
 This module checks that file, joins it with the verified entries of the board,
-and renders the orders page and the two existence columns of the front-page grid.
+and renders the orders page and the two order columns of the front-page grid.
 """
 
 import html
@@ -144,35 +144,57 @@ def marks(bib, keys, prefix=""):
     return " ".join(bib.mark(key, prefix) for key in sorted(set(keys), key=bib.number.get))
 
 
-def state_cell(order, name, info, href, text=None, new=False):
+def state_cell(order, name, info, href, text=None, new=False, board=None):
     """One table cell for an order and a type, in the grid's cell style.
 
-    With new set, the cell carries the grid's new-result marker.
+    With new set, the cell carries the grid's new-result marker. board, when
+    given, describes the board cell the grid cell links to: its class count
+    (shown when the board holds a matrix of this type), whether it contradicts
+    a published result, the words appended to the tooltip, and the attributes
+    the grid filters read.
     """
     label, classes = STATES[info["state"]]
     spoken = f"{TYPE_NAMES[name]} matrix of order {order}: {STATE_WORDS[info['state']]}"
     if info["listed_open"] and info["state"] == "board":
         spoken += "; listed as open in the older sources"
+    board = board or {}
+    attrs = "".join(f' data-{key}="{esc(value)}"' for key, value in board.get("data", {}).items())
+    count = board.get("count", "") if info["state"] == "board" else ""
+    if board.get("contradicted") and info["state"] == "board":
+        classes += " contradicted"
+    if board.get("words"):
+        spoken += f"; {board['words']}"
+    new = new or board.get("new", False)
     marker = '<span class="participant" title="New result"></span>' if new else ""
     if new:
         spoken += "; new result of this board"
+    # The cell shows the bare number; the legend and the tooltip name it.
+    number = count.split()[0] if count else ""
+    small = f'<span class="classes">{esc(number)}</span>' if count else ""
+    if count and count not in spoken:
+        spoken += f"; {count}"
     return (
         f'<td class="{classes}" data-type="{name}" data-order="{order}" '
-        f'data-state="{info["state"]}"><a class="cell" href="{esc(href)}" '
-        f'aria-label="{esc(spoken)}" title="{esc(spoken)}">{esc(text or label)}{marker}</a></td>'
+        f'data-state="{info["state"]}"{attrs}><a class="cell" href="{esc(href)}" '
+        f'aria-label="{esc(spoken)}" title="{esc(spoken)}"><span>{esc(text or label)}{small}'
+        f"</span>{marker}</a></td>"
     )
 
 
-def grid_cells(n, states, new_skew=()):
-    """The two existence cells of the front-page grid row of n, showing the order 4n.
+def grid_cells(n, states, new_skew=(), board=None):
+    """The two order cells of the front-page grid row of n, showing the order 4n.
 
     Each links to the board cell of n for its type: any quadruple for a
     Hadamard matrix, a quadruple with a skew block for a skew-Hadamard matrix.
+    Its colour is the state of the order, so a skew-Hadamard order known from
+    the literature stays known while the board's cell is unresolved.
 
     new_skew holds the n whose skew-Hadamard order is a featured existence
-    result of this board; that cell gets the new-result marker.
+    result of this board; that cell gets the new-result marker. board maps a
+    type to the description of its board cell that state_cell takes.
     """
     order = 4 * n
+    board = board or {}
     return "".join(
         state_cell(
             order,
@@ -181,6 +203,7 @@ def grid_cells(n, states, new_skew=()):
             f"cells/n{n}-{CELL_TRACKS[name]}.html",
             text=order,
             new=name == "skew-hadamard" and n in new_skew,
+            board=board.get(name),
         )
         for name in TYPES
     )

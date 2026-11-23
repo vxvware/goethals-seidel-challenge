@@ -12,6 +12,8 @@ function filter(){
   row.classList.toggle('hidden',!visible||Number(row.dataset.n)>max);
  }
  for(const th of document.querySelectorAll('#grid th[data-track]'))th.classList.toggle('hidden',!!track&&th.dataset.track!==track);
+ // A group header would span columns the filter hides.
+ for(const th of document.querySelectorAll('#grid th.group'))th.classList.toggle('hidden',!!track);
 }
 for(const id of ['track','status','origin','max-order'])document.getElementById(id).addEventListener('change',filter);
 // Older links addressed a cell as #cell-<n>-<track>; each cell now has its own page.
