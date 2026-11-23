@@ -1,8 +1,10 @@
 """equiv-v2 (shift quotient) and the small-order censuses of the unconstrained tracks."""
 
-from itertools import product
 from copy import deepcopy
+from itertools import product
+
 import pytest
+
 from verify.census_engine import C_ENGINES, c_census, c_census_count, shift_class_totals, verify
 from verify.equivalence import canonical, canonical_shifts
 from verify.gs_verify import memberships, paf, row_types, validate_rows
@@ -21,7 +23,7 @@ def test_shift_quotient_merges_the_contract_example():
 def test_shift_quotient_is_invariant_under_the_generators():
     q = max(c_census("general-census-c-v1", 13))
     c = canonical_shifts(q)
-    shifted = tuple(r[s:] + r[:s] for r, s in zip(q, (0, 3, 7, 12)))
+    shifted = tuple(r[s:] + r[:s] for r, s in zip(q, (0, 3, 7, 12), strict=True))
     assert validate_rows(shifted) and canonical(shifted) != canonical(q)
     assert canonical_shifts(shifted) == c
     assert canonical_shifts(tuple(tuple(-x for x in r) for r in q)) == c
@@ -32,11 +34,11 @@ def test_shift_quotient_is_invariant_under_the_generators():
 
 @pytest.mark.parametrize("n", [3, 5])
 def test_shift_censuses_match_brute_force(n):
-    rows = [(1,) + t for t in product((1, -1), repeat=n - 1)]
+    rows = [(1, *t) for t in product((1, -1), repeat=n - 1)]
     pafs = {r: paf(r) for r in rows}
     found, skew = set(), set()
     for q in product(rows, repeat=4):
-        if all(sum(v) == 0 for v in list(zip(*(pafs[r] for r in q)))[1:]):
+        if all(sum(v) == 0 for v in list(zip(*(pafs[r] for r in q), strict=True))[1:]):
             found.add(canonical_shifts(q))
             if any("k" in row_types(r) for r in q):
                 skew.add(canonical_shifts(q))

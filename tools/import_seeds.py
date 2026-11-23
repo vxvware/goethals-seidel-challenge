@@ -2,17 +2,19 @@
 """Reproducibly import the explicit plan inventory; never trust source verdicts."""
 
 import argparse
+import ast
 import gzip
 import json
-from pathlib import Path
 import shutil
 import subprocess
 import sys
-import ast
+from collections.abc import Iterable
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import numpy as np
-from verify.common import ROOT, digest, read_json, write_json
+
+from verify.common import ROOT, JSONObject, digest, read_json, write_json
 from verify.equivalence import canonical, fingerprint
 from verify.gs_verify import validate_rows
 
@@ -20,7 +22,7 @@ AUTHOR = "trevor-vincent"
 DATE = "2026-10-14"
 
 
-def base(identifier, kind, n, sources, discoverers):
+def base(identifier: str, kind: str, n: int, sources: list[JSONObject], discoverers: list[str]) -> JSONObject:
     return {
         "schema_version": 1,
         "id": identifier,
@@ -34,11 +36,11 @@ def base(identifier, kind, n, sources, discoverers):
     }
 
 
-def copy_artifact(src, dest):
-    dest = ROOT / "evidence/seeds" / dest
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(src, dest)
-    return {"path": dest.relative_to(ROOT).as_posix(), "sha256": digest(dest)}
+def copy_artifact(src: Path, dest: str) -> dict[str, str]:
+    target = ROOT / "evidence/seeds" / dest
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(src, target)
+    return {"path": target.relative_to(ROOT).as_posix(), "sha256": digest(target)}
 
 
 # The campaign repositories are private and vxvware/skew356-campaign no longer
@@ -46,7 +48,7 @@ def copy_artifact(src, dest):
 # repository at a pinned commit. The commit and source_path fields keep the
 # identity of the original.
 ARCHIVE = "https://github.com/vxvware/goethals-seidel-challenge/blob/f29ee8912110f79163da774997b21f9289d4027f"
-UNARCHIVED = {
+UNARCHIVED: dict[tuple[str, str], tuple[str, str]] = {
     ("skew356-campaign", "data/sweep_p73_d9.json"): (
         "evidence/seeds/skew-p73-d9.jsonl.gz",
         " (the repository vxvware/skew356-campaign no longer exists and no copy of this file"
@@ -62,7 +64,7 @@ UNARCHIVED = {
 }
 
 
-def record(name, commit, path, title=None):
+def record(name: str, commit: str, path: str, title: str | None = None) -> JSONObject:
     """The source record of one file of a campaign repository at a commit."""
     title = title or f"{name}: {path}"
     index = read_json(ROOT / "evidence/participants/private-sources.json")
@@ -83,61 +85,53 @@ def record(name, commit, path, title=None):
     }
 
 
-def source(repo, path, title=None):
-    commit = subprocess.check_output(
-        ["git", "-C", str(repo), "rev-parse", "HEAD"], text=True
-    ).strip()
+def source(repo: Path, path: str, title: str | None = None) -> JSONObject:
+    commit = subprocess.check_output(["git", "-C", str(repo), "rev-parse", "HEAD"], text=True).strip()
     return record(repo.name, commit, path, title)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path, default=ROOT.parent)
     parser.add_argument("--sage-file", type=Path, required=True)
     parser.add_argument("--sage-source", type=Path, required=True)
     args = parser.parse_args()
-    pool = {}
-    inventory = []
-    counts = {}
+    pool: dict[str, JSONObject] = {}
+    inventory: list[JSONObject] = []
+    counts: dict[tuple[int, str], tuple[set[str], int]] = {}
     (ROOT / "evidence/seeds").mkdir(parents=True, exist_ok=True)
 
-    def ingest(label, rows, src, discoverers):
+    def ingest(
+        label: str, rows: Iterable[Iterable[Iterable[int]]], src: JSONObject, discoverers: list[str]
+    ) -> set[str]:
         rows = list(rows)
         archive = ROOT / f"evidence/seeds/{label}.jsonl.gz"
-        ids = set()
-        with archive.open("wb") as raw:
-            with gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as stream:
-                for item in rows:
-                    q = tuple(tuple(int(v) for v in r) for r in item)
-                    # Conversion here is from trusted numeric archives. Every
-                    # public JSON submission rejects non-integer inputs.
-                    validate_rows(q)
-                    rep = canonical(q)
-                    fp = fingerprint(rep)
-                    n = len(rep[0])
-                    ident = f"n{n}-{fp[3:23]}"
-                    if ident in pool and pool[ident]["rows"] != [list(r) for r in rep]:
-                        raise ValueError("fingerprint prefix collision")
-                    if ident not in pool:
-                        pool[ident] = {
-                            **base(ident, "quadruple", n, [], discoverers),
-                            "equivalence": "equiv-v1",
-                            "rows": [list(r) for r in rep],
-                        }
-                    if src not in pool[ident]["sources"]:
-                        pool[ident]["sources"].append(src)
-                    pool[ident]["discovered_by"] = sorted(
-                        set(pool[ident]["discovered_by"] + discoverers)
-                    )
-                    ids.add(ident)
-                    stream.write(
-                        (
-                            json.dumps(
-                                {"n": n, "rows": q, "representative": ident}, separators=(",", ":")
-                            )
-                            + "\n"
-                        ).encode()
-                    )
+        ids: set[str] = set()
+        with archive.open("wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as stream:
+            for item in rows:
+                q = tuple(tuple(int(v) for v in r) for r in item)
+                # Conversion here is from trusted numeric archives. Every
+                # public JSON submission rejects non-integer inputs.
+                validate_rows(q)
+                rep = canonical(q)
+                fp = fingerprint(rep)
+                n = len(rep[0])
+                ident = f"n{n}-{fp[3:23]}"
+                if ident in pool and pool[ident]["rows"] != [list(r) for r in rep]:
+                    raise ValueError("fingerprint prefix collision")
+                if ident not in pool:
+                    pool[ident] = {
+                        **base(ident, "quadruple", n, [], discoverers),
+                        "equivalence": "equiv-v1",
+                        "rows": [list(r) for r in rep],
+                    }
+                if src not in pool[ident]["sources"]:
+                    pool[ident]["sources"].append(src)
+                pool[ident]["discovered_by"] = sorted(set(pool[ident]["discovered_by"] + discoverers))
+                ids.add(ident)
+                stream.write(
+                    (json.dumps({"n": n, "rows": q, "representative": ident}, separators=(",", ":")) + "\n").encode()
+                )
         inventory.append(
             {
                 "id": label,
@@ -160,16 +154,12 @@ def main():
         for key in z.files:
             n = int(key[1:])
             src = source(best, "data/catalogue_solutions.npz", f"Best catalogue n={n}")
-            ids = ingest(
-                f"best-n{n}", z[key], src, ["Best-matrix catalogue; see published sources"]
-            )
+            ids = ingest(f"best-n{n}", z[key], src, ["Best-matrix catalogue; see published sources"])
             counts[(n, "best")] = (ids, len(z[key]))
     for n in (3, 5, 7, 9, 11, 13, 15):
         path = f"benchmark/good_matrices_n{n}.npz"
         with np.load(good / path, allow_pickle=False) as z:
-            ids = ingest(
-                f"good-n{n}", z["sols"], source(good, path), ["Good-matrix campaign catalogue"]
-            )
+            ids = ingest(f"good-n{n}", z["sols"], source(good, path), ["Good-matrix campaign catalogue"])
             counts[(n, "good")] = (ids, len(z["sols"]))
     for n in (15, 21):
         path = f"benchmark/good_solution_n{n}.npy"
@@ -191,13 +181,8 @@ def main():
         )
     path = "data/sweep_p73_d9.json"
     families = json.loads((skew / path).read_text())
-    rows = (
-        [[-1 if j in block else 1 for j in range(73)] for block in fam["blocks"]]
-        for fam in families
-    )
-    ingest(
-        "skew-p73-d9", rows, source(skew, path), ["Skew356 campaign (independent reconstruction)"]
-    )
+    rows = ([[-1 if j in block else 1 for j in range(73)] for block in fam["blocks"]] for fam in families)
+    ingest("skew-p73-d9", rows, source(skew, path), ["Skew356 campaign (independent reconstruction)"])
 
     # Extract only literal numerical data from Sage, never execute fetched code.
     if not args.sage_file.exists() or not args.sage_source.exists():
@@ -205,9 +190,7 @@ def main():
     sha, url = args.sage_source.read_text().splitlines()[:2]
     tree = ast.parse(args.sage_file.read_text())
     fn = next(
-        x
-        for x in tree.body
-        if isinstance(x, ast.FunctionDef) and x.name == "williamson_type_quadruples_smallcases"
+        x for x in tree.body if isinstance(x, ast.FunctionDef) and x.name == "williamson_type_quadruples_smallcases"
     )
     dictionary = None
     for x in ast.walk(fn):
@@ -217,7 +200,7 @@ def main():
                 if value and all(isinstance(k, int) for k in value):
                     dictionary = value
                     break
-            except (ValueError, TypeError):
+            except ValueError, TypeError:
                 pass
     if dictionary is None:
         raise ValueError("Sage literal table layout changed")
@@ -236,15 +219,13 @@ def main():
     fn = next(
         x
         for x in tree.body
-        if isinstance(x, ast.FunctionDef)
-        and x.name == "skew_hadamard_matrix_from_good_matrices_smallcases"
+        if isinstance(x, ast.FunctionDef) and x.name == "skew_hadamard_matrix_from_good_matrices_smallcases"
     )
     e_table = ast.literal_eval(
         next(
             x.value
             for x in fn.body
-            if isinstance(x, ast.Assign)
-            and any(isinstance(t, ast.Name) and t.id == "E_sequences" for t in x.targets)
+            if isinstance(x, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "E_sequences" for t in x.targets)
         )
     )
     for h, words in e_table.items():
@@ -263,8 +244,7 @@ def main():
     H = {1, 2, 4, 8, 16, 32, 37, 55, 64}
     cosets = [{a * h % 73 for h in H} for a in (1, -1, 3, -3, 5, -5, 11, -11)]
     blocks = [
-        set().union(*(cosets[j] for j in indices))
-        for indices in ((1, 3, 4, 6), (3, 5, 6, 7), (1, 4, 5, 7), (0, 2, 7))
+        set().union(*(cosets[j] for j in indices)) for indices in ((1, 3, 4, 6), (3, 5, 6, 7), (1, 4, 5, 7), (0, 2, 7))
     ]
     blocks[3].add(0)
     q = [[-1 if j in b else 1 for j in range(73)] for b in blocks]
@@ -283,12 +263,8 @@ def main():
     for (n, track), (ids, raw) in counts.items():
         srcs = [
             {
-                "title": "Published best classification"
-                if track == "best"
-                else "Published good classification",
-                "url": "https://arxiv.org/abs/1907.04987"
-                if track == "best"
-                else "https://arxiv.org/abs/1811.05094",
+                "title": "Published best classification" if track == "best" else "Published good classification",
+                "url": "https://arxiv.org/abs/1907.04987" if track == "best" else "https://arxiv.org/abs/1811.05094",
             }
         ]
         doc = {
@@ -315,12 +291,10 @@ def main():
         write_json(ROOT / f"census/{doc['id']}.json", doc)
 
     # Archive the complete best receipt chain and the omission closure.
-    records = []
+    records: list[dict[str, str]] = []
     for p in sorted((best / "data/campaign_state").glob("*.json")):
         records.append(copy_artifact(p, "best73/" + p.name))
-    records.append(
-        copy_artifact(best / "data/enum_audit_2026-09-21/omit_ckpt.json", "best73/omit_ckpt.json")
-    )
+    records.append(copy_artifact(best / "data/enum_audit_2026-09-21/omit_ckpt.json", "best73/omit_ckpt.json"))
     records.append(copy_artifact(best / "docs/enum_audit_2026-09-21.md", "best73/enum-audit.md"))
     engine_ref = copy_artifact(best / "benchmark/verify_coverage.py", "best73/verify_coverage.py")
     src = source(best, "docs/enum_audit_2026-09-21.md")
@@ -337,9 +311,7 @@ def main():
             "binding": "archived-with-receipt",
             "artifact": engine_ref,
         },
-        "gaps": [
-            "104500 legacy classes lack modern identity/digest; retained as an archived claim."
-        ],
+        "gaps": ["104500 legacy classes lack modern identity/digest; retained as an archived claim."],
     }
     write_json(ROOT / f"certificates/{doc['id']}.json", doc)
     for n, paths, claim in [
@@ -355,9 +327,7 @@ def main():
         ),
         (67, ["data/box_192.222.50.112/progress_complete_n67_sB-13.json"], "partial"),
     ]:
-        refs = [
-            copy_artifact(good / p, f"good{n}/{Path(p).parent.name}-{Path(p).name}") for p in paths
-        ]
+        refs = [copy_artifact(good / p, f"good{n}/{Path(p).parent.name}-{Path(p).name}") for p in paths]
         engine_path = "data/box_192.222.50.112/good_gpu_complete.py"
         eng = copy_artifact(good / engine_path, f"good{n}/good_gpu_complete.py")
         src = source(good, paths[0])
@@ -396,7 +366,8 @@ def main():
                 }
             )
             doc["gaps"].append(
-                "Modern JSON receipts leave [0,454800) uncovered in pass -15; older logs do not repair its missing execution identity."
+                "Modern JSON receipts leave [0,454800) uncovered in pass -15; "
+                "older logs do not repair its missing execution identity."
             )
         write_json(ROOT / f"certificates/{doc['id']}.json", doc)
     src = source(skew, "benchmark/cyclotomic_sweep.py")
@@ -420,7 +391,10 @@ def main():
         "method": "coset-row-sum-theorem",
         "records": [ref],
         "gaps": [],
-        "notes": "Original [] retained as provenance. The verifier independently proves the precisely scoped null by integer row sums.",
+        "notes": (
+            "Original [] retained as provenance. "
+            "The verifier independently proves the precisely scoped null by integer row sums."
+        ),
     }
     write_json(ROOT / f"certificates/{doc['id']}.json", doc)
     for track, ns, url in [
@@ -432,10 +406,7 @@ def main():
         ),
     ]:
         for n in ns:
-            if track == "good" and n in (41, 47, 49):
-                source_url = "https://arxiv.org/abs/1802.00556"
-            else:
-                source_url = url
+            source_url = "https://arxiv.org/abs/1802.00556" if track == "good" and n in (41, 47, 49) else url
             doc = {
                 **base(
                     f"{track}-n{n}-literature",

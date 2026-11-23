@@ -1,6 +1,7 @@
 """What the site generator draws and words, checked against the verified board."""
 
 import pytest
+
 from verify.board import load, summary
 from verify.common import ROOT
 

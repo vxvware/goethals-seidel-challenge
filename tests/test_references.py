@@ -8,7 +8,7 @@ import pytest
 from verify.common import ROOT
 
 sys.path.insert(0, str(ROOT / "site"))
-from references import Bibliography, normalize, parse  # noqa: E402
+from references import Bibliography, normalize, parse
 
 # Links that are not literature: this board's own files, and the participant
 # repository the seeds were imported from.
@@ -36,9 +36,7 @@ def source_urls():
 
 def test_every_literature_source_has_a_reference():
     bib = Bibliography()
-    missing = [
-        url for url in source_urls() if not url.startswith(REPOSITORY) and not bib.resolve(url)
-    ]
+    missing = [url for url in source_urls() if not url.startswith(REPOSITORY) and not bib.resolve(url)]
     assert not missing, f"sources without an entry in references.bib: {missing}"
 
 
@@ -102,13 +100,7 @@ def test_malformed_bibliography_is_rejected(text):
 
 def test_an_aliased_doi_links_the_entry_doi():
     bib = Bibliography()
-    assert bib.link("https://doi.org/10.1016/0012-365X(77)90009-0") == (
-        "https://doi.org/10.1016/0012-365X(77)90009-7"
-    )
-    assert bib.link("https://doi.org/10.1007/s10623-011-9498-9") == (
-        "https://doi.org/10.1007/s10623-011-9492-2"
-    )
-    assert bib.link("https://doi.org/10.1016/0012-365X(77)90009-7") == (
-        "https://doi.org/10.1016/0012-365X(77)90009-7"
-    )
+    assert bib.link("https://doi.org/10.1016/0012-365X(77)90009-0") == ("https://doi.org/10.1016/0012-365X(77)90009-7")
+    assert bib.link("https://doi.org/10.1007/s10623-011-9498-9") == ("https://doi.org/10.1007/s10623-011-9492-2")
+    assert bib.link("https://doi.org/10.1016/0012-365X(77)90009-7") == ("https://doi.org/10.1016/0012-365X(77)90009-7")
     assert bib.link("https://arxiv.org/abs/2411.18897") == "https://arxiv.org/abs/2411.18897"

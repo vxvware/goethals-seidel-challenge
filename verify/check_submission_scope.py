@@ -1,11 +1,12 @@
 """Submission PRs may add data/evidence, but cannot modify the trusted stack."""
 
-from pathlib import PurePosixPath
 import argparse
 import subprocess
+from collections.abc import Iterable, Sequence
+from pathlib import PurePosixPath
 
 
-def check_changes(changes):
+def check_changes(changes: Iterable[Sequence[str]]) -> None:
     entries = False
     for status, path in changes:
         p = PurePosixPath(path)
@@ -26,10 +27,8 @@ def check_changes(changes):
         raise ValueError("submission must add an entry")
 
 
-def git_changes(base, head="HEAD"):
-    output = subprocess.check_output(
-        ["git", "diff", "--name-status", "--no-renames", f"{base}...{head}"], text=True
-    )
+def git_changes(base: str, head: str = "HEAD") -> list[list[str]]:
+    output = subprocess.check_output(["git", "diff", "--name-status", "--no-renames", f"{base}...{head}"], text=True)
     return [line.split("\t", 1) for line in output.splitlines()]
 
 

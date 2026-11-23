@@ -2,16 +2,17 @@
 
 import argparse
 import json
-from pathlib import Path
 import sys
+from collections.abc import Sequence
+from pathlib import Path
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from verify.common import MAX_N, ROOT, read_json
+from verify.common import MAX_N, ROOT, JSONObject, Rows, RowsLike, read_json
 from verify.equivalence import VERSION, canonical, fingerprint
 
 
-def row_types(row):
+def row_types(row: Sequence[int]) -> set[str]:
     n = len(row)
     result = set()
     if all(row[j] == row[-j] for j in range(1, n)):
@@ -21,7 +22,7 @@ def row_types(row):
     return result
 
 
-def memberships(rows):
+def memberships(rows: RowsLike) -> list[str]:
     from itertools import permutations
 
     types = [row_types(r) for r in rows]
@@ -34,21 +35,19 @@ def memberships(rows):
         ("best", "kkks"),
         ("kkss", "kkss"),
     ):
-        if any(all(kind in t for kind, t in zip(pattern, order)) for order in permutations(types)):
+        if any(all(kind in t for kind, t in zip(pattern, order, strict=False)) for order in permutations(types)):
             result.insert(0, track)
     return result
 
 
-def paf(row):
+def paf(row: Sequence[int]) -> tuple[int, ...]:
     n = len(row)
     bits = sum((v == -1) << j for j, v in enumerate(row))
     mask = (1 << n) - 1
-    return tuple(
-        n - 2 * (bits ^ (((bits << s) | (bits >> (n - s))) & mask)).bit_count() for s in range(n)
-    )
+    return tuple(n - 2 * (bits ^ (((bits << s) | (bits >> (n - s))) & mask)).bit_count() for s in range(n))
 
 
-def validate_rows(rows, n=None):
+def validate_rows(rows: object, n: object = None) -> Rows:
     if not isinstance(rows, (list, tuple)) or len(rows) != 4:
         raise ValueError("exactly four rows are required")
     n = len(rows[0]) if n is None else n
@@ -59,14 +58,14 @@ def validate_rows(rows, n=None):
             raise ValueError("row length does not match order")
         if any(type(v) is not int or v not in (-1, 1) for v in row):
             raise ValueError("rows must contain integer +1 or -1 (no booleans/floats)")
-    totals = tuple(map(sum, zip(*(paf(row) for row in rows))))
+    totals = tuple(map(sum, zip(*(paf(row) for row in rows), strict=True)))
     if totals != (4 * n,) + (0,) * (n - 1):
         shift = next(s for s, v in enumerate(totals) if v != (4 * n if s == 0 else 0))
         raise ValueError(f"PAF identity fails at shift {shift}: {totals[shift]}")
     return tuple(tuple(row) for row in rows)
 
 
-def decode_rows(entry):
+def decode_rows(entry: JSONObject) -> Rows:
     n = entry["n"]
     if entry["group"] != {"kind": "cyclic", "invariant_factors": [n]}:
         raise ValueError("v1 accepts only the cyclic group with invariant factors [n]")
@@ -78,14 +77,12 @@ def decode_rows(entry):
     if len(blocks) != 4:
         raise ValueError("exactly four blocks are required")
     for block in blocks:
-        if any(type(j) is not int or not 0 <= j < n for j in block) or len(set(block)) != len(
-            block
-        ):
+        if any(type(j) is not int or not 0 <= j < n for j in block) or len(set(block)) != len(block):
             raise ValueError("block indices must be distinct integers in [0,n)")
     return validate_rows([[(-1 if j in block else 1) for j in range(n)] for block in blocks], n)
 
 
-def verify(entry, baseline=None):
+def verify(entry: JSONObject, baseline: JSONObject | None = None) -> JSONObject:
     rows = decode_rows(entry)
     rep = canonical(rows)
     tracks = memberships(rep)
@@ -114,14 +111,12 @@ def verify(entry, baseline=None):
         "fingerprint": fingerprint(rows),
         "canonical_rows": rep,
         "row_sums": [sum(r) for r in rep],
-        "pattern": "".join(
-            "k" if "k" in row_types(r) else "s" if "s" in row_types(r) else "·" for r in rep
-        ),
+        "pattern": "".join("k" if "k" in row_types(r) else "s" if "s" in row_types(r) else "·" for r in rep),
         "flags": flags,
     }
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("entry")
     args = parser.parse_args()

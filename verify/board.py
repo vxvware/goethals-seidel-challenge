@@ -1,20 +1,19 @@
 """Board aggregation and consistency, shared by the CLI and static site."""
 
 from pathlib import Path
-from verify.common import ROOT, TRACKS, PARENTS, read_json, artifact
+
+from verify import census_engine, contributions, evidence, gs_verify
+from verify.common import PARENTS, ROOT, TRACKS, ById, JSONObject, PathLike, artifact, read_json
 from verify.model import validate
-from verify import gs_verify, evidence, census_engine, contributions
 
 
-def load(root=ROOT, reproduce=True):
+def load(root: PathLike = ROOT, reproduce: bool = True) -> tuple[ById, ById, list[JSONObject]]:
     root = Path(root)
-    documents = {}
-    results = {}
-    fingerprints = {}
+    documents: ById = {}
+    results: ById = {}
+    fingerprints: dict[str, str] = {}
     files = sorted(
-        p
-        for directory in ("quadruples", "certificates", "census")
-        for p in (root / directory).glob("*.json")
+        p for directory in ("quadruples", "certificates", "census") for p in (root / directory).glob("*.json")
     )
     if len(files) > 4096 or sum(p.stat().st_size for p in files) > 64 * 1024 * 1024:
         raise ValueError("board entry resource limit exceeded")
@@ -24,9 +23,7 @@ def load(root=ROOT, reproduce=True):
         ident = doc["id"]
         if ident != path.stem or ident in documents:
             raise ValueError(f"entry id/filename mismatch or duplicate: {path.name}")
-        expected = {"quadruple": "quadruples", "certificate": "certificates", "census": "census"}[
-            doc["type"]
-        ]
+        expected = {"quadruple": "quadruples", "certificate": "certificates", "census": "census"}[doc["type"]]
         if path.parent.name != expected:
             raise ValueError("entry in wrong directory")
         for source in doc["sources"]:
@@ -60,7 +57,7 @@ def load(root=ROOT, reproduce=True):
     return documents, results, records
 
 
-def check_consistency(documents, results, baseline):
+def check_consistency(documents: ById, results: ById, baseline: list[JSONObject]) -> None:
     for known in (r for r in baseline if r["status"] == "exists"):
         for absent in (r for r in baseline if r["status"] == "empty"):
             if known["n"] == absent["n"] and absent["stratum"] in (
@@ -68,9 +65,7 @@ def check_consistency(documents, results, baseline):
                 *PARENTS[known["stratum"]],
             ):
                 raise ValueError("contradictory sourced baseline records")
-    for cert in (
-        x for x in results.values() if x["type"] == "certificate" and x["claim"] == "empty"
-    ):
+    for cert in (x for x in results.values() if x["type"] == "certificate" and x["claim"] == "empty"):
         for q in (x for x in results.values() if x["type"] == "quadruple"):
             if (
                 q["n"] == cert["n"]
@@ -85,9 +80,7 @@ def check_consistency(documents, results, baseline):
                     and rec["status"] == "exists"
                     and cert["stratum"] in (rec["stratum"], *PARENTS[rec["stratum"]])
                 ):
-                    raise ValueError(
-                        f"certificate conflicts with sourced existence baseline: {cert['id']}"
-                    )
+                    raise ValueError(f"certificate conflicts with sourced existence baseline: {cert['id']}")
     for rec in baseline:
         if rec["status"] not in ("empty", "contradicted"):
             continue
@@ -99,12 +92,10 @@ def check_consistency(documents, results, baseline):
         if rec["status"] == "empty" and refuted:
             raise ValueError(f"existence conflicts with nonexistence baseline: {refuted[0]['id']}")
         if rec["status"] == "contradicted" and not refuted:
-            raise ValueError(
-                f"contradicted claim without verified rows: {rec['stratum']} n={rec['n']}"
-            )
+            raise ValueError(f"contradicted claim without verified rows: {rec['stratum']} n={rec['n']}")
 
 
-def cells(documents, results, baseline, max_n=131):
+def cells(documents: ById, results: ById, baseline: list[JSONObject], max_n: int = 131) -> list[JSONObject]:
     output = []
     for n in range(1, max_n + 1, 2):
         for track in TRACKS:
@@ -112,75 +103,49 @@ def cells(documents, results, baseline, max_n=131):
             for rec in baseline:
                 if rec["n"] != n:
                     continue
-                if rec["status"] == "exists" and track in (
-                    rec["stratum"],
-                    *PARENTS[rec["stratum"]],
-                ):
-                    relevant.append(rec)
-                elif rec["status"] == "empty" and rec["stratum"] in (track, *PARENTS[track]):
+                if (
+                    rec["status"] == "exists"
+                    and track
+                    in (
+                        rec["stratum"],
+                        *PARENTS[rec["stratum"]],
+                    )
+                ) or (rec["status"] == "empty" and rec["stratum"] in (track, *PARENTS[track])):
                     relevant.append(rec)
             exists = [r for r in relevant if r["status"] == "exists"]
             empty = [r for r in relevant if r["status"] == "empty"]
             contradicted = [
-                rec
-                for rec in baseline
-                if rec["n"] == n and rec["status"] == "contradicted" and rec["stratum"] == track
+                rec for rec in baseline if rec["n"] == n and rec["status"] == "contradicted" and rec["stratum"] == track
             ]
-            quads = [
-                r
-                for r in results.values()
-                if r["type"] == "quadruple" and r["n"] == n and track in r["tracks"]
-            ]
+            quads = [r for r in results.values() if r["type"] == "quadruple" and r["n"] == n and track in r["tracks"]]
             certs = [
                 r
                 for r in results.values()
-                if r["type"] == "certificate"
-                and r["n"] == n
-                and r["stratum"] in (track, *PARENTS[track])
+                if r["type"] == "certificate" and r["n"] == n and r["stratum"] in (track, *PARENTS[track])
             ]
             whole = [
                 c
                 for c in certs
                 if c["claim"] == "empty"
                 and c["scope"]["kind"] == "full"
-                and (
-                    c["tier"] is not None
-                    or c.get("provenance") in ("literature", "unreplayed-census")
-                )
+                and (c["tier"] is not None or c.get("provenance") in ("literature", "unreplayed-census"))
             ]
-            censuses = [
-                r
-                for r in results.values()
-                if r["type"] == "census" and r["n"] == n and r["stratum"] == track
-            ]
+            censuses = [r for r in results.values() if r["type"] == "census" and r["n"] == n and r["stratum"] == track]
             # An exact census with no classes is a replayed proof of emptiness.
             exact_empty = [c for c in censuses if c["bound"] == "exact" and c["count"] == 0]
-            status = (
-                "exists"
-                if quads or exists
-                else "empty"
-                if empty or whole or exact_empty
-                else "unresolved"
-            )
-            availability = (
-                "verified-on-board" if quads else "published-not-imported" if exists else "none"
-            )
+            status = "exists" if quads or exists else "empty" if empty or whole or exact_empty else "unresolved"
+            availability = "verified-on-board" if quads else "published-not-imported" if exists else "none"
             tiers = [c["tier"] for c in whole if c["tier"]] + [c["tier"] for c in exact_empty]
             # Scoped evidence can be relevant to narrower strata without being
             # the result that establishes their status. Credit its target cell.
-            credits = contributions.collect(
-                [*quads, *(c for c in certs if c["stratum"] == track), *censuses]
-            )
+            credits = contributions.collect([*quads, *(c for c in certs if c["stratum"] == track), *censuses])
             origins = {c["relation"] for c in credits}
-            if relevant or any(
-                documents[c["id"]]["method"] in ("literature", "row-sum-theorem") for c in certs
-            ):
+            if relevant or any(documents[c["id"]]["method"] in ("literature", "row-sum-theorem") for c in certs):
                 origins.add("published-import")
             rank = {"receipt-backed": 0, "spot-checked": 1, "reproduced": 2, "proven": 3}
-            tier = "reproduced" if quads else max(tiers, key=rank.get) if tiers else None
-            basis = sorted(
-                {c["tier"] or c["provenance"] for c in whole} | {c["tier"] for c in exact_empty}
-            )
+            # Every graded tier is a key of rank, so rank.get never returns None here.
+            tier = "reproduced" if quads else max(tiers, key=rank.get) if tiers else None  # type: ignore[arg-type]
+            basis = sorted({c["tier"] or c["provenance"] for c in whole} | {c["tier"] for c in exact_empty})
             output.append(
                 {
                     "n": n,
@@ -198,17 +163,14 @@ def cells(documents, results, baseline, max_n=131):
                     "sources": relevant,
                     "contradicted": contradicted,
                     "flags": [f for q in quads for f in q["flags"]]
-                    + [
-                        {"kind": "contradicts-published-nonexistence", "source": rec["source"]}
-                        for rec in contradicted
-                    ],
+                    + [{"kind": "contradicts-published-nonexistence", "source": rec["source"]} for rec in contradicted],
                     "note": "Requires n=r²+r+1." if track == "best" else "",
                 }
             )
     return output
 
 
-def summary(documents, results, baseline, max_n=131):
+def summary(documents: ById, results: ById, baseline: list[JSONObject], max_n: int = 131) -> JSONObject:
     grid = cells(documents, results, baseline, max_n)
     return {
         "schema_version": 1,
@@ -224,11 +186,7 @@ def summary(documents, results, baseline, max_n=131):
         "import_tasks": [c for c in grid if c["artifact_status"] == "published-not-imported"],
         "largest_verified": {
             track: max(
-                (
-                    r["n"]
-                    for r in results.values()
-                    if r["type"] == "quadruple" and track in r["tracks"]
-                ),
+                (r["n"] for r in results.values() if r["type"] == "quadruple" and track in r["tracks"]),
                 default=None,
             )
             for track in TRACKS

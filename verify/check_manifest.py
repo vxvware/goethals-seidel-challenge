@@ -1,18 +1,18 @@
 """Pin trusted validator, schema, baseline, replay engine, and build inputs."""
 
 import argparse
+from pathlib import Path
+
 from verify.common import ROOT, digest, read_json, write_json
 
 
-def trusted_files(root):
-    paths = []
+def trusted_files(root: Path) -> list[Path]:
+    paths: list[Path] = []
     for name in ("verify", "schema", "baselines", "site"):
         paths.extend(
             p
             for p in (root / name).rglob("*")
-            if p.is_file()
-            and "__pycache__" not in p.parts
-            and p.suffix in (".py", ".json", ".css", ".js", ".bib")
+            if p.is_file() and "__pycache__" not in p.parts and p.suffix in (".py", ".json", ".css", ".js", ".bib")
         )
     paths.extend(p for p in (root / "research/starter/best").glob("*.c"))
     paths.extend(p for p in (root / "research/starter/good").glob("*.c"))
@@ -26,19 +26,15 @@ def trusted_files(root):
     return sorted(p for p in paths if p.name != "validator_manifest.json")
 
 
-def snapshot(root=ROOT):
+def snapshot(root: Path = ROOT) -> dict[str, str]:
     return {p.relative_to(root).as_posix(): digest(p) for p in trusted_files(root)}
 
 
-def check(root=ROOT):
-    expected = read_json(root / "verify/validator_manifest.json", max_bytes=4 * 1024 * 1024)[
-        "sha256"
-    ]
+def check(root: Path = ROOT) -> None:
+    expected = read_json(root / "verify/validator_manifest.json", max_bytes=4 * 1024 * 1024)["sha256"]
     actual = snapshot(root)
     if actual != expected:
-        changed = sorted(
-            k for k in actual.keys() | expected.keys() if actual.get(k) != expected.get(k)
-        )
+        changed = sorted(k for k in actual.keys() | expected.keys() if actual.get(k) != expected.get(k))
         raise ValueError("trusted manifest drift: " + ", ".join(changed))
 
 

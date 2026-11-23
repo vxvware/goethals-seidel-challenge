@@ -9,7 +9,17 @@ that describes it.
 
 import html
 import json
+from collections.abc import Collection, Iterable
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    # Annotations are evaluated lazily, so this module still imports only the standard library.
+    from references import Bibliography
+    from verify.common import JSON, JSONObject, PathLike
+
+type OrderStates = dict[int, dict[str, JSONObject]]
+"""The state of each order for each matrix type, as table() returns it."""
 
 DATA = Path(__file__).resolve().parents[1] / "baselines/hadamard-orders.json"
 TYPES = ("hadamard", "skew-hadamard")
@@ -33,20 +43,20 @@ CELL_TRACKS = {"hadamard": "general", "skew-hadamard": "skew-sds"}
 BOARD_MAX_N = 131
 
 
-def esc(value):
+def esc(value: object) -> str:
     return html.escape(str(value), quote=True)
 
 
-def load_data(path=DATA):
+def load_data(path: PathLike = DATA) -> JSON:
     return json.loads(Path(path).read_text())
 
 
-def in_range(data):
+def in_range(data: JSONObject) -> range:
     r = data["range"]
     return range(r["min"], r["max"] + 1, r["step"])
 
 
-def validate(data, bib):
+def validate(data: JSONObject, bib: Bibliography) -> JSONObject:
     """Raise ValueError unless the data file is consistent and every source has a reference."""
     orders = in_range(data)
     if (data["range"]["min"], data["range"]["step"]) != (4, 4) or data["range"]["max"] % 4:
@@ -87,13 +97,13 @@ def validate(data, bib):
     return data
 
 
-def board_holdings(results):
+def board_holdings(results: dict[str, JSONObject]) -> dict[int, dict[str, list[str]]]:
     """The verified quadruples of the board by order 4n and matrix type.
 
     Every quadruple gives a Hadamard matrix of order 4n through the
     Goethals-Seidel array, and one with a skew block gives a skew-Hadamard matrix.
     """
-    held = {}
+    held: dict[int, dict[str, list[str]]] = {}
     for ident, x in results.items():
         if x["type"] != "quadruple":
             continue
@@ -104,26 +114,25 @@ def board_holdings(results):
     return held
 
 
-def table(data, results):
+def table(data: JSONObject, results: dict[str, JSONObject]) -> OrderStates:
     """The state of every order in range: {order: {type: {...}}}.
 
     A state is board when the board holds a verified matrix of the order,
     otherwise reported or open as the data file says, otherwise known.
     """
     held = board_holdings(results)
-    out = {}
+    out: OrderStates = {}
     for order in in_range(data):
         out[order] = {}
         for name in TYPES:
             t = data["types"][name]
             record = next((x for x in t["since"] if order in x["orders"]), None)
             entries = sorted(held.get(order, {}).get(name, []))
-            if record and record["status"] == "board":
-                if not set(record["entry_ids"]) <= set(entries):
-                    raise ValueError(
-                        f"hadamard-orders: the board does not hold {record['entry_ids']} "
-                        f"as {name} matrices of order {order}"
-                    )
+            if record and record["status"] == "board" and not set(record["entry_ids"]) <= set(entries):
+                raise ValueError(
+                    f"hadamard-orders: the board does not hold {record['entry_ids']} "
+                    f"as {name} matrices of order {order}"
+                )
             if entries:
                 state = "board"
             elif record:
@@ -141,11 +150,19 @@ def table(data, results):
     return out
 
 
-def marks(bib, keys, prefix=""):
-    return " ".join(bib.mark(key, prefix) for key in sorted(set(keys), key=bib.number.get))
+def marks(bib: Bibliography, keys: Iterable[str], prefix: str = "") -> str:
+    return " ".join(bib.mark(key, prefix) for key in sorted(set(keys), key=bib.number.__getitem__))
 
 
-def state_cell(order, name, info, href, text=None, new=False, board=None):
+def state_cell(
+    order: int,
+    name: str,
+    info: JSONObject,
+    href: str,
+    text: str | int | None = None,
+    new: bool = False,
+    board: JSONObject | None = None,
+) -> str:
     """One table cell for an order and a type, in the grid's cell style.
 
     With new set, the cell carries the grid's new-result marker. board, when
@@ -191,7 +208,9 @@ def state_cell(order, name, info, href, text=None, new=False, board=None):
     )
 
 
-def grid_cells(n, states, new_skew=(), board=None):
+def grid_cells(
+    n: int, states: OrderStates, new_skew: Collection[int] = (), board: dict[str, JSONObject] | None = None
+) -> str:
     """The two order cells of the front-page grid row of n, showing the order 4n.
 
     Each links to the board cell of n for its type: any quadruple for a
@@ -219,13 +238,13 @@ def grid_cells(n, states, new_skew=(), board=None):
     )
 
 
-def listing(values):
+def listing(values: Iterable[object]) -> str:
     """Orders joined as prose: "1, 2 and 3"."""
-    values = [str(v) for v in values]
-    return values[0] if len(values) == 1 else ", ".join(values[:-1]) + " and " + values[-1]
+    words = [str(v) for v in values]
+    return words[0] if len(words) == 1 else ", ".join(words[:-1]) + " and " + words[-1]
 
 
-def intro(data):
+def intro(data: JSONObject) -> str:
     """The two-sentence description of the front-page grid, with the smallest open skew orders."""
     op = data["types"]["skew-hadamard"]["open"]
     first = f"{op[0]} and {op[1]}" if len(op) > 1 else (str(op[0]) if op else "")

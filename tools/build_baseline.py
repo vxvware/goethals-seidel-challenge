@@ -1,16 +1,16 @@
 """Materialize individual, sourced status records; never infer absence from a missing import."""
 
-from pathlib import Path
-from math import isqrt
 import sys
+from math import isqrt
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from verify.common import ROOT, write_json
+from verify.common import ROOT, JSONObject, write_json
 
-records = []
+records: list[JSONObject] = []
 
 
-def add(track, n, status, url, title):
+def add(track: str, n: int, status: str, url: str, title: str) -> None:
     records.append(
         {
             "n": n,
@@ -45,7 +45,7 @@ for n in range(1, 64, 2):
     )
 
 
-def prime_power(q):
+def prime_power(q: int) -> bool:
     for p in range(2, isqrt(q) + 1):
         if q % p == 0:
             while q % p == 0:
@@ -121,7 +121,8 @@ for n in range(47, 132, 2):
             n,
             "exists",
             "https://www.sciencedirect.com/science/article/pii/0012365X77900097",
-            "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, q a prime power, q = 5 (mod 8)",
+            "Spence, Skew-Hadamard matrices of order 2(q+1): G-matrices of order (q+1)/2, "
+            "q a prime power, q = 5 (mod 8)",
         )
 # The published exhaustive search at v=49 reports no G-matrices. Exactly
 # verified rows on the board contradict it, so the claim is kept as a
@@ -146,9 +147,14 @@ write_json(
         "id": "gs-literature-2026-10-16",
         "records": records,
         "notes": [
-            "Good n=53, 55, and 61 and G-matrices at n=49 and 59 have no published existence source here: their existence on the board comes from imported, exactly verified vxvware/saw-best-matrix rows. G-matrices at 51, 55, and 63 exist by Spence's infinite family; the imported censuses add the class counts.",
-            "A contradicted record is a published nonexistence claim that exactly verified rows on this board refute. It is neither an existence nor an emptiness source.",
-            "Missing records mean unresolved within this sourced baseline, not a claim of exhaustive literature review.",
+            "Good n=53, 55, and 61 and G-matrices at n=49 and 59 have no published existence source here: "
+            "their existence on the board comes from imported, exactly verified vxvware/saw-best-matrix rows. "
+            "G-matrices at 51, 55, and 63 exist by Spence's infinite family; the imported censuses add the class "
+            "counts.",
+            "A contradicted record is a published nonexistence claim that exactly verified rows on this board "
+            "refute. It is neither an existence nor an emptiness source.",
+            "Missing records mean unresolved within this sourced baseline, not a claim of exhaustive literature "
+            "review.",
         ],
     },
 )

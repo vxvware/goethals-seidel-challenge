@@ -25,20 +25,23 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from tools.import_dashboard import store  # noqa: E402
-from verify.common import ROOT  # noqa: E402
-from verify.equivalence import canonical, fingerprint  # noqa: E402
-from verify.gs_verify import memberships, validate_rows  # noqa: E402
-from verify.model import validate  # noqa: E402
+from tools.import_dashboard import store
+from verify.common import ROOT, Rows
+from verify.equivalence import canonical, fingerprint
+from verify.gs_verify import memberships, validate_rows
+from verify.model import validate
 
 SUBMITTER = "vprusso"
+type Element = tuple[int, ...]
+"""An element of GF(p^m): its m coefficients over GF(p), lowest degree first."""
+
 SOURCE = {
     "title": "Turyn, An infinite class of Williamson matrices, J. Combin. Theory Ser. A 12 (1972)",
     "url": "https://doi.org/10.1016/0097-3165(72)90095-7",
 }
 
 
-def prime_factors(m):
+def prime_factors(m: int) -> list[int]:
     out, p = [], 2
     while p * p <= m:
         while m % p == 0:
@@ -50,7 +53,7 @@ def prime_factors(m):
     return sorted(set(out))
 
 
-def prime_power(q):
+def prime_power(q: int) -> tuple[int, int] | None:
     """(p, e) with q = p^e, or None."""
     for p in prime_factors(q):
         e = 0
@@ -65,24 +68,24 @@ def prime_power(q):
 class GF:
     """GF(p^m) as polynomials over GF(p) modulo an irreducible monic f of degree m."""
 
-    def __init__(self, p, m):
+    def __init__(self, p: int, m: int) -> None:
         self.p, self.m = p, m
         self.one = self.el([1])
         self.zero = self.el([])
         self.minus_one = self.el([p - 1])
-        self.f = self._irreducible()
+        self.f: list[int] = self._irreducible()
 
-    def el(self, coeffs):
+    def el(self, coeffs: list[int]) -> Element:
         c = [x % self.p for x in coeffs] + [0] * (self.m - len(coeffs))
         return tuple(c[: self.m])
 
-    def add(self, x, y):
-        return tuple((a + b) % self.p for a, b in zip(x, y))
+    def add(self, x: Element, y: Element) -> Element:
+        return tuple((a + b) % self.p for a, b in zip(x, y, strict=True))
 
-    def sub(self, x, y):
-        return tuple((a - b) % self.p for a, b in zip(x, y))
+    def sub(self, x: Element, y: Element) -> Element:
+        return tuple((a - b) % self.p for a, b in zip(x, y, strict=True))
 
-    def mul(self, x, y):
+    def mul(self, x: Element, y: Element) -> Element:
         p, m = self.p, self.m
         prod = [0] * (2 * m - 1)
         for i, a in enumerate(x):
@@ -96,7 +99,7 @@ class GF:
                     prod[k - m + i] = (prod[k - m + i] - c * self.f[i]) % p
         return tuple(prod[:m])
 
-    def pow(self, x, e):
+    def pow(self, x: Element, e: int) -> Element:
         out = self.one
         while e:
             if e & 1:
@@ -105,10 +108,10 @@ class GF:
             e >>= 1
         return out
 
-    def inv(self, x):
+    def inv(self, x: Element) -> Element:
         return self.pow(x, self.p**self.m - 2)
 
-    def _poly_mod(self, a, f):
+    def _poly_mod(self, a: list[int], f: list[int]) -> list[int]:
         a = list(a)
         while len(a) >= len(f):
             c = a[-1]
@@ -118,7 +121,7 @@ class GF:
             a.pop()
         return a
 
-    def _poly_gcd_is_one(self, a, f):
+    def _poly_gcd_is_one(self, a: list[int], f: list[int]) -> bool:
         a, b = list(f), self._poly_mod(a, f)
         while b and any(b):
             while b and b[-1] == 0:
@@ -130,7 +133,7 @@ class GF:
             a.pop()
         return len(a) == 1
 
-    def _irreducible(self):
+    def _irreducible(self) -> list[int]:
         p, m = self.p, self.m
         rng = random.Random(p * 1000 + m)
         while True:
@@ -151,18 +154,16 @@ class GF:
             if ok and xp == x:
                 return f
 
-    def primitive(self):
+    def primitive(self) -> Element:
         order = self.p**self.m - 1
         rng = random.Random(order)
         while True:
             g = self.el([rng.randrange(self.p) for _ in range(self.m)])
-            if g != self.zero and all(
-                self.pow(g, order // r) != self.one for r in prime_factors(order)
-            ):
+            if g != self.zero and all(self.pow(g, order // r) != self.one for r in prime_factors(order)):
                 return g
 
 
-def turyn_rows(n):
+def turyn_rows(n: int) -> Rows | None:
     q = 2 * n - 1
     pe = prime_power(q)
     if pe is None or q % 4 != 1:
@@ -176,7 +177,7 @@ def turyn_rows(n):
     half = F.inv(F.el([2]))
     inv2s = F.inv(F.mul(F.el([2]), s))
 
-    def chi(y):
+    def chi(y: Element) -> int:
         if y == F.zero:
             return 0
         v = F.pow(y, (q - 1) // 2)
@@ -186,7 +187,8 @@ def turyn_rows(n):
             return -1
         raise ValueError("character value outside GF(q)")
 
-    a_row, b_row = [], []
+    a_row: list[int] = []
+    b_row: list[int] = []
     x = F.one
     for _ in range(n):
         xq = F.pow(x, q)
@@ -197,13 +199,13 @@ def turyn_rows(n):
         x = F.mul(x, omega)
     if 0 in a_row or b_row[0] != 0 or 0 in b_row[1:]:
         raise ValueError(f"unexpected zero pattern at n={n}")
-    c = [1] + b_row[1:]
-    d = [-1] + b_row[1:]
+    c = [1, *b_row[1:]]
+    d = [-1, *b_row[1:]]
     return validate_rows([a_row, a_row, c, d], n)
 
 
-def board_classes(n):
-    found = {}
+def board_classes(n: int) -> dict[Rows, str]:
+    found: dict[Rows, str] = {}
     for path in sorted((ROOT / "quadruples").glob("*.json")):
         doc = json.loads(path.read_text())
         if doc.get("type") == "quadruple" and doc.get("n") == n:
@@ -211,7 +213,7 @@ def board_classes(n):
     return found
 
 
-def main():
+def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--max", type=int, default=131)
     ap.add_argument("--date", default="2026-11-12")

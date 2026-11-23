@@ -1,12 +1,12 @@
+import random
 from copy import deepcopy
 from itertools import permutations
-import random
 
 import pytest
 
 from verify.common import ROOT, read_json
-from verify.gs_verify import paf, validate_rows, verify, memberships
 from verify.equivalence import canonical, fingerprint, normalize, reverse
+from verify.gs_verify import memberships, paf, validate_rows, verify
 from verify.model import validate
 
 

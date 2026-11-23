@@ -1,18 +1,18 @@
 """Schema validation shared by CLI, CI, and importer."""
 
 from functools import lru_cache
+
 from jsonschema import Draft202012Validator, FormatChecker
-from verify.common import ROOT, read_json
+
+from verify.common import ROOT, JSONObject, read_json
 
 
 @lru_cache(maxsize=1)
-def validator():
-    return Draft202012Validator(
-        read_json(ROOT / "schema/entry.schema.json"), format_checker=FormatChecker()
-    )
+def validator() -> Draft202012Validator:
+    return Draft202012Validator(read_json(ROOT / "schema/entry.schema.json"), format_checker=FormatChecker())
 
 
-def validate(entry):
+def validate(entry: JSONObject) -> JSONObject:
     errors = sorted(validator().iter_errors(entry), key=lambda e: str(e.path))
     if errors:
         first = errors[0]

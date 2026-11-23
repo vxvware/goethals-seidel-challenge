@@ -21,12 +21,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from verify import census_replays  # noqa: E402
-from verify.board import load  # noqa: E402
-from verify.common import ROOT, digest, read_json, write_json  # noqa: E402
+from verify import census_replays
+from verify.board import load
+from verify.common import ROOT, digest, read_json, write_json
 
 
-def main():
+def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("entry")
     p.add_argument("--engine", required=True, choices=sorted(census_replays.ENGINES))
@@ -42,11 +42,7 @@ def main():
     entry = documents[a.entry]
     if entry["type"] != "census":
         raise SystemExit(f"{a.entry} is not a census")
-    rows = [
-        line.strip()
-        for line in Path(a.rows).read_text().splitlines()
-        if line.strip() and line[0] in "+-"
-    ]
+    rows = [line.strip() for line in Path(a.rows).read_text().splitlines() if line.strip() and line[0] in "+-"]
     report = {
         "version": 1,
         "entry_id": a.entry,

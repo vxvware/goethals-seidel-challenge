@@ -5,14 +5,15 @@ import re
 import sys
 
 import pytest
+
 from verify.board import load, summary
 from verify.common import ROOT, TRACKS, read_json
 
 sys.path.insert(0, str(ROOT / "site"))
-import orders  # noqa: E402
-from references import Bibliography  # noqa: E402
+from test_site import gs_array, site_build
 
-from test_site import gs_array, site_build  # noqa: E402
+import orders
+from references import Bibliography
 
 
 @pytest.fixture(scope="module")
@@ -94,9 +95,7 @@ def test_board_records_match_the_board_and_the_gap_baseline(board, data, states)
     assert states[356]["skew-hadamard"]["state"] == "board"
     assert states[356]["skew-hadamard"]["listed_open"]
     # The board may hold further quadruples of this order before the baselines list them.
-    assert {"n89-b2a223b0fb7500feb95f", "n89-eec2e43c042090883c04"} <= set(
-        states[356]["skew-hadamard"]["entries"]
-    )
+    assert {"n89-b2a223b0fb7500feb95f", "n89-eec2e43c042090883c04"} <= set(states[356]["skew-hadamard"]["entries"])
     assert states[476]["skew-hadamard"]["state"] == "board"
     missing = copy.deepcopy(data)
     missing["types"]["skew-hadamard"]["since"][0]["entry_ids"] = ["n89-0000"]
@@ -128,9 +127,7 @@ def test_states_follow_the_data_file(data, states):
         is_open = [o for o, s in states.items() if s[name]["state"] == "open"]
         assert is_open == t["open"]
         reported = {o for o, s in states.items() if s[name]["state"] == "reported"}
-        assert reported == {
-            o for record in t["since"] if record["status"] == "reported" for o in record["orders"]
-        }
+        assert reported == {o for record in t["since"] if record["status"] == "reported" for o in record["orders"]}
     # Orders the sources give as known and the board does not hold. Use orders beyond the
     # board's range, n > 131, so that a new board entry cannot turn one into "board".
     assert states[532]["skew-hadamard"]["state"] == "known"
@@ -195,9 +192,7 @@ def test_grid_columns_agree_with_the_data_file(data, states):
         # Each existence cell links to the board cell of n for its type.
         hrefs = re.findall(r'href="([^"]+)"', orders.grid_cells(n, states))
         assert hrefs == [f"cells/n{n}-general.html", f"cells/n{n}-skew-sds.html"]
-    row = dict(
-        (name, (state, text)) for _, name, _, state, text in cells(orders.grid_cells(89, states))
-    )
+    row = {name: (state, text) for _, name, _, state, text in cells(orders.grid_cells(89, states))}
     assert row == {"hadamard": ("board", "356"), "skew-hadamard": ("board", "356")}
     # Where the board holds no skew-Hadamard matrix of order 4n and the sources do
     # not list the order as open, the grid shows the order as known.
@@ -215,10 +210,7 @@ def test_unresolved_skew_cells_with_a_known_order(board, states):
     # An unresolved cell for quadruples with a skew block does not make its order
     # open: the order is known whenever the sources do not list it as open.
     for n in range(1, orders.BOARD_MAX_N + 1, 2):
-        if (
-            by_cell[n, "skew-sds"]["status"] == "unresolved"
-            and not states[4 * n]["skew-hadamard"]["listed_open"]
-        ):
+        if by_cell[n, "skew-sds"]["status"] == "unresolved" and not states[4 * n]["skew-hadamard"]["listed_open"]:
             assert states[4 * n]["skew-hadamard"]["state"] == "known"
 
 
@@ -239,16 +231,14 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     # n, the two order columns, then the four named families; the tracks for
     # any quadruple and for a skew block have no columns of their own.
     columns = re.findall(r'<th scope="col"[^>]*>([^<]*)</th>', head)
-    assert columns == ["n", "hadamard", "skew-hadamard"] + [
-        module.TRACK_LABELS[x] for x in module.PRIMARY
-    ]
+    assert columns == ["n", "hadamard", "skew-hadamard"] + [module.TRACK_LABELS[x] for x in module.PRIMARY]
     assert "With a skew block<" not in head and ">Any<" not in head
     # The column filter offers every column, the two tracks through their order columns.
     values = re.findall(r'<option value="([a-z-]+)">', options)
     assert values == ["general", "skew-sds", *module.PRIMARY]
     by_cell = {(c["n"], c["stratum"]): c for c in stats["cells"]}
     marked = module.new_cells(stats, r)
-    for n, row in zip(range(1, orders.BOARD_MAX_N + 1, 2), rows.split("</tr>")):
+    for n, row in zip(range(1, orders.BOARD_MAX_N + 1, 2), rows.split("</tr>"), strict=False):
         found = {name: (classes, state) for classes, name, _, state, _ in cells(row)}
         assert {name: state for name, (_, state) in found.items()} == {
             name: states[4 * n][name]["state"] for name in orders.TYPES
@@ -259,15 +249,15 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
         assert tracks == ["general", "skew-sds", *module.PRIMARY]
         # Markers of the merged tracks sit on the order cells.
         cells_html = row.split("<td")[2:]
-        for track, html in zip(("general", "skew-sds", *module.PRIMARY), cells_html):
+        for track, html in zip(("general", "skew-sds", *module.PRIMARY), cells_html, strict=False):
             assert ('class="participant"' in html) == ((track, n) in marked), (n, track)
             c = by_cell[n, track]
             assert f'data-status="{c["status"]}"' in html
             if c["contradicted"]:
                 assert "contradicted" in html.split('"')[1]
-    row = dict(zip(range(1, orders.BOARD_MAX_N + 1, 2), rows.split("</tr>")))
+    row = dict(zip(range(1, orders.BOARD_MAX_N + 1, 2), rows.split("</tr>"), strict=False))
     # At 85 the board's cyclic skew cell is unresolved and the order is known from the sources.
-    skew85 = dict((name, (state, text)) for _, name, _, state, text in cells(row[85]))
+    skew85 = {name: (state, text) for _, name, _, state, text in cells(row[85])}
     assert skew85["skew-hadamard"] == ("known", "340")
     assert 'data-status="unresolved"' in row[85].split("<td")[3]
     assert row[89].split("<td")[3].count('class="participant"') == 1
@@ -276,13 +266,13 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
 def test_order_cell_shows_only_the_order():
     info = {"state": "board", "listed_open": False}
     board = {"hadamard": {"count": "588 classes"}, "skew-hadamard": {"count": "247 classes"}}
-    held = orders.grid_cells(13, {52: {name: info for name in orders.TYPES}}, board=board)
+    held = orders.grid_cells(13, {52: dict.fromkeys(orders.TYPES, info)}, board=board)
     assert [text for *_, text in cells(held)] == ["52", "52"]
     assert "<span>52</span>" in held and 'class="classes"' not in held
     # The class count stays in the tooltip while the board holds the matrix.
     assert "; 588 classes" in held and "; 247 classes" in held
     known = {"state": "known", "listed_open": False}
-    other = orders.grid_cells(13, {52: {name: known for name in orders.TYPES}}, board=board)
+    other = orders.grid_cells(13, {52: dict.fromkeys(orders.TYPES, known)}, board=board)
     assert "classes" not in other
     source = (ROOT / "site/build.py").read_text() + (ROOT / "site/style.css").read_text()
     assert "count-key" not in source and ".classes" not in source
@@ -309,7 +299,7 @@ def test_new_skew_order_carries_the_new_result_marker():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     info = {"state": "board", "listed_open": True}
-    states = {356: {name: info for name in module.TYPES}}
+    states = {356: dict.fromkeys(module.TYPES, info)}
     marked = module.grid_cells(89, states, {89})
     plain = module.grid_cells(89, states)
     assert marked.count('class="participant"') == 1 and 'class="participant"' not in plain

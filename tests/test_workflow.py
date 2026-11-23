@@ -1,9 +1,11 @@
 import subprocess
 import sys
+
 import pytest
-from verify.common import ROOT, read_json
-from verify.check_submission_scope import check_changes
+
 from verify.check_authorship import check_author
+from verify.check_submission_scope import check_changes
+from verify.common import ROOT, read_json
 
 
 def test_scope_separates_infrastructure():

@@ -4,16 +4,20 @@
 import argparse
 import html
 import json
-from pathlib import Path
 import shutil
 import sys
+from collections.abc import Collection, Iterable
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from verify.common import ROOT, TRACKS, write_json
-from verify.board import load, summary
-from references import Bibliography
 import orders
+from references import Bibliography
+from verify.board import load, summary
+from verify.common import ROOT, TRACKS, JSONObject, Row, write_json
+
+type Results = dict[str, JSONObject]
+"""Entry documents or verifier results, by entry id."""
 
 BIB = Bibliography()
 ORDERS = orders.validate(orders.load_data(), BIB)
@@ -55,18 +59,17 @@ SKEW_TRACKS = ("good", "best", "kkss", "skew-sds")
 REPOSITORY = "https://github.com/vxvware/goethals-seidel-challenge"
 FOLDERS = {"quadruple": "quadruples", "certificate": "certificates", "census": "census"}
 DESCRIPTION = (
-    "An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, "
-    "and computational evidence."
+    "An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, and computational evidence."
 )
 
 
-def tier_label(tier, rows=False):
+def tier_label(tier: str | None, rows: bool = False) -> str | None:
     """The displayed name of a tier. The schema value stays `reproduced`; for a
     quadruple, or a cell that holds one, that tier means its rows were verified."""
     return "rows verified" if rows and tier == "reproduced" else tier
 
 
-def scope_text(scope):
+def scope_text(scope: JSONObject) -> str:
     """The family a scoped emptiness certificate covers, in words."""
     if scope["kind"] == "same-subgroup-coset-unions":
         zero = ", each with or without 0" if scope.get("include_zero") else ""
@@ -77,7 +80,7 @@ def scope_text(scope):
     return scope["kind"]
 
 
-def certificate_label(result):
+def certificate_label(result: JSONObject) -> str | None:
     """What a certificate establishes, so that a proof about a restricted family
     is not read as a statement about the whole cell."""
     tier = result.get("tier")
@@ -88,7 +91,7 @@ def certificate_label(result):
     return tier
 
 
-def display_rows(result):
+def display_rows(result: JSONObject) -> tuple[list[Row], str]:
     """The rows and symmetry pattern in the order the site draws and lists them.
 
     The canonical order sorts the rows, so a skew block need not come first, and
@@ -106,7 +109,7 @@ def display_rows(result):
     return rows, pattern
 
 
-def signs(row):
+def signs(row: Iterable[int]) -> str:
     return "".join("+" if v > 0 else "-" for v in row)
 
 
@@ -127,17 +130,17 @@ DEFINITION = (
 \[AA^{\mathsf T} + BB^{\mathsf T} + CC^{\mathsf T} + DD^{\mathsf T} = 4nI_n.\]
 <p>A block \(X\) is symmetric when \(X^{\mathsf T} = X\) and skew when \(X^{\mathsf T} = 2I_n - X\). With \(R\) the \(n \times n\) back-diagonal permutation matrix, the Goethals–Seidel array</p>
 \[H = \begin{pmatrix} A & BR & CR & DR \\ -BR & A & -D^{\mathsf T}R & C^{\mathsf T}R \\ -CR & D^{\mathsf T}R & A & -B^{\mathsf T}R \\ -DR & -C^{\mathsf T}R & B^{\mathsf T}R & A \end{pmatrix}\]
-<p>satisfies \(HH^{\mathsf T} = 4nI_{4n}\), so it is a Hadamard matrix of order \(4n\), and a skew-Hadamard matrix whenever \(A\) is skew. The array is due to Goethals and Seidel """
+<p>satisfies \(HH^{\mathsf T} = 4nI_{4n}\), so it is a Hadamard matrix of order \(4n\), and a skew-Hadamard matrix whenever \(A\) is skew. The array is due to Goethals and Seidel """  # noqa: E501
     + BIB.mark("goethals1970skew")
     + ".</p></aside>"
 )
 
 
-def esc(value):
+def esc(value: object) -> str:
     return html.escape(str(value), quote=True)
 
 
-def badges(origins):
+def badges(origins: Collection[str]) -> str:
     return "".join(
         f'<span class="origin {esc(origin)}">{esc(ORIGIN_LABELS[origin])}</span>'
         for origin in ORIGIN_LABELS
@@ -145,7 +148,7 @@ def badges(origins):
     )
 
 
-def people(group):
+def people(group: JSONObject) -> str:
     return ", ".join(
         f'<a href="https://github.com/{esc(person["github"])}">{esc(person["name"])}</a>'
         if person.get("github")
@@ -154,12 +157,12 @@ def people(group):
     )
 
 
-def source_keys(sources):
+def source_keys(sources: Iterable[JSONObject]) -> list[str]:
     """Bibliography keys of the literature among a list of source objects."""
     return [key for s in sources if (key := BIB.resolve(s["url"]))]
 
 
-def source_item(s, prefix):
+def source_item(s: JSONObject, prefix: str) -> str:
     """One source as a list item: its link, then the number of its reference."""
     key = BIB.resolve(s["url"])
     mark = f" {BIB.mark(key, prefix)}" if key else ""
@@ -176,16 +179,14 @@ def source_item(s, prefix):
     return f'<li><a href="{esc(url)}" rel="noopener">{esc(s["title"])}</a>{mark}{extra}</li>'
 
 
-def references_block(keys, prefix):
+def references_block(keys: Iterable[str], prefix: str) -> str:
     """The full references a page cites, numbered as in the board's reference list."""
     listing = BIB.listing(keys, prefix)
     return f"<h2>References</h2>{listing}" if listing else ""
 
 
-def credit_block(group, prefix=""):
-    publication = (
-        "Not yet published" if group["publication_status"] == "unpublished" else "Published result"
-    )
+def credit_block(group: JSONObject, prefix: str = "") -> str:
+    publication = "Not yet published" if group["publication_status"] == "unpublished" else "Published result"
     cited = list(dict.fromkeys(BIB.keys_in(group["summary"])))
     authors = "; ".join(f"{esc(BIB.short(key))} {BIB.mark(key, prefix)}" for key in cited)
     return (
@@ -196,23 +197,20 @@ def credit_block(group, prefix=""):
     )
 
 
-def shell(title, body, prefix="", head="", description=DESCRIPTION):
-    return f'''<!doctype html>
+def shell(title: str, body: str, prefix: str = "", head: str = "", description: str = DESCRIPTION) -> str:
+    return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Hunting Hadamards</title><meta name="description" content="{esc(description)}"><meta property="og:title" content="{esc(title)} · Hunting Hadamards"><meta property="og:description" content="{esc(description)}">
 <link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
 <header><a class="brand" href="{prefix}./">hunting-hadamards</a><nav><a href="{prefix}./#board">board</a><a href="{prefix}./#new-results">new results</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
-<main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a><p class="credit"><a href="https://vprusso.github.io/">Vincent Russo</a> and <a href="https://trevorvincent.com/">Trevor Vincent</a></p></footer></body></html>'''
+<main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a><p class="credit"><a href="https://vprusso.github.io/">Vincent Russo</a> and <a href="https://trevorvincent.com/">Trevor Vincent</a></p></footer></body></html>"""  # noqa: E501
 
 
 # The colour convention of picture.js, stated once on every page that draws one.
-PICTURE_KEY = (
-    '<p class="muted">Skew blocks are green, symmetric blue, others grey; '
-    "light is +1, dark is −1.</p>"
-)
+PICTURE_KEY = '<p class="muted">Skew blocks are green, symmetric blue, others grey; light is +1, dark is −1.</p>'
 
 
-def quad_figure(doc, result, caption):
+def quad_figure(doc: JSONObject, result: JSONObject, caption: str) -> str:
     """A figure that picture.js paints from the embedded rows, in display order."""
     rows, pattern = display_rows(result)
     payload = json.dumps(
@@ -241,14 +239,10 @@ HERO_CELLS = (
 )
 
 
-def hero_figure(r):
-    quads = []
+def hero_figure(r: Results) -> str:
+    quads: list[JSONObject] = []
     for track, n in HERO_CELLS:
-        ident = min(
-            k
-            for k, x in r.items()
-            if x["type"] == "quadruple" and x["n"] == n and x["tracks"][0] == track
-        )
+        ident = min(k for k, x in r.items() if x["type"] == "quadruple" and x["n"] == n and x["tracks"][0] == track)
         rows, pattern = display_rows(r[ident])
         quads.append(
             {
@@ -267,7 +261,7 @@ def hero_figure(r):
     )
 
 
-def cell_links(result, prefix):
+def cell_links(result: JSONObject, prefix: str) -> str:
     tracks = result.get("tracks", [result.get("stratum")])
     return ", ".join(
         f'<a href="{prefix}cells/n{result["n"]}-{esc(track)}.html">{esc(TRACK_LABELS[track])}</a>'
@@ -276,7 +270,7 @@ def cell_links(result, prefix):
     )
 
 
-def published_count(x):
+def published_count(x: JSONObject) -> bool:
     """A published complete classification whose every class is stored here.
 
     The verifier has not rerun the search, so the record's bound stays lower,
@@ -290,7 +284,7 @@ def published_count(x):
     )
 
 
-def census_count(c, r):
+def census_count(c: JSONObject, r: Results) -> str:
     """The class count a cell's census record states, as '2 classes', or '' without one."""
     if not c["censuses"]:
         return ""
@@ -338,9 +332,7 @@ NEW_RESULT_NAMES = {"williamson": "Williamson ", "good": "Good ", "kkss": "G-"}
 # What a contradicted source says and what was read of it, by bibliography key.
 # {cite} is the linked reference.
 CONTRADICTION_NOTES = {
-    "djokovic2018goethals": (
-        "{cite} report a complete classification for odd v < 50 with none at this order."
-    ),
+    "djokovic2018goethals": ("{cite} report a complete classification for odd v < 50 with none at this order."),
 }
 # Existence results, by contribution id, with the date of the search of the
 # literature and public repositories that found no earlier matrix. An item is
@@ -355,19 +347,17 @@ NEW_RESULT_GROUPS = (
 )
 
 
-def existence_results(stats, r):
+def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
     """The featured existence results, each worded from its verified entries."""
     groups = {g["id"]: g for g in stats["contributions"]}
     items = []
-    for ident, searched in NEW_EXISTENCE.items():
+    for ident in NEW_EXISTENCE:
         group = groups.get(ident)
         if not group or not group["featured"]:
             continue
         entries = [r[e] for e in group["entry_ids"]]
         orders = {x["n"] for x in entries}
-        if len(orders) != 1 or any(
-            x["type"] != "quadruple" or "skew-sds" not in x["tracks"] for x in entries
-        ):
+        if len(orders) != 1 or any(x["type"] != "quadruple" or "skew-sds" not in x["tracks"] for x in entries):
             raise ValueError(f"existence result is not skew quadruples of one order: {ident}")
         n = orders.pop()
         items.append(
@@ -383,15 +373,15 @@ def existence_results(stats, r):
     return items
 
 
-def new_cells(stats, r):
+def new_cells(stats: JSONObject, r: Results) -> set[tuple[str, int]]:
     """The cells the grid marks as new: the curated list and the featured existence results."""
     return NEW_CELLS | {(x["stratum"], x["n"]) for x in existence_results(stats, r)}
 
 
-def new_results(stats, r):
+def new_results(stats: JSONObject, r: Results) -> list[tuple[str, list[JSONObject]]]:
     """The curated new results, grouped, each worded from its cell's evidence."""
     by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
-    groups = {key: [] for key, _ in NEW_RESULT_GROUPS}
+    groups: dict[str, list[JSONObject]] = {key: [] for key, _ in NEW_RESULT_GROUPS}
     for track, n in NEW_RESULTS:
         c = by_cell[n, track]
         item = {"n": n, "stratum": track, "source": None, "qualifier": None}
@@ -417,7 +407,7 @@ def new_results(stats, r):
     return [(title, groups[key]) for key, title in NEW_RESULT_GROUPS if groups[key]]
 
 
-def new_results_section(stats, r):
+def new_results_section(stats: JSONObject, r: Results) -> str:
     parts = [
         '<section id="new-results"><h2>New results</h2><p class="key">Statements that a literature '
         "search did not find in the sources it read. This does not claim priority.</p>"
@@ -433,9 +423,7 @@ def new_results_section(stats, r):
                     raise ValueError(f"contradicted source is not in references.bib: {url}")
                 if key not in CONTRADICTION_NOTES:
                     raise ValueError(f"contradicted source has no note on what was read: {key}")
-                cite = (
-                    f'<a href="{esc(url)}" rel="noopener">{esc(BIB.short(key))}</a> {BIB.mark(key)}'
-                )
+                cite = f'<a href="{esc(url)}" rel="noopener">{esc(BIB.short(key))}</a> {BIB.mark(key)}'
                 link += " " + esc(CONTRADICTION_NOTES[key]).replace("{cite}", cite)
             if x["qualifier"]:
                 link += f' <span class="muted">({esc(x["qualifier"])})</span>'
@@ -445,7 +433,7 @@ def new_results_section(stats, r):
     return "".join(parts)
 
 
-def cell_description(c):
+def cell_description(c: JSONObject) -> str:
     """The meta description of a cell page, for search results and link previews."""
     n, track = c["n"], c["stratum"]
     head = f"Order n = {n}, {TRACK_LABELS[track]}: "
@@ -468,7 +456,7 @@ def cell_description(c):
     )
 
 
-def entry_description(doc, result):
+def entry_description(doc: JSONObject, result: JSONObject) -> str:
     """The meta description of an entry page."""
     ident, n = doc["id"], doc["n"]
     if doc["type"] == "quadruple":
@@ -485,7 +473,7 @@ def entry_description(doc, result):
     return f"Evidence record {ident} at order n = {n}, {label}: {what}."
 
 
-def rows_block(doc, result):
+def rows_block(doc: JSONObject, result: JSONObject) -> str:
     """The four rows of a quadruple as sign strings, in the order the picture uses."""
     rows, pattern = display_rows(result)
     n = doc["n"]
@@ -504,13 +492,11 @@ def rows_block(doc, result):
             " The verifier result below lists the same rows as canonical_rows in sorted order, "
             "in which the skew row is not first."
         )
-    lines = "\n".join(
-        f"{name} {letter} {signs(row)}" for name, letter, row in zip("ABCD", pattern, rows)
-    )
+    lines = "\n".join(f"{name} {letter} {signs(row)}" for name, letter, row in zip("ABCD", pattern, rows, strict=True))
     return f'<section class="rows-text"><h2>Rows</h2><p>{esc(text)}</p><pre>{esc(lines)}</pre></section>'
 
 
-def cell_page(c, d, r):
+def cell_page(c: JSONObject, d: Results, r: Results) -> str:
     """One page per order and track: status, credit, sources, and the matrices."""
     n, track = c["n"], c["stratum"]
     tier = tier_label(c["tier"], rows=bool(c["quadruples"]))
@@ -524,9 +510,7 @@ def cell_page(c, d, r):
         x = r[c["censuses"][0]]
         link = f'<a href="../entries/{esc(x["id"])}.html">{esc(x["id"])}</a>'
         if x["bound"] != "exact" and x["count"] == 0:
-            parts.append(
-                f'<p class="census">published empty census · awaiting a full replay · {link}</p>'
-            )
+            parts.append(f'<p class="census">published empty census · awaiting a full replay · {link}</p>')
         else:
             kind = (
                 "complete census"
@@ -539,9 +523,7 @@ def cell_page(c, d, r):
                 kind += " under equiv-v2, which also identifies independent cyclic shifts"
             if x.get("count_only"):
                 kind += " · a count only, the classes are not stored"
-            stated = census_count(c, r) or (
-                f"{x['count']} {'class' if x['count'] == 1 else 'classes'} known"
-            )
+            stated = census_count(c, r) or (f"{x['count']} {'class' if x['count'] == 1 else 'classes'} known")
             parts.append(
                 f'<p class="census"><strong>{esc(stated)}</strong> · {kind} · '
                 f"{esc(x['tier'] or 'verified representatives')} · {link}</p>"
@@ -562,18 +544,12 @@ def cell_page(c, d, r):
     # so that a note about a restricted family follows the result it qualifies.
     parts.extend(
         credit_block(group, "../")
-        for group in sorted(
-            c["contributions"], key=lambda g: not set(g["entry_ids"]) & set(c["quadruples"])
-        )
+        for group in sorted(c["contributions"], key=lambda g: not set(g["entry_ids"]) & set(c["quadruples"]))
         if group["id"] != "published-catalogues"
     )
     if c["quadruples"]:
         count = len(c["quadruples"])
-        heading = (
-            "Matrices"
-            if c["censuses"]
-            else f"{count} verified {'class' if count == 1 else 'classes'}"
-        )
+        heading = "Matrices" if c["censuses"] else f"{count} verified {'class' if count == 1 else 'classes'}"
         parts.append(f'<h2>{heading}</h2>{PICTURE_KEY}<div class="gallery">')
         for ident in c["quadruples"]:
             result = r[ident]
@@ -590,9 +566,7 @@ def cell_page(c, d, r):
                 detail += " · published empty, awaiting a full replay"
             elif result["type"] == "census":
                 known = "" if result["bound"] == "exact" or published_count(result) else " known"
-                detail += (
-                    f" · {result['count']} {'class' if result['count'] == 1 else 'classes'}{known}"
-                )
+                detail += f" · {result['count']} {'class' if result['count'] == 1 else 'classes'}{known}"
                 if result["equivalence"] == "equiv-v2":
                     detail += " · equiv-v2 (shifts identified)"
                 if published_count(result):
@@ -604,23 +578,17 @@ def cell_page(c, d, r):
                     detail += f" · covers only {scope_text(result['scope'])}"
             elif result.get("tier"):
                 detail += f" · {result['tier']}"
-            items.append(
-                f'<li><a href="../entries/{esc(ident)}.html">{esc(ident)}</a> · {esc(detail)}</li>'
-            )
+            items.append(f'<li><a href="../entries/{esc(ident)}.html">{esc(ident)}</a> · {esc(detail)}</li>')
         parts.append(f"<h2>Evidence and census records</h2><ul>{''.join(items)}</ul>")
     if c["sources"]:
-        parts.append(
-            "<h2>Sources</h2><ul>"
-            + "".join(source_item(s["source"], "../") for s in c["sources"])
-            + "</ul>"
-        )
+        parts.append("<h2>Sources</h2><ul>" + "".join(source_item(s["source"], "../") for s in c["sources"]) + "</ul>")
     parts.append('<p><a href="../#board">Back to the board</a></p></article>')
     if c["quadruples"]:
         parts.append('<script src="../picture.js" defer></script>')
     return "".join(parts)
 
 
-def grid_cell(c, marked, r):
+def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) -> JSONObject:
     """What the front-page grid shows for one board cell, and the words of its tooltip."""
     track, n = c["stratum"], c["n"]
     label = (
@@ -642,9 +610,7 @@ def grid_cell(c, marked, r):
         else ""
     )
     origin_words = ", ".join(ORIGIN_LABELS[o] for o in c["origins"])
-    accessible = "; ".join(
-        x for x in (f"Order {n}, {TRACK_LABELS[track]}: {label}", small, origin_words) if x
-    )
+    accessible = "; ".join(x for x in (f"Order {n}, {TRACK_LABELS[track]}: {label}", small, origin_words) if x)
     origins = list(c["origins"])
     new = (track, n) in marked
     if new and "participant-result" not in origins:
@@ -677,7 +643,7 @@ def grid_cell(c, marked, r):
     }
 
 
-def filter_data(x):
+def filter_data(x: JSONObject) -> dict[str, str]:
     """The data attributes of a grid cell that the filters in app.js read."""
     return {
         "track": x["track"],
@@ -687,11 +653,11 @@ def filter_data(x):
     }
 
 
-def filter_attributes(x):
+def filter_attributes(x: JSONObject) -> str:
     return "".join(f' data-{key}="{esc(value)}"' for key, value in filter_data(x).items())
 
 
-def grid(stats, r):
+def grid(stats: JSONObject, r: Results) -> tuple[str, str, str]:
     """The front-page grid: its header rows, its body rows and the options of its column filter."""
     by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
     marked = new_cells(stats, r)
@@ -701,7 +667,9 @@ def grid(stats, r):
     for n in range(1, 132, 2):
         found = {track: grid_cell(by_cell[n, track], marked, r) for track in TRACKS}
         cells = [
-            f'<td class="{esc(x["classes"])}"{filter_attributes(x)}><a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(x["accessible"])}" title="{esc(x["accessible"])}">{esc(x["text"])}{x["marker"]}</a></td>'
+            f'<td class="{esc(x["classes"])}"{filter_attributes(x)}>'
+            f'<a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(x["accessible"])}" '
+            f'title="{esc(x["accessible"])}">{esc(x["text"])}{x["marker"]}</a></td>'
             for track, x in found.items()
             if track in PRIMARY
         ]
@@ -716,33 +684,28 @@ def grid(stats, r):
             for name, track in orders.CELL_TRACKS.items()
         }
         rows.append(
-            f'<tr data-n="{n}"><td>{n}</td>{orders.grid_cells(n, states, new_skew, board)}'
-            + "".join(cells)
-            + "</tr>"
+            f'<tr data-n="{n}"><td>{n}</td>{orders.grid_cells(n, states, new_skew, board)}' + "".join(cells) + "</tr>"
         )
     head = (
         '<tr><th scope="col" rowspan="2">n</th>'
         f'<th scope="colgroup" colspan="2" class="group">{esc(EXISTENCE_GROUP)}</th>'
         f'<th scope="colgroup" colspan="{len(PRIMARY)}" class="group sep">{esc(TRACK_GROUP)}</th>'
         "</tr><tr>"
-        + "".join(
-            f'<th scope="col" data-track="{orders.CELL_TRACKS[name]}">{name}</th>'
-            for name in orders.TYPES
-        )
+        + "".join(f'<th scope="col" data-track="{orders.CELL_TRACKS[name]}">{name}</th>' for name in orders.TYPES)
         + "".join(
             f'<th scope="col" data-track="{x}"{sep}>{esc(TRACK_LABELS[x])}</th>'
-            for x, sep in zip(PRIMARY, (' class="sep"', *[""] * len(PRIMARY)))
+            for x, sep in zip(PRIMARY, (' class="sep"', *[""] * len(PRIMARY)), strict=False)
         )
         + "</tr>"
     )
-    columns = [
-        (orders.CELL_TRACKS[name], f"{name} ({COLUMN_TRACKS[name]})") for name in orders.TYPES
-    ] + [(x, TRACK_LABELS[x]) for x in PRIMARY]
+    columns = [(orders.CELL_TRACKS[name], f"{name} ({COLUMN_TRACKS[name]})") for name in orders.TYPES] + [
+        (x, TRACK_LABELS[x]) for x in PRIMARY
+    ]
     options = "".join(f'<option value="{x}">{esc(label)}</option>' for x, label in columns)
     return head, "".join(rows), options
 
 
-def build(quick=False):
+def build(quick: bool = False) -> JSONObject:
     d, r, b = load(reproduce=not quick)
     stats = summary(d, r, b)
     out = ROOT / "docs"
@@ -764,11 +727,11 @@ def build(quick=False):
     (out / "badges").mkdir(exist_ok=True)
     for key, label in (("quadruples", "verified quadruples"), ("censuses", "census records")):
         value = stats[key]
-        badge = f'''<svg xmlns="http://www.w3.org/2000/svg" width="202" height="24" role="img" aria-label="{label}: {value}">
+        badge = f"""<svg xmlns="http://www.w3.org/2000/svg" width="202" height="24" role="img" aria-label="{label}: {value}">
 <title>{label}: {value}</title><rect width="202" height="24" rx="4" fill="#275c49"/>
 <path d="M4 0h151v24H4Q0 24 0 20V4Q0 0 4 0" fill="#36413d"/>
 <g fill="white" font-family="Verdana,sans-serif" font-size="11" text-anchor="middle">
-<text x="78" y="16">{label}</text><text x="178" y="16">{value}</text></g></svg>'''
+<text x="78" y="16">{label}</text><text x="178" y="16">{value}</text></g></svg>"""  # noqa: E501
         (out / f"badges/{key}.svg").write_text(badge)
     head, rows, options = grid(stats, r)
     body = f"""<section class="hero"><div><h1>Hunting Hadamards</h1><p>Hadamard matrices are believed to exist in every size divisible by 4, but some sizes have never been found. This board tracks the search.</p>{hero_figure(r)}</div>{DEFINITION}</section>
@@ -778,15 +741,13 @@ def build(quick=False):
 {new_results_section(stats, r)}
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Found four sequences that fit? The verifier checks them exactly, works out their family and rejects duplicates of entries already here.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
 <noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
-<script src="app.js" defer></script><script src="picture.js" defer></script><script src="hero.js" defer></script>"""
+<script src="app.js" defer></script><script src="picture.js" defer></script><script src="hero.js" defer></script>"""  # noqa: E501
     (out / "index.html").write_text(shell("The board", body, head=MATH_HEAD))
     for ident, doc in d.items():
         result = r[ident]
         sources = "".join(source_item(s, "../") for s in doc["sources"])
         credits = "".join(
-            credit_block(group, "../")
-            for group in result["contributions"]
-            if group["id"] != "published-catalogues"
+            credit_block(group, "../") for group in result["contributions"] if group["id"] != "published-catalogues"
         )
         if not credits:
             label = (
@@ -820,11 +781,19 @@ def build(quick=False):
         file = f"{FOLDERS[doc['type']]}/{ident}.json"
         raw = f"https://raw.githubusercontent.com/vxvware/goethals-seidel-challenge/main/{file}"
         links = (
-            f'<br>Entry file: <a href="{REPOSITORY}/blob/main/{file}">{esc(file)}</a> · '
-            f'<a href="{raw}">raw JSON</a>'
+            f'<br>Entry file: <a href="{REPOSITORY}/blob/main/{file}">{esc(file)}</a> · <a href="{raw}">raw JSON</a>'
         )
         notes = f"<h2>Notes</h2><p>{esc(doc['notes'])}</p>" if doc.get("notes") else ""
-        text = f"""<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div><h1>{esc(ident)}</h1><span class="tag">{esc(tag or "attributed / archived claim or lower bound")}</span>{credits}<p>Original source attribution: {esc("; ".join(doc["discovered_by"]))}<br>Submitted / imported by: {esc(doc["submitted_by"])} · {doc["submitted_at"]}<br>Board cell: {cell_links(result, "../")}{links}</p>{formal}{picture}{notes}<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre><h2>Sources</h2><ul>{sources}</ul><details><summary>Submission JSON</summary><pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"""
+        text = (
+            f'<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div>'
+            f'<h1>{esc(ident)}</h1><span class="tag">{esc(tag or "attributed / archived claim or lower bound")}</span>'
+            f"{credits}<p>Original source attribution: {esc('; '.join(doc['discovered_by']))}<br>"
+            f"Submitted / imported by: {esc(doc['submitted_by'])} · {doc['submitted_at']}<br>"
+            f"Board cell: {cell_links(result, '../')}{links}</p>{formal}{picture}{notes}"
+            f"<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre>"
+            f"<h2>Sources</h2><ul>{sources}</ul><details><summary>Submission JSON</summary>"
+            f"<pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"
+        )
         (out / f"entries/{ident}.html").write_text(
             shell(ident, text, "../", description=entry_description(doc, result))
         )
@@ -843,7 +812,8 @@ def build(quick=False):
             shell(title, cell_page(c, d, r), "../", description=cell_description(c))
         )
     print(
-        f"Built docs/: {stats['quadruples']} quadruples, {stats['certificates']} evidence records, {stats['censuses']} censuses."
+        f"Built docs/: {stats['quadruples']} quadruples, {stats['certificates']} evidence records, "
+        f"{stats['censuses']} censuses."
     )
     return stats
 
