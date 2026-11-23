@@ -131,9 +131,10 @@ def test_states_follow_the_data_file(data, states):
         assert reported == {
             o for record in t["since"] if record["status"] == "reported" for o in record["orders"]
         }
-    # Orders the sources give as known and the board does not hold.
-    assert states[340]["skew-hadamard"]["state"] == "known"
-    assert states[516]["skew-hadamard"]["state"] == "known"
+    # Orders the sources give as known and the board does not hold. Use orders beyond the
+    # board's range, n > 131, so that a new board entry cannot turn one into "board".
+    assert states[532]["skew-hadamard"]["state"] == "known"
+    assert states[540]["skew-hadamard"]["state"] == "known"
     assert states[532]["hadamard"]["state"] == "known"
     assert states[404]["skew-hadamard"]["state"] == "open"
     assert states[668]["hadamard"]["state"] == "reported"
