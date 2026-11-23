@@ -134,7 +134,7 @@ def test_states_follow_the_data_file(data, states):
     # Orders the sources give as known and the board does not hold.
     assert states[340]["skew-hadamard"]["state"] == "known"
     assert states[516]["skew-hadamard"]["state"] == "known"
-    assert states[404]["hadamard"]["state"] == "known"
+    assert states[532]["hadamard"]["state"] == "known"
     assert states[404]["skew-hadamard"]["state"] == "open"
     assert states[668]["hadamard"]["state"] == "reported"
     assert states[8]["hadamard"]["state"] == "known"
@@ -188,7 +188,10 @@ def test_page_lists_and_rows_equal_the_data_file(board, data, states):
         assert f'href="references.html#ref-{key}">[{bib.number[key]}]' in page
     assert 'href="cells/n89-skew-sds.html">skew</a>' in page
     assert 'href="cells/n129-skew-sds.html">no skew</a>' in page
-    assert '<td class="held"><a href="cells/n101-general.html">none</a></td>' in page
+    held = orders.board_holdings(board[1])
+    for n in range(1, orders.BOARD_MAX_N + 1, 2):
+        word = "any" if held.get(4 * n, {}).get("hadamard") else "none"
+        assert f'<td class="held"><a href="cells/n{n}-general.html">{word}</a>' in page
 
 
 def test_grid_columns_agree_with_the_data_file(data, states):
