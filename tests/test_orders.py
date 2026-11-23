@@ -243,7 +243,7 @@ def test_cell_page_lists_the_quadruples_before_a_restricted_obstruction(board):
     cell = next(c for c in summary(d, r, b)["cells"] if (c["n"], c["stratum"]) == (89, "skew-sds"))
     page = module.cell_page(cell, d, r)
     assert "n = 89 · With a skew block" in page
-    found = page.index("Ten quadruples with a skew block at n=89")
+    found = page.index("Eleven quadruples with a skew block at n=89")
     obstruction = page.index("No quadruple at n=89 has one skew block and all four blocks")
     assert found < obstruction
 
