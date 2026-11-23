@@ -215,40 +215,42 @@ def listing(values):
 
 
 def box(data, results, bib):
-    """The open-orders box of the front page: open, reported and settled orders by type."""
+    """The open-orders box of the front page, kept short: the full lists are data attributes."""
     states = table(data, results)
     top = data["range"]["max"]
     h, s = data["types"]["hadamard"], data["types"]["skew-hadamard"]
     lines = []
-    reported = [x for x in h["since"] if x["status"] == "reported"]
+    h_rep = [o for x in h["since"] if x["status"] == "reported" for o in x["orders"]]
+    h_src = sorted({k for x in h["since"] if x["status"] == "reported" for k in x["sources"]})
     line = (
         f"Hadamard: open up to {top}: {listing(h['open'])}"
         if h["open"]
         else f"Hadamard: none open up to {top}"
     ) + f" {marks(bib, h['listed_open_sources'])}"
-    for x in reported:
-        line += f"; {listing(x['orders'])} reported, not reviewed {marks(bib, x['sources'])}"
+    if h_rep:
+        line += f"; {listing(h_rep)} reported, not reviewed {marks(bib, h_src)}"
     lines.append(
-        f'<li id="open-hadamard" data-orders="{" ".join(map(str, h["open"]))}">{line}.</li>'
+        f'<li id="open-hadamard" data-orders="{" ".join(map(str, h["open"]))}" '
+        f'data-reported="{" ".join(map(str, h_rep))}">{line}.</li>'
     )
+    s_rep = [o for x in s["since"] if x["status"] == "reported" for o in x["orders"]]
+    s_src = sorted({k for x in s["since"] if x["status"] == "reported" for k in x["sources"]})
+    op = s["open"]
+    shown = (
+        "none"
+        if not op
+        else f"smallest {listing(op[:3])}, {len(op)} in all"
+        if len(op) > 3
+        else listing(op)
+    )
+    sline = f"Skew-Hadamard: open up to {top}: {shown} {marks(bib, s['listed_open_sources'])}"
+    if s_rep:
+        sline += f"; {len(s_rep)} more reported, not reviewed {marks(bib, s_src)}"
     lines.append(
-        f'<li id="open-skew-hadamard" data-orders="{" ".join(map(str, s["open"]))}">'
-        f"Skew-Hadamard: open up to {top}: {listing(s['open']) if s['open'] else 'none'} "
-        f"{marks(bib, s['listed_open_sources'])}.</li>"
+        f'<li id="open-skew-hadamard" data-orders="{" ".join(map(str, op))}" '
+        f'data-reported="{" ".join(map(str, s_rep))}" '
+        f'title="Open: {", ".join(map(str, op))}">{sline}.</li>'
     )
-    parts = []
-    for x in s["since"]:
-        if x["status"] != "reported":
-            continue
-        if "doubles" in x:
-            parts.append(
-                f"{listing(x['orders'])} by doubling {listing(x['doubles'])} "
-                f"{marks(bib, x['sources'])}"
-            )
-        else:
-            parts.append(f"{listing(x['orders'])} {marks(bib, x['sources'])}")
-    if parts:
-        lines.append(f"<li>Skew-Hadamard, reported, not reviewed: {'; '.join(parts)}.</li>")
     board = []
     for x in s["since"]:
         if x["status"] != "board":

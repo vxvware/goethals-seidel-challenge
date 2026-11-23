@@ -165,26 +165,30 @@ def test_box_lists_exactly_the_open_orders_of_the_data_file(board, data, states)
     box = orders.box(data, board[1], bib)
     assert box.startswith('<aside class="open-orders" id="open-orders"><h3>Open orders</h3>')
     for name in orders.TYPES:
-        listed = re.search(rf'<li id="open-{name}" data-orders="([^"]*)">([^<]*)', box)
-        assert [int(o) for o in listed.group(1).split()] == data["types"][name]["open"]
-        assert listed.group(1).split() == [
+        item = re.search(
+            rf'<li id="open-{name}" data-orders="([^"]*)" data-reported="([^"]*)"', box
+        )
+        assert [int(o) for o in item.group(1).split()] == data["types"][name]["open"]
+        assert item.group(1).split() == [
             str(o) for o, s in states.items() if s[name]["state"] == "open"
         ]
-        # The visible text lists the same orders, in order, and no others.
-        shown = [int(o) for o in re.findall(r"\b\d+\b", listed.group(2).split(":", 1)[-1])]
-        shown = [o for o in shown if o != data["range"]["max"]]
-        assert shown == data["types"][name]["open"]
-        # Every order settled or reported since the sources is in the box.
-        for record in data["types"][name]["since"]:
-            for order in record["orders"]:
-                assert re.search(rf"\b{order}\b", box), order
-    assert box.count("<li") <= 4
+        reported = [
+            o
+            for x in data["types"][name]["since"]
+            if x["status"] == "reported"
+            for o in x["orders"]
+        ]
+        assert [int(o) for o in item.group(2).split()] == reported
+    # The smallest open skew order is shown in the text.
+    smallest = data["types"]["skew-hadamard"]["open"][0]
+    assert re.search(rf"smallest {smallest}\b", box)
+    assert box.count("<li") <= 3
     assert "first" not in box.lower()
     assert 'href="cells/n89-skew-sds.html">356</a> (found here)' in box
     assert 'href="cells/n119-skew-sds.html">476</a>' in box
     # Every source of the data file is cited by number and resolves to the references page.
     for key in data["sources"]:
-        assert f'href="references.html#ref-{key}">[{bib.number[key]}]' in box
+        assert f'href="references.html#ref-{key}">[{bib.number[key]}]' in box, key
 
 
 def test_front_page_carries_the_box_and_no_orders_page():
