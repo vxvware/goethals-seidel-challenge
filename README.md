@@ -1,135 +1,62 @@
 # Hunting Hadamards
 
-The Goethals–Seidel challenge.
+A board of exactly verified Goethals-Seidel quadruples, the Hadamard and skew-Hadamard matrices they give, and the orders still open: [hadamards.com](https://hadamards.com).
 
-![Verified quadruples](https://hadamards.com/badges/quadruples.svg)
-![Census records](https://hadamards.com/badges/censuses.svg)
+[![Verified quadruples](https://hadamards.com/badges/quadruples.svg)](https://hadamards.com/#board) [![Census records](https://hadamards.com/badges/censuses.svg)](https://hadamards.com/#board)
 
-An exactly verified catalogue of four circulant ±1 rows satisfying
-`AAᵀ + BBᵀ + CCᵀ + DDᵀ = 4nI`, with research targets, equivalence-class
-censuses, and scoped computational evidence.
+![A 356 by 356 matrix of light and dark cells in sixteen 89 by 89 blocks, the four diagonal blocks green and the rest grey, above a strip of small squares, mostly green on the left, with more gold and dark ones toward the right.](assets/skew-hadamard-356.png)
 
-[Browse the board](https://hadamards.com) ·
-[Track definitions](TRACKS.md) · [Contribute](CONTRIBUTING.md) ·
-[Mathematical contract](notes/mathematical-contract.md)
+The matrix is the skew-Hadamard matrix of order 356 from entry [n89-eec2e43c042090883c04](https://hadamards.com/entries/n89-eec2e43c042090883c04.html): light is +1, dark is -1, and the four copies of the skew block, on the diagonal, are green. The strip is the board, one column for each odd n from 1 to 131 and one row for each track: green has a verified quadruple, dark is empty, gold is unresolved, and a violet mark is a cell the site marks as a new result.
 
-The board flags a skew quadruple whose order is in a dated baseline list of open skew-Hadamard orders, [baselines/skew-gaps.json](baselines/skew-gaps.json). The list is 356, 404, 428 and 476, taken from version 2 of the database paper with key `cati2024database` in [baselines/references.bib](baselines/references.bib) ([arXiv:2411.18897v2](https://arxiv.org/html/2411.18897v2), dated 2025-08-30). A baseline-gap flag never automatically establishes current novelty.
+## What this is
 
-State on 2026-11-22: two of the four orders have board entries. Eleven skew quadruples at n=89 were added on 2026-11-22 (the entries [n89-eec2e43c042090883c04](quadruples/n89-eec2e43c042090883c04.json) and ten more listed on the [n=89 cell page](https://hadamards.com/cells/n89-skew-sds.html)); the Goethals–Seidel array of each is a skew-Hadamard matrix of order 356. A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356. That is a report of the search, not a claim of priority, and the result has not been reviewed. A skew quadruple at n=119, giving order 476, was imported on 2026-11-17 from a public repository whose author found it ([n119-f302cc45a2f83e60917b](quadruples/n119-f302cc45a2f83e60917b.json)). Orders 404 and 428 have no board entry.
+Take an odd number n and four sequences a, b, c, d of length n with entries +1 and -1. The periodic autocorrelation of a sequence x at shift s is the sum of the products x<sub>i</sub> x<sub>i+s</sub> over i from 0 to n-1, with indices taken modulo n. The four sequences form a **Goethals-Seidel quadruple** when their periodic autocorrelations sum to zero at every nonzero shift.
 
-## Run locally
+Let A, B, C, D be the circulant matrices whose first rows are a, b, c, d. The Goethals-Seidel array [[goethals1970skew](https://hadamards.com/references.html#ref-goethals1970skew)] arranges these four blocks, with signs and reversals, into a matrix H of order 4n with entries +1 and -1 such that H Hᵀ = 4n I, where I is the identity matrix: a Hadamard matrix. If the first sequence is skew, meaning a<sub>0</sub> = 1 and a<sub>n-i</sub> = -a<sub>i</sub> for every nonzero i, then also H + Hᵀ = 2I, and H is a skew-Hadamard matrix.
 
-Python 3.11+, [uv](https://docs.astral.sh/uv/), and GCC with OpenMP are required
-for the full census checks. No GPU is needed for the board or its ordinary CI.
+The board covers odd n up to 131 in six tracks, named by how many of the sequences are symmetric or skew: Williamson, good, best, G-matrices, with a skew block, and any. [TRACKS.md](TRACKS.md) defines them and the verification tiers, and [the mathematical contract](notes/mathematical-contract.md) states what the verifier checks. The site also has an [orders page](https://hadamards.com/orders.html) for Hadamard and skew-Hadamard matrices of orders 4 to 1200 and a [reference list](https://hadamards.com/references.html).
+
+## Order 356
+
+The board holds eleven inequivalent quadruples with a skew block at n = 89, found between 2026-11-22 and 2026-11-23 and listed on the [n = 89 cell page](https://hadamards.com/cells/n89-skew-sds.html). The array of each is a skew-Hadamard matrix of order 356. That order is the smallest listed as open in [[djokovic2023skew](https://hadamards.com/references.html#ref-djokovic2023skew)], [[araya2024classification](https://hadamards.com/references.html#ref-araya2024classification)] and [[egan2026recent](https://hadamards.com/references.html#ref-egan2026recent)], and it was already listed as not yet known in [[wallis1970configurations](https://hadamards.com/references.html#ref-wallis1970configurations)].
+
+A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356. That reports the search and is not a claim of priority. The result has not been reviewed.
+
+## Verify an entry
+
+Python 3.11 or later and [uv](https://docs.astral.sh/uv/) are enough for the first two checks. The third replays the bundled censuses and also needs GCC with OpenMP; it took about two and a half minutes on two threads.
 
 ```sh
 uv sync --locked --group dev
-./gs verify                       # exact board checks + supported census replays
-./gs targets --stratum good        # sourced unresolved cells, JSON
-./gs import-tasks                  # known constructions awaiting imported rows
-./gs census                       # class counts and verification bounds
-./gs recent --limit 5
-./gs build                        # validated, deterministic output in docs/
-python3 -m http.server 8769 --directory docs
+./gs verify quadruples/n89-eec2e43c042090883c04.json   # one entry, from its four rows
+./gs verify --quick                                    # every entry, census replays skipped
+./gs verify                                            # every entry and every supported census replay
 ```
 
-`./gs verify --quick` and `./gs build --quick` skip census replay and report those
-counts as lower bounds. Never publish a quick build as a fully replayed census.
-The committed site is generated with the full build.
+Each command prints JSON. For one entry it gives the tracks, the tier, the canonical rows and any baseline flag. No GPU is needed.
 
-## What is checked
+## Contribute
 
-Every existence entry is validated from its rows with Python integer bit
-operations. Family membership, row sums, equivalence fingerprints, and typed
-baseline-gap flags are computed. The v1 group is cyclic; odd orders 1 through
-511 are accepted, and the map covers orders through 131.
+Write four rows to a JSON file in the format of an existing entry, run `./gs verify candidate.json`, then `./gs submit candidate.json`, which rejects a candidate equivalent to an entry already on the board and stages a new one. [CONTRIBUTING.md](CONTRIBUTING.md) has the steps, the rules on sources and credit, and what an entry pull request may touch. The submission gate validates an entry pull request with the verifier of the base branch, so an entry cannot change the rules that accept it.
 
-The primary `equiv-v1` convention includes independent reversals, signs, block
-permutations, and simultaneous cyclic-group automorphisms. It excludes
-independent shifts. At n=43, 10,080 best quadruples yield five primary classes
-and 20 legacy `branch-v1` orbits. This is equivalence of quadruples under the
-specified operations, not an assertion of full Hadamard-matrix isomorphism.
-The general and skew censuses are counted under `equiv-v2`, which also
-identifies independent cyclic shifts of each row; without it every class at
-those orders splits into thousands (514 against 4 at n=7). Entries and every
-other census keep `equiv-v1`.
+Open cells are listed by `./gs targets`. [AGENTS.md](AGENTS.md) and [research/AUTORESEARCH.md](research/AUTORESEARCH.md) are for automated searches.
 
-Mathematical status (`exists`, `empty`, `unresolved`) and artifact availability
-(`verified-on-board`, `published-not-imported`, `none`) are separate. A known
-construction without imported rows is an import task. Its importer is never
-credited as the original discoverer.
+## Layout
 
-The board also distinguishes **participant work**, **independent reproductions**,
-and **literature/catalogue imports**. Participant work is credited to the
-vxvware organisation. The participant section highlights the G-matrix census at
-n=49, which finds a class where the published classification reports none, the
-good matrices at n=53, 55, and 61, the G-matrix censuses at n=51 through 59,
-and the n=73 campaigns. Purple map marks and the Origin filter identify participant work; entry pages
-show the credited people separately from the importer. Publication status and
-verification remain independent, so an unpublished claim can be credited while
-its evidence gaps remain visible.
+| Path | Contents |
+|---|---|
+| `quadruples/`, `certificates/`, `census/` | one JSON entry per file |
+| `evidence/` | source archives, run records and census replays that entries cite |
+| `baselines/` | sourced status of each cell and order, the contribution registry, `references.bib` |
+| `verify/`, `schema/` | the trusted verifier and the entry schemas |
+| `tools/`, `gs` | the command line and the importers |
+| `site/`, `docs/` | the site generator and its output, served at hadamards.com |
+| `formal/` | Lean 4 statements about quadruples; not built by CI |
+| `research/` | instructions and starter engines for searches |
+| `notes/` | the mathematical contract, [commands and maintenance](notes/board-operations.md), import and audit notes |
+| `assets/` | the picture above and the script that draws it |
+| `tests/` | pytest suite |
 
-## Seed data and evidence
+## Authors
 
-The inventories are [the original seeds](baselines/seed-manifest.json) and
-[later participant constructions](baselines/participant-seed-manifest.json).
-All 36,655 raw imported quadruples remain in compact archives under `evidence/`, with
-source commits, hashes, counts, and representative mappings. The explicit plan
-inventory is imported, including best/good catalogues, the campaign's n=15 and
-n=21 examples, the n=13 CPU/GPU fixtures, 15,360 p=73 families, and published
-Williamson and good rows. The 1,228 rows imported from
-vxvware/saw-best-matrix, a private repository whose imported files are
-[archived here](evidence/participants/saw-best-matrix), supply
-one verified good-matrix class at each of n=53, 55, and 61 and the G-matrix
-(kkss) classes at every admissible odd order through 61, plus an
-orbit-restricted family at 63. The source reports complete censuses; the board
-records lower bounds because those searches have not been replayed here. The
-empty censuses at good n=59 and kkss n=57 are attributed claims without a tier.
-
-```sh
-uv run python -m verify.audit_seeds
-uv run pytest -q
-uv run ruff check verify tools site tests
-uv run python -m verify.check_manifest
-```
-
-The board does not inflate historical receipts into proofs. See
-[the artifact audit](notes/artifact-audit.md) and
-[implementation status](notes/implementation-status.md):
-
-- Best-73 retains its documented 104,500-class legacy identity gap.
-- Good-65 retains a newly detected missing prefix in the available machine
-  receipt chain. The reported campaign conclusion is preserved as an archived
-  claim; the board does not present it as fully verified emptiness.
-- Good-67 is partial coverage. Good-41 has a full archived coverage receipt,
-  but has not been replayed on this CPU-only implementation machine.
-- The order-11-subgroup certificate at n=89 is an exact row-sum obstruction for one restricted family: quadruples with a skew block whose four blocks are all unions of cosets of the order-11 multiplier subgroup. It says nothing about other quadruples at n=89. Since 2026-11-22 the n=89 skew-sds cell holds two verified quadruples, each with three blocks outside that family.
-- Literature nonexistence is sourced per order, separately from local proof
-  or computation tiers. Published census totals remain attributed claims
-  unless the full enumerator is replayed.
-
-GPU slice replay is available through `./gs recheck`; it uses a bundled pinned
-engine and requires an appropriate CUDA environment. No arbitrary submission
-command or downloaded engine is executed. See [TRACKS.md](TRACKS.md).
-
-To repeat the original import, check out the campaign repositories at the
-commits recorded in the seed manifest. Download the Sage table from the pinned
-source in [the import instructions](notes/reimport.md), then use `./gs import`.
-Normal board checks use the bundled archives and require no sibling checkouts.
-
-## Repository
-
-`quadruples/`, `certificates/`, and `census/` hold one JSON entry per file.
-`verify/` and `schema/` define the trusted validator. `baselines/` holds sourced
-status, seed inventories, and reviewed replay registrations. `site/` builds the
-static GitHub Pages board. `research/` supplies agent instructions and starters.
-
-[baselines/hadamard-orders.json](baselines/hadamard-orders.json) records, for the orders 4 to 1200, which have no Hadamard or skew-Hadamard matrix in the sources it cites and what has been reported since; its `structure` field describes the layout. The site's orders page and the first two columns of the board grid are built from it, and `tests/test_orders.py` checks it against the board.
-
-`formal/` is a Lean 4 project with machine-checked statements about quadruples, among them that the Goethals–Seidel array of a quadruple is a Hadamard matrix; see `formal/README.md`. CI does not build it and the verifier does not depend on it.
-
-Entry PRs are append-only and cannot change the verifier, schemas, baseline,
-site, or workflows. A trusted-base CI job binds `submitted_by` to the PR author,
-checks scope, and validates candidate data with the base verifier. Changes to
-the trusted stack require a separate maintainer PR and a reviewed manifest
-update.
+Vincent Russo and Trevor Vincent, [vxvware](https://vxvware.com).
