@@ -3,8 +3,8 @@
 baselines/hadamard-orders.json records, for each matrix type, the orders that
 the cited sources list without a matrix and the later statements about them.
 This module checks that file, joins it with the verified entries of the board,
-and renders the two order columns of the front-page grid and the open-orders
-box beside it.
+and renders the two order columns of the front-page grid and the sentence
+that describes it.
 """
 
 import html
@@ -225,57 +225,13 @@ def listing(values):
     return values[0] if len(values) == 1 else ", ".join(values[:-1]) + " and " + values[-1]
 
 
-def box(data, results, bib):
-    """The open-orders box of the front page, kept short: the full lists are data attributes."""
-    states = table(data, results)
-    top = data["range"]["max"]
-    h, s = data["types"]["hadamard"], data["types"]["skew-hadamard"]
-    lines = []
-    h_rep = [o for x in h["since"] if x["status"] == "reported" for o in x["orders"]]
-    h_src = sorted({k for x in h["since"] if x["status"] == "reported" for k in x["sources"]})
-    line = (
-        f"Hadamard: open up to {top}: {listing(h['open'])}"
-        if h["open"]
-        else f"Hadamard: none open up to {top}"
-    ) + f" {marks(bib, h['listed_open_sources'])}"
-    if h_rep:
-        line += f"; {listing(h_rep)} reported, not reviewed {marks(bib, h_src)}"
-    lines.append(
-        f'<li id="open-hadamard" data-orders="{" ".join(map(str, h["open"]))}" '
-        f'data-reported="{" ".join(map(str, h_rep))}">{line}.</li>'
-    )
-    s_rep = [o for x in s["since"] if x["status"] == "reported" for o in x["orders"]]
-    s_src = sorted({k for x in s["since"] if x["status"] == "reported" for k in x["sources"]})
-    op = s["open"]
-    shown = (
-        "none"
-        if not op
-        else f"smallest {listing(op[:3])}, {len(op)} in all"
-        if len(op) > 3
-        else listing(op)
-    )
-    sline = f"Skew-Hadamard: open up to {top}: {shown} {marks(bib, s['listed_open_sources'])}"
-    if s_rep:
-        sline += f"; {len(s_rep)} more reported, not reviewed {marks(bib, s_src)}"
-    lines.append(
-        f'<li id="open-skew-hadamard" data-orders="{" ".join(map(str, op))}" '
-        f'data-reported="{" ".join(map(str, s_rep))}" '
-        f'title="Open: {", ".join(map(str, op))}">{sline}.</li>'
-    )
-    board = []
-    for x in s["since"]:
-        if x["status"] != "board":
-            continue
-        for o in x["orders"]:
-            if states[o]["skew-hadamard"]["state"] != "board":
-                continue
-            link = f'<a href="cells/n{o // 4}-{CELL_TRACKS["skew-hadamard"]}.html">{o}</a>'
-            board.append(
-                f"{link} {marks(bib, x['sources'])}" if x["sources"] else f"{link} (found here)"
-            )
-    if board:
-        lines.append(f"<li>Settled on this board: {listing(board)}.</li>")
+def intro(data):
+    """The two-sentence description of the front-page grid, with the smallest open skew orders."""
+    op = data["types"]["skew-hadamard"]["open"]
+    first = f"{op[0]} and {op[1]}" if len(op) > 1 else (str(op[0]) if op else "")
+    tail = f"; the smallest open skew-Hadamard orders are {first}" if op else ""
     return (
-        '<aside class="open-orders" id="open-orders"><h3>Open orders</h3>'
-        f"<ul>{''.join(lines)}</ul></aside>"
+        "Each row is an order 4n. Green means a matrix of that order is known and amber "
+        f"that it is open{tail}. The family columns count cyclic Goethals–Seidel quadruples "
+        "of each type."
     )

@@ -160,46 +160,20 @@ def test_doubled_board_matrices_are_skew_hadamard(board, data):
         assert np.array_equal(double @ double.T, m * np.eye(m, dtype=int))
 
 
-def test_box_lists_exactly_the_open_orders_of_the_data_file(board, data, states):
-    bib = Bibliography()
-    box = orders.box(data, board[1], bib)
-    assert box.startswith('<aside class="open-orders" id="open-orders"><h3>Open orders</h3>')
-    for name in orders.TYPES:
-        item = re.search(
-            rf'<li id="open-{name}" data-orders="([^"]*)" data-reported="([^"]*)"', box
-        )
-        assert [int(o) for o in item.group(1).split()] == data["types"][name]["open"]
-        assert item.group(1).split() == [
-            str(o) for o, s in states.items() if s[name]["state"] == "open"
-        ]
-        reported = [
-            o
-            for x in data["types"][name]["since"]
-            if x["status"] == "reported"
-            for o in x["orders"]
-        ]
-        assert [int(o) for o in item.group(2).split()] == reported
-    # The smallest open skew order is shown in the text.
-    smallest = data["types"]["skew-hadamard"]["open"][0]
-    assert re.search(rf"smallest {smallest}\b", box)
-    assert box.count("<li") <= 3
-    assert "first" not in box.lower()
-    assert 'href="cells/n89-skew-sds.html">356</a> (found here)' in box
-    assert 'href="cells/n119-skew-sds.html">476</a>' in box
-    # Every source of the data file is cited by number and resolves to the references page.
-    for key in data["sources"]:
-        assert f'href="references.html#ref-{key}">[{bib.number[key]}]' in box, key
+def test_intro_names_the_smallest_open_skew_orders(data):
+    text = orders.intro(data)
+    first, second = data["types"]["skew-hadamard"]["open"][:2]
+    assert f"the smallest open skew-Hadamard orders are {first} and {second}" in text
+    assert "first" not in text.lower().replace("first,", "")
 
 
-def test_front_page_carries_the_box_and_no_orders_page():
-    module = site_build()
+def test_front_page_has_no_orders_page_or_box():
     source = (ROOT / "site/build.py").read_text()
-    assert "orders.box(ORDERS, r, BIB)" in source
+    assert "orders.intro(ORDERS)" in source and "orders.box" not in source
     assert "orders.html" not in source and not hasattr(orders, "page")
-    assert '<a href="#open-orders">open orders</a>' in source
-    assert "orders.html" not in module.shell("x", "")
     for name in ("README.md", "TRACKS.md", "notes/board-operations.md"):
-        assert "orders.html" not in (ROOT / name).read_text(), name
+        text = (ROOT / name).read_text()
+        assert "orders.html" not in text and "#open-orders" not in text, name
 
 
 def test_grid_columns_agree_with_the_data_file(data, states):
