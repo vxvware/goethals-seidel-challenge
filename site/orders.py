@@ -150,7 +150,8 @@ def state_cell(order, name, info, href, text=None, new=False, board=None):
 
     With new set, the cell carries the grid's new-result marker. board, when
     given, describes the board cell the grid cell links to: its class count
-    (shown when the board holds a matrix of this type), whether it contradicts
+    (named in the tooltip when the board holds a matrix of this type; the cell
+    shows only the order), whether it contradicts
     a published result, the words appended to the tooltip, and the attributes
     the grid filters read.
     """
@@ -169,15 +170,12 @@ def state_cell(order, name, info, href, text=None, new=False, board=None):
     marker = '<span class="participant" title="New result"></span>' if new else ""
     if new:
         spoken += "; new result of this board"
-    # The cell shows the bare number; the legend and the tooltip name it.
-    number = count.split()[0] if count else ""
-    small = f'<span class="classes">{esc(number)}</span>' if count else ""
     if count and count not in spoken:
         spoken += f"; {count}"
     return (
         f'<td class="{classes}" data-type="{name}" data-order="{order}" '
         f'data-state="{info["state"]}"{attrs}><a class="cell" href="{esc(href)}" '
-        f'aria-label="{esc(spoken)}" title="{esc(spoken)}"><span>{esc(text or label)}{small}'
+        f'aria-label="{esc(spoken)}" title="{esc(spoken)}"><span>{esc(text or label)}'
         f"</span>{marker}</a></td>"
     )
 

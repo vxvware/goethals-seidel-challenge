@@ -34,7 +34,7 @@ def cells(markup):
     """(class, type, order, state, text) of every order cell in a piece of HTML."""
     return re.findall(
         r'<td class="([^"]*)" data-type="([a-z-]+)" data-order="(\d+)" data-state="([a-z]+)"'
-        r'[^>]*><a [^>]*><span>([^<]*)(?:<span class="classes">[^<]*</span>)?</span>',
+        r"[^>]*><a [^>]*><span>([^<]*)</span>",
         markup,
     )
 
@@ -295,15 +295,19 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     assert row[89].split("<td")[3].count('class="participant"') == 1
 
 
-def test_order_cell_shows_the_class_count_only_when_the_board_holds_the_matrix():
+def test_order_cell_shows_only_the_order():
     info = {"state": "board", "listed_open": False}
     board = {"hadamard": {"count": "588 classes"}, "skew-hadamard": {"count": "247 classes"}}
     held = orders.grid_cells(13, {52: {name: info for name in orders.TYPES}}, board=board)
-    assert '52<span class="classes">588</span>' in held and "; 588 classes" in held
-    assert '52<span class="classes">247</span>' in held and "; 247 classes" in held
+    assert [text for *_, text in cells(held)] == ["52", "52"]
+    assert "<span>52</span>" in held and 'class="classes"' not in held
+    # The class count stays in the tooltip while the board holds the matrix.
+    assert "; 588 classes" in held and "; 247 classes" in held
     known = {"state": "known", "listed_open": False}
     other = orders.grid_cells(13, {52: {name: known for name in orders.TYPES}}, board=board)
-    assert 'class="classes"' not in other
+    assert "classes" not in other
+    source = (ROOT / "site/build.py").read_text() + (ROOT / "site/style.css").read_text()
+    assert "count-key" not in source and ".classes" not in source
 
 
 def test_cell_page_lists_the_quadruples_before_a_restricted_obstruction(board):
