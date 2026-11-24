@@ -33,6 +33,12 @@ Build with `lake exe cache get` and then `lake build`. The board's CI does not b
 
 - `Order49.exists_g_quadruple`: the board entry `n49-703082c3c1ffa487f376` is a quadruple with two skew and two symmetric blocks, so G-matrices of order 49 exist. The board records a published exhaustive search that reports none at this order.
 
+`GoethalsSeidel/Bordered.lean`:
+
+- `card_odd_of_skew`: in a bordered Goethals–Seidel array of order `b + 4v` over an abelian group of order `v` with a subgroup of index `k`, the kind behind the 2026 Hadamard matrices of orders 668 to 1916, a skew matrix forces `v` and `k` to be odd.
+- `not_skew_of_border`: the width `4(k - 1)` border construction never gives a skew matrix, because its border condition forces `k` to be even.
+- `eight_dvd_of_skew_width_four_mul_index`: with border width `4k`, a skew matrix has order divisible by 8. So neither border width reaches a skew-Hadamard matrix of order congruent to 4 modulo 8, which includes 404 and 428.
+
 `GoethalsSeidel/Circulant.lean`, `GoethalsSeidel/ArrayAlgebra.lean`, `GoethalsSeidel/Array.lean`: the Goethals–Seidel array. `gsArray a b c d` is the matrix of order `4n`, indexed by `Fin 4 × ZMod n`, with blocks
 
 ```
