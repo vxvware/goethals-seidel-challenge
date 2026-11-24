@@ -25,6 +25,14 @@ COMPRESS_SOURCES = (
 )
 
 
+# hkt_census.c runs both HKT censuses with a family argument (wil or good)
+# on the wide solver header; run_census.sh drives it as restartable units.
+HKT_SOURCES = (
+    "research/starter/hkt/hkt_census.c",
+    "research/starter/kkss/hkt_solve64.h",
+)
+
+
 class ReplayEngine(TypedDict):
     """A pinned offline census engine: its stratum, sources, orders and whether it compresses."""
 
@@ -139,6 +147,18 @@ ENGINES: dict[str, ReplayEngine] = {
             "research/starter/kkss/hkt_solve.h",
         ),
         "orders": range(3, 64, 2),
+        "composite": False,
+    },
+    "williamson-hkt-v4": {
+        "stratum": "williamson",
+        "sources": HKT_SOURCES,
+        "orders": range(3, 128, 2),
+        "composite": False,
+    },
+    "good-hkt-v2": {
+        "stratum": "good",
+        "sources": HKT_SOURCES,
+        "orders": range(3, 128, 2),
         "composite": False,
     },
     "williamson-compress-v3": {
