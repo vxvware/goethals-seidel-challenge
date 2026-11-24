@@ -108,7 +108,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Two independent complete runs of the vxvware census report no good matrices at n=59. The board records the attributed claim without a verification tier because the search has not been replayed here.",
+      "summary": "Two independent complete runs of the vxvware census report no good matrices at n=59. A full replay with the pinned good-census-c-v1 engine on 2026-11-18 also found none, so the board reproduces the empty census.",
       "entry_ids": [
         "vxvware-good-n59-census"
       ],

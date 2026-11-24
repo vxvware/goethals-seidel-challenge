@@ -102,3 +102,22 @@ def test_restricted_certificate_is_not_labelled_as_a_statement_about_the_cell(bo
     assert "skew-Hadamard matrix of order 356" in page
     assert "rows verified" in page and "reproduced" not in page.split("<h2>")[0]
     assert "skew-Hadamard matrix of order 356" in module.cell_description(cell)
+
+
+def test_cell_with_a_registered_replay_never_says_it_was_not_replayed(board):
+    import re
+
+    from verify.common import read_json
+
+    module = site_build()
+    d, r, b = board
+    replays = read_json(ROOT / "baselines/census_replays.json")["reports"]
+    replayed = {read_json(ROOT / x["path"])["entry_id"] for x in replays}
+    pages = 0
+    for cell in summary(d, r, b)["cells"]:
+        if not replayed & set(cell["censuses"]):
+            continue
+        pages += 1
+        text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", module.cell_page(cell, d, r)))
+        assert not re.search(r"not (been )?replayed|awaiting a full replay", text), (cell["n"], cell["stratum"])
+    assert pages > 0
