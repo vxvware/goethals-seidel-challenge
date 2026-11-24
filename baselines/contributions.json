@@ -664,6 +664,25 @@
       "stratum": "williamson"
     },
     {
+      "id": "williamson-67-empty",
+      "title": "Williamson census at n=67, empty",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "The board's census at n=67 (williamson-hkt-v3) covered all 7 row-sum decompositions of 268 in six groups, sent about 2.27e13 row pairs to its linear solver with no nullity-capped system, and found no Williamson matrices. Published classifications stop below this order: [@holzmann2008williamson] classify the odd orders through 59, and [@bright2020williamson] enumerate the odd orders divisible by 3 below 70, which are 63 and 69. The repository of the order-65 preprint [@graham2026williamson65] describes order 67 as open. A search of the literature and of public repositories on 2026-11-24 found no claim at 67 in either direction. This is a single run of one engine; the nonexistence is exact on the board through the registered replay of the pinned engine.",
+      "entry_ids": [
+        "williamson-n67"
+      ],
+      "seed_artifacts": [],
+      "featured": true,
+      "stratum": "williamson"
+    },
+    {
       "id": "williamson-61-reproduction",
       "title": "Williamson census at n=61, one class, reproducing a published classification",
       "relation": "independent-reproduction",
