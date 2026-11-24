@@ -313,6 +313,7 @@ def census_count(c: JSONObject, r: Results) -> str:
 # G-matrices at 63 and 69 were checked on 2026-11-23.
 LITERATURE_SEARCH_DATE = "2026-11-21"
 NEW_RESULTS = (
+    ("williamson", 67),
     ("good", 53),
     ("good", 55),
     ("good", 59),
