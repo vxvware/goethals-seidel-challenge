@@ -240,7 +240,7 @@
     },
     {
       "id": "best-73-campaign",
-      "title": "Best-matrix nonexistence campaign at n=73",
+      "title": "Best-matrix search at n=73 (unconfirmed)",
       "relation": "participant-result",
       "publication_status": "unpublished",
       "contributors": [
@@ -249,7 +249,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The vxvware campaign reports no best matrices at n=73. This is participant work beyond the published baseline, retained as an archived nonexistence claim; the 104,500-class legacy identity gap still prevents a stronger verification tier.",
+      "summary": "Unconfirmed: one GPU search at n=73 in September 2026 found no best matrices. The board does not treat this as established and the cell stays unresolved. An audit found a rounding bug that had dropped one admissible class (since searched, empty), and 104,500 of about 11.2 million classes lack identity receipts. An independent census with a different program is running. If it holds, 73 would be a counterexample to the best matrix conjecture; order 73 was left open in [@bright2019best].",
       "entry_ids": [
         "best-n73-campaign"
       ],
