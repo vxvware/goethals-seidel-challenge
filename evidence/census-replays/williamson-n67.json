@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "entry_id": "williamson-n67",
+  "entry_sha256": "d97078820213e4d6eb23b43550d0a20b9f1e47074d4ad4432bba0907a601900c",
+  "engine_id": "williamson-hkt-v3",
+  "engine_sha256": {
+    "research/starter/williamson/wil_hkt3.c": "d8ad5b32271fc0b44bda6d4caaff256484f1f4173b7b187103eda3f86ebefd39",
+    "research/starter/kkss/hkt_solve64.h": "80c604c35c30712308aa115d1aab2db2098e5003bc02be8338603afdb48daf6e"
+  },
+  "mode": "full",
+  "status": "passed",
+  "host": "bos-game",
+  "threads": 16,
+  "date": "2026-11-24",
+  "wall_seconds": 661931.0,
+  "command": "WIL_NLEV=16 WIL_DONLY=g ./wil_hkt3 67 16 w-67-g.txt for g = 0..5 (six row-sum groups, all 7 decompositions of 268)",
+  "rows": []
+}
