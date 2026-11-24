@@ -157,6 +157,27 @@ def test_doubled_board_matrices_are_skew_hadamard(board, data):
         assert np.array_equal(double @ double.T, m * np.eye(m, dtype=int))
 
 
+def test_stored_doublings_are_rebuilt_from_their_board_entries(board):
+    """The stored matrices of origin board are the doubling [[H, H], [-H^T, H^T]] of the entry's array."""
+    import hashlib
+    import lzma
+
+    import skew
+
+    display_rows = site_build().display_rows
+    records = [x for x in read_json(ROOT / "baselines/skew-matrices.json")["matrices"] if x["origin"] == "board"]
+    assert [x["order"] for x in records] == [712, 952]
+    for x in records:
+        assert x["generated"] == f"doubling of board entry {x['entry']}"
+        rows, _ = display_rows(board[1][x["entry"]])
+        h = skew.gs_array(rows)
+        ht = [list(column) for column in zip(*h, strict=True)]
+        double = [row + row for row in h] + [[-v for v in row] + row for row in ht]
+        text = skew.matrix_text(double).encode()
+        assert len(double) == x["order"] and hashlib.sha256(text).hexdigest() == x["sha256"]
+        assert lzma.decompress((ROOT / x["file"]).read_bytes()) == text
+
+
 def test_intro_names_the_smallest_open_skew_orders(data):
     text = orders.intro(data)
     first, second = data["types"]["skew-hadamard"]["open"][:2]

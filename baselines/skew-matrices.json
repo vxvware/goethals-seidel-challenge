@@ -1,0 +1,3548 @@
+{
+  "id": "skew-matrices-2026-11-24",
+  "compiled": "2026-11-24",
+  "description": "One skew-Hadamard matrix for each order from 4 to 1200 that is not open in baselines/hadamard-orders.json and that the board does not hold as a verified quadruple; for the orders the board holds, the site derives the matrix from an entry. Each record gives the order, the file, the sha256 of the uncompressed text, the construction and its parameters, the keys of the sources in baselines/references.bib, the origin of the file and how it was generated. A file is the matrix as text, one row per line, + for 1 and - for -1, compressed with xz. For a doubled order the sources are those of the doubling construction followed by those of the matrix that is doubled, and the doubling of H is the block matrix with rows (H, H) and (-H^T, H^T). The files of origin sagemath were generated on 2026-11-24 with passagemath-combinat 10.8.14, a modular distribution of SageMath, on CPython 3.12 by the call skew_hadamard_matrix(n, check=False, skew_normalize=False) after set_random_seed(n), followed by the skew normalisation D M D with D the diagonal matrix of the first row of M; the function named in a record is the builder that call reached. The files of origin repository come from the software repository cited as kishan2026skew, which is not peer reviewed. The files of origin board are doublings of the Goethals-Seidel array of the named board entry, with its skew block first and in the block layout of site/skew.py; a test rebuilds them from the entry. The other files were not produced by this repository's code. The site build decompresses each file, compares its sha256 with the one recorded here, and checks exactly that the matrix H of order n has entries 1 and -1 and satisfies H H^T = nI and H + H^T = 2I. A note says where a source that a construction goes back to is not cited.",
+  "matrices": [
+    {
+      "order": 8,
+      "file": "matrices/skew/skew-8.txt.xz",
+      "sha256": "36adda03b3049e6f7f7fa8d5a77372df176a9a9a030bc30ccc1ecf76225fdced",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 7
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(8), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 16,
+      "file": "matrices/skew/skew-16.txt.xz",
+      "sha256": "812dcab14b3521663694249e9c97b3826d8c976e9a8a9b9fb8da441c91fce0fb",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 7,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(16), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 24,
+      "file": "matrices/skew/skew-24.txt.xz",
+      "sha256": "da07e267a2b0129d794bba0bf3df9804d9c5e07fb7f1f2db2a37d5c9414cad05",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 23
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(24), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 32,
+      "file": "matrices/skew/skew-32.txt.xz",
+      "sha256": "229ccac953839835879567190e12bd9c9db47c70185243c691d44f58b194d6fc",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 31
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(32), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 40,
+      "file": "matrices/skew/skew-40.txt.xz",
+      "sha256": "3e8ec6bba2c089e66a23297d3eb2bec118d2b34b4524d7f7dbc65e670a331d52",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 19,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(40), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 48,
+      "file": "matrices/skew/skew-48.txt.xz",
+      "sha256": "1cefc7d8ce5438d29e7e9bb53a6a959dad3fe0eb7a6ce9f209a884d9f1cd1038",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 47
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(48), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 56,
+      "file": "matrices/skew/skew-56.txt.xz",
+      "sha256": "0bad56a87ebfbb0bf14b826ba063ee428a5ba8c8f071b1ba9866524be9b92ce7",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 27,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(56), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 64,
+      "file": "matrices/skew/skew-64.txt.xz",
+      "sha256": "999503dcc3b18d010ef5e23e6892d43927ba805e988569d2d71ce17e40cc25cd",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 31,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(64), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 72,
+      "file": "matrices/skew/skew-72.txt.xz",
+      "sha256": "578797011b8ed63c1c14af1462f00ff382a4584aa5d2d1bb66413566adbee75c",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 71
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(72), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 80,
+      "file": "matrices/skew/skew-80.txt.xz",
+      "sha256": "6b911f6aa4b936004afd8eea03d4e99f865b121a0450266521bfa8998639a012",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 79
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(80), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 88,
+      "file": "matrices/skew/skew-88.txt.xz",
+      "sha256": "5dfabd6675b87155cdc3169173d7ec74d30870707cfb4f2fb648319c3ff67eb0",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 43,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(88), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 96,
+      "file": "matrices/skew/skew-96.txt.xz",
+      "sha256": "c5a9d256c786d5fc84ce101d549a08d43d4f41210b8f46b5869e0a9e92d2240d",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 47,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(96), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 104,
+      "file": "matrices/skew/skew-104.txt.xz",
+      "sha256": "4a7830a7b04a2afa19fe00158c57ac39f44c3fbbe2126f0e157ac2f8dd953466",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 103
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(104), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 112,
+      "file": "matrices/skew/skew-112.txt.xz",
+      "sha256": "3e4267a1e3ff612be9a38c8bfd15b5ba07169a987befcff0614fce8b500569cb",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 56,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(112), doubling branch"
+    },
+    {
+      "order": 120,
+      "file": "matrices/skew/skew-120.txt.xz",
+      "sha256": "ff3884af7d2aa33d97599434ead7ca6bbc915c06e8235b4fb076a09bf6e6a95a",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 59,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(120), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 128,
+      "file": "matrices/skew/skew-128.txt.xz",
+      "sha256": "6b5a1da4ec3abefaa3d8a5016cc127a0095ae9accc688617ec89719a55f8d7c7",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 127
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(128), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 136,
+      "file": "matrices/skew/skew-136.txt.xz",
+      "sha256": "6e442c00b0ddf50a11f00ba420daa693dbc4651d9f7b6790f11bfe47b37226c6",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 67,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(136), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 144,
+      "file": "matrices/skew/skew-144.txt.xz",
+      "sha256": "216a716ca90b913150827e7beef592e15c82f337fd909e21a99936e918be0f46",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 71,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(144), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 152,
+      "file": "matrices/skew/skew-152.txt.xz",
+      "sha256": "fad5e759d6b65333ff393cd4bb8fe5b79c32a75ccfabfb448bf15602356d7374",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 151
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(152), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 160,
+      "file": "matrices/skew/skew-160.txt.xz",
+      "sha256": "24b74226d3c267a7037763ecaab34a44e827459ab33ebdf7e8572f6b046a33be",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 79,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(160), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 168,
+      "file": "matrices/skew/skew-168.txt.xz",
+      "sha256": "c65d03ea6f48842194af9d8c8685630f1a19019b204334798a5caed7be2327e9",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 167
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(168), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 176,
+      "file": "matrices/skew/skew-176.txt.xz",
+      "sha256": "62af50c0a55a683d0ddef21ce613a26fc5bdaf88a01cad59b317d749b1b5acc6",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 88,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(176), doubling branch"
+    },
+    {
+      "order": 184,
+      "file": "matrices/skew/skew-184.txt.xz",
+      "sha256": "367c76f54bf747f4e99aff8422e988d389a736086abd4f295ea46ade40a85257",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 92,
+        "from_construction": "Good matrices"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(184), doubling branch",
+      "note": "The original source, the 1988 note of Szekeres that lists the good matrices, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 192,
+      "file": "matrices/skew/skew-192.txt.xz",
+      "sha256": "4368cbc700af8672b2b07651223d08cb8e39a498d2853e8190b201484ea36933",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 191
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(192), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 200,
+      "file": "matrices/skew/skew-200.txt.xz",
+      "sha256": "1437f83d1f9e3abe865d7bba4d9a3e5865be9e7914a483292aae09f802e660cf",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 199
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(200), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 208,
+      "file": "matrices/skew/skew-208.txt.xz",
+      "sha256": "65ec2e5cc4705e890f7036c421fa014c4869ca63f0dfc2bcecb0a75b44221e99",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 103,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(208), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 216,
+      "file": "matrices/skew/skew-216.txt.xz",
+      "sha256": "d2f03b5dc8c5f1d39577e5540472e4b60f901cd8bd9d3ee8b2d00628be10f089",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 107,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(216), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 224,
+      "file": "matrices/skew/skew-224.txt.xz",
+      "sha256": "fe2436a12e8914bec233d10332e7a8c9134382e38e99080a9e673ded0fd02718",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 223
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(224), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 232,
+      "file": "matrices/skew/skew-232.txt.xz",
+      "sha256": "6eb0fb0848830fb0feb829ab1b3fc4322a7726238e1c00df7080ec4a1b91aff1",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 116,
+        "from_construction": "Good matrices"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(232), doubling branch",
+      "note": "The original source, the 1988 note of Szekeres that lists the good matrices, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 240,
+      "file": "matrices/skew/skew-240.txt.xz",
+      "sha256": "48678c63b5d57de1cebf2d6595bade6c71ec2f5beb6ddc99352f0d1b388b79df",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 239
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(240), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 248,
+      "file": "matrices/skew/skew-248.txt.xz",
+      "sha256": "9c2ea8904559f0f69527a7980a352a67df1f003899de6c743978fa001ce3407b",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 124,
+        "from_construction": "Good matrices"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(248), doubling branch",
+      "note": "The original source, the 1988 note of Szekeres that lists the good matrices, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 256,
+      "file": "matrices/skew/skew-256.txt.xz",
+      "sha256": "38ffefa2ed35d787211c1272842aef3a6f7538731c28e68c51dfe03f3fbfe593",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 127,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(256), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 264,
+      "file": "matrices/skew/skew-264.txt.xz",
+      "sha256": "2d1eeaaa8e788d191c61d7ba11b6419a4c3e86cbba1cd51fa9b22839360dd12a",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 263
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(264), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 272,
+      "file": "matrices/skew/skew-272.txt.xz",
+      "sha256": "f53bc7e9a61da97c132c8a391bc5405d4302f0ed6aa10a9351a52dd6149a98fd",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 271
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(272), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 280,
+      "file": "matrices/skew/skew-280.txt.xz",
+      "sha256": "e23a142530266bff4824b1a642853ffad4dfb502467a9deeec2e404e7da810ae",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 139,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(280), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 288,
+      "file": "matrices/skew/skew-288.txt.xz",
+      "sha256": "68b9d441a8bccfc54b2f217f53b3ecb908a80d96f0c3d09b4f208bf22e255c08",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 144,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(288), doubling branch"
+    },
+    {
+      "order": 296,
+      "file": "matrices/skew/skew-296.txt.xz",
+      "sha256": "9fa4680336961b2e00da8e4dcfeeaf8f1af92391ca3734b92072d34ad04eb3d2",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 148,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic1992skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(296), doubling branch"
+    },
+    {
+      "order": 304,
+      "file": "matrices/skew/skew-304.txt.xz",
+      "sha256": "7dd6962d51903d5299fdf8f73df4b23c97ca95e480bb8bdfbfb530b5ff56022a",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 151,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(304), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 312,
+      "file": "matrices/skew/skew-312.txt.xz",
+      "sha256": "c9c82f7be9e3546621ba12d4ac23a5e4eea0680091c69356a51e90d6054ecd90",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 311
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(312), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 320,
+      "file": "matrices/skew/skew-320.txt.xz",
+      "sha256": "5dd728c27460f8af412b879488f451376ebbd4929ae21890b9e8c3c4382e858e",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 160,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(320), doubling branch"
+    },
+    {
+      "order": 328,
+      "file": "matrices/skew/skew-328.txt.xz",
+      "sha256": "fe9e2411a5fe17ab772f6ae71242ad80436b8c8ca61f0ecfe543701485990326",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 163,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(328), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 336,
+      "file": "matrices/skew/skew-336.txt.xz",
+      "sha256": "6a317b2b02500b2b401c6266f1e6c3d390f5128061495a2e73bbce577c60f46b",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 167,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(336), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 340,
+      "file": "matrices/skew/skew-340.txt.xz",
+      "sha256": "7034a39d1dc47202546411d87b5616cf2f339421a7dfcae893644e3a366f01cf",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 169,
+        "sets": "Szekeres, cyclotomic classes of GF(q), q = p^t, p = 5 mod 8"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(340), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 344,
+      "file": "matrices/skew/skew-344.txt.xz",
+      "sha256": "09d84ae5aed0de8f019c2b99ed9dd42a352736359a2ec8dee77c5a82875bec2b",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 343
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(344), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 352,
+      "file": "matrices/skew/skew-352.txt.xz",
+      "sha256": "951e60f41f23aba6636a11ec37a9c06ad9ae50601b1d8f4ce1797ac8e0af7ca6",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 176,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(352), doubling branch"
+    },
+    {
+      "order": 360,
+      "file": "matrices/skew/skew-360.txt.xz",
+      "sha256": "a4af77101e8302e8e8b1c54013e6aa75ca79ca96db1183d00da1496187223d26",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 359
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(360), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 368,
+      "file": "matrices/skew/skew-368.txt.xz",
+      "sha256": "d7feac98f8d091dca190bbaf419c7d553fddc157f0429a3a2feb36f15626c306",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 367
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(368), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 376,
+      "file": "matrices/skew/skew-376.txt.xz",
+      "sha256": "65ee474314baa4d57df7155305e2651384354afaa39267e0915e6f1f1b2589f5",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 188,
+        "from_construction": "Goethals–Seidel array, circulant blocks"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic2008skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(376), doubling branch"
+    },
+    {
+      "order": 384,
+      "file": "matrices/skew/skew-384.txt.xz",
+      "sha256": "a21958157d530879e0e5c661bed1a6ed10a106a029981305124cfebcce2a1be1",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 383
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(384), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 392,
+      "file": "matrices/skew/skew-392.txt.xz",
+      "sha256": "55e19373e20df9327bc4525fc103e54d283988c5ca27cda6d2a1af383fc61160",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 196,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(392), doubling branch",
+      "note": "The original source, the 1992 paper of Đoković that gives the supplementary difference sets, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 400,
+      "file": "matrices/skew/skew-400.txt.xz",
+      "sha256": "8ead8e4c17cd469fbade8a81b4e91e7eeaee277b61a493afdd259dfa60e80a22",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 199,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(400), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 408,
+      "file": "matrices/skew/skew-408.txt.xz",
+      "sha256": "6030f1bf1a223adaa9e703134114fb779e804377bc8ba3e753662128337df2b0",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 204,
+        "from_construction": "Spence 2(q+1)"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(408), doubling branch"
+    },
+    {
+      "order": 416,
+      "file": "matrices/skew/skew-416.txt.xz",
+      "sha256": "89c8cf0e80046933ad8b230bdbc1b01ddad2bb069d4b149ada1d716824153c87",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 208,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(416), doubling branch"
+    },
+    {
+      "order": 424,
+      "file": "matrices/skew/skew-424.txt.xz",
+      "sha256": "ece829c24c437e6e12e069c696b995d8eeee1964f30583a20772f2c8c0e6915d",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 211,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(424), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 432,
+      "file": "matrices/skew/skew-432.txt.xz",
+      "sha256": "51e11d0280dd1eb57955b0dbc458c29ac77c3ba328d1195794d993105983b8d5",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 431
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(432), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 440,
+      "file": "matrices/skew/skew-440.txt.xz",
+      "sha256": "4f26bf39f9d050ad49d1ab20dada4ed9ce78eec1a0d8f0aefaf43ed3c0ea9fe0",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 439
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(440), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 448,
+      "file": "matrices/skew/skew-448.txt.xz",
+      "sha256": "6878bf30fa21ab8b68a79fc131a3213bd12cf42a1dbd1b5706dae99ef1815068",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 223,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(448), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 456,
+      "file": "matrices/skew/skew-456.txt.xz",
+      "sha256": "b8df4c454a3afdfb3a25ef347a4213aa8e2b75ce01688c9a7bf31041f800bef3",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 227,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(456), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 464,
+      "file": "matrices/skew/skew-464.txt.xz",
+      "sha256": "6633a0744acd07de9498cf6f2c206438e5106c9fc9a549fa1194adb5f1b6002b",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 463
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(464), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 472,
+      "file": "matrices/skew/skew-472.txt.xz",
+      "sha256": "d15bf912ab6103aff4e84af1a20b9d2f2f7483a32d7f7f2bedda9ac65b1ab083",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 236,
+        "from_construction": "Goethals–Seidel array, circulant blocks"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "fletcher2004new"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(472), doubling branch"
+    },
+    {
+      "order": 480,
+      "file": "matrices/skew/skew-480.txt.xz",
+      "sha256": "6e6cff12f46fdd353e5d925d739b98c4bf920fc7d7d9d27306b43a50fdd52e06",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 479
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(480), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 488,
+      "file": "matrices/skew/skew-488.txt.xz",
+      "sha256": "dc7d95bcac6733906157ac33970fb9e07f00f7d6b172cdc6537b10da86e3fd4d",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 487
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(488), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 496,
+      "file": "matrices/skew/skew-496.txt.xz",
+      "sha256": "8ae828249daf69e680b9a0846428d971d419c3748b8458e486cfcfab1b0c7119",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 248,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(496), doubling branch",
+      "note": "The original source, the 1988 note of Szekeres that lists the good matrices, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 504,
+      "file": "matrices/skew/skew-504.txt.xz",
+      "sha256": "1a181026a1d2d75d390243b3d1f6ca4e2ab0ece943404b41726c6e552f3383d6",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 503
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(504), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 512,
+      "file": "matrices/skew/skew-512.txt.xz",
+      "sha256": "bcd1048ab78d60e27082187e1fa5b020f8f02c320fd6c91348107dd86ea2c86a",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 256,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(512), doubling branch"
+    },
+    {
+      "order": 520,
+      "file": "matrices/skew/skew-520.txt.xz",
+      "sha256": "b1d4ea2a9a1ccaafb1763fb1f1c5a7c6f575d3c108430a49b20d422de52eed6e",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 260,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(520), doubling branch",
+      "note": "The original source, the 1992 paper of Đoković that gives the supplementary difference sets, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 528,
+      "file": "matrices/skew/skew-528.txt.xz",
+      "sha256": "1d6f68437b864858921b65f0e113f83210a899d521ec8d3a32a6b3bdacd7f597",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 263,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(528), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 532,
+      "file": "matrices/skew/skew-532.txt.xz",
+      "sha256": "f287da366b362d870bef494459c5e8cb5a788340706e4b9a9750252eb37f554c",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 133,
+        "group": "Z_133",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "cati2024database"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(532), which calls GS_skew_hadamard_smallcases",
+      "note": "The original source, the 1992 paper of Đoković that gives the supplementary difference sets, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 536,
+      "file": "matrices/skew/skew-536.txt.xz",
+      "sha256": "93c2ae73fc7a8a5b7e69a6dafacabe1619fed08c6bd37e8832dae56a8e9b265e",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 268,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic1992construction"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(536), doubling branch"
+    },
+    {
+      "order": 540,
+      "file": "matrices/skew/skew-540.txt.xz",
+      "sha256": "643e7a328a794d6f9ed244855d39a8820965906eecbaf992abd73b32e94b162a",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 269
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(540), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 544,
+      "file": "matrices/skew/skew-544.txt.xz",
+      "sha256": "375b72cf25cacb1230983c648fe57a3f7853288f59234c870f7fd9df927f663c",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 271,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(544), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 548,
+      "file": "matrices/skew/skew-548.txt.xz",
+      "sha256": "5118efb43c501665903ab0a81cf0f9b360a744d5e66a58c50f56eba986185f10",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 547
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(548), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 552,
+      "file": "matrices/skew/skew-552.txt.xz",
+      "sha256": "45ba8e33e1a912da10a8d3cd33eb43f3bb65cf228868cc9925efaa58d3ba35a7",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 276,
+        "from_construction": "Goethals–Seidel array, circulant blocks"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic2023skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(552), doubling branch"
+    },
+    {
+      "order": 556,
+      "file": "matrices/skew/skew-556.txt.xz",
+      "sha256": "b814a9858a2d42b227b45429587d63e14f7a392820f240eabfdfed8bcdbac975",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 277
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(556), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 560,
+      "file": "matrices/skew/skew-560.txt.xz",
+      "sha256": "b1124227fb989d55b9f1de04aa8a8f24579cfe564b0e8395df09166281762307",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 280,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(560), doubling branch"
+    },
+    {
+      "order": 564,
+      "file": "matrices/skew/skew-564.txt.xz",
+      "sha256": "5a02426db4e43cd8693ec2ef3b538f988f62e09d262337c6510b37b390d34625",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 563
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(564), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 568,
+      "file": "matrices/skew/skew-568.txt.xz",
+      "sha256": "3ddeeeee02fda83f23ec6ae9dbc84953e02e0863b6d2c4280ee26f9bb736b0fb",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 283,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(568), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 572,
+      "file": "matrices/skew/skew-572.txt.xz",
+      "sha256": "47c08616043694b5b52393edc636d08b7d7ad62b11e1edfe384f5fc4ef021a03",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 571
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(572), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 576,
+      "file": "matrices/skew/skew-576.txt.xz",
+      "sha256": "d21ec94856011ffdb1c3415d6296645dd579ece7bf2b4e54732c24c12921c977",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 288,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(576), doubling branch"
+    },
+    {
+      "order": 580,
+      "file": "matrices/skew/skew-580.txt.xz",
+      "sha256": "6772b535921b843c6162fa478cecc2481da184b16d0225f8dc540d7d39077a48",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 145,
+        "group": "Z_145",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "djokovic2008orders"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(580), which calls GS_skew_hadamard_smallcases"
+    },
+    {
+      "order": 584,
+      "file": "matrices/skew/skew-584.txt.xz",
+      "sha256": "1628f40d58c7b9e9aaddec136bf6d587e1096acf0119d7e2f852a34ad416f1e3",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 292,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic2023skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(584), doubling branch"
+    },
+    {
+      "order": 588,
+      "file": "matrices/skew/skew-588.txt.xz",
+      "sha256": "da993886a87f1497e14210e97c19c687e082371c4fab3cd8c5467e689755018b",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 587
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(588), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 592,
+      "file": "matrices/skew/skew-592.txt.xz",
+      "sha256": "c8213b6aff42647d4ce37d742b212295c0606e399e89db6f7146bfc5c4b2266c",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 296,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic1992skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(592), doubling branch"
+    },
+    {
+      "order": 600,
+      "file": "matrices/skew/skew-600.txt.xz",
+      "sha256": "914794968a2a2b66617325b99efc3486eb8df18714456e4f470b2e2779894299",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 599
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(600), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 604,
+      "file": "matrices/skew/skew-604.txt.xz",
+      "sha256": "dd104e064eb8b75729703c1166f8d9f88f839eb2d9f396960a8f3a7c4f13be99",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 151,
+        "group": "Z_151",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "djokovic1994five"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(604), which calls GS_skew_hadamard_smallcases"
+    },
+    {
+      "order": 608,
+      "file": "matrices/skew/skew-608.txt.xz",
+      "sha256": "1ec00a2d9ddcff9dcede8f557c75ad14f4bb878291566f671786ff6da02de128",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 607
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(608), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 616,
+      "file": "matrices/skew/skew-616.txt.xz",
+      "sha256": "3acff3a724aba677b49f5464f52baeeafcfab17042e84876d615e0d191369d08",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 307,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(616), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 620,
+      "file": "matrices/skew/skew-620.txt.xz",
+      "sha256": "796b0f17711e987e9818e80d48c97b151d0c186c426fa4023aebce548b25d04c",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 619
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(620), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 624,
+      "file": "matrices/skew/skew-624.txt.xz",
+      "sha256": "7c6b049d2e47383c10b1cd081c273b898bac7711629f05f38312840c7bc20cb0",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 311,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(624), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 628,
+      "file": "matrices/skew/skew-628.txt.xz",
+      "sha256": "ceef7543418c469f6b71ba2ae6344c26544275757e5f43831acdc0b032b777e8",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 157,
+        "group": "Z_157",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "djokovic1992construction"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(628), which calls GS_skew_hadamard_smallcases"
+    },
+    {
+      "order": 632,
+      "file": "matrices/skew/skew-632.txt.xz",
+      "sha256": "1729ad312ea532d3ec429abd819ce6384718ed4140f5fa82635766384aabe5fa",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 631
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(632), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 636,
+      "file": "matrices/skew/skew-636.txt.xz",
+      "sha256": "a29006b3dca903f6d14c81b9947a9d45b17048c38a20b60ea8e771e2123b3588",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 317
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(636), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 640,
+      "file": "matrices/skew/skew-640.txt.xz",
+      "sha256": "510d00b8e96a8e404556a8f28bb1d4e8977cffd089dae537360d2ef4420e7a4b",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 320,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(640), doubling branch"
+    },
+    {
+      "order": 644,
+      "file": "matrices/skew/skew-644.txt.xz",
+      "sha256": "4883359c81804b2a689fa69d96186b990278877fd5129fc649dfe9767e36392e",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 643
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(644), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 648,
+      "file": "matrices/skew/skew-648.txt.xz",
+      "sha256": "f957b6d03b2aa6e2a3f323cd8fa6cc5b2d4bfb6edfdb6130cb115f2183ddfabd",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 647
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(648), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 652,
+      "file": "matrices/skew/skew-652.txt.xz",
+      "sha256": "133bcc507f0d577cd349e62af68fe63ea35330647da6162870128d2bead8713d",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 163,
+        "group": "Z_163",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "djokovic1992construction"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(652), which calls GS_skew_hadamard_smallcases"
+    },
+    {
+      "order": 656,
+      "file": "matrices/skew/skew-656.txt.xz",
+      "sha256": "6a29339c0d53847743c6b8799c47dc9e1c5e9f09de78835685bcb1d9150fc3d7",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 328,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(656), doubling branch"
+    },
+    {
+      "order": 660,
+      "file": "matrices/skew/skew-660.txt.xz",
+      "sha256": "eb33cd9355fa01cd2301a8427c6ae6f4f12881a72d1f21692ae2bddc4d84c1cc",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 659
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(660), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 664,
+      "file": "matrices/skew/skew-664.txt.xz",
+      "sha256": "47ddbb2f53bcde7fa8d234b3682c309d188f0444bbffe9fb14c2b36c139e5cce",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 331,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(664), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 672,
+      "file": "matrices/skew/skew-672.txt.xz",
+      "sha256": "6bf4fe572e2c4cb2dfc670fddac18c19586a19da7e69da7e5a84e604b3056d79",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 336,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(672), doubling branch"
+    },
+    {
+      "order": 676,
+      "file": "matrices/skew/skew-676.txt.xz",
+      "sha256": "f32f2cf5fc1931983bfa93393b1ef4418b142f841492329f772382d18c7069e7",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 169,
+        "group": "elementary abelian",
+        "data": "cosets in a finite field"
+      },
+      "sources": [
+        "goethals1970skew",
+        "djokovic1994five"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(676), which calls GS_skew_hadamard_smallcases"
+    },
+    {
+      "order": 680,
+      "file": "matrices/skew/skew-680.txt.xz",
+      "sha256": "524f8f03c8d1b07d566fd55c439545069e3eb0cd8a56d16facaa0dba0e4eb53b",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 340,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(680), doubling branch"
+    },
+    {
+      "order": 684,
+      "file": "matrices/skew/skew-684.txt.xz",
+      "sha256": "7779c584324a542fc15b630256409dd9048b53f1f02398f632c32f268048c664",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 683
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(684), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 688,
+      "file": "matrices/skew/skew-688.txt.xz",
+      "sha256": "babf188718f79f295653ec02eb344af57329e096b724478514c410de359ac026",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 343,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(688), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 692,
+      "file": "matrices/skew/skew-692.txt.xz",
+      "sha256": "64944f942c2a4898571bd8d97c460b8a6016e2ee7b943a702f02e920b9273413",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 691
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(692), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 696,
+      "file": "matrices/skew/skew-696.txt.xz",
+      "sha256": "6a40bba35a2c00bf679b70c3e4576c18862214d1c6ddfa905f253c02f0172d98",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 347,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(696), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 700,
+      "file": "matrices/skew/skew-700.txt.xz",
+      "sha256": "d8a0c6625a423793ebfa0a88e98caf63085b83ca6aeca6ff262aec730744047b",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 349
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(700), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 704,
+      "file": "matrices/skew/skew-704.txt.xz",
+      "sha256": "684f2aa3f331bfee762e997e41cf5ef4e10626600910fa39e96cca5fc76d275c",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 352,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(704), doubling branch"
+    },
+    {
+      "order": 712,
+      "file": "matrices/skew/skew-712.txt.xz",
+      "sha256": "10559c61e090609d6fce97ea2d977e38895f71deb7671d3fc2da53e30d8ed586",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 356,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew"
+      ],
+      "origin": "board",
+      "entry": "n89-355e2d80dd11b3ac970c",
+      "generated": "doubling of board entry n89-355e2d80dd11b3ac970c"
+    },
+    {
+      "order": 720,
+      "file": "matrices/skew/skew-720.txt.xz",
+      "sha256": "f765535c037caab89664e70874c3ccbdeb879eb1865c8277827b6a243c2408b4",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 719
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(720), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 724,
+      "file": "matrices/skew/skew-724.txt.xz",
+      "sha256": "54483fe8f1576354b26e96d343b2b1ce10f9ada986c7c558c4a19688e421f1a3",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 181,
+        "group": "Z_181",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "djokovic1992construction"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(724), which calls GS_skew_hadamard_smallcases"
+    },
+    {
+      "order": 728,
+      "file": "matrices/skew/skew-728.txt.xz",
+      "sha256": "87c4e2665a8b24d02100411dca3649109ef740b956ee64e8ec2f15afdc00ee40",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 727
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(728), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 732,
+      "file": "matrices/skew/skew-732.txt.xz",
+      "sha256": "324d3e6b7cdaa7f0f73fafc1427158edc34a6c003b8235601ee892a582d7b48d",
+      "construction": "Spence 4(1+q+q^2)",
+      "parameters": {
+        "q": 13,
+        "sets": "Szekeres, Z_(2m+1) with 4m+3 a prime power"
+      },
+      "sources": [
+        "spence1975skew",
+        "szekeres1969tournaments"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(732), which calls skew_hadamard_matrix_spence_1975"
+    },
+    {
+      "order": 736,
+      "file": "matrices/skew/skew-736.txt.xz",
+      "sha256": "2a5dcf6c0eb1e693c64e2668ed2d682facb62a08d2ec0dfcc5569c3fbde9fb61",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 367,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(736), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 740,
+      "file": "matrices/skew/skew-740.txt.xz",
+      "sha256": "04065328c07c37134fa255e656ef456efcf60c390c2b097c7e8fbe15dcc80f29",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 739
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(740), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 744,
+      "file": "matrices/skew/skew-744.txt.xz",
+      "sha256": "3d1735bf61da745eccf7241f57cb8fa50c6e09c98ab9bbbc46dbefa9b8a3d27c",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 743
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(744), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 748,
+      "file": "matrices/skew/skew-748.txt.xz",
+      "sha256": "0d36aae0e5ab9b063f2f8f22d0ca5eb1522a7c4f0a5f6027846b28e3da6bda35",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 373
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(748), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 752,
+      "file": "matrices/skew/skew-752.txt.xz",
+      "sha256": "956209c773e055a8d7fa46c568e0b782ecb42af0c0f7cd123415a56e1984fa97",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 751
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(752), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 756,
+      "file": "matrices/skew/skew-756.txt.xz",
+      "sha256": "1763ec8507e1de62d3234036eb5bbad640726f396ddb878fa15798452e453538",
+      "construction": "Orthogonal design with amicable Hadamard matrices",
+      "parameters": {
+        "design": "OD(28; 1, 1, 26)",
+        "m": 1,
+        "amicable_order": 28
+      },
+      "sources": [
+        "seberry1978skew",
+        "seberry2017orthogonal",
+        "wallis1970configurations"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(756), which calls skew_hadamard_matrix_from_orthogonal_design"
+    },
+    {
+      "order": 760,
+      "file": "matrices/skew/skew-760.txt.xz",
+      "sha256": "9865269ef09d567233d79b70fe83a191a282d20ddf93470917f9ce4bfe6c88db",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 379,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(760), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 768,
+      "file": "matrices/skew/skew-768.txt.xz",
+      "sha256": "8fbac724943f1bbf7bca559cc20c115ea689792eaf7429b1685d3f999ebc7f63",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 383,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(768), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 776,
+      "file": "matrices/skew/skew-776.txt.xz",
+      "sha256": "a0f80da29a467b1222f7cf09dd7a966ff1cdbeff43225d0db33fb017d28543a6",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 388,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic2008skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(776), doubling branch"
+    },
+    {
+      "order": 780,
+      "file": "matrices/skew/skew-780.txt.xz",
+      "sha256": "9080033ca9c5891f94c8e18f5c0c53e59bb8ae746d76850716e221de4c8a7d85",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 389
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(780), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 784,
+      "file": "matrices/skew/skew-784.txt.xz",
+      "sha256": "3f6c338a397ef5c5c562c1567aa0aab4bb549ae4e293253b1018f1a9c679d411",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 392,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(784), doubling branch",
+      "note": "The original source, the 1992 paper of Đoković that gives the supplementary difference sets, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 788,
+      "file": "matrices/skew/skew-788.txt.xz",
+      "sha256": "0446fe79385cebb55bac39138b30bf3c5743cced707ab9352d4282c936658c17",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 787
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(788), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 792,
+      "file": "matrices/skew/skew-792.txt.xz",
+      "sha256": "9e4febfd37e17b06e15c4d24f8bf928deee484e15c2b78e906af66d0d5570976",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 396,
+        "from_construction": "Spence 2(q+1)"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(792), doubling branch"
+    },
+    {
+      "order": 796,
+      "file": "matrices/skew/skew-796.txt.xz",
+      "sha256": "a19e1b52fd518789a8bde2ed12f7a0d1797f51a5f19bf51302103d73ade188ff",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 397
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(796), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 800,
+      "file": "matrices/skew/skew-800.txt.xz",
+      "sha256": "eeb21666121f75128dd4f0ce2dcc0e78bf320685f3275314e2eb23aaeff5c4b4",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 400,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(800), doubling branch"
+    },
+    {
+      "order": 812,
+      "file": "matrices/skew/skew-812.txt.xz",
+      "sha256": "725923cd2b72e7e994f3310028f96f9d96274faaa87226c63f2809a53b9847fb",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 811
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(812), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 816,
+      "file": "matrices/skew/skew-816.txt.xz",
+      "sha256": "1e2166f66bdc15c5eb15b952455928a84b8e6919f314d31f0be4f345203e30d0",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 408,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(816), doubling branch"
+    },
+    {
+      "order": 820,
+      "file": "matrices/skew/skew-820.txt.xz",
+      "sha256": "c6b57397c00420dab814fcd42d34fca23cfaa5f126c02696a8a8644a359f3485",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 205,
+        "group": "Z_205",
+        "data": "matrix file of the source repository, re-encoded"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "matrix file of skew/820 in the repository at commit d885022144ba6bf4efa8315e14871a3736947527, re-encoded as + and -"
+    },
+    {
+      "order": 824,
+      "file": "matrices/skew/skew-824.txt.xz",
+      "sha256": "c0897bdb841c1eb3c45aa7785bafdc991a7ea5e7a87bc8c7ab430ce2e1811199",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 823
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(824), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 828,
+      "file": "matrices/skew/skew-828.txt.xz",
+      "sha256": "d40f2641adade95ec7d9eb0dc92d3db4aa5cc055ae772772a507ab88e61bf38c",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 827
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(828), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 832,
+      "file": "matrices/skew/skew-832.txt.xz",
+      "sha256": "6fb7b4d9fd314771364f2f1fe2ea02c06eb7e0ceab96b6ab169fd719ca305848",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 416,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(832), doubling branch"
+    },
+    {
+      "order": 836,
+      "file": "matrices/skew/skew-836.txt.xz",
+      "sha256": "9a3ec4a7eec8cfde73536f757071459f2aceca954add0a9e97940f8ad0d3a124",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 209,
+        "group": "Z_209",
+        "data": "matrix file of the source repository, re-encoded"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "matrix file of skew/836 in the repository at commit d885022144ba6bf4efa8315e14871a3736947527, re-encoded as + and -"
+    },
+    {
+      "order": 840,
+      "file": "matrices/skew/skew-840.txt.xz",
+      "sha256": "d5be6abda9a0d6cdec14734e3678b1bc6d570dc48c41580923cab3c3c53f58b7",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 839
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(840), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 844,
+      "file": "matrices/skew/skew-844.txt.xz",
+      "sha256": "f14e019b1e3b0c7358db34e41f84c0c7e6ec3a08c2d48e547b48d17d94239394",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 421
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(844), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 848,
+      "file": "matrices/skew/skew-848.txt.xz",
+      "sha256": "2a1aa2a1867b660050d5f2dc5fff2e8454a6b0e398fa8181f78f88cf207a894a",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 424,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(848), doubling branch"
+    },
+    {
+      "order": 852,
+      "file": "matrices/skew/skew-852.txt.xz",
+      "sha256": "7c15d9877dc50a060eb0a2e2bba91a93bee88b7ffa552ba3ec761f2943c52f54",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 213,
+        "group": "Z_213",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "djokovic2014some"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(852), which calls GS_skew_hadamard_smallcases"
+    },
+    {
+      "order": 860,
+      "file": "matrices/skew/skew-860.txt.xz",
+      "sha256": "c3e0e06db574700ef9fa6ff16a9a217e8170264e6f076f621a07c32e380a96ef",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 859
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(860), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 864,
+      "file": "matrices/skew/skew-864.txt.xz",
+      "sha256": "3fc2eb98ce026cda37f895c3affb75abf6398d0b9e8fe1c108c84685527bdd3c",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 863
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(864), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 868,
+      "file": "matrices/skew/skew-868.txt.xz",
+      "sha256": "a76f644c5386b2f95a6a2df61148ddceace704a44643c679ce08ff99e0582828",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 217,
+        "group": "Z_217",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "cati2024database"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(868), which calls GS_skew_hadamard_smallcases",
+      "note": "The original source, the 1992 paper of Đoković that gives the supplementary difference sets, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 872,
+      "file": "matrices/skew/skew-872.txt.xz",
+      "sha256": "64e8dcb6b36b90dfd0c18e5d726203fee07670bec69e3d6f83313f4102806e39",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 436,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic2008orders"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(872), doubling branch"
+    },
+    {
+      "order": 876,
+      "file": "matrices/skew/skew-876.txt.xz",
+      "sha256": "002e7c4decf7a51711f44db75a7e870afc2a65b711797be5c647e3c652225fa5",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 219,
+        "group": "Z_219",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "cati2024database"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(876), which calls GS_skew_hadamard_smallcases",
+      "note": "The original source, the 1992 paper of Đoković that gives the supplementary difference sets, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 880,
+      "file": "matrices/skew/skew-880.txt.xz",
+      "sha256": "d688f8d01c1e902fad19e5e282c89ed104f1c4e61e93ab7971ba9231cc1324c7",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 439,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(880), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 884,
+      "file": "matrices/skew/skew-884.txt.xz",
+      "sha256": "9108b1cae4061091bedca71774303d90de488763291b4d54f08694c1071594d2",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 883
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(884), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 888,
+      "file": "matrices/skew/skew-888.txt.xz",
+      "sha256": "6bed3c4e0b7a3a29582823dbf06efa8d5fd6207719af24e1ebc42da41687ec73",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 887
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(888), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 896,
+      "file": "matrices/skew/skew-896.txt.xz",
+      "sha256": "e97a5e7ee0561a4235d887b63d25c43c362ad55248ef19b4b950d060c62bdea0",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 448,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(896), doubling branch"
+    },
+    {
+      "order": 904,
+      "file": "matrices/skew/skew-904.txt.xz",
+      "sha256": "6d8f726725b4cdcf85b9537d3e367722310fe70f917b3025c5e2b760cb862ce0",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 452,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic1992construction"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(904), doubling branch"
+    },
+    {
+      "order": 908,
+      "file": "matrices/skew/skew-908.txt.xz",
+      "sha256": "1adf88f5cd915bb84147f51f0cdbe7fedde1006be21d2da11476f24d78bd1d79",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 907
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(908), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 912,
+      "file": "matrices/skew/skew-912.txt.xz",
+      "sha256": "b543cd6b85b80db2a6b1ac18317f8654d07ac4ec491e678153457e5870e61cbd",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 911
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(912), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 920,
+      "file": "matrices/skew/skew-920.txt.xz",
+      "sha256": "5d631ca47eb9153d29514f3706faf38a27b7598ac590c9fc8b474860b7eab3e8",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 919
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(920), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 924,
+      "file": "matrices/skew/skew-924.txt.xz",
+      "sha256": "4ea7ac8d5f8688ac12f965881ef652d977711c548a284e385957119befb0203c",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 461
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(924), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 928,
+      "file": "matrices/skew/skew-928.txt.xz",
+      "sha256": "c1056356077c326199cda148a4c44738de4570222afe584df226110d0f7b0cef",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 463,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(928), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 936,
+      "file": "matrices/skew/skew-936.txt.xz",
+      "sha256": "924ccdc915e402856de0c19b88e9585fa3990c7c30bb22edf56e669438f3da57",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 467,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(936), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 944,
+      "file": "matrices/skew/skew-944.txt.xz",
+      "sha256": "e4c6b843df7dc4b14a46407cb416e2723821e51cc63ab28e7ebae7f41ea83cb9",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 472,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "fletcher2004new"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(944), doubling branch"
+    },
+    {
+      "order": 948,
+      "file": "matrices/skew/skew-948.txt.xz",
+      "sha256": "fc8e146d0c270105bd2d69733e31c702bfaf4bf841704ce3d231e5114c349218",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 947
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(948), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 952,
+      "file": "matrices/skew/skew-952.txt.xz",
+      "sha256": "4e646d94f54d6f0b65c0849e28f8e3d902606358b5e0e17ca17e331a8ff01d0d",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 476,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "kishan2026hadamard"
+      ],
+      "origin": "board",
+      "entry": "n119-f302cc45a2f83e60917b",
+      "generated": "doubling of board entry n119-f302cc45a2f83e60917b"
+    },
+    {
+      "order": 956,
+      "file": "matrices/skew/skew-956.txt.xz",
+      "sha256": "a5d90d504b941d36138d497d06ec7f068e11c441fe7a0ae2a051372058e9a1eb",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 239,
+        "group": "Z_239",
+        "data": "Paley-Todd first block"
+      },
+      "sources": [
+        "goethals1970skew",
+        "djokovic2016class"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(956), which calls GS_skew_hadamard_smallcases"
+    },
+    {
+      "order": 960,
+      "file": "matrices/skew/skew-960.txt.xz",
+      "sha256": "bf79ef48e1fa6eb766114431c7cb96c6f9dc99c7136f09f7d7f621832bc51fc9",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 479,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(960), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 964,
+      "file": "matrices/skew/skew-964.txt.xz",
+      "sha256": "e122114069d4f49ab11ca6bab11385df3d9daa193ad82138ca5430797bf0b382",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 241,
+        "group": "Z_241",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "djokovic1992construction"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(964), which calls GS_skew_hadamard_smallcases"
+    },
+    {
+      "order": 968,
+      "file": "matrices/skew/skew-968.txt.xz",
+      "sha256": "6b7ac9ee16367da0ba0bcd4dff46b94d12764bca1e765eb2ff87759cfdcd0c76",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 967
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(968), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 972,
+      "file": "matrices/skew/skew-972.txt.xz",
+      "sha256": "e7a11e63dcb022fbaec193ad98b5844e69eed9feb664b4b3298efea515b51c60",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 971
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(972), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 976,
+      "file": "matrices/skew/skew-976.txt.xz",
+      "sha256": "9dcf04b1a59502583db195a95d94fac8627da7556e377888c227f482765aad53",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 487,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(976), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 980,
+      "file": "matrices/skew/skew-980.txt.xz",
+      "sha256": "daf895c53822a403c3a6c7b38950371d48881c0730e5a7df3106d72a3305ef09",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 245,
+        "group": "Z_35 x Z_7",
+        "data": "matrix file of the source repository, re-encoded"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "matrix file of skew/980 in the repository at commit d885022144ba6bf4efa8315e14871a3736947527, re-encoded as + and -"
+    },
+    {
+      "order": 984,
+      "file": "matrices/skew/skew-984.txt.xz",
+      "sha256": "83f4cadf89f0921e73b6512b99e14953e7fc843b7f8aab35d9f3b8fafc452ab2",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 983
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(984), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 988,
+      "file": "matrices/skew/skew-988.txt.xz",
+      "sha256": "a78671769c16bdd5b75cbed789ac52d724349ad1075d978b0af9a697336c49cf",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 247,
+        "group": "Z_247",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "djokovic2008orders"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(988), which calls GS_skew_hadamard_smallcases"
+    },
+    {
+      "order": 992,
+      "file": "matrices/skew/skew-992.txt.xz",
+      "sha256": "b3dc32e8d98c2a840d9a5430a4a90e083ec156a6751cf93f910d7b3c9d9183c9",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 991
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(992), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 996,
+      "file": "matrices/skew/skew-996.txt.xz",
+      "sha256": "c4dab5e4f5e6e68fc991bfee01f84d5503af0d313c081004eff759e98f00c8a0",
+      "construction": "Goethals–Seidel array, Paley blocks with T-matrices",
+      "parameters": {
+        "v": 249,
+        "group": "Z_249",
+        "q": 331,
+        "data": "four sequences of the source repository"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "Goethals–Seidel array over the cyclic group of order 249 of the four sequences in skew/996 of the repository at commit d885022144ba6bf4efa8315e14871a3736947527"
+    },
+    {
+      "order": 1000,
+      "file": "matrices/skew/skew-1000.txt.xz",
+      "sha256": "db3fd2f14f63835ba3edb24453b88f098b372ab16159d9433a7857ba85aa3c33",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 499,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1000), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 1004,
+      "file": "matrices/skew/skew-1004.txt.xz",
+      "sha256": "5108534c73af5667993e00fa1190774883bf5bd6c043f3ba9efc445e00d35ae0",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 251,
+        "group": "Z_251",
+        "data": "matrix file of the source repository, re-encoded"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "matrix file of skew/1004 in the repository at commit d885022144ba6bf4efa8315e14871a3736947527, re-encoded as + and -"
+    },
+    {
+      "order": 1008,
+      "file": "matrices/skew/skew-1008.txt.xz",
+      "sha256": "76b65916d5a42af6d4e12b081b526ae2a1a9b2e1f29862cc4946c2f57cf9fc9f",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 503,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1008), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 1012,
+      "file": "matrices/skew/skew-1012.txt.xz",
+      "sha256": "f98c25f93a9e1b257300cf8d054b9553ebfa7168e26337b68f4365e9851b30aa",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 253,
+        "group": "Z_253",
+        "data": "matrix file of the source repository, re-encoded"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "matrix file of skew/1012 in the repository at commit d885022144ba6bf4efa8315e14871a3736947527, re-encoded as + and -"
+    },
+    {
+      "order": 1016,
+      "file": "matrices/skew/skew-1016.txt.xz",
+      "sha256": "d39f7eda4c263941a5eae5ef65e5a740fa4ceb11faddbeb9e3312975348bc276",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 508,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic1992construction"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1016), doubling branch"
+    },
+    {
+      "order": 1020,
+      "file": "matrices/skew/skew-1020.txt.xz",
+      "sha256": "0cf9c7d827a90e472d7cc9d6d4ed21f7184d263a15ccf62c9e06349760bddc06",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1019
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1020), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1024,
+      "file": "matrices/skew/skew-1024.txt.xz",
+      "sha256": "f1b75ad84b183537e905b38e1993c2f366ea8ee22da143ffef53bc223e50cd09",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 512,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1024), doubling branch"
+    },
+    {
+      "order": 1032,
+      "file": "matrices/skew/skew-1032.txt.xz",
+      "sha256": "36ccf2a014b6bef3a5fb477c96d20438f41caa61521a6a2292f93e71fe543a2f",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1031
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1032), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1036,
+      "file": "matrices/skew/skew-1036.txt.xz",
+      "sha256": "e1a996048517b08d63e1a3b92b3e5dc6d7b3c9593ea31154597ba2e90d6ef084",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 259,
+        "group": "Z_259",
+        "data": "matrix file of the source repository, re-encoded"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "matrix file of skew/1036 in the repository at commit d885022144ba6bf4efa8315e14871a3736947527, re-encoded as + and -"
+    },
+    {
+      "order": 1040,
+      "file": "matrices/skew/skew-1040.txt.xz",
+      "sha256": "82e13963fe3353113179fbf10f6637bb7485a924186dc68a9514cc8736fd479d",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1039
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1040), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1044,
+      "file": "matrices/skew/skew-1044.txt.xz",
+      "sha256": "f642fb1c74569059097e62bbe838fbd1f75bda17333c7064626cfcba867f02de",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 261,
+        "group": "Z_261",
+        "data": "matrix file of the source repository, re-encoded"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "matrix file of skew/1044 in the repository at commit d885022144ba6bf4efa8315e14871a3736947527, re-encoded as + and -"
+    },
+    {
+      "order": 1048,
+      "file": "matrices/skew/skew-1048.txt.xz",
+      "sha256": "c9d3c68bc16aff094d2f980c2621864351c582fd25dd65b012ba9376bbd7456f",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 523,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1048), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 1052,
+      "file": "matrices/skew/skew-1052.txt.xz",
+      "sha256": "405079b4a3c0d6b95b2e159a126128f868b24ea79e0d6d4d0768ab62e9e7f714",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1051
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1052), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1056,
+      "file": "matrices/skew/skew-1056.txt.xz",
+      "sha256": "58e8768919a8d5653bfdc81261e28172f2127554461df9ee27ee4b778e374cdb",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 528,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1056), doubling branch"
+    },
+    {
+      "order": 1064,
+      "file": "matrices/skew/skew-1064.txt.xz",
+      "sha256": "013b08fd15a6c61766a9287df0c983d5099e6bb607cfcd1e5c19dfb151c1b0ea",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1063
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1064), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1068,
+      "file": "matrices/skew/skew-1068.txt.xz",
+      "sha256": "df62fa6e71eaf060c38cc97d8a8dc81d1180f9268b22c51e85599828ff94ce87",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 267,
+        "group": "Z_267",
+        "data": "cosets of a multiplier subgroup"
+      },
+      "sources": [
+        "goethals1970skew",
+        "cati2024database"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1068), which calls GS_skew_hadamard_smallcases",
+      "note": "The original source, the 1992 paper of Đoković that gives the supplementary difference sets, is not cited because its bibliographic record could not be confirmed against a publisher or library record. [@cati2024database] describes the data and [@passagemath2026combinat] holds it."
+    },
+    {
+      "order": 1072,
+      "file": "matrices/skew/skew-1072.txt.xz",
+      "sha256": "24f365a32e12b6dc3b53c7417ac88169a13d38687ac088f10635d7db64983f34",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 536,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic1992construction"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1072), doubling branch"
+    },
+    {
+      "order": 1080,
+      "file": "matrices/skew/skew-1080.txt.xz",
+      "sha256": "2c7f8b9a0fcbf50096d5aed6b2d1007ee07b7cbd0f5bcf2f3a1e129191d7c8d6",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 540,
+        "from_construction": "Spence 2(q+1)"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1080), doubling branch"
+    },
+    {
+      "order": 1084,
+      "file": "matrices/skew/skew-1084.txt.xz",
+      "sha256": "fd0accaf82ca7da000f2a153748473ec706eb72fa33fbb0ad776296722df04f3",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 541
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1084), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 1088,
+      "file": "matrices/skew/skew-1088.txt.xz",
+      "sha256": "75bc21e016ba5610ec1a6bb9485f007ad1880ba5742f42ee73a601e9079c2186",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1087
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1088), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1092,
+      "file": "matrices/skew/skew-1092.txt.xz",
+      "sha256": "852bfe6b403d0850523b530e5ead8aff53c5cf149a74c9bf39eba6755b2a9672",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1091
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1092), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1096,
+      "file": "matrices/skew/skew-1096.txt.xz",
+      "sha256": "cc90120f583f9eb28a2ae99363bb36dfac29325646fe2821d4eaa071b666eadf",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 547,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1096), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 1100,
+      "file": "matrices/skew/skew-1100.txt.xz",
+      "sha256": "5950fb4e5669d16a704b22d3ec9c0f6d2b0070426519eb26c7668c96c5bcb31d",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 275,
+        "group": "Z_5 x Z_5 x Z_11",
+        "data": "matrix file of the source repository, re-encoded"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "matrix file of skew/1100 in the repository at commit d885022144ba6bf4efa8315e14871a3736947527, re-encoded as + and -"
+    },
+    {
+      "order": 1104,
+      "file": "matrices/skew/skew-1104.txt.xz",
+      "sha256": "f566aeac078356153f7bffec1867496f8a2e68567ac74ac5ae102ff157bb42cc",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1103
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1104), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1112,
+      "file": "matrices/skew/skew-1112.txt.xz",
+      "sha256": "69797f95249c1ea8436998d35a179e8031432ccd6386dd1e85cfe886b6e1fc9d",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 556,
+        "from_construction": "Spence 2(q+1)"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1112), doubling branch"
+    },
+    {
+      "order": 1116,
+      "file": "matrices/skew/skew-1116.txt.xz",
+      "sha256": "5836d878855781511ec53ba6e49eb90ab98f2cb051df9dc7d7df224d484d4192",
+      "construction": "Spence 2(q+1)",
+      "parameters": {
+        "q": 557
+      },
+      "sources": [
+        "spence1977skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1116), which calls skew_hadamard_matrix_spence_construction"
+    },
+    {
+      "order": 1120,
+      "file": "matrices/skew/skew-1120.txt.xz",
+      "sha256": "eb2f7f25d468cc93e945c2becb93e968c5ff56854da123ba7d14da21290b700f",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 560,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1120), doubling branch"
+    },
+    {
+      "order": 1124,
+      "file": "matrices/skew/skew-1124.txt.xz",
+      "sha256": "5aeee38edf3ccce0570a9010bfb32adf0a12f0f9a15d70c843d41f25127a57e4",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1123
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1124), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1128,
+      "file": "matrices/skew/skew-1128.txt.xz",
+      "sha256": "4a3f957828e40f0f3f4b63b6dbf1b399f11c3ca177a946bf1a49ceeb0ec29893",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 563,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1128), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 1136,
+      "file": "matrices/skew/skew-1136.txt.xz",
+      "sha256": "74b0e12c8e485ded4ba41858a7dfec4ccdaf9c6fcdbb4025f4f4d32716920a56",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 568,
+        "from_construction": "Complementary difference sets"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1136), doubling branch"
+    },
+    {
+      "order": 1140,
+      "file": "matrices/skew/skew-1140.txt.xz",
+      "sha256": "fdb99f5ef9dad54a0744655114de1b8645de3272ea462bb2ac30a55db3cebaa7",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 285,
+        "group": "Z_285",
+        "data": "matrix file of the source repository, re-encoded"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "matrix file of skew/1140 in the repository at commit d885022144ba6bf4efa8315e14871a3736947527, re-encoded as + and -"
+    },
+    {
+      "order": 1144,
+      "file": "matrices/skew/skew-1144.txt.xz",
+      "sha256": "00cbefb3502b00af54a924e0027418ddb45daedab55ececc67e997459dd9b359",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 571,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1144), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 1148,
+      "file": "matrices/skew/skew-1148.txt.xz",
+      "sha256": "fda6dc6af46ba1779f999be9fc4e0e433eba8f94af0174fb3acc1b1b0fa4ca64",
+      "construction": "Goethals–Seidel array, skew SDS",
+      "parameters": {
+        "v": 287,
+        "group": "Z_287",
+        "data": "matrix file of the source repository, re-encoded"
+      },
+      "sources": [
+        "goethals1970skew",
+        "kishan2026skew"
+      ],
+      "origin": "repository",
+      "software": "kishan2026skew",
+      "generated": "matrix file of skew/1148 in the repository at commit d885022144ba6bf4efa8315e14871a3736947527, re-encoded as + and -"
+    },
+    {
+      "order": 1152,
+      "file": "matrices/skew/skew-1152.txt.xz",
+      "sha256": "f578deea677418b06c32aee8026491ebd7d5d5a9d0070b1e53e5ede21d3372b0",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1151
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1152), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1160,
+      "file": "matrices/skew/skew-1160.txt.xz",
+      "sha256": "3f5edcad6d0e0785b78121d8ced4c52e4f094cd2aa595d34d28208403f0fe2a5",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 580,
+        "from_construction": "Goethals–Seidel array, skew SDS"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic2008orders"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1160), doubling branch"
+    },
+    {
+      "order": 1164,
+      "file": "matrices/skew/skew-1164.txt.xz",
+      "sha256": "079470b449002829dcb21075d478293f8d3ae3667c178bcb51eb6b2b1cc94c7a",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1163
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1164), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1168,
+      "file": "matrices/skew/skew-1168.txt.xz",
+      "sha256": "bb5d1b38fa65f40f447a6e377aad2adc1323a1f583bd9edcbe9cb3d1a408ea0e",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 584,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic2023skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1168), doubling branch"
+    },
+    {
+      "order": 1172,
+      "file": "matrices/skew/skew-1172.txt.xz",
+      "sha256": "17899d30a4b0b92af638816c1681e90f4b7bebe9647e7238876c6bee50d59534",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1171
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1172), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1176,
+      "file": "matrices/skew/skew-1176.txt.xz",
+      "sha256": "1865ffd7007e67bb1b9c13771ab1c57bb5d5080b27c545527b12dc8477ecafe0",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 587,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1176), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 1184,
+      "file": "matrices/skew/skew-1184.txt.xz",
+      "sha256": "871ed7094ec91e795863d92350f9e2c190b983921deea10db41ed86354d5af9f",
+      "construction": "Doubling",
+      "parameters": {
+        "from_order": 592,
+        "from_construction": "Doubling"
+      },
+      "sources": [
+        "wallis1971skew",
+        "cati2024database",
+        "goethals1970skew",
+        "djokovic1992skew"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1184), doubling branch"
+    },
+    {
+      "order": 1188,
+      "file": "matrices/skew/skew-1188.txt.xz",
+      "sha256": "8ed886738e64baf555f7fd970c3e6ddb425a3b325a7406a1ae1998484f6093b2",
+      "construction": "Paley I",
+      "parameters": {
+        "q": 1187
+      },
+      "sources": [
+        "paley1933orthogonal"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1188), which calls hadamard_matrix_paleyI"
+    },
+    {
+      "order": 1200,
+      "file": "matrices/skew/skew-1200.txt.xz",
+      "sha256": "3a8fdaac8e5e347d14ccaef3242f2f4589a75a50eda465c35904bed25b55192c",
+      "construction": "Complementary difference sets",
+      "parameters": {
+        "group_order": 599,
+        "sets": "Szekeres, squares of GF(q), q = 3 mod 4"
+      },
+      "sources": [
+        "blatt1969skew",
+        "szekeres1971cyclotomy"
+      ],
+      "origin": "sagemath",
+      "software": "passagemath2026combinat",
+      "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1200), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    }
+  ]
+}

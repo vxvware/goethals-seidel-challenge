@@ -104,3 +104,31 @@ def test_an_aliased_doi_links_the_entry_doi():
     assert bib.link("https://doi.org/10.1007/s10623-011-9498-9") == ("https://doi.org/10.1007/s10623-011-9492-2")
     assert bib.link("https://doi.org/10.1016/0012-365X(77)90009-7") == ("https://doi.org/10.1016/0012-365X(77)90009-7")
     assert bib.link("https://arxiv.org/abs/2411.18897") == "https://arxiv.org/abs/2411.18897"
+
+
+def test_stored_skew_matrices_match_their_records():
+    import hashlib
+    import lzma
+
+    bib = Bibliography()
+    doc = json.loads((ROOT / "baselines/skew-matrices.json").read_text())
+    orders = json.loads((ROOT / "baselines/hadamard-orders.json").read_text())
+    records = doc["matrices"]
+    listed = [x["order"] for x in records]
+    assert listed == sorted(set(listed))
+    r = orders["range"]
+    assert all(r["min"] <= order <= r["max"] and order % r["step"] == 0 for order in listed)
+    assert not set(listed) & set(orders["types"]["skew-hadamard"]["open"])
+    for x in records:
+        order = x["order"]
+        assert x["file"] == f"matrices/skew/skew-{order}.txt.xz"
+        text = lzma.decompress((ROOT / x["file"]).read_bytes())
+        assert hashlib.sha256(text).hexdigest() == x["sha256"], order
+        lines = text.decode("ascii").splitlines()
+        assert len(lines) == order and all(len(line) == order and set(line) <= {"+", "-"} for line in lines), order
+        assert x["sources"] and set(x["sources"]) <= set(bib.entries), order
+        assert x["origin"] in ("sagemath", "repository", "board") and x["generated"], order
+        assert x.get("software", "cati2024database") in bib.entries, order
+        bib.keys_in(x.get("note", ""))
+    # No stored file is left without a record.
+    assert {p.name for p in (ROOT / "matrices/skew").iterdir()} == {f"skew-{order}.txt.xz" for order in listed}
