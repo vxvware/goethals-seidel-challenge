@@ -5,7 +5,7 @@
     ".github/workflows/pages.yml": "6bc6936e0eb5af99870f148f3c8188c5996f95706567158289a05d0044dcaf4b",
     ".github/workflows/submissions.yml": "82a7bd3f9885b8e242e347d11828ab16229cb00d6767428317c313563d228884",
     "baselines/census_replays.json": "b1ac93312ea6bbb2fe5798e231a4eedcda00f786ad12eded0a59e5ab8b30d9ee",
-    "baselines/contributions.json": "80ae48e2b75204a19c204b6cf1d28ecaa5ed324b777e472abb5374c2bc1b23f6",
+    "baselines/contributions.json": "006d36658610dc774a4da123b468eede933632e1fccc27fb2c87ca6f8b319631",
     "baselines/formal.json": "dbdd28749ec7e353237430413b17618feee8c2c44efd0b15564a0888a13785df",
     "baselines/hadamard-orders.json": "0905b7584c182d083e389f028226146ca64931c6fe4480a582a076d133228116",
     "baselines/order-status.json": "0c1984daea04112282effcaed5419275aee887c868b91f4a3e76e3aa9a95cd01",
