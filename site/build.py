@@ -310,6 +310,7 @@ def census_count(c: JSONObject, r: Results) -> str:
 # earlier public records report (see the contribution
 # williamson-65-confirmation); and G-matrices at 53, where no parameter set
 # exists, so the empty cell is arithmetic and not a search result.
+# G-matrices at 63 and 69 were checked on 2026-11-23.
 LITERATURE_SEARCH_DATE = "2026-11-21"
 NEW_RESULTS = (
     ("good", 53),
@@ -323,6 +324,7 @@ NEW_RESULTS = (
     ("kkss", 57),
     ("kkss", 59),
     ("kkss", 61),
+    ("kkss", 69),
 )
 # The grid marks these cells as new alongside the cells a participant supplied
 # rows for. The shift-class counts at 3 to 13 are not listed: no literature
