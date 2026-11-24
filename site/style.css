@@ -150,3 +150,8 @@ details summary{cursor:pointer;font-size:.8667rem;color:var(--green)}
 .refs li{margin:.5333rem 0;overflow-wrap:anywhere}
 .refs li:target{background:var(--panel);outline:1px solid var(--line)}
 footer .credit{margin:1rem 0 0;font-size:.8rem;color:var(--muted)}
+#skew-orders td{vertical-align:top;line-height:1.55}
+#skew-orders td:nth-child(2){white-space:nowrap}
+#skew-orders td:nth-child(3){min-width:24rem;max-width:60ch}
+#skew-orders td:nth-child(4){overflow-wrap:anywhere}
+#skew-orders .cell{display:inline-block;width:auto;min-width:0}
