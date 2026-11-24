@@ -224,6 +224,10 @@
     {
       "path": "evidence/census-replays/williamson-n65.json",
       "sha256": "4cf85b1f5f1f8ac7a48cc0f3f7c37e1cc05690e317cdc89b8fa311980aaff516"
+    },
+    {
+      "path": "evidence/census-replays/williamson-n67.json",
+      "sha256": "c656d3335954cca577e7b8537dc91efb25e4c986f27b768a9228866bfc07fbf1"
     }
   ]
 }
