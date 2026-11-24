@@ -73,6 +73,25 @@
       "stratum": "kkss"
     },
     {
+      "id": "kkss-69-empty",
+      "title": "G-matrix census at n=69, empty",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "The board's compression census at n=69 (kkss-compress-v1, compression by 3) lifted all 750,638 of its compressed instances and found no G-matrices. The only (kkss) parameter set at 69 is (69; 34,34,31,27; 57), and no published search covers this order: 2v - 1 = 137 is a prime congruent to 1 mod 8, outside Spence's family [@spence1977skew]; [@djokovic2018goethals] classify through v < 50, and the table of [@djokovic2009supplementary] stops at 63. Cyclic difference families with these parameters are constructed in [@djokovic2023skew], but only one of their blocks is skew and only one symmetric, so they are not G-matrices. The nonexistence is exact on the board through the registered replay of the pinned engine.",
+      "entry_ids": [
+        "kkss-n69"
+      ],
+      "seed_artifacts": [],
+      "featured": true,
+      "stratum": "kkss"
+    },
+    {
       "id": "good-53-55-61",
       "title": "Good matrices at n=53, 55, and 61",
       "relation": "participant-result",
@@ -339,7 +358,7 @@
           "github": "vatskishan03"
         }
       ],
-      "summary": "A cyclic skew quadruple of order 119, giving a skew-Hadamard matrix of order 476, posted on 2026-10-23 in a public repository [@kishan2026hadamard] with no accompanying paper. Imported from its certificate; the discovery is the repository author\u2019s.",
+      "summary": "A cyclic skew quadruple of order 119, giving a skew-Hadamard matrix of order 476, posted on 2026-10-23 in a public repository [@kishan2026hadamard] with no accompanying paper. Imported from its certificate; the discovery is the repository author’s.",
       "entry_ids": [
         "n119-f302cc45a2f83e60917b"
       ],
