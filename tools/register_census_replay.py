@@ -31,7 +31,7 @@ def main() -> None:
     p.add_argument("entry")
     p.add_argument("--engine", required=True, choices=sorted(census_replays.ENGINES))
     p.add_argument("--rows", required=True, help="engine output: four +/- rows per line")
-    p.add_argument("--compression", type=int, help="d for a compression engine (n = d m)")
+    p.add_argument("--compression", help="d for a compression engine (n = d m), or d1,d2 for a two-divisor engine")
     p.add_argument("--host", required=True)
     p.add_argument("--threads", type=int, required=True)
     p.add_argument("--date", required=True)
@@ -59,7 +59,8 @@ def main() -> None:
         "rows": rows,
     }
     if a.compression is not None:
-        report["compression"] = a.compression
+        parts = [int(x) for x in a.compression.split(",")]
+        report["compression"] = parts[0] if len(parts) == 1 else parts
     representatives = [results[q]["canonical_rows"] for q in entry["representatives"]]
     trial = dict(results[a.entry])
     census_replays.apply_report(entry, trial, report, report["entry_sha256"], representatives)

@@ -21,6 +21,7 @@ def trusted_files(root: Path) -> list[Path]:
     paths.extend(p for p in (root / "research/starter/kkss").glob("*.[ch]"))
     paths.extend(p for p in (root / "research/starter/compress").glob("*.c"))
     paths.extend(p for p in (root / "research/starter/hkt").glob("*.c"))
+    paths.extend(p for p in (root / "research/starter/compress2").glob("*.c"))
     paths.extend(p for p in (root / "research/starter/good_gpu").glob("*.py"))
     paths.extend((root / ".github/workflows").glob("*.yml"))
     paths.extend(root / name for name in ("pyproject.toml", "uv.lock", "tools/gs", "gs"))
