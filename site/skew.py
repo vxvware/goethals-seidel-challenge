@@ -1,16 +1,19 @@
-"""The page of skew-Hadamard matrices by order, and the matrix files it links.
+"""Skew-Hadamard matrix files and the block that describes the matrix of one order.
 
-The states come from orders.table(), which joins baselines/hadamard-orders.json
-with the verified entries of the board. For every order the board holds, the
-Goethals–Seidel array of one quadruple is written as a text file after an exact
-check that it is a skew-Hadamard matrix.
+Every order that is not open has a matrix file in the build output. For an order
+the board holds, the file is the Goethals–Seidel array of one quadruple. For
+every other order it is a file stored in matrices/skew and listed in
+baselines/skew-matrices.json. Each is written only after an exact check that it
+is a skew-Hadamard matrix.
 """
 
-from collections import Counter
+import hashlib
+import lzma
 from collections.abc import Sequence
+from pathlib import Path
 from typing import TYPE_CHECKING
 
-from orders import STATES, esc, in_range, listing, marks
+from orders import BOARD_MAX_N, STATES, esc, marks
 
 if TYPE_CHECKING:
     from orders import OrderStates
@@ -20,13 +23,20 @@ if TYPE_CHECKING:
 type Matrix = list[list[int]]
 
 NAME = "skew-hadamard"
+ROOT = Path(__file__).resolve().parents[1]
 # The reference for the Goethals–Seidel array.
 ARRAY_SOURCE = "goethals1970skew"
-# The states in the order the filter and the counts list them.
-STATE_ORDER = ("open", "board", "reported", "known")
-# A row lists every entry of its order up to this many; beyond it, the entry of
-# the matrix file and a link to the board cell, which lists them all.
-MAX_ENTRY_LINKS = 12
+# How a parameter of a stored construction is worded; a parameter not named
+# here is shown by its value alone.
+PARAMETER_WORDS = {
+    "q": "q = {}",
+    "m": "m = {}",
+    "v": "v = {}",
+    "group_order": "group of order {}",
+    "amicable_order": "amicable matrices of order {}",
+    "from_order": "of a matrix of order {}",
+}
+CHECKED = "The build checks H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I exactly, with n the order, before it writes the file."  # noqa: E501
 
 
 def gs_array(rows: Sequence[Sequence[int]]) -> Matrix:
@@ -61,30 +71,51 @@ def gs_array(rows: Sequence[Sequence[int]]) -> Matrix:
     return [[v for block in band for v in block[i]] for band in blocks for i in range(n)]
 
 
-def check_skew_hadamard(h: Matrix) -> None:
-    """Raise ValueError unless H has entries 1 and -1, H H^T = mI and H + H^T = 2I, for H of order m.
-
-    The arithmetic is exact. Each row is packed into an integer with a bit set
-    where the entry is -1, so the inner product of two rows is m minus twice the
-    number of positions in which they differ.
-    """
-    m = len(h)
-    if any(len(row) != m or any(v not in (1, -1) for v in row) for row in h):
-        raise ValueError("not a square matrix with entries 1 and -1")
-    for i in range(m):
-        for j in range(i, m):
-            if h[i][j] + h[j][i] != (2 if i == j else 0):
-                raise ValueError(f"H + H^T differs from 2I at ({i}, {j})")
-    bits = [sum(1 << j for j, v in enumerate(row) if v < 0) for row in h]
-    for i in range(m):
-        for j in range(i + 1, m):
-            if 2 * (bits[i] ^ bits[j]).bit_count() != m:
-                raise ValueError(f"rows {i} and {j} of H are not orthogonal")
-
-
 def matrix_text(h: Matrix) -> str:
     """A matrix with entries 1 and -1 as lines of + and -, one row per line."""
     return "".join("".join("+" if v > 0 else "-" for v in row) + "\n" for row in h)
+
+
+def check_skew_text(text: str) -> int:
+    """Raise ValueError unless the text is a skew-Hadamard matrix H; return its order m.
+
+    The text is m lines of m characters, + for 1 and - for -1. The conditions
+    are H H^T = mI and H + H^T = 2I, and the arithmetic is exact. Each row and
+    each column is packed into an integer with a bit set where the entry is -1.
+    H + H^T = 2I says that the diagonal is 1 and that row i and column i differ
+    in every position but the diagonal one, which is one comparison of two
+    integers. The inner product of two rows is m minus twice the number of
+    positions in which they differ, and every pair of rows is compared.
+    """
+    lines = text.split("\n")
+    if lines.pop() != "" or not lines:
+        raise ValueError("not lines of + and -, each ended by a newline")
+    m = len(lines)
+    if any(len(line) != m or line.strip("+-") for line in lines):
+        raise ValueError("not a square matrix with entries 1 and -1")
+    bits = str.maketrans("+-", "01")
+    rows = [int(line.translate(bits), 2) for line in lines]
+    columns = [int("".join(column).translate(bits), 2) for column in zip(*lines, strict=True)]
+    full = (1 << m) - 1
+    for i in range(m):
+        diagonal = 1 << (m - 1 - i)
+        if rows[i] & diagonal or rows[i] ^ columns[i] != full ^ diagonal:
+            raise ValueError(f"H + H^T differs from 2I in row {i}")
+    half, odd = divmod(m, 2)
+    for i in range(1, m):
+        row = rows[i]
+        for j in range(i):
+            if odd or (row ^ rows[j]).bit_count() != half:
+                raise ValueError(f"rows {j} and {i} of H are not orthogonal")
+    return m
+
+
+def check_skew_hadamard(h: Matrix) -> None:
+    """Raise ValueError unless H has entries 1 and -1, H H^T = mI and H + H^T = 2I, for H of order m."""
+    m = len(h)
+    if m == 0 or any(len(row) != m or any(v not in (1, -1) for v in row) for row in h):
+        raise ValueError("not a square matrix with entries 1 and -1")
+    check_skew_text(matrix_text(h))
 
 
 def file_name(order: int) -> str:
@@ -96,102 +127,145 @@ def chosen_entries(states: OrderStates) -> dict[int, str]:
     return {order: min(s[NAME]["entries"]) for order, s in states.items() if s[NAME]["state"] == "board"}
 
 
-def counts(states: OrderStates) -> dict[str, int]:
-    found = Counter(s[NAME]["state"] for s in states.values())
-    return {state: found[state] for state in STATE_ORDER}
+def stored_text(record: JSONObject, check: bool = True) -> str:
+    """The text of a stored matrix, after comparing its sha256 with the record.
+
+    With check set, the text must also pass the exact skew-Hadamard check and
+    have the order of its record. Raises ValueError otherwise.
+    """
+    order = record["order"]
+    text = lzma.decompress((ROOT / record["file"]).read_bytes())
+    if hashlib.sha256(text).hexdigest() != record["sha256"]:
+        raise ValueError(f"{record['file']} does not match its sha256")
+    decoded = text.decode("ascii")
+    if check:
+        try:
+            found = check_skew_text(decoded)
+        except ValueError as error:
+            raise ValueError(f"{record['file']} is not a skew-Hadamard matrix: {error}") from error
+        if found != order:
+            raise ValueError(f"{record['file']} does not have order {order}")
+    return decoded
 
 
-def row_sources(data: JSONObject, info: JSONObject, bib: Bibliography) -> str:
-    """The citation marks of one order, with the note of its later record when it has one."""
-    t = data["types"][NAME]
-    record = info["record"]
-    if record:
-        # A source the note already cites is not marked a second time.
-        cited = marks(bib, set(record["sources"]) - set(bib.keys_in(record["note"])))
-        return " ".join(x for x in (cited, bib.cite(record["note"])) if x)
-    return marks(bib, t["listed_open_sources"] if info["state"] == "open" else t["known_sources"])
+def construction(record: JSONObject) -> str:
+    """The construction of a stored matrix and its parameters, in a few words."""
+    p = record["parameters"]
+    words = [PARAMETER_WORDS.get(key, "{}").format(value) for key, value in p.items() if key != "from_construction"]
+    text = record["construction"].replace("skew SDS", "skew supplementary difference sets")
+    if words:
+        text += (" " if "from_order" in p else ", ") + ", ".join(words)
+    if "from_construction" in p:
+        text += f" ({p['from_construction'].replace('skew SDS', 'skew supplementary difference sets')})"
+    return text
 
 
-def row_board(order: int, info: JSONObject, chosen: dict[int, str]) -> str:
-    """The entry links, board cell link and matrix file link of an order the board holds."""
-    if info["state"] != "board":
-        return ""
-    entries, ident = info["entries"], chosen[order]
-    shown = entries if len(entries) <= MAX_ENTRY_LINKS else [ident]
-    links = ", ".join(f'<a href="entries/{esc(x)}.html">{esc(x)}</a>' for x in shown)
-    count = f"all {len(entries)} entries" if len(entries) > 1 else "board cell"
-    cell = f'<a href="cells/n{order // 4}-skew-sds.html">{count}</a>'
-    file = f'<a href="{file_name(order)}" download>matrix of {esc(ident)}</a>'
-    return f"{links} · {cell} · {file}"
-
-
-def table_rows(data: JSONObject, states: OrderStates, bib: Bibliography, chosen: dict[int, str]) -> str:
-    rows = []
-    for order in in_range(data):
-        info = states[order][NAME]
-        label, classes = STATES[info["state"]]
-        rows.append(
-            f'<tr data-order="{order}" data-state="{info["state"]}"><td>{order}</td>'
-            f'<td class="{classes}"><span class="cell">{esc(label)}</span></td>'
-            f"<td>{row_sources(data, info, bib)}</td><td>{row_board(order, info, chosen)}</td></tr>"
-        )
-    return "".join(rows)
-
-
-def cited_keys(data: JSONObject, bib: Bibliography) -> set[str]:
-    """Every bibliography key the page cites."""
-    t = data["types"][NAME]
-    keys = {ARRAY_SOURCE, *t["known_sources"], *t["listed_open_sources"]}
-    for record in t["since"]:
-        keys.update(record["sources"])
-        keys.update(bib.keys_in(record["note"]))
+def stored_keys(record: JSONObject, bib: Bibliography) -> set[str]:
+    """Every bibliography key the block of a stored matrix cites."""
+    keys = {*record["sources"], *bib.keys_in(record.get("note", ""))}
+    if "software" in record:
+        keys.add(record["software"])
     return keys
 
 
-def page(data: JSONObject, states: OrderStates, bib: Bibliography, chosen: dict[int, str]) -> str:
-    """The body of skew.html."""
-    r = data["range"]
-    found = counts(states)
-    total = sum(found.values())
-    tally = listing(f"{found[state]} {STATES[state][0]}" for state in STATE_ORDER)
-    open_orders = [order for order, s in states.items() if s[NAME]["state"] == "open"]
-    open_sentence = (
-        f"The open orders are {listing(open_orders)}."
-        if len(open_orders) > 1
-        else f"The open order is {open_orders[0]}."
-        if open_orders
-        else "No order in the range is open."
-    )
-    options = "".join(f'<option value="{state}">{esc(STATES[state][0])}</option>' for state in STATE_ORDER)
-    references = bib.listing(cited_keys(data, bib), "")
+def origin_sentence(record: JSONObject, bib: Bibliography, prefix: str) -> str:
+    """Where a stored matrix file comes from."""
+    if record["origin"] == "sagemath":
+        return (
+            f"The file was generated with SageMath {bib.mark(record['software'], prefix)}: {esc(record['generated'])}."
+        )
+    if record["origin"] == "repository":
+        return (
+            f"The file comes from {bib.mark(record['software'], prefix)}: {esc(record['generated'])}. "
+            "The source is a software repository, not peer reviewed."
+        )
+    half = record["order"] // 2
     return (
-        '<article class="entry skew-orders"><div class="eyebrow">orders '
-        f"{r['min']} to {r['max']}</div><h1>Skew-Hadamard matrices by order</h1>"
+        f"The file is the doubling of the board's matrix of order {half}: with H the array of entry "
+        f'<a href="{prefix}entries/{esc(record["entry"])}.html">{esc(record["entry"])}</a>, it is the block matrix '
+        "with rows (H, H) and (−H<sup>T</sup>, H<sup>T</sup>)."
+    )
+
+
+def filled_since(info: JSONObject) -> str | None:
+    """The date of the record that filled an order the cited lists give as open, if it is filled."""
+    return info["record"]["date"] if info["record"] and info["state"] != "open" else None
+
+
+def matrix_block(
+    data: JSONObject,
+    order: int,
+    info: JSONObject,
+    stored: dict[int, JSONObject],
+    chosen: dict[int, str],
+    bib: Bibliography,
+    prefix: str = "../",
+) -> tuple[str, set[str]]:
+    """The block "Matrix of order 4n" of one skew-Hadamard order, and the keys it cites.
+
+    It states the order's state, the construction with its citations and the
+    matrix file. An open order has no file: the block names the sources that
+    list it.
+    """
+    t = data["types"][NAME]
+    state = info["state"]
+    parts = [f'<p><span class="tag">{esc(STATES[state][0])}</span>']
+    since = filled_since(info)
+    if since:
+        parts.append(
+            f' <span class="tag">filled since the cited lists, {esc(since)}</span></p>'
+            f"<p>The sources {marks(bib, t['listed_open_sources'], prefix)} list order {order} without a matrix.</p>"
+        )
+    else:
+        parts.append("</p>")
+    download = f'<p><a href="{prefix}{file_name(order)}" download>Download the matrix</a>: one row per line, + for 1 and - for −1. {CHECKED}</p>'  # noqa: E501
+    if state == "open":
+        keys = set(t["listed_open_sources"])
+        parts.append(
+            f"<p>None of the sources read gives or reports a skew-Hadamard matrix of order {order} "
+            f"{marks(bib, keys, prefix)}. The order is called open only relative to these sources, and nothing "
+            "here is a statement about priority.</p>"
+        )
+    elif state == "board":
+        ident = chosen[order]
+        keys = {ARRAY_SOURCE}
+        parts.append(
+            f"<p>Construction: Goethals–Seidel array {bib.mark(ARRAY_SOURCE, prefix)} of a board entry, "
+            f'<a href="{prefix}entries/{esc(ident)}.html">{esc(ident)}</a>, the one with the smallest id, with a skew '
+            f"block placed first.</p>{download}"
+        )
+    else:
+        record = stored[order]
+        keys = stored_keys(record, bib)
+        parts.append(
+            f"<p>Construction: {esc(construction(record))} {marks(bib, record['sources'], prefix)}. "
+            f"{origin_sentence(record, bib, prefix)}</p>"
+        )
+        if "note" in record:
+            parts.append(f"<p>{bib.cite(record['note'], prefix)}</p>")
+        parts.append(download)
+    if since:
+        keys |= set(t["listed_open_sources"])
+    return f"<h2>Matrix of order {order}</h2>{''.join(parts)}", keys
+
+
+def order_page(
+    data: JSONObject,
+    order: int,
+    info: JSONObject,
+    stored: dict[int, JSONObject],
+    chosen: dict[int, str],
+    bib: Bibliography,
+) -> str:
+    """The page of a skew-Hadamard order that has no board cell page."""
+    block, keys = matrix_block(data, order, info, stored, chosen, bib)
+    return (
+        f'<article class="entry"><div class="eyebrow">order {order} · skew-hadamard</div>'
+        f"<h1>Skew-Hadamard matrix of order {order}</h1>"
         "<p>A skew-Hadamard matrix of order n is an n × n matrix H with entries 1 and −1 such that "
-        "H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I, where H<sup>T</sup> is the transpose of H "
-        "and I is the identity matrix of order n. "
-        f"This table has one row for each multiple of 4 from {r['min']} to {r['max']}.</p>"
-        f'<p id="open-list">{open_sentence}</p>'
-        f'<p id="state-counts">The data were compiled on {esc(data["compiled"])}. Of the {total} orders, '
-        f"{tally}.</p>"
-        "<p>On board means that this board holds an exactly verified matrix of the order. Known means "
-        "that the cited sources give a matrix and the board holds none. Reported means that a matrix "
-        "is reported in a source that is not peer reviewed, or follows from a matrix of this board by a "
-        "cited construction, and the board holds none. An order is called open only relative to the "
-        "sources cited in its row: none of the sources read gives or reports a matrix. Nothing here is "
-        "a statement about priority.</p>"
-        "<p>For each order on the board, the matrix file is the Goethals–Seidel array "
-        f"{bib.mark(ARRAY_SOURCE)} of the entry with the smallest id, with a skew block placed "
-        "first: one row per line, + for 1 and - for −1. The build checks H H<sup>T</sup> = nI and "
-        "H + H<sup>T</sup> = 2I in exact integer arithmetic before it writes a file.</p>"
-        '<div class="controls"><label>Show <select id="state"><option value="">all</option>'
-        f"{options}</select></label></div>"
-        '<div class="scroll"><table id="skew-orders"><thead><tr><th scope="col">order</th>'
-        '<th scope="col">state</th><th scope="col">sources</th>'
-        '<th scope="col">on this board</th></tr></thead>'
-        f"<tbody>{table_rows(data, states, bib, chosen)}</tbody></table></div>"
-        f"<h2>References</h2>{references}"
-        '<p><a href="./#board">Back to the board</a></p></article>'
-        "<noscript><p>JavaScript enables the filter. The table is complete without it.</p></noscript>"
-        '<script src="skew.js" defer></script>'
+        "H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I, where H<sup>T</sup> is the transpose of H and I is the "
+        f"identity matrix of order n. The board has no cell for n = {order // 4}: its cells cover odd n up to "
+        f"{BOARD_MAX_N}.</p>"
+        f"{block}<h2>References</h2>{bib.listing(keys, '../')}"
+        '<p><a href="../#board">Back to the board</a></p></article>'
     )

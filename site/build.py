@@ -22,6 +22,8 @@ type Results = dict[str, JSONObject]
 
 BIB = Bibliography()
 ORDERS = orders.validate(orders.load_data(), BIB)
+# The stored skew-Hadamard matrices, by order.
+STORED = orders.validate_matrices(orders.load_matrices(), ORDERS, BIB)
 
 
 # Lean theorems about specific entries, linked from the entry pages.
@@ -203,7 +205,7 @@ def shell(title: str, body: str, prefix: str = "", head: str = "", description: 
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Hunting Hadamards</title><meta name="description" content="{esc(description)}"><meta property="og:title" content="{esc(title)} · Hunting Hadamards"><meta property="og:description" content="{esc(description)}">
 <link rel="icon" href="{prefix}favicon.png" type="image/png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"><link rel="stylesheet" href="{prefix}style.css">{head}</head><body>
-<header><a class="brand" href="{prefix}./">hunting-hadamards</a><nav><a href="{prefix}./#board">board</a><a href="{prefix}./#new-results">new results</a><a href="{prefix}skew.html">skew orders</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
+<header><a class="brand" href="{prefix}./">hunting-hadamards</a><nav><a href="{prefix}./#board">board</a><a href="{prefix}./#new-results">new results</a><a href="{prefix}references.html">references</a><a href="https://github.com/vxvware/goethals-seidel-challenge">contribute</a></nav></header>
 <main>{body}</main><footer><a class="logo" href="https://vxvware.com" aria-label="vxvware"><img src="{prefix}vxvware-logo.png" alt="vxvware"></a><p class="credit"><a href="https://vprusso.github.io/">Vincent Russo</a> and <a href="https://trevorvincent.com/">Trevor Vincent</a></p></footer></body></html>"""  # noqa: E501
 
 
@@ -501,8 +503,12 @@ def rows_block(doc: JSONObject, result: JSONObject) -> str:
     return f'<section class="rows-text"><h2>Rows</h2><p>{esc(text)}</p><pre>{esc(lines)}</pre></section>'
 
 
-def cell_page(c: JSONObject, d: Results, r: Results) -> str:
-    """One page per order and track: status, credit, sources, and the matrices."""
+def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
+    """One page per order and track: status, credit, sources, and the matrices.
+
+    matrix is the block about the skew-Hadamard matrix of order 4n, which the
+    page of the track for quadruples with a skew block carries.
+    """
     n, track = c["n"], c["stratum"]
     tier = tier_label(c["tier"], rows=bool(c["quadruples"]))
     status = " · ".join(x for x in (c["status"], c["artifact_status"], tier) if x)
@@ -543,6 +549,7 @@ def cell_page(c: JSONObject, d: Results, r: Results) -> str:
             + "".join(f" {BIB.mark(key, '../')}" for key in source_keys([claim["source"]]))
             + "</p>"
         )
+    parts.append(matrix)
     # The catalogue credit is the same paragraph for every imported cell; the
     # cell's own sources already name the original authors. A contribution that
     # reports quadruples of the cell comes before one that only holds evidence,
@@ -666,10 +673,15 @@ def grid(stats: JSONObject, r: Results) -> tuple[str, str, str]:
     """The front-page grid: its header rows, its body rows and the options of its column filter."""
     by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
     marked = new_cells(stats, r)
-    states = orders.table(ORDERS, r)
+    states = orders.table(ORDERS, r, STORED)
     new_skew = {x["n"] for x in existence_results(stats, r)}
     rows = []
-    for n in range(1, 132, 2):
+    blank = "".join(f'<td class="blank" data-track="{track}"></td>' for track in PRIMARY)
+    for n in range(1, ORDERS["range"]["max"] // 4 + 1):
+        if not orders.covered(n):
+            # The board has no cells here: the two order columns, and blank family columns.
+            rows.append(f'<tr data-n="{n}" data-extra><td>{n}</td>{orders.grid_cells(n, states)}{blank}</tr>')
+            continue
         found = {track: grid_cell(by_cell[n, track], marked, r) for track in TRACKS}
         cells = [
             f'<td class="{esc(x["classes"])}"{filter_attributes(x)}>'
@@ -715,8 +727,7 @@ def skew_matrices(states: orders.OrderStates, r: Results) -> dict[int, tuple[str
 
     The matrix is the Goethals–Seidel array of the entry with the smallest id,
     with its rows in display order, so that a skew block comes first. Raises
-    ValueError unless the array passes the exact skew-Hadamard check. An order
-    2m obtained by doubling a held order m is not generated.
+    ValueError unless the array passes the exact skew-Hadamard check.
     """
     files = {}
     for order, ident in skew.chosen_entries(states).items():
@@ -732,9 +743,15 @@ def skew_matrices(states: orders.OrderStates, r: Results) -> dict[int, tuple[str
     return files
 
 
-def write_skew_page(out: Path, r: Results) -> None:
-    """Write skew.html and the matrix files it links."""
-    states = orders.table(ORDERS, r)
+def write_skew_matrices(out: Path, states: orders.OrderStates, r: Results, quick: bool = False) -> dict[int, str]:
+    """Write the matrix file of every skew-Hadamard order that is not open; return the chosen board entries.
+
+    An order the board holds gets the array of an entry, and every other order
+    its stored matrix. A stored file is decompressed, compared with its sha256
+    and checked exactly before it is written; any failure raises ValueError and
+    stops the build. A quick build compares the sha256 only and skips the exact
+    check of the stored files, which the full build and the tests run.
+    """
     files = skew_matrices(states, r)
     folder = out / "matrices"
     if folder.exists():
@@ -742,17 +759,30 @@ def write_skew_page(out: Path, r: Results) -> None:
     folder.mkdir()
     for order, (_, text) in files.items():
         (out / skew.file_name(order)).write_text(text)
-    chosen = {order: ident for order, (ident, _) in files.items()}
-    (out / "skew.html").write_text(
-        shell(
-            "Skew-Hadamard matrices by order",
-            skew.page(ORDERS, states, BIB, chosen),
-            description=(
-                f"Skew-Hadamard matrices of each order from {ORDERS['range']['min']} to {ORDERS['range']['max']}: "
-                "on this board, known, reported or open according to the cited sources."
-            ),
+    for order, s in states.items():
+        if s[skew.NAME]["state"] == "verified":
+            (out / skew.file_name(order)).write_text(skew.stored_text(STORED[order], check=not quick))
+    return {order: ident for order, (ident, _) in files.items()}
+
+
+def write_order_pages(out: Path, states: orders.OrderStates, chosen: dict[int, str]) -> None:
+    """Write the page of every skew-Hadamard order whose n has no board cell."""
+    folder = out / "orders"
+    if folder.exists():
+        shutil.rmtree(folder)
+    folder.mkdir()
+    for order, s in states.items():
+        if orders.covered(order // 4):
+            continue
+        info = s[skew.NAME]
+        (folder / f"skew-{order}.html").write_text(
+            shell(
+                f"Skew-Hadamard matrix of order {order}",
+                skew.order_page(ORDERS, order, info, STORED, chosen, BIB),
+                "../",
+                description=f"Skew-Hadamard matrix of order {order}: {orders.STATE_WORDS[info['state']]}.",
+            )
         )
-    )
 
 
 def build(quick: bool = False) -> JSONObject:
@@ -767,7 +797,6 @@ def build(quick: bool = False) -> JSONObject:
         "app.js",
         "picture.js",
         "hero.js",
-        "skew.js",
         "favicon.png",
         "vxvware-logo.png",
     ):
@@ -786,8 +815,8 @@ def build(quick: bool = False) -> JSONObject:
         (out / f"badges/{key}.svg").write_text(badge)
     head, rows, options = grid(stats, r)
     body = f"""<section class="hero"><div><h1>Hunting Hadamards</h1><p>Hadamard matrices are believed to exist in every size divisible by 4, but some sizes have never been found. This board tracks the search.</p>{hero_figure(r)}</div>{DEFINITION}</section>
-<section id="board"><h2>The board</h2><p class="key">{orders.intro(ORDERS)} <a href="skew.html">Skew-Hadamard matrices by order</a> lists every order to {ORDERS["range"]["max"]}. (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>)</p><div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>131</option></select></label></div>
-<div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="participant">new result</span></div>
+<section id="board"><h2>The board</h2><p class="key">{orders.intro(ORDERS)} (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>)</p><div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option selected>{orders.BOARD_MAX_N}</option><option value="{ORDERS["range"]["max"] // 4}">{ORDERS["range"]["max"] // 4}, every n</option></select></label></div>
+<div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="since">filled since the cited lists</span><span class="participant">new result</span></div>
 <div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{rows}</tbody></table></div></section>
 {new_results_section(stats, r)}
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Found four sequences that fit? The verifier checks them exactly, works out their family and rejects duplicates of entries already here.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
@@ -857,11 +886,19 @@ def build(quick: bool = False) -> JSONObject:
         '<p><a href="./#board">Back to the board</a></p></article>'
     )
     (out / "references.html").write_text(shell("References", refs))
-    write_skew_page(out, r)
+    states = orders.table(ORDERS, r, STORED)
+    chosen = write_skew_matrices(out, states, r, quick)
+    write_order_pages(out, states, chosen)
+    # Files of the page this build no longer writes.
+    for name in ("skew.html", "skew.js"):
+        (out / name).unlink(missing_ok=True)
     for c in stats["cells"]:
         title = f"n = {c['n']} · {TRACK_LABELS[c['stratum']]}"
+        matrix = ""
+        if c["stratum"] == orders.CELL_TRACKS[skew.NAME]:
+            matrix, _ = skew.matrix_block(ORDERS, 4 * c["n"], states[4 * c["n"]][skew.NAME], STORED, chosen, BIB)
         (out / f"cells/n{c['n']}-{c['stratum']}.html").write_text(
-            shell(title, cell_page(c, d, r), "../", description=cell_description(c))
+            shell(title, cell_page(c, d, r, matrix), "../", description=cell_description(c))
         )
     print(
         f"Built docs/: {stats['quadruples']} quadruples, {stats['certificates']} evidence records, "

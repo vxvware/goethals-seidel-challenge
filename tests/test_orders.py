@@ -35,7 +35,7 @@ def cells(markup):
     """(class, type, order, state, text) of every order cell in a piece of HTML."""
     return re.findall(
         r'<td class="([^"]*)" data-type="([a-z-]+)" data-order="(\d+)" data-state="([a-z]+)"'
-        r"[^>]*><a [^>]*><span>([^<]*)</span>",
+        r"[^>]*><(?:a|span) [^>]*><span>([^<]*)</span>",
         markup,
     )
 
@@ -127,15 +127,24 @@ def test_states_follow_the_data_file(data, states):
         is_open = [o for o, s in states.items() if s[name]["state"] == "open"]
         assert is_open == t["open"]
         reported = {o for o, s in states.items() if s[name]["state"] == "reported"}
-        assert reported == {o for record in t["since"] if record["status"] == "reported" for o in record["orders"]}
-    # Orders the sources give as known and the board does not hold. Use orders beyond the
-    # board's range, n > 131, so that a new board entry cannot turn one into "board".
-    assert states[532]["skew-hadamard"]["state"] == "known"
-    assert states[540]["skew-hadamard"]["state"] == "known"
+        since = {o for record in t["since"] if record["status"] == "reported" for o in record["orders"]}
+        # A skew-Hadamard order is never shown as reported or known: it has a checked matrix file.
+        assert reported == (since if name == "hadamard" else set())
+        if name == "skew-hadamard":
+            assert {s[name]["state"] for s in states.values()} == {"board", "verified", "open"}
+            assert since <= {o for o, s in states.items() if s[name]["state"] == "verified"}
+    # Orders the board does not hold. Use orders beyond the board's range, n > 131, so
+    # that a new board entry cannot turn one into "board".
+    assert states[532]["skew-hadamard"]["state"] == "verified"
+    assert states[540]["skew-hadamard"]["state"] == "verified"
+    assert states[712]["skew-hadamard"]["state"] == states[820]["skew-hadamard"]["state"] == "verified"
     assert states[532]["hadamard"]["state"] == "known"
     assert states[404]["skew-hadamard"]["state"] == "open"
     assert states[668]["hadamard"]["state"] == "reported"
     assert states[8]["hadamard"]["state"] == "known"
+    # An order that is neither open nor held needs a stored matrix.
+    with pytest.raises(ValueError, match="no stored matrix of order 4,"):
+        orders.table(data, {}, stored=[])
 
 
 def test_doubled_board_matrices_are_skew_hadamard(board, data):
@@ -183,6 +192,7 @@ def test_intro_names_the_smallest_open_skew_orders(data):
     first, second = data["types"]["skew-hadamard"]["open"][:2]
     assert f"the smallest open skew-Hadamard orders are {first} and {second}" in text
     assert "first" not in text.lower().replace("first,", "")
+    assert "for odd n up to 131. Choosing 300 under Through n adds the rows for even n" in text
 
 
 def test_front_page_has_no_orders_page_or_box():
@@ -195,7 +205,7 @@ def test_front_page_has_no_orders_page_or_box():
 
 
 def test_grid_columns_agree_with_the_data_file(data, states):
-    for n in range(1, orders.BOARD_MAX_N + 1, 2):
+    for n in range(1, 301):
         found = cells(orders.grid_cells(n, states))
         assert [name for _, name, *_ in found] == list(orders.TYPES)
         for classes, name, order, state, text in found:
@@ -204,35 +214,50 @@ def test_grid_columns_agree_with_the_data_file(data, states):
             if state == "open":
                 assert 4 * n in t["open"]
             elif state == "reported":
-                assert 4 * n in t["listed_open"] and 4 * n not in t["open"]
+                assert name == "hadamard" and 4 * n in t["listed_open"] and 4 * n not in t["open"]
             elif state == "known":
-                assert 4 * n not in t["listed_open"]
+                assert name == "hadamard" and 4 * n not in t["listed_open"]
+            elif state == "verified":
+                assert name == "skew-hadamard" and 4 * n not in t["open"] and not states[4 * n][name]["entries"]
             else:
                 assert state == "board" and states[4 * n][name]["entries"]
             assert classes == orders.STATES[state][1]
-        # Each existence cell links to the board cell of n for its type.
         hrefs = re.findall(r'href="([^"]+)"', orders.grid_cells(n, states))
-        assert hrefs == [f"cells/n{n}-general.html", f"cells/n{n}-skew-sds.html"]
+        if orders.covered(n):
+            # Each order cell links to the board cell of n for its type.
+            assert hrefs == [f"cells/n{n}-general.html", f"cells/n{n}-skew-sds.html"]
+        else:
+            # The board has no cell: the skew-Hadamard order has its own page and the Hadamard cell no link.
+            assert hrefs == [f"orders/skew-{4 * n}.html"]
     row = {name: (state, text) for _, name, _, state, text in cells(orders.grid_cells(89, states))}
     assert row == {"hadamard": ("board", "356"), "skew-hadamard": ("board", "356")}
-    # Where the board holds no skew-Hadamard matrix of order 4n and the sources do
-    # not list the order as open, the grid shows the order as known.
-    skew = data["types"]["skew-hadamard"]
-    for n in range(1, orders.BOARD_MAX_N + 1, 2):
-        if not states[4 * n]["skew-hadamard"]["entries"] and 4 * n not in skew["listed_open"]:
-            assert ("skew-hadamard", "known") in [
-                (name, state) for _, name, _, state, _ in cells(orders.grid_cells(n, states))
-            ]
+    assert [orders.covered(n) for n in (1, 2, 131, 132, 133)] == [True, False, True, False, False]
+
+
+def test_filled_orders_carry_the_since_marker(data, states):
+    """An order the cited lists give as open and that now has a matrix is marked in the grid."""
+    t = data["types"]["skew-hadamard"]
+    filled = {o for record in t["since"] for o in record["orders"]}
+    assert {356, 476, 712, 952, 820, 996} <= filled
+    for n in range(1, 301):
+        skew_cell = orders.grid_cells(n, states).split("<td")[2]
+        assert ('class="since"' in skew_cell) == (4 * n in filled), n
+        if 4 * n in filled:
+            date = next(record["date"] for record in t["since"] if 4 * n in record["orders"])
+            assert f"listed as open in the cited sources, filled since ({date})" in skew_cell
+    # The Hadamard column keeps its states and has no marker.
+    assert 'class="since"' not in orders.grid_cells(167, states).split("<td")[1]
+    assert states[668]["hadamard"]["state"] == "reported"
 
 
 def test_unresolved_skew_cells_with_a_known_order(board, states):
     d, r, b = board
     by_cell = {(c["n"], c["stratum"]): c for c in summary(d, r, b)["cells"]}
     # An unresolved cell for quadruples with a skew block does not make its order
-    # open: the order is known whenever the sources do not list it as open.
+    # open: the order has a checked matrix whenever the sources do not list it as open.
     for n in range(1, orders.BOARD_MAX_N + 1, 2):
         if by_cell[n, "skew-sds"]["status"] == "unresolved" and not states[4 * n]["skew-hadamard"]["listed_open"]:
-            assert states[4 * n]["skew-hadamard"]["state"] == "known"
+            assert states[4 * n]["skew-hadamard"]["state"] == "verified"
 
 
 def test_track_labels_and_groups():
@@ -259,7 +284,11 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     assert values == ["general", "skew-sds", *module.PRIMARY]
     by_cell = {(c["n"], c["stratum"]): c for c in stats["cells"]}
     marked = module.new_cells(stats, r)
-    for n, row in zip(range(1, orders.BOARD_MAX_N + 1, 2), rows.split("</tr>"), strict=False):
+    by_n = {int(re.match(r'<tr data-n="(\d+)"', row).group(1)): row for row in rows.split("</tr>") if row}
+    assert list(by_n) == list(range(1, 301))
+    for n in range(1, orders.BOARD_MAX_N + 1, 2):
+        row = by_n[n]
+        assert "data-extra" not in row
         found = {name: (classes, state) for classes, name, _, state, _ in cells(row)}
         assert {name: state for name, (_, state) in found.items()} == {
             name: states[4 * n][name]["state"] for name in orders.TYPES
@@ -276,12 +305,33 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
             assert f'data-status="{c["status"]}"' in html
             if c["contradicted"]:
                 assert "contradicted" in html.split('"')[1]
-    row = dict(zip(range(1, orders.BOARD_MAX_N + 1, 2), rows.split("</tr>"), strict=False))
-    # At 85 the board's cyclic skew cell is unresolved and the order is known from the sources.
+    row = by_n
+    # At 85 the board's cyclic skew cell is unresolved and the order has a matrix by another construction.
     skew85 = {name: (state, text) for _, name, _, state, text in cells(row[85])}
-    assert skew85["skew-hadamard"] == ("known", "340")
+    assert skew85["skew-hadamard"] == ("verified", "340")
     assert 'data-status="unresolved"' in row[85].split("<td")[3]
     assert row[89].split("<td")[3].count('class="participant"') == 1
+    # A row the board has no cells for: the two order cells, then a blank cell per family.
+    for n in (2, 132, 133, 300):
+        extra = by_n[n]
+        assert extra.startswith(f'<tr data-n="{n}" data-extra>')
+        assert {name: state for _, name, _, state, _ in cells(extra)} == {
+            name: states[4 * n][name]["state"] for name in orders.TYPES
+        }
+        assert re.findall(r'data-track="([a-z-]+)"', extra) == ["general", "skew-sds", *module.PRIMARY]
+        assert extra.count('<td class="blank"') == len(module.PRIMARY) and "cells/" not in extra
+        assert re.findall(r'href="([^"]+)"', extra) == [f"orders/skew-{4 * n}.html"]
+    # An open order off the board reads as a research target in the status filter.
+    assert 'data-state="open" data-track="skew-sds" data-status="unresolved"' in by_n[101]
+    assert 'data-state="verified" data-track="skew-sds" data-status="exists"' in by_n[2]
+
+
+def test_default_view_hides_the_rows_the_board_does_not_cover():
+    source = (ROOT / "site/build.py").read_text()
+    assert "<option selected>{orders.BOARD_MAX_N}</option>" in source and ", every n</option></select>" in source
+    script = (ROOT / "site/app.js").read_text()
+    assert "!every&&row.hasAttribute('data-extra')" in script and "\nfilter();\n" in script
+    assert "if(td.classList.contains('blank'))continue;" in script
 
 
 def test_order_cell_shows_only_the_order():
@@ -327,78 +377,104 @@ def test_new_skew_order_carries_the_new_result_marker():
     assert marked.index('data-type="skew-hadamard"') < marked.index('class="participant"')
 
 
-@pytest.fixture(scope="module")
-def skew_page(board, data, states):
+def test_no_page_lists_the_skew_orders():
+    """The grid carries the skew-Hadamard orders; the separate page and its script are gone."""
     import skew
 
-    return skew.page(data, states, Bibliography(), skew.chosen_entries(states))
-
-
-def page_rows(markup):
-    """(order, state, state cell class, state words, rest of the row) of every row of the skew page."""
-    return [
-        (int(order), state, classes, words, rest)
-        for order, state, classes, words, rest in re.findall(
-            r'<tr data-order="(\d+)" data-state="([a-z]+)"><td>\d+</td>'
-            r'<td class="([^"]*)"><span class="cell">([^<]*)</span></td>(.*?)</tr>',
-            markup,
-        )
-    ]
-
-
-def test_skew_page_has_one_row_per_order(data, states, skew_page):
-    import skew
-
-    rows = page_rows(skew_page)
-    assert [order for order, *_ in rows] == list(range(4, 1201, 4))
-    assert skew_page.count("<tr data-order=") == len(orders.in_range(data)) == 300
-    for order, state, classes, words, _ in rows:
-        assert state == states[order]["skew-hadamard"]["state"]
-        assert (words, classes) == orders.STATES[state]
-    found = skew.counts(states)
-    assert sum(found.values()) == 300
-    tally = orders.listing(f"{found[s]} {orders.STATES[s][0]}" for s in skew.STATE_ORDER)
-    assert f"Of the 300 orders, {tally}." in skew_page
-    assert f"compiled on {data['compiled']}" in skew_page
-    # Every filter option is a state of the table.
-    assert re.findall(r'<option value="([a-z]*)">', skew_page) == ["", *skew.STATE_ORDER]
-
-
-def test_skew_page_shows_every_open_order_as_open(data, skew_page):
-    t = data["types"]["skew-hadamard"]
-    rows = page_rows(skew_page)
-    assert [order for order, state, *_ in rows if state == "open"] == t["open"]
-    assert f"The open orders are {orders.listing(t['open'])}." in skew_page
-    bib = Bibliography()
-    for _, state, _, words, rest in rows:
-        if state == "open":
-            assert words == "open" and "entries/" not in rest and "matrices/" not in rest
-            assert rest.startswith(f"<td>{orders.marks(bib, t['listed_open_sources'])}</td>")
-    assert "only relative to the sources" in skew_page
-
-
-def test_skew_page_cites_through_the_bibliography_and_links_the_board(data, states, skew_page):
-    import skew
-
-    assert "[@" not in skew_page and "—" not in skew_page
-    chosen = skew.chosen_entries(states)
-    bib = Bibliography()
-    by_order = {order: (state, rest) for order, state, _, _, rest in page_rows(skew_page)}
-    for order, (state, rest) in by_order.items():
-        # The board's own result at 356 has a note and no source to cite.
-        record = states[order]["skew-hadamard"]["record"]
-        uncited = bool(record) and not record["sources"] and not bib.keys_in(record["note"])
-        assert ('class="cite"' in rest) != uncited, order
-        assert (f'href="matrices/skew-{order}.txt"' in rest) == (state == "board"), order
-        if state == "board":
-            assert chosen[order] == min(states[order]["skew-hadamard"]["entries"])
-            assert f'href="entries/{chosen[order]}.html"' in rest
-            assert f'href="cells/n{order // 4}-skew-sds.html"' in rest
-    # The doubled orders are reported and get no matrix file.
-    (record,) = [x for x in data["types"]["skew-hadamard"]["since"] if "doubles" in x]
-    assert all(by_order[o][0] == "reported" and o not in chosen for o in record["orders"])
     source = (ROOT / "site/build.py").read_text()
-    assert '<a href="{prefix}skew.html">skew orders</a>' in source and '<a href="skew.html">' in source
+    assert 'skew.html">' not in source and "skew orders" not in source
+    # The build copies no skew.js and removes the two files an older build left in the output.
+    assert source.count('"skew.js"') == source.count('"skew.html"') == 1 and "unlink(missing_ok=True)" in source
+    assert not (ROOT / "site/skew.js").exists() and not hasattr(skew, "page")
+
+
+@pytest.fixture(scope="module")
+def blocks(data, states):
+    """The matrix block of every skew-Hadamard order, with the keys it cites."""
+    import skew
+
+    bib = Bibliography()
+    stored = orders.validate_matrices(orders.load_matrices(), data, bib)
+    chosen = skew.chosen_entries(states)
+    return {
+        order: skew.matrix_block(data, order, s["skew-hadamard"], stored, chosen, bib) for order, s in states.items()
+    }
+
+
+def test_matrix_block_states_the_construction_and_links_the_file(data, states, blocks):
+    import skew
+
+    bib = Bibliography()
+    t = data["types"]["skew-hadamard"]
+    chosen = skew.chosen_entries(states)
+    assert len(blocks) == 300
+    for order, (block, keys) in blocks.items():
+        state = states[order]["skew-hadamard"]["state"]
+        assert block.startswith(f"<h2>Matrix of order {order}</h2>")
+        assert f'<span class="tag">{orders.STATES[state][0]}</span>' in block
+        assert "[@" not in block and "—" not in block and "reported" not in block
+        assert keys <= set(bib.entries) and 'class="cite"' in block
+        assert (f'href="../matrices/skew-{order}.txt" download' in block) == (state != "open"), order
+        if state == "open":
+            assert order in t["open"] and keys == set(t["listed_open_sources"])
+            assert "only relative to these sources" in block and "priority" in block
+        elif state == "board":
+            assert chosen[order] == min(states[order]["skew-hadamard"]["entries"])
+            assert f'href="../entries/{chosen[order]}.html"' in block and "Goethals–Seidel array" in block
+        else:
+            assert "Construction: " in block
+    filled = {o for record in t["since"] for o in record["orders"]}
+    for order, (block, _) in blocks.items():
+        assert ("filled since the cited lists, 20" in block) == (order in filled), order
+    assert "Construction: Paley I, q = 7 " in blocks[8][0]
+    assert "generated with SageMath" in blocks[8][0] and "hadamard_matrix_paleyI" in blocks[8][0]
+    assert "Doubling of a matrix of order 92 (Good matrices)" in blocks[184][0] and "is not cited" in blocks[184][0]
+    assert "doubling of the board's matrix of order 356" in blocks[712][0]
+    assert "doubling of the board's matrix of order 476" in blocks[952][0]
+    assert "No source read" not in blocks[712][0]
+    for order in (820, 996, 1148):
+        assert "The source is a software repository, not peer reviewed." in blocks[order][0]
+        assert "kishan2026skew" in blocks[order][1]
+    assert "passagemath2026combinat" in blocks[8][1] and "passagemath2026combinat" not in blocks[820][1]
+
+
+def test_inconsistent_matrix_records_are_rejected(data):
+    bib = Bibliography()
+    doc = orders.load_matrices()
+    assert len(orders.validate_matrices(doc, data, bib)) == len(doc["matrices"])
+    for change in (
+        lambda m: m.append(dict(m[0])),
+        lambda m: m[0].update(order=404, file="matrices/skew/skew-404.txt.xz"),
+        lambda m: m[0].update(sources=["nobody1900nothing"]),
+        lambda m: m[0].update(origin="memory"),
+        lambda m: m[0].update(file="matrices/skew/other.txt.xz"),
+    ):
+        broken = copy.deepcopy(doc)
+        change(broken["matrices"])
+        with pytest.raises(ValueError):
+            orders.validate_matrices(broken, data, bib)
+
+
+def test_stored_matrix_with_a_wrong_digest_or_a_changed_entry_is_rejected(data, tmp_path, monkeypatch):
+    import lzma
+
+    import skew
+
+    record = dict(orders.load_matrices()["matrices"][0])
+    text = skew.stored_text(record)
+    assert skew.check_skew_text(text) == record["order"]
+    with pytest.raises(ValueError, match="sha256"):
+        skew.stored_text(record | {"sha256": "0" * 64}, check=False)
+    # A changed matrix whose record carries the digest of the changed text fails the exact check.
+    import hashlib
+
+    changed = ("-" if text[1] == "+" else "+").join((text[:1], text[2:])).encode()
+    monkeypatch.setattr(skew, "ROOT", tmp_path)
+    (tmp_path / "bad.txt.xz").write_bytes(lzma.compress(changed))
+    bad = record | {"file": "bad.txt.xz", "sha256": hashlib.sha256(changed).hexdigest()}
+    assert skew.stored_text(bad, check=False) == changed.decode()
+    with pytest.raises(ValueError, match="not a skew-Hadamard matrix"):
+        skew.stored_text(bad)
 
 
 def test_skew_array_matches_the_pictured_layout(board, states):
@@ -421,29 +497,59 @@ def test_skew_check_rejects_a_matrix_that_is_not_skew_hadamard():
     symmetric = [[1, 1], [1, -1]]
     flipped = [list(row) for row in good]
     flipped[1][2], flipped[2][1] = 1, -1
-    for bad in (symmetric, flipped, [[1, 0], [0, 1]], [[1, 1, 1]]):
+    for bad in (symmetric, flipped, [[1, 0], [0, 1]], [[1, 1, 1]], []):
         with pytest.raises(ValueError):
             skew.check_skew_hadamard(bad)
+    assert skew.check_skew_text("++++\n-+-+\n-++-\n--++\n") == 4
+    for bad in ("++++\n-+-+\n-++-\n--++", "++\n+-\n", "+0\n0+\n", "+++\n", "", "\n"):
+        with pytest.raises(ValueError):
+            skew.check_skew_text(bad)
 
 
-def test_every_written_matrix_is_skew_hadamard(board, states, tmp_path):
+def test_every_written_matrix_is_skew_hadamard(board, data, states, tmp_path):
+    """Every order that is not open has a file that is a skew-Hadamard matrix; an open order has none."""
     import numpy as np
 
     import skew
 
     module = site_build()
-    module.write_skew_page(tmp_path, board[1])
-    chosen = skew.chosen_entries(states)
-    held = {o for o, s in states.items() if s["skew-hadamard"]["state"] == "board"}
+    chosen = module.write_skew_matrices(tmp_path, states, board[1])
+    assert chosen == skew.chosen_entries(states)
+    is_open = set(data["types"]["skew-hadamard"]["open"])
     written = {int(p.stem.removeprefix("skew-")) for p in (tmp_path / "matrices").iterdir()}
-    assert written == held == set(chosen) and {356, 476} <= written and not {712, 952} & written
+    assert written == set(orders.in_range(data)) - is_open and len(written) == 300 - len(is_open)
+    assert {356, 476, 712, 952, 996, 1200} <= written and not {404, 428, 668} & written
     for order in sorted(written):
         lines = (tmp_path / skew.file_name(order)).read_text().splitlines()
         assert len(lines) == order and all(len(x) == order and set(x) <= {"+", "-"} for x in lines)
-        h = np.array([[1 if c == "+" else -1 for c in line] for line in lines])
-        assert np.array_equal(h + h.T, 2 * np.eye(order, dtype=int)), order
-        assert np.array_equal(h @ h.T, order * np.eye(order, dtype=int)), order
-        # The file is the array of the chosen entry's rows with a skew block first.
-        rows, pattern = module.display_rows(board[1][chosen[order]])
-        assert pattern[0] == "k" and np.array_equal(h, gs_array(rows)), order
-    assert (tmp_path / "skew.html").read_text().count("<tr data-order=") == 300
+        # Entries are 1 and -1 and the order is at most 1200, so the float64 products are exact integers.
+        h = np.array([[1.0 if c == "+" else -1.0 for c in line] for line in lines])
+        assert np.array_equal(h + h.T, 2 * np.eye(order)), order
+        assert np.array_equal(h @ h.T, order * np.eye(order)), order
+        if order in chosen:
+            # The file is the array of the chosen entry's rows with a skew block first.
+            rows, pattern = module.display_rows(board[1][chosen[order]])
+            assert pattern[0] == "k" and np.array_equal(h, gs_array(rows)), order
+        else:
+            assert states[order]["skew-hadamard"]["state"] == "verified"
+
+
+def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tmp_path):
+    import skew
+
+    module = site_build()
+    module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
+    written = {int(p.stem.removeprefix("skew-")) for p in (tmp_path / "orders").iterdir()}
+    assert written == {4 * n for n in range(1, 301) if not orders.covered(n)} and len(written) == 234
+    is_open = set(data["types"]["skew-hadamard"]["open"])
+    for order in sorted(written):
+        page = (tmp_path / f"orders/skew-{order}.html").read_text()
+        assert f"<h1>Skew-Hadamard matrix of order {order}</h1>" in page and "<h2>References</h2>" in page
+        assert (f'href="../matrices/skew-{order}.txt" download' in page) == (order not in is_open), order
+        assert 'href="../style.css"' in page and "—" not in page
+    # The pages of the covered rows are the board cells, which carry the same block.
+    d, r, b = board
+    cell = next(c for c in summary(d, r, b)["cells"] if (c["n"], c["stratum"]) == (85, "skew-sds"))
+    block, _ = skew.matrix_block(data, 340, states[340]["skew-hadamard"], module.STORED, {}, Bibliography())
+    assert block in module.cell_page(cell, d, r, block) and "Matrix of order 340" in block
+    assert "Matrix of order" not in module.cell_page(cell, d, r)
