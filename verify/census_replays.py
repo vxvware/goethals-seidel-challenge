@@ -9,8 +9,9 @@ placed in the report is that the engine ran to completion on the stated
 sources; the count and the class set are recomputed here, never copied.
 """
 
+from math import gcd
 from pathlib import Path
-from typing import TypedDict
+from typing import NotRequired, TypedDict
 
 from verify.common import ROOT, ById, JSONObject, Rows, artifact, digest, read_json
 from verify.equivalence import canonical
@@ -22,6 +23,12 @@ from verify.gs_verify import memberships, validate_rows
 COMPRESS_SOURCES = (
     "research/starter/compress/pc_compress.c",
     "research/starter/compress/pc_lift.c",
+)
+# pc2_inst.c writes the instances at one compression length and pc2_join.c
+# lifts them through a second, coprime one; a report records both divisors.
+COMPRESS2_SOURCES = (
+    "research/starter/compress2/pc2_inst.c",
+    "research/starter/compress2/pc2_join.c",
 )
 
 
@@ -40,6 +47,7 @@ class ReplayEngine(TypedDict):
     sources: tuple[str, ...]
     orders: range | tuple[int, ...]
     composite: bool
+    divisors: NotRequired[int]
 
 
 ENGINES: dict[str, ReplayEngine] = {
@@ -185,12 +193,52 @@ ENGINES: dict[str, ReplayEngine] = {
         "orders": range(9, 126, 2),
         "composite": True,
     },
+    "williamson-compress2-v1": {
+        "stratum": "williamson",
+        "sources": COMPRESS2_SOURCES,
+        "orders": range(15, 128, 2),
+        "composite": True,
+        "divisors": 2,
+    },
+    "good-compress2-v1": {
+        "stratum": "good",
+        "sources": COMPRESS2_SOURCES,
+        "orders": range(15, 128, 2),
+        "composite": True,
+        "divisors": 2,
+    },
+    "kkss-compress2-v1": {
+        "stratum": "kkss",
+        "sources": COMPRESS2_SOURCES,
+        "orders": range(15, 128, 2),
+        "composite": True,
+        "divisors": 2,
+    },
+    "best-compress2-v1": {
+        "stratum": "best",
+        "sources": COMPRESS2_SOURCES,
+        "orders": range(15, 128, 2),
+        "composite": True,
+        "divisors": 2,
+    },
 }
 REPORT_DIR = "evidence/census-replays/"
 
 
 def engine_digests(engine: str, root: Path = ROOT) -> dict[str, str]:
     return {path: digest(root / path) for path in ENGINES[engine]["sources"]}
+
+
+def two_divisors(d: object, n: int) -> bool:
+    """[d1, d2]: odd coprime divisors of n, at least 3, whose product divides n and leaves lengths n/d at least 3."""
+    if type(d) is not list or len(d) != 2 or any(type(x) is not int for x in d):
+        return False
+    d1, d2 = d
+    return (
+        all(x >= 3 and x % 2 == 1 and n % x == 0 and n // x >= 3 for x in (d1, d2))
+        and gcd(d1, d2) == 1
+        and n % (d1 * d2) == 0
+    )
 
 
 def replayed_classes(report: JSONObject, n: int, stratum: str) -> set[Rows]:
@@ -228,7 +276,10 @@ def apply_report(
         raise ValueError("census replay engine does not cover this cell")
     if report.get("engine_sha256") != engine_digests(engine, root):
         raise ValueError("registered census replay engine differs from the pinned sources")
-    if spec["composite"]:
+    if spec.get("divisors") == 2:
+        if not two_divisors(report.get("compression"), n):
+            raise ValueError("two-divisor compression replay must record coprime divisors d1, d2 with n/(d1 d2) whole")
+    elif spec["composite"]:
         d = report.get("compression")
         if type(d) is not int or not 1 < d < n or n % d:
             raise ValueError("compression replay must record a proper divisor of the order")
