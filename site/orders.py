@@ -2,9 +2,9 @@
 
 baselines/hadamard-orders.json records, for each matrix type, the orders that
 the cited sources list without a matrix and the later statements about them.
-This module checks that file, joins it with the verified entries of the board,
-and renders the two order columns of the front-page grid and the sentence
-that describes it.
+This module checks that file, joins it with the verified entries of the board
+and with the stored matrices of baselines/skew-matrices.json, and renders the
+two order columns of the front-page grid and the sentence that describes it.
 """
 
 import html
@@ -22,18 +22,21 @@ type OrderStates = dict[int, dict[str, JSONObject]]
 """The state of each order for each matrix type, as table() returns it."""
 
 DATA = Path(__file__).resolve().parents[1] / "baselines/hadamard-orders.json"
+MATRICES = Path(__file__).resolve().parents[1] / "baselines/skew-matrices.json"
 TYPES = ("hadamard", "skew-hadamard")
 TYPE_NAMES = {"hadamard": "Hadamard", "skew-hadamard": "skew-Hadamard"}
 # The state of an order for one type, as displayed, with the grid's cell class.
 STATES = {
     "board": ("on board", "exists verified-on-board"),
     "known": ("known", "exists"),
+    "verified": ("verified", "exists"),
     "reported": ("reported", "reported"),
     "open": ("open", "unresolved"),
 }
 STATE_WORDS = {
     "board": "a verified matrix is on this board",
     "known": "known according to the cited sources, not held on this board",
+    "verified": "the site holds a matrix file that the build checks exactly",
     "reported": "reported, not yet in a reviewed source",
     "open": "open according to the cited sources",
 }
@@ -41,6 +44,12 @@ STATE_WORDS = {
 CELL_TRACKS = {"hadamard": "general", "skew-hadamard": "skew-sds"}
 # The board covers odd n up to this value; summary() uses the same bound.
 BOARD_MAX_N = 131
+ORIGINS = ("sagemath", "repository", "board")
+
+
+def covered(n: int) -> bool:
+    """Whether the board has cells for n: the odd n up to BOARD_MAX_N."""
+    return n % 2 == 1 and n <= BOARD_MAX_N
 
 
 def esc(value: object) -> str:
@@ -97,6 +106,39 @@ def validate(data: JSONObject, bib: Bibliography) -> JSONObject:
     return data
 
 
+def load_matrices(path: PathLike = MATRICES) -> JSON:
+    return json.loads(Path(path).read_text())
+
+
+def validate_matrices(doc: JSONObject, data: JSONObject, bib: Bibliography) -> dict[int, JSONObject]:
+    """The stored skew-Hadamard matrices by order. Raises ValueError unless the file is consistent.
+
+    The orders are distinct, in range and not open, and every source, software
+    key and note marker has a reference. The files themselves are checked when
+    the build reads them.
+    """
+    stored: dict[int, JSONObject] = {}
+    is_open = set(data["types"]["skew-hadamard"]["open"])
+    for record in doc["matrices"]:
+        order = record["order"]
+        if order in stored or order not in in_range(data) or order in is_open:
+            raise ValueError(f"skew-matrices: order {order} is repeated, out of range or open")
+        if record["file"] != f"matrices/skew/skew-{order}.txt.xz":
+            raise ValueError(f"skew-matrices: unexpected file name for order {order}")
+        if record["origin"] not in ORIGINS or not record["sources"] or not record["generated"]:
+            raise ValueError(f"skew-matrices: order {order} lacks an origin, a source or how it was generated")
+        if (record["origin"] == "board") != ("entry" in record) or (record["origin"] != "board") != (
+            "software" in record
+        ):
+            raise ValueError(f"skew-matrices: order {order} names an entry or a software key that its origin lacks")
+        keys = [*record["sources"], *bib.keys_in(record.get("note", "")), record.get("software", record["sources"][0])]
+        missing = sorted(key for key in keys if key not in bib.entries)
+        if missing:
+            raise ValueError(f"skew-matrices: sources without a reference: {missing}")
+        stored[order] = record
+    return stored
+
+
 def board_holdings(results: dict[str, JSONObject]) -> dict[int, dict[str, list[str]]]:
     """The verified quadruples of the board by order 4n and matrix type.
 
@@ -114,12 +156,18 @@ def board_holdings(results: dict[str, JSONObject]) -> dict[int, dict[str, list[s
     return held
 
 
-def table(data: JSONObject, results: dict[str, JSONObject]) -> OrderStates:
+def table(data: JSONObject, results: dict[str, JSONObject], stored: Collection[int] | None = None) -> OrderStates:
     """The state of every order in range: {order: {type: {...}}}.
 
-    A state is board when the board holds a verified matrix of the order,
-    otherwise reported or open as the data file says, otherwise known.
+    For Hadamard matrices a state is board when the board holds a verified
+    matrix of the order, otherwise reported or open as the data file says,
+    otherwise known. For skew-Hadamard matrices it is board, open, or verified:
+    every order that is neither open nor held by the board has a stored matrix
+    in baselines/skew-matrices.json, which is what stored lists, and the build
+    checks that matrix exactly. Raises ValueError if such an order has none.
     """
+    if stored is None:
+        stored = [x["order"] for x in load_matrices()["matrices"]]
     held = board_holdings(results)
     out: OrderStates = {}
     for order in in_range(data):
@@ -135,10 +183,14 @@ def table(data: JSONObject, results: dict[str, JSONObject]) -> OrderStates:
                 )
             if entries:
                 state = "board"
-            elif record:
-                state = "reported"
             elif order in t["open"]:
                 state = "open"
+            elif name == "skew-hadamard":
+                if order not in stored:
+                    raise ValueError(f"skew-matrices: no stored matrix of order {order}, which is not open")
+                state = "verified"
+            elif record:
+                state = "reported"
             else:
                 state = "known"
             out[order][name] = {
@@ -158,13 +210,15 @@ def state_cell(
     order: int,
     name: str,
     info: JSONObject,
-    href: str,
+    href: str | None,
     text: str | int | None = None,
     new: bool = False,
     board: JSONObject | None = None,
 ) -> str:
     """One table cell for an order and a type, in the grid's cell style.
 
+    Without href the cell is not a link. A cell whose order the cited lists give
+    as open and which has since been filled carries a marker with the date.
     With new set, the cell carries the grid's new-result marker. board, when
     given, describes the board cell the grid cell links to: its class count
     (named in the tooltip when the board holds a matrix of this type; the cell
@@ -174,8 +228,10 @@ def state_cell(
     """
     label, classes = STATES[info["state"]]
     spoken = f"{TYPE_NAMES[name]} matrix of order {order}: {STATE_WORDS[info['state']]}"
-    if info["listed_open"] and info["state"] == "board":
-        spoken += "; listed as open in the older sources"
+    record = info.get("record")
+    filled = info["listed_open"] and info["state"] in ("board", "verified")
+    if filled:
+        spoken += "; listed as open in the cited sources" + (f", filled since ({record['date']})" if record else "")
     board = board or {}
     data = dict(board.get("data", {}))
     # The origin filter asks who settled the order, not who supplied the board cell's rows:
@@ -184,7 +240,7 @@ def state_cell(
     # has no origin.
     if info["state"] == "board" and info["listed_open"]:
         pass
-    elif info["state"] in ("board", "known"):
+    elif info["state"] in ("board", "known") or (info["state"] == "verified" and not info["listed_open"]):
         data["origins"] = "published-import"
     else:
         data["origins"] = ""
@@ -195,17 +251,30 @@ def state_cell(
     if board.get("words"):
         spoken += f"; {board['words']}"
     new = new or board.get("new", False)
-    marker = '<span class="participant" title="New result"></span>' if new else ""
+    marker = '<span class="since" title="Filled since the cited lists"></span>' if filled else ""
+    marker += '<span class="participant" title="New result"></span>' if new else ""
     if new:
         spoken += "; new result of this board"
     if count and count not in spoken:
         spoken += f"; {count}"
+    tag, link = ("a", f' href="{esc(href)}"') if href else ("span", "")
     return (
         f'<td class="{classes}" data-type="{name}" data-order="{order}" '
-        f'data-state="{info["state"]}"{attrs}><a class="cell" href="{esc(href)}" '
+        f'data-state="{info["state"]}"{attrs}><{tag} class="cell"{link} '
         f'aria-label="{esc(spoken)}" title="{esc(spoken)}"><span>{esc(text or label)}'
-        f"</span>{marker}</a></td>"
+        f"</span>{marker}</{tag}></td>"
     )
+
+
+def order_href(n: int, name: str) -> str | None:
+    """The page an order cell of row n links to.
+
+    Where the board covers n it is the board cell of the type's track. Elsewhere
+    a skew-Hadamard order has a page of its own and a Hadamard order has none.
+    """
+    if covered(n):
+        return f"cells/n{n}-{CELL_TRACKS[name]}.html"
+    return f"orders/skew-{4 * n}.html" if name == "skew-hadamard" else None
 
 
 def grid_cells(
@@ -213,10 +282,13 @@ def grid_cells(
 ) -> str:
     """The two order cells of the front-page grid row of n, showing the order 4n.
 
-    Each links to the board cell of n for its type: any quadruple for a
-    Hadamard matrix, a quadruple with a skew block for a skew-Hadamard matrix.
-    Its colour is the state of the order, so a skew-Hadamard order known from
-    the literature stays known while the board's cell is unresolved.
+    Where the board covers n, each links to the board cell of n for its type:
+    any quadruple for a Hadamard matrix, a quadruple with a skew block for a
+    skew-Hadamard matrix. Its colour is the state of the order, so a
+    skew-Hadamard order with a matrix from another construction is not shown as
+    open while the board's cell is unresolved. Where the board does not cover n,
+    the cells carry the attributes the grid filters read: the track of the
+    column, and whether the order is settled.
 
     new_skew holds the n whose skew-Hadamard order is a featured existence
     result of this board; that cell gets the new-result marker. board maps a
@@ -224,12 +296,18 @@ def grid_cells(
     """
     order = 4 * n
     board = board or {}
+    if not covered(n):
+        status = {"open": "unresolved", "reported": ""}
+        board = {
+            name: {"data": {"track": CELL_TRACKS[name], "status": status.get(states[order][name]["state"], "exists")}}
+            for name in TYPES
+        }
     return "".join(
         state_cell(
             order,
             name,
             states[order][name],
-            f"cells/n{n}-{CELL_TRACKS[name]}.html",
+            order_href(n, name),
             text=order,
             new=name == "skew-hadamard" and n in new_skew,
             board=board.get(name),
@@ -252,5 +330,6 @@ def intro(data: JSONObject) -> str:
     return (
         "Each row is an order 4n. Green means a matrix of that order is known and amber "
         f"that it is open{tail}. The family columns count cyclic Goethals–Seidel quadruples "
-        "of each type."
+        f"of each type, for odd n up to {BOARD_MAX_N}. Choosing {data['range']['max'] // 4} under Through n adds "
+        "the rows for even n and for larger n, which have the two order columns only."
     )
