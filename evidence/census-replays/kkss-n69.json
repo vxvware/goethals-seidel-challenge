@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "entry_id": "kkss-n69",
+  "entry_sha256": "f6ca60ccec909744cc1f0638aa25d0d0ad02970bc13d3e08d673226586798e07",
+  "engine_id": "kkss-compress-v1",
+  "engine_sha256": {
+    "research/starter/compress/pc_compress.c": "5ee8823c52609939ce9739c2621fadc20e361da1f6a3a545c09df68e74309ec9",
+    "research/starter/compress/pc_lift.c": "3d96a4a9b277276690da87e048546893d49b6134bca6d64553843b70acbf7458"
+  },
+  "mode": "full",
+  "status": "passed",
+  "host": "archdesktop+uf",
+  "threads": 4,
+  "date": "2026-11-24",
+  "wall_seconds": 31033.0,
+  "command": "bash research/starter/compress/run_census.sh kkss 69 3 4 (PIECES=16 SHARDS=8 LINES=256 WIDE=1; 750638 instances, md5 9b05b3eefa6eec96bb6503668cfcab6c)",
+  "rows": [],
+  "compression": 3
+}

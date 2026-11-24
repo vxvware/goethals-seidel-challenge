@@ -18,6 +18,10 @@
       "sha256": "40a0816e25252b40120107cf5848b34bebc40b5bb7c79bd721d7a8682cbad705"
     },
     {
+      "path": "evidence/census-replays/kkss-n69.json",
+      "sha256": "9b4281a2c3c6a5ae9393eb18db377f4a30ab371511602080f909dee8f0c0d9b4"
+    },
+    {
       "path": "evidence/census-replays/vxvware-good-n45.json",
       "sha256": "e8cf801c635da4a9257d32049c33d891811d234310082c33d993ccd9d4936279"
     },
