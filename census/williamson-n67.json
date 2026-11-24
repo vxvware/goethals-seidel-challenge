@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "n": 67,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      67
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-24",
+  "discovered_by": [
+    "This board's pinned census engine williamson-hkt-v3, run to completion at n=67"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned census engine williamson-hkt-v3 (wil_hkt3.c, hkt_solve64.h), run to completion at n=67 in six row-sum groups",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/tree/40d7909f1cce156cee6845fea54c8c6f8901c72f/research/starter/williamson"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n67",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [],
+  "claimed_count": 0,
+  "claim_kind": "lower-bound",
+  "notes": "No classification at this order is recorded in the literature. The full census run on this board (all 7 row-sum decompositions of 268 in six groups, 14,758,178 canonical first rows, about 2.27e13 row pairs sent to the linear solver, no nullity-capped system) finds no Williamson matrices of order 67. This is a single run of one engine; the count is exact on the board only through the registered replay of the pinned engine."
+}
