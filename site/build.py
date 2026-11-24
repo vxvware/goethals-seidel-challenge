@@ -324,6 +324,7 @@ NEW_RESULTS = (
     ("kkss", 57),
     ("kkss", 59),
     ("kkss", 61),
+    ("kkss", 63),
     ("kkss", 69),
 )
 # The grid marks these cells as new alongside the cells a participant supplied
