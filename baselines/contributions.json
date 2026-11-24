@@ -92,6 +92,35 @@
       "stratum": "kkss"
     },
     {
+      "id": "kkss-63-census",
+      "title": "G-matrix census at n=63",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "The board's compression census at n=63 (kkss-compress-v1, compression by 3) lifted all 923,658 of its compressed instances and found 12 equiv-v1 classes of G-matrices. Existence at 63 was known from Spence's family [@spence1977skew] (q = 125), with parameters (63; 31,31,27,25; 51); no exhaustive count at this order is published. None has parameters (63; 31,31,29,24; 52), the other (kkss) parameter set at 63, which the table of cyclic families in [@djokovic2009supplementary] leaves unresolved: it has no G-matrices. The count is exact on the board through the registered replay of the pinned engine.",
+      "entry_ids": [
+        "kkss-n63",
+        "n63-f66a2bf97ea6fcf33039",
+        "n63-78a4e077aa3b8dbcef59",
+        "n63-5a597dd9ec5dbe5ef770",
+        "n63-5885df3f07fae113aa7f",
+        "n63-72f857fd7b9d94a4b613",
+        "n63-b89398c817fc44d82cbd",
+        "n63-d14ef69301786bd18fe2",
+        "n63-51a4033158ada8760ad4",
+        "n63-e22486c39b0b4d69eaac",
+        "n63-6f7893fe4738fe872dcb"
+      ],
+      "seed_artifacts": [],
+      "featured": true,
+      "stratum": "kkss"
+    },
+    {
       "id": "good-53-55-61",
       "title": "Good matrices at n=53, 55, and 61",
       "relation": "participant-result",
