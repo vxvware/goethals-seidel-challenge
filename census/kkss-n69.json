@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "n": 69,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      69
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-24",
+  "discovered_by": [
+    "This board's pinned compression census kkss-compress-v1, run to completion at n=69"
+  ],
+  "sources": [
+    {
+      "title": "This board's pinned compression census kkss-compress-v1 (pc_compress.c, pc_lift.c), run to completion at n=69 with compression by 3",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/tree/d8d2dbd37c050c8ecd363f5c44ba2355713179cc/research/starter/compress"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "kkss-n69",
+  "type": "census",
+  "stratum": "kkss",
+  "representatives": [],
+  "claimed_count": 0,
+  "claim_kind": "lower-bound",
+  "notes": "No published exhaustive search at this order is recorded. The full compression census run on this board (750,638 instances after compression by 3 and the multiplier reduction, every one lifted; 0 quadruples) finds no G-matrices of this order; the count is exact on the board only through the registered replay of the pinned engine."
+}
