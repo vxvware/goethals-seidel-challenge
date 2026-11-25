@@ -130,5 +130,5 @@ def test_cells_at_even_n_are_the_strata_without_a_skew_row():
     for n in (22, 70, 128):
         assert lookup[n, "williamson"]["status"] == lookup[n, "general"]["status"] == "exists"
         assert lookup[n, "williamson"]["origins"] == ["published-import"]
-    for n in (94, 106, 118, 130):
+    for n in (94, 106, 118, 134):
         assert lookup[n, "williamson"]["status"] == "unresolved" and lookup[n, "williamson"]["sources"] == []
