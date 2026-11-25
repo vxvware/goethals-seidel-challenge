@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "n": 18,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      18
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-25",
+  "discovered_by": [
+    "Bright, Kotsireas, Ganesh 2020 enumeration of the even orders up to 70; earlier constructions credited there. Enumerated here under equiv-v1 by this board's williamson-even-exact-v1"
+  ],
+  "sources": [
+    {
+      "title": "This board's inline enumerator williamson-even-exact-v1, replayed at n=18",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/main/verify/census_engine.py",
+      "source_path": "verify/census_engine.py"
+    },
+    {
+      "title": "Bright, Kotsireas, Ganesh, Applying computer algebra systems with SAT solvers to the Williamson conjecture, J. Symbolic Comput. 100 (2020), Section 2.2 and Table 1",
+      "url": "https://doi.org/10.1016/j.jsc.2019.07.024"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "n18-81a54715b26e360caee8",
+  "type": "quadruple",
+  "rows": [
+    [
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1
+    ],
+    [
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      -1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      -1,
+      1
+    ],
+    [
+      1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      1
+    ]
+  ]
+}
