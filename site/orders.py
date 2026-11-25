@@ -346,13 +346,8 @@ def listing(values: Iterable[object]) -> str:
 
 
 def intro(data: JSONObject) -> str:
-    """The two-sentence description of the front-page grid, with the smallest open skew orders."""
-    op = data["types"]["skew-hadamard"]["open"]
-    first = f"{op[0]} and {op[1]}" if len(op) > 1 else (str(op[0]) if op else "")
-    tail = f"; the smallest open skew-Hadamard orders are {first}" if op else ""
+    """The one-sentence description of the front-page grid."""
     return (
-        "Each row is an order 4n. Green means a matrix of that order is known and amber "
-        f"that it is open{tail}. The family columns count cyclic Goethals–Seidel quadruples "
-        f"of each type, for odd n up to {BOARD_MAX_N}; the rows for even n and for larger n have the two order "
-        f"columns only, and choosing {BOARD_MAX_N} under Through n hides them."
+        "Each row is an order 4n: whether a Hadamard and a skew-Hadamard matrix of that order is known, "
+        "and how many cyclic Goethals–Seidel quadruples of each type exist at n."
     )
