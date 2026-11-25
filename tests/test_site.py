@@ -79,10 +79,10 @@ def test_existence_results_appear_only_when_featured(board):
     stats["contributions"] = [g for g in stats["contributions"] if g["id"] != "skew-pool-join-89"]
     group = {"id": "skew-pool-join-89", "featured": False, "entry_ids": entries}
     stats["contributions"].append(group)
-    assert "Existence" not in dict(module.new_results(stats, r))
+    assert not [x for x in module.existence_results(stats, r) if x["kind"] == "skew"]
     assert ("skew-sds", 89) not in module.new_cells(stats, r)
     group["featured"] = True
-    (item,) = dict(module.new_results(stats, r))["Existence"]
+    (item,) = (x for x in dict(module.new_results(stats, r))["Existence"] if x["kind"] == "skew")
     assert item["text"] == ("A skew-Hadamard matrix of order 356.")
     assert item["qualifier"] is None
     assert ("skew-sds", 89) in module.new_cells(stats, r)
@@ -91,6 +91,67 @@ def test_existence_results_appear_only_when_featured(board):
     # The section states its search qualifier once, for every item in it.
     assert "did not find in the sources it read" in html and "does not claim priority" in html
     assert "first" not in html.lower()
+
+
+def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
+    module = site_build()
+    d, r, b = board
+    stats = summary(d, r, b)
+    (group,) = (g for g in stats["contributions"] if g["id"] == "propus-pool-join-65")
+    (ident,) = group["entry_ids"]
+    (item,) = (x for x in module.existence_results(stats, r) if x["kind"] == "propus")
+    assert item["text"] == "A propus family over Z_65: a symmetric Hadamard matrix of order 260 from circulant blocks."
+    html = module.new_results_section(stats, r)
+    assert f'<a href="entries/{ident}.html">{item["text"]}</a>' in html
+    assert "first" not in html.lower()
+    # Neither the Hadamard nor the skew-Hadamard order 260 is new, so no cell is marked.
+    assert not any(n == 65 for _, n in module.new_cells(stats, r))
+    assert module.propus_entries(stats) == {ident}
+    stats["contributions"] = [g | {"featured": False} for g in stats["contributions"]]
+    assert not module.existence_results(stats, r)
+    assert module.propus_entries(stats) == {ident}
+
+
+def test_propus_array_is_symmetric_hadamard_and_the_goethals_seidel_array_is_not(board):
+    import sys
+
+    import numpy as np
+
+    sys.path.insert(0, str(ROOT / "site"))
+    import propus
+    from references import Bibliography
+
+    module = site_build()
+    rows, pattern = module.display_rows(board[1]["n65-9bf801f0de9e2d01c459"])
+    s, e1, e2, o = propus.shape(rows, pattern)
+    assert pattern[s] == "s" and rows[e1] == rows[e2] and rows[e1] != rows[o]
+    n = len(rows[0])
+    circ = lambda x: np.array([[x[(j - i) % n] for j in range(n)] for i in range(n)])  # noqa: E731
+    x, y, z = circ(rows[s]), circ(rows[e1]), circ(rows[o])
+    back = np.fliplr(np.eye(n, dtype=int))
+    yr, zr, ytr, ztr = y @ back, z @ back, y.T @ back, z.T @ back
+    # The array for commuting blocks with X symmetric, as printed on the entry page.
+    h = np.block([[x, yr, yr, zr], [yr, ztr, -x, -ytr], [yr, -x, -ztr, ytr], [zr, -ytr, ytr, -x]])
+    assert np.array_equal(h, np.array(propus.array(rows[s], rows[e1], rows[o])))
+    assert np.array_equal(h, h.T) and np.array_equal(h @ h.T, 4 * n * np.eye(4 * n, dtype=int))
+    # The other published form: the Goethals–Seidel array with its first column
+    # negated and its second and third block rows exchanged.
+    g = gs_array([rows[s], rows[e1], rows[e2], rows[o]])
+    assert np.array_equal(g @ g.T, 4 * n * np.eye(4 * n, dtype=int)) and not np.array_equal(g, g.T)
+    p = np.vstack([g[:n], g[2 * n : 3 * n], g[n : 2 * n], g[3 * n :]])
+    p[:, :n] *= -1
+    assert np.array_equal(p, p.T) and np.array_equal(p @ p.T, 4 * n * np.eye(4 * n, dtype=int))
+    text = propus.matrix_file(rows, pattern)
+    assert text.count("\n") == 4 * n and text.splitlines()[0] == "".join("+" if v > 0 else "-" for v in h[0])
+    with pytest.raises(ValueError, match="transpose"):
+        propus.check_symmetric_hadamard(g.tolist())
+    with pytest.raises(ValueError, match="orthogonal"):
+        propus.check_symmetric_hadamard([[1, 1], [1, 1]])
+    with pytest.raises(ValueError, match="not a propus quadruple"):
+        propus.matrix_file(rows, "····")
+    page, keys = propus.block("n65-9bf801f0de9e2d01c459", rows, pattern, Bibliography())
+    assert "row A is symmetric and rows B and C are equal" in page and "not symmetric" in page
+    assert "matrices/propus-n65-9bf801f0de9e2d01c459.txt" in page and keys == set(propus.ARRAY_SOURCES)
 
 
 def test_restricted_certificate_is_not_labelled_as_a_statement_about_the_cell(board):
