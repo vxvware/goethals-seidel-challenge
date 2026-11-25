@@ -729,6 +729,25 @@
       "seed_artifacts": [],
       "featured": true,
       "stratum": "skew-sds"
+    },
+    {
+      "id": "propus-pool-join-65",
+      "title": "A propus difference family in Z_65: a symmetric Hadamard matrix of order 260",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "A propus difference family in the cyclic group Z_65, found on 2026-11-24 by a search that takes every symmetric row of one row sum for A and joins pools of candidate rows for B and D. It is the quadruple (A, B, B, D) with A symmetric, row sums 9, 7, 7, 9 and parameters (65; 28, 29, 29, 28; 49), one of the four propus parameter sets at v = 65; B and D are not symmetric and have no multiplier symmetry. Its propus array [@seberry2015propus] [@balonin2017construction] is a symmetric Hadamard matrix of order 260 built from circulant blocks of order 65; the Goethals–Seidel array of the same rows is a Hadamard matrix that is not symmetric, and the verifier checks only the rows. A conjecture that propus families exist is stated in [@djokovic2022symmetric] and reported verified there for odd v up to 63, with v = 65 the smallest v for which a symmetric Hadamard matrix of order 4v is listed as undecided; [@djokovic2023skew] gives 65, 89 and 93 as the odd v below 100 with none known. A symmetric Hadamard matrix of order 260 by a different construction, a bordered propus array over Z_64 with no circulant blocks of order 65, was posted on 2026-10-18 in a repository that is not peer reviewed [@kishan2026symmetric260]; the notes of that repository report that its searches for propus families over Z_65 with multiplier symmetry found none [@kishan2026propus]. A search of the literature and public repositories on 2026-11-24 found no earlier propus difference family in Z_65; this reports the search and does not claim priority, and the result has not been reviewed. The search is not a census; it gives a family for one parameter set and does not settle the conjecture at v = 65.",
+      "entry_ids": [
+        "n65-9bf801f0de9e2d01c459"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "general"
     }
   ]
 }
