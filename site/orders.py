@@ -45,8 +45,10 @@ BOARD_MAX_N = 300
 # The tracks with a cell at even n, where no row is skew (verify.common.EVEN_TRACKS).
 EVEN_TRACKS = ("williamson", "general")
 ORIGINS = ("sagemath", "repository", "board", "found")
-# What a stored matrix of origin found records besides the fields of every stored matrix.
-FOUND_FIELDS = ("date", "contributors", "rows", "block_signs", "multiplier", "row_sums", "search", "checked")
+# What a stored matrix of origin found records besides the fields of every stored matrix,
+# and what each array it can name adds.
+FOUND_FIELDS = ("date", "contributors", "array", "rows", "multiplier", "row_sums", "search", "checked")
+ARRAY_FIELDS = {"williamson8": ("block_signs",), "bordered": ("group",)}
 
 
 def has_cell(n: int, track: str) -> bool:
@@ -112,15 +114,22 @@ def load_matrices(path: PathLike = MATRICES) -> JSON:
     return json.loads(Path(path).read_text())
 
 
+def beyond_range(data: JSONObject, order: int) -> bool:
+    """Whether an order is a multiple of 4 above the range of the orders file, which the grid does not show."""
+    return order > data["range"]["max"] and order % data["range"]["step"] == 0
+
+
 def validate_matrices(doc: JSONObject, data: JSONObject, bib: Bibliography) -> dict[int, JSONObject]:
     """The stored skew-Hadamard matrices by order. Raises ValueError unless the file is consistent.
 
-    The orders are distinct, in range and not open, and every source, software
-    key and note marker has a reference. A matrix of origin found has the
-    fields of FOUND_FIELDS, and its order and date are those of a record of
-    status found in the orders file; no other order has such a record. The
-    files themselves, and the rows of a found matrix, are checked when the
-    build reads them.
+    The orders are distinct and not open, and every source, software key and
+    note marker has a reference. A matrix of origin found has the fields of
+    FOUND_FIELDS and those of its array. An order in range has a file, and if
+    it is found, its order and date are those of a record of status found in
+    the orders file; no other order in range has such a record. An order above
+    the range is a found matrix without a file, which the orders file does not
+    mention: the build rebuilds it from its record. The files themselves, and
+    the rows of a found matrix, are checked when the build reads them.
     """
     stored: dict[int, JSONObject] = {}
     is_open = set(data["types"]["skew-hadamard"]["open"])
@@ -128,9 +137,14 @@ def validate_matrices(doc: JSONObject, data: JSONObject, bib: Bibliography) -> d
     dates = {order: x["date"] for x in since if x["status"] == "found" for order in x["orders"]}
     for record in doc["matrices"]:
         order = record["order"]
-        if order in stored or order not in in_range(data) or order in is_open:
+        beyond = beyond_range(data, order)
+        if order in stored or not (beyond or order in in_range(data)) or order in is_open:
             raise ValueError(f"skew-matrices: order {order} is repeated, out of range or open")
-        if record["file"] != f"matrices/skew/skew-{order}.txt.xz":
+        if beyond and (record["origin"] != "found" or "file" in record):
+            raise ValueError(
+                f"skew-matrices: order {order} is above the range and is not a found matrix without a file"
+            )
+        if not beyond and record.get("file") != f"matrices/skew/skew-{order}.txt.xz":
             raise ValueError(f"skew-matrices: unexpected file name for order {order}")
         if record["origin"] not in ORIGINS or not record["sources"] or not record["generated"]:
             raise ValueError(f"skew-matrices: order {order} lacks an origin, a source or how it was generated")
@@ -138,10 +152,12 @@ def validate_matrices(doc: JSONObject, data: JSONObject, bib: Bibliography) -> d
             "software" in record
         ):
             raise ValueError(f"skew-matrices: order {order} names an entry or a software key that its origin lacks")
-        if (record["origin"] == "found") != (order in dates):
+        if not beyond and (record["origin"] == "found") != (order in dates):
             raise ValueError(f"skew-matrices: order {order} is found in one of the two baseline files only")
         if record["origin"] == "found" and (
-            any(not record.get(field) for field in FOUND_FIELDS) or record["date"] != dates[order]
+            record.get("array") not in ARRAY_FIELDS
+            or any(not record.get(field) for field in (*FOUND_FIELDS, *ARRAY_FIELDS[record["array"]]))
+            or record["date"] != dates.get(order, record["date"])
         ):
             raise ValueError(f"skew-matrices: order {order} lacks a field of a found matrix or has another date")
         keys = [*record["sources"], *bib.keys_in(record.get("note", "")), record.get("software", record["sources"][0])]

@@ -485,7 +485,7 @@ def matrix_results() -> list[JSONObject]:
             "href": orders.order_href(order // 4, skew.NAME),
         }
         for order, record in sorted(STORED.items())
-        if record["origin"] == "found"
+        if record["origin"] == "found" and not orders.beyond_range(ORDERS, order)
     ]
 
 
@@ -1165,7 +1165,10 @@ def write_skew_matrices(out: Path, states: orders.OrderStates, r: Results, quick
     its stored matrix. A stored file is decompressed, compared with its sha256
     and checked exactly before it is written; any failure raises ValueError and
     stops the build. A quick build compares the sha256 only and skips the exact
-    check of the stored files, which the full build and the tests run.
+    check of the stored files, which the full build and the tests run. A found
+    matrix of an order above the range has no stored file and no page yet: it
+    is rebuilt from its record and checked in the same way, and nothing is
+    written for it.
     """
     files = skew_matrices(states, r)
     folder = out / "matrices"
@@ -1177,6 +1180,9 @@ def write_skew_matrices(out: Path, states: orders.OrderStates, r: Results, quick
     for order, s in states.items():
         if s[skew.NAME]["state"] == "verified":
             (out / skew.file_name(order)).write_text(skew.stored_text(STORED[order], check=not quick))
+    for order, record in STORED.items():
+        if orders.beyond_range(ORDERS, order):
+            skew.stored_text(record, check=not quick)
     return {order: ident for order, (ident, _) in files.items()}
 
 

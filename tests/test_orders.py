@@ -206,7 +206,7 @@ H  G -F -E  D  C -B  A
 
 def found_record(data):
     stored = orders.validate_matrices(orders.load_matrices(), data, Bibliography())
-    found = [x for x in stored.values() if x["origin"] == "found"]
+    found = [x for x in stored.values() if x["origin"] == "found" and x["array"] == "williamson8"]
     assert [x["order"] for x in found] == [808]
     return found[0]
 
@@ -268,6 +268,208 @@ def test_found_matrix_that_disagrees_with_its_record_is_rejected(data):
     ):
         with pytest.raises(ValueError, match=message):
             skew.stored_text(x | change, check=False)
+
+
+# The bordered array as wallis1972some prints it, for the (1, -1)-matrices A, B, D (type 1) and C (type 2)
+# of four subsets of the group, with e the row of ones; its diagonal is -1.
+WALLIS_WHITEMAN = """
+-1  +1  +1  +1    e    e    e    e
+-1  -1  -1  +1   -e    e   -e    e
+-1  +1  -1  -1   -e    e    e   -e
+-1  -1  +1  -1   -e   -e    e    e
+-eT  eT  eT  eT   A    B    C    D
+-eT -eT -eT  eT  -BT   AT  -D    C
+-eT  eT -eT -eT  -C    DT   A   -BT
+-eT -eT  eT -eT  -DT  -C    B    AT
+"""
+# The same array as momihara2019constructions states it, with M1, M2, M4 of type 1 and M3 of type 2.
+MOMIHARA_XIANG = """
+ 1  -1  -1  -1   -e   -e   -e   -e
+ 1   1   1  -1    e   -e    e   -e
+ 1  -1   1   1    e   -e   -e    e
+ 1   1  -1   1    e    e   -e   -e
+ eT -eT -eT -eT  -M1  -M2  -M3  -M4
+ eT  eT  eT -eT   M2T -M1T  M4  -M3
+ eT -eT  eT  eT   M3  -M4T -M1   M2T
+ eT  eT -eT  eT   M4T  M3  -M2  -M1T
+"""
+# Orders above the range of the board, with the group, the multiplier, its order and its orbits outside 0.
+BORDERED = {
+    1416: ([353], [231], 11, 32),
+    1712: ([7, 61], [4, 12], 15, 30),
+    2360: ([19, 31], [16, 20], 45, 16),
+    5336: ([31, 43], [18, 17], 105, 16),
+}
+
+
+def block_matrix(pattern, names):
+    """The numpy block matrix of a pattern of signed names: a leading - negates, a trailing T transposes."""
+    import numpy as np
+
+    def block(word):
+        sign = -1 if word[0] == "-" else 1
+        word = word.lstrip("+-")
+        if word == "1":
+            return np.full((1, 1), sign, dtype=np.int8)
+        m = names[word.removesuffix("T")]
+        return sign * (m.T if word.endswith("T") else m)
+
+    return np.block([[block(word) for word in line.split()] for line in pattern.strip().splitlines()])
+
+
+def as_text(h):
+    """A numpy matrix of 1 and -1 as the bytes of a matrix file."""
+    import numpy as np
+
+    out = np.full((len(h), len(h) + 1), ord("\n"), dtype=np.uint8)
+    out[:, :-1] = np.where(h > 0, ord("+"), ord("-"))
+    return out.tobytes()
+
+
+def bordered_records(data):
+    stored = orders.validate_matrices(orders.load_matrices(), data, Bibliography())
+    found = {order: x for order, x in stored.items() if orders.beyond_range(data, order)}
+    assert sorted(found) == sorted(BORDERED) and all(x["array"] == "bordered" for x in found.values())
+    return found
+
+
+@pytest.mark.parametrize("order", sorted(BORDERED))
+def test_bordered_matrix_is_the_array_of_the_sources(data, order):
+    """A found matrix above the range is the bordered array of four subsets of a cyclic group, as both sources give it.
+
+    The build places the rows on Z_m1 x Z_m2 with pairs in lexicographic order. Here the group is taken as
+    the integers modulo w, the blocks are the circulant and back-circulant (1, -1)-matrices of the four
+    subsets where a row is -1, and the two printed arrays are transcribed above.
+    """
+    import hashlib
+    import math
+
+    import numpy as np
+
+    import skew
+
+    x = bordered_records(data)[order]
+    moduli, generator, size, orbits = BORDERED[order]
+    assert (x["group"], x["multiplier"]) == (moduli, {"generator": generator, "order": size})
+    assert "file" not in x and x["origin"] == "found" and x["date"] == "2026-11-25"
+    assert order not in orders.in_range(data) and not (ROOT / f"matrices/skew/skew-{order}.txt.xz").exists()
+    w = math.prod(moduli)
+    assert order == 4 * (w + 1) and x["parameters"]["group_order"] == w
+    text = skew.stored_text(x, check=False)
+    assert text == skew.found_text(x) and hashlib.sha256(text.encode()).hexdigest() == x["sha256"]
+    # The moduli are coprime, so r -> (r mod m1, r mod m2) is a bijection from the integers modulo w,
+    # and place[r] is the position of the image of r in the record's order.
+    place = np.zeros(w, dtype=int)
+    for m in moduli:
+        place = place * m + np.arange(w) % m
+    assert sorted(place.tolist()) == list(range(w))
+    rows = np.array([[1 if c == "+" else -1 for c in line] for line in x["rows"]], dtype=np.int8)
+    cyclic = rows[:, place]
+    # The subsets of the sources: where a row is -1. Each has (w - 1) / 2 elements, and the first holds
+    # exactly one of z and -z for every nonzero z.
+    subsets = [set(np.flatnonzero(row == -1).tolist()) for row in cyclic]
+    assert all(len(subset) == (w - 1) // 2 for subset in subsets)
+    assert 0 not in subsets[0] and all((z in subsets[0]) != ((w - z) in subsets[0]) for z in range(1, w))
+    r = np.arange(w)
+    difference, total = (r[None, :] - r[:, None]) % w, (r[None, :] + r[:, None]) % w
+    back = np.empty(w, dtype=int)
+    back[place] = r
+
+    def incidence(subset, index):
+        """The (1, -1)-matrix with 1 where the index lies in the subset, in the record's order of the group."""
+        member = np.full(w, -1, dtype=np.int8)
+        member[sorted(subset)] = 1
+        return member[index][np.ix_(back, back)]
+
+    m1, m2, m4 = (incidence(subsets[k], difference) for k in (0, 1, 3))
+    m3 = incidence(subsets[2], total)
+    # The hypothesis of both sources on the four subsets, as the first states it for their type 1 matrices.
+    gram = sum(m.astype(np.float32) @ m.astype(np.float32).T for m in (m1, m2, incidence(subsets[2], difference), m4))
+    assert np.array_equal(gram, 4 * (w + 1) * np.eye(w, dtype=np.float32) - 4)
+    del gram
+    e = np.ones((1, w), dtype=np.int8)
+    printed = block_matrix(WALLIS_WHITEMAN, {"e": e, "A": m1, "B": m2, "C": m3, "D": m4})
+    stated = block_matrix(MOMIHARA_XIANG, {"e": e, "M1": m1, "M2": m2, "M3": m3, "M4": m4})
+    assert printed.shape == (order, order) and np.array_equal(stated, -printed)
+    assert as_text(stated) == text.encode()
+    del printed
+    # Entries are 1 and -1 and the order is below 2^24, so the float32 products are exact integers.
+    h = stated.astype(np.float32)
+    identity = np.eye(order, dtype=np.float32)
+    assert np.array_equal(h + h.T, 2 * identity)
+    assert np.array_equal(h @ h.T, order * identity)
+    # What the record says of the rows.
+    assert x["row_sums"] == [1, 1, 1, 1] == rows.sum(axis=1).tolist()
+    found = skew.multiplier_orbits(moduli, generator)
+    assert len(found) == orbits + 1 and found[0] == [0] and math.lcm(*map(len, found)) == size
+    assert all(len({line[i] for i in orbit}) == 1 for line in x["rows"] for orbit in found)
+
+
+def test_bordered_array_over_a_group_that_is_not_cyclic():
+    """Four rows on Z_3 x Z_3 give a skew-Hadamard matrix of order 40; the blocks follow the definition."""
+    import itertools
+
+    import numpy as np
+
+    import skew
+
+    moduli, rows = [3, 3], ["++-+++---", "--+-++-++", "--+-++++-", "--++-+++-"]
+    text = skew.bordered_text(rows, moduli)
+    assert skew.check_skew_text(text) == 40
+    elements = list(itertools.product(range(3), range(3)))
+    assert skew.group_elements(moduli) == elements and elements[:4] == [(0, 0), (0, 1), (0, 2), (1, 0)]
+    values = [dict(zip(elements, (1 if c == "+" else -1 for c in row), strict=True)) for row in rows]
+    one = lambda f: np.array([[f[(c - a) % 3, (d - b) % 3] for c, d in elements] for a, b in elements])  # noqa: E731
+    two = lambda f: np.array([[f[(c + a) % 3, (d + b) % 3] for c, d in elements] for a, b in elements])  # noqa: E731
+    a, b, c, d = one(values[0]), one(values[1]), two(values[2]), one(values[3])
+    assert skew.type_one(rows[0], moduli) == skew.matrix_text(a.tolist()).split()
+    assert skew.type_two(rows[2], moduli) == skew.matrix_text(c.tolist()).split()
+    # The type 1 matrix is not circulant here, and no order of the elements makes it so: none has order 9.
+    assert a.tolist() != [[a[0][(j - i) % 9] for j in range(9)] for i in range(9)]
+    names = {"e": np.ones((1, 9), dtype=int), "M1": -a, "M2": -b, "M3": -c, "M4": -d}
+    assert as_text(block_matrix(MOMIHARA_XIANG, names)) == text.encode()
+    # Over a cyclic group the two types are the circulant and the back-circulant matrix of the row.
+    row = "++-+---"
+    assert skew.type_one(row, [7]) == ["".join(row[(j - i) % 7] for j in range(7)) for i in range(7)]
+    assert skew.type_two(row, [7]) == ["".join(row[(j + i) % 7] for j in range(7)) for i in range(7)]
+    with pytest.raises(ValueError, match="four rows"):
+        skew.bordered_text(rows[:3], moduli)
+    with pytest.raises(ValueError, match="four rows"):
+        skew.bordered_text(rows, [3, 5])
+
+
+def test_bordered_record_that_disagrees_with_its_rows_is_rejected(data):
+    import skew
+
+    x = bordered_records(data)[1712]
+    rows = x["rows"]
+    for change, message in (
+        ({"rows": [rows[0], rows[2], rows[1], rows[3]]}, "does not match its sha256"),
+        ({"sha256": "0" * 64}, "does not match its sha256"),
+        ({"rows": [rows[1], *rows[1:]]}, "skew type"),
+        ({"rows": rows[:3]}, "four rows"),
+        ({"rows": [rows[0], rows[1], rows[2], rows[3].translate(str.maketrans("+-", "-+"))]}, "row sums"),
+        ({"row_sums": [1, 1, 1, 3]}, "row sums"),
+        ({"rows": [*rows[:3], rows[1]]}, "do not add to -4"),
+        ({"multiplier": {"generator": [4, 12], "order": 5}}, "does not have order 5"),
+        ({"multiplier": {"generator": [4, 13], "order": 3}}, "not fixed by the multiplier"),
+        ({"multiplier": {"generator": [7, 12], "order": 15}}, "not a unit"),
+        ({"group": [3, 7, 61]}, "not a product of odd cyclic groups of order 427"),
+        ({"group": [427]}, "skew type"),
+        ({"parameters": {"group_order": 428}}, "group order"),
+        ({"array": "other"}, "unknown array"),
+    ):
+        with pytest.raises(ValueError, match=message):
+            skew.stored_text(x | change, check=False)
+    # A record whose rows give a matrix that is not skew-Hadamard fails the exact check: here the
+    # digest is the one of the rebuilt text and the rows are checked by a function that accepts them.
+    import hashlib
+
+    wrong = skew.bordered_text([rows[0], rows[1], rows[2], rows[1]], x["group"])
+    bad = x | {"rows": [*rows[:3], rows[1]], "sha256": hashlib.sha256(wrong.encode()).hexdigest()}
+    with pytest.MonkeyPatch.context() as patch, pytest.raises(ValueError, match="not a skew-Hadamard matrix"):
+        patch.setattr(skew, "bordered_rows", lambda record: record["rows"])
+        skew.stored_text(bad)
 
 
 def test_found_order_is_marked_as_a_new_result_of_the_board(data, states, blocks):
@@ -611,6 +813,16 @@ def test_inconsistent_matrix_records_are_rejected(data):
         lambda m: next(x for x in m if x["origin"] == "found").update(software="kishan2026skew"),
         lambda m: m.remove(next(x for x in m if x["origin"] == "found")),
         lambda m: m[0].update(origin="found"),
+        # An order above the range is a found matrix without a file, with the fields of its array.
+        lambda m: m[-1].update(file="matrices/skew/skew-5336.txt.xz"),
+        lambda m: m[-1].update(origin="repository", software="kishan2026skew"),
+        lambda m: m[-1].pop("group"),
+        lambda m: m[-1].pop("array"),
+        lambda m: m[-1].update(array="other"),
+        lambda m: m[-1].update(order=5338),
+        lambda m: m[-1].update(order=1416),
+        lambda m: m[0].pop("file"),
+        lambda m: next(x for x in m if x["origin"] == "found").pop("block_signs"),
     ):
         broken = copy.deepcopy(doc)
         change(broken["matrices"])
