@@ -126,10 +126,12 @@ def test_states_follow_the_data_file(data, states):
         t = data["types"][name]
         is_open = [o for o, s in states.items() if s[name]["state"] == "open"]
         assert is_open == t["open"]
-        reported = {o for o, s in states.items() if s[name]["state"] == "reported"}
         since = {o for record in t["since"] if record["status"] == "reported" for o in record["orders"]}
-        # A skew-Hadamard order is never shown as reported or known: it has a checked matrix file.
-        assert reported == (since if name == "hadamard" else set())
+        # No order is shown as reported: an announced Hadamard order is known, and a
+        # skew-Hadamard order has a checked matrix file.
+        assert not [o for o, s in states.items() if s[name]["state"] == "reported"]
+        if name == "hadamard":
+            assert since <= {o for o, s in states.items() if s[name]["state"] == "known"}
         if name == "skew-hadamard":
             assert {s[name]["state"] for s in states.values()} == {"board", "verified", "open"}
             assert since <= {o for o, s in states.items() if s[name]["state"] == "verified"}
@@ -140,7 +142,7 @@ def test_states_follow_the_data_file(data, states):
     assert states[712]["skew-hadamard"]["state"] == states[820]["skew-hadamard"]["state"] == "verified"
     assert states[532]["hadamard"]["state"] == "known"
     assert states[404]["skew-hadamard"]["state"] == "open"
-    assert states[668]["hadamard"]["state"] == "reported"
+    assert states[668]["hadamard"]["state"] == "known"
     assert states[8]["hadamard"]["state"] == "known"
     # An order that is neither open nor held needs a stored matrix.
     with pytest.raises(ValueError, match="no stored matrix of order 4,"):
@@ -214,10 +216,8 @@ def test_grid_columns_agree_with_the_data_file(data, states):
             t = data["types"][name]
             if state == "open":
                 assert 4 * n in t["open"]
-            elif state == "reported":
-                assert name == "hadamard" and 4 * n in t["listed_open"] and 4 * n not in t["open"]
             elif state == "known":
-                assert name == "hadamard" and 4 * n not in t["listed_open"]
+                assert name == "hadamard" and 4 * n not in t["open"]
             elif state == "verified":
                 assert name == "skew-hadamard" and 4 * n not in t["open"] and not states[4 * n][name]["entries"]
             else:
@@ -246,7 +246,7 @@ def test_orders_listed_without_a_matrix_say_so_in_the_tooltip(data, states):
         if 4 * n in filled:
             date = next(record["date"] for record in t["since"] if 4 * n in record["orders"])
             assert f"the cited sources list this order without a matrix, and this one dates from {date}" in skew_cell
-    assert states[668]["hadamard"]["state"] == "reported"
+    assert states[668]["hadamard"]["state"] == "known"
 
 
 def test_unresolved_skew_cells_with_a_known_order(board, states):
