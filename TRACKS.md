@@ -81,6 +81,17 @@ representative set, rather than merely agree in cardinality.
 For larger orders the board reports `≥ N` from verified inequivalent
 representatives and displays any published exact count separately.
 
+A cell with more classes than the board can hold as entry files keeps them in a
+catalogue file under `evidence/catalogues/`, named by its census entry: one
+quadruple per line, every line checked exactly on every load and required to be
+the canonical form of a different class. Such a census is a lower bound whose
+rows are verified; no search is replayed for it. The Williamson cells at even n
+from 22 to 70 are of this kind, imported from the dataset of the published
+enumeration: where the published classes split into at most 5,000 classes
+under `equiv-v1` the catalogue lists every one of them, and beyond that it
+holds one quadruple per published class. The split list is complete exactly
+when the published classification is.
+
 A census beyond the inline range becomes exact through a registered offline
 replay: a maintainer runs a pinned engine to completion, records its raw rows
 with the engine source hashes, host, date and wall time under

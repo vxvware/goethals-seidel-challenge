@@ -55,6 +55,12 @@ runs and its complete canonical set matches the submitted representatives.
 Quick mode intentionally downgrades this to a lower bound. `published-exact`
 retains the attributed count but does not promote it to locally reproduced.
 
+### Catalogue files
+
+A census may name a `catalogue` in place of representatives: `{"path": "evidence/catalogues/<name>.txt.gz", "sha256": ...}`. The file is gzip-compressed text with one quadruple per line, its four rows separated by single spaces, `+` for 1 and `-` for −1. It exists for cells with more classes than the board can hold as entry files. On every load the verifier checks each line exactly as it checks a quadruple entry, requires it to belong to the census stratum, to be the canonical form of its class under `equiv-v1`, and to be strictly greater than the line before it, and requires the number of lines to equal `claimed_count`. A catalogue census has `claim_kind: lower-bound`, no representatives and no enumerator: its rows are verified and no search is replayed. The file is at most 4 MiB compressed, 32 MiB of text and 100,000 lines.
+
+At even n an optional `published_classes: {"count": c, "split": b}` states how the lines sit in a published classification under its coarser relation (see the mathematical contract): they fall into `c` classes there, and with `split: true` the file holds every `equiv-v1` class inside those classes, while with `split: false` it holds one line per published class. A full verification recomputes both statements; a quick one checks every line and marks them unchecked. When `split` is true, every quadruple entry of the cell must be a line of the file.
+
 ## Curated contribution attribution
 
 [contributions.schema.json](contributions.schema.json) describes the separate

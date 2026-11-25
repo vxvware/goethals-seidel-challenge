@@ -457,7 +457,12 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     text, tip = family(64, "williamson")
     assert text == "✓" and "69,960 classes published" in tip
     # The same cell without quadruples on the board says so, whatever the board holds today.
-    bare = by_cell[64, "williamson"] | {"quadruples": [], "censuses": [], "artifact_status": "published-not-imported"}
+    bare = by_cell[64, "williamson"] | {
+        "quadruples": [],
+        "censuses": [],
+        "catalogues": [],
+        "artifact_status": "published-not-imported",
+    }
     assert "the board holds no quadruple of this type yet" in module.grid_cell(bare, set(), r)["accessible"]
     assert family(128, "williamson")[0] == "✓" and "classes published" not in family(128, "williamson")[1]
     # Open: no source the board cites gives one, which is all the tooltip says.

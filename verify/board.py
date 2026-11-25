@@ -45,7 +45,7 @@ def load(root: PathLike = ROOT, reproduce: bool = True) -> tuple[ById, ById, lis
         if doc["type"] == "certificate":
             results[ident] = evidence.verify(doc, root)
         elif doc["type"] == "census":
-            results[ident] = census_engine.verify(doc, quads, reproduce)
+            results[ident] = census_engine.verify(doc, quads, reproduce, root)
     records = read_json(root / "baselines/order-status.json")["records"]
     from verify.census_replays import apply_registered as apply_census_replays
     from verify.replay_registry import apply_registered
@@ -87,7 +87,16 @@ def check_consistency(documents: ById, results: ById, baseline: list[JSONObject]
         refuted = [
             q
             for q in results.values()
-            if q["type"] == "quadruple" and q["n"] == rec["n"] and rec["stratum"] in q["tracks"]
+            if q["n"] == rec["n"]
+            and (
+                (q["type"] == "quadruple" and rec["stratum"] in q["tracks"])
+                # The rows of a catalogue are verified quadruples of its stratum and of every stratum containing it.
+                or (
+                    q["type"] == "census"
+                    and "catalogue" in q
+                    and rec["stratum"] in (q["stratum"], *PARENTS[q["stratum"]])
+                )
+            )
         ]
         if rec["status"] == "empty" and refuted:
             raise ValueError(f"existence conflicts with nonexistence baseline: {refuted[0]['id']}")
@@ -132,10 +141,20 @@ def cells(documents: ById, results: ById, baseline: list[JSONObject], max_n: int
                 and (c["tier"] is not None or c.get("provenance") in ("literature", "unreplayed-census"))
             ]
             censuses = [r for r in results.values() if r["type"] == "census" and r["n"] == n and r["stratum"] == track]
+            # Catalogues whose rows belong to this cell: those of the track and of the tracks it contains.
+            catalogues = [
+                {"census": r["id"], "stratum": r["stratum"], **r["catalogue"]}
+                for r in results.values()
+                if r["type"] == "census"
+                and r["n"] == n
+                and "catalogue" in r
+                and track in (r["stratum"], *PARENTS[r["stratum"]])
+            ]
             # An exact census with no classes is a replayed proof of emptiness.
             exact_empty = [c for c in censuses if c["bound"] == "exact" and c["count"] == 0]
-            status = "exists" if quads or exists else "empty" if empty or whole or exact_empty else "unresolved"
-            availability = "verified-on-board" if quads else "published-not-imported" if exists else "none"
+            held = bool(quads or catalogues)
+            status = "exists" if held or exists else "empty" if empty or whole or exact_empty else "unresolved"
+            availability = "verified-on-board" if held else "published-not-imported" if exists else "none"
             tiers = [c["tier"] for c in whole if c["tier"]] + [c["tier"] for c in exact_empty]
             # Scoped evidence can be relevant to narrower strata without being
             # the result that establishes their status. Credit its target cell.
@@ -145,7 +164,7 @@ def cells(documents: ById, results: ById, baseline: list[JSONObject], max_n: int
                 origins.add("published-import")
             rank = {"receipt-backed": 0, "spot-checked": 1, "reproduced": 2, "proven": 3}
             # Every graded tier is a key of rank, so rank.get never returns None here.
-            tier = "reproduced" if quads else max(tiers, key=rank.get) if tiers else None  # type: ignore[arg-type]
+            tier = "reproduced" if held else max(tiers, key=rank.get) if tiers else None  # type: ignore[arg-type]
             basis = sorted({c["tier"] or c["provenance"] for c in whole} | {c["tier"] for c in exact_empty})
             output.append(
                 {
@@ -159,6 +178,7 @@ def cells(documents: ById, results: ById, baseline: list[JSONObject], max_n: int
                     "quadruples": [q["id"] for q in quads],
                     "evidence": [c["id"] for c in certs],
                     "censuses": [c["id"] for c in censuses],
+                    "catalogues": catalogues,
                     "contributions": credits,
                     "origins": sorted(origins),
                     "sources": relevant,
@@ -181,6 +201,7 @@ def summary(documents: ById, results: ById, baseline: list[JSONObject], max_n: i
         "quadruples": sum(r["type"] == "quadruple" for r in results.values()),
         "certificates": sum(r["type"] == "certificate" for r in results.values()),
         "censuses": sum(r["type"] == "census" for r in results.values()),
+        "catalogue_rows": sum(r["catalogue"]["rows"] for r in results.values() if "catalogue" in r),
         "contributions": contributions.collect(results.values()),
         "cells": grid,
         "research_targets": [c for c in grid if c["status"] == "unresolved"],

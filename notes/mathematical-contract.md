@@ -58,6 +58,8 @@ At even n no row is skew, because the entry at n/2 would equal its own negative.
 
 The published enumeration of Williamson matrices of even order counts classes under a coarser relation. Besides block order, negation of a block and simultaneous multipliers, it identifies the cyclic shift of a single row by n/2, which keeps a row symmetric when n is even, and the negation of every second entry of all four rows at once. Neither is an equiv-v1 generator, so each published class is a union of equiv-v1 classes and an equiv-v1 count at even n is at least the published one: at n=18 there are 540 equiv-v1 classes and 23 published classes. Adding the two operations to the equiv-v1 generators gives the published count at every even n from 2 to 20, which the tests check. A count under the coarser relation would need a new version, as the shift quotient did.
 
+The canonical form of the coarser relation is implemented as `canonical_half_shifts`: for each multiplier and each of the two alternations it takes, for every row, the smaller of the row and its shift by n/2, and returns the least sorted tuple. It is used to state how the rows of a catalogue file sit in the published classification, and declares no census. Each published class is the union of at most 32 `equiv-v1` classes, the canonical forms of the images of one member under the 16 choices of rows to shift and the alternation. Taking those images of one quadruple per published class of the authors' dataset gave exactly the board's own enumeration at every even n from 2 to 24 when the dataset was imported on 2026-11-25 (the board's censuses up to 20, and an off-board run of the same algorithm at 22 and 24). A list obtained this way beyond 24 is complete exactly when the published classification is.
+
 Source: Bright, Kotsireas and Ganesh, https://arxiv.org/abs/1804.01172, Section 2.2 and Table 1.
 
 ## Evidence and status
@@ -84,5 +86,6 @@ attribution decision. Submitted-by is never inferred to mean discovered-by.
 ## Bounds
 
 Each entry is at most 256 KiB; a board has at most 4096 entries and 64 MiB of
-entry JSON. Arbitrary-order, constant-time verification is not promised.
+entry JSON. A catalogue file is at most 4 MiB compressed, 32 MiB of text and
+100,000 lines, and every line is checked on every load. Arbitrary-order, constant-time verification is not promised.
 External programs, paths, and commands supplied in submissions are never run.

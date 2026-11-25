@@ -48,6 +48,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from tools.import_dashboard import store
+from verify import catalogue
 from verify.common import ROOT, JSONObject, Row, Rows, read_json
 from verify.equivalence import canonical, fingerprint
 from verify.gs_verify import memberships, validate_rows
@@ -212,6 +213,27 @@ def board_williamson() -> dict[int, list[tuple[str, Rows]]]:
     return found
 
 
+def catalogue_seed(e: int) -> Rows | None:
+    """A quadruple with unit products from the board's catalogue of Williamson quadruples of length e.
+
+    It is the first line of the file that has unit products after shifting some of its rows by half their
+    length, with those rows shifted.
+    """
+    path = ROOT / f"evidence/catalogues/williamson-n{e}.txt.gz"
+    if not path.is_file():
+        return None
+    h = e // 2
+    for line in catalogue.lines(path):
+        rows = validate_rows(catalogue.parse_line(line, e), e)
+        # A catalogue may hold one quadruple per published class, and the products change when a single row
+        # is shifted by half its length, which stays inside that class: try the sixteen choices of rows.
+        for mask in range(16):
+            image = tuple(row[h:] + row[:h] if mask >> i & 1 else row for i, row in enumerate(rows))
+            if unit := with_unit_products(image):
+                return unit
+    return None
+
+
 def recipe(n: int, board: dict[int, list[tuple[str, Rows]]]) -> tuple[Rows, JSONObject] | None:
     """A Williamson quadruple of even length n and how it was built, or None when no construction here reaches n.
 
@@ -219,7 +241,8 @@ def recipe(n: int, board: dict[int, list[tuple[str, Rows]]]) -> tuple[Rows, JSON
     entry; the product of the power of two dividing n with an odd board entry;
     the product of an even quadruple with unit products and an odd board entry
     of coprime length, taking the least even length that works. The even
-    factor is a board entry of that length or the doubling of an odd one.
+    factor is a board entry of that length, the doubling of an odd one, or
+    failing both a line of the board's catalogue of that length.
     """
     t = (n & -n).bit_length() - 1
     odd = n >> t
@@ -243,6 +266,8 @@ def recipe(n: int, board: dict[int, list[tuple[str, Rows]]]) -> tuple[Rows, JSON
         if seed is None and e % 4 == 2 and e // 2 in board:
             ident, rows = board[e // 2][0]
             seed = (ident, doubling(rows), "doubling")
+        if seed is None and (found := catalogue_seed(e)):
+            seed = (f"williamson-n{e}", found, "catalogue")
         if seed is None or not has_unit_products(seed[1]):
             continue
         other, rows = board[m][0]
@@ -288,6 +313,9 @@ def describe(n: int, how: JSONObject) -> tuple[str, str, list[JSONObject]]:
         if "t" in how
         else f"the doubling of the board entry {how['even']}"
         if how["via"] == "doubling"
+        else f"a quadruple of the catalogue of the census {how['even']}, the first that has product 1 at every "
+        "position after some of its rows are shifted by half their length"
+        if how["via"] == "catalogue"
         else f"the board entry {how['even']}, with one row negated where needed so that every position has product 1"
     )
     credit = (
@@ -301,7 +329,7 @@ def describe(n: int, how: JSONObject) -> tuple[str, str, list[JSONObject]]:
         "paper, the two sequences are multiplied entrywise with indices taken modulo their lengths, and the "
         "product is read back as four rows."
     )
-    sources = [PRODUCT] if "t" in how or how["via"] == "entry" else [PRODUCT, DOUBLING]
+    sources = [PRODUCT, DOUBLING] if how.get("via") == "doubling" else [PRODUCT]
     return credit, notes, sources
 
 
