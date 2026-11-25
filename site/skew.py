@@ -15,7 +15,7 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from orders import BOARD_MAX_N, STATES, esc, listing, marks
+from orders import STATES, esc, listing, marks
 
 if TYPE_CHECKING:
     from orders import OrderStates
@@ -403,8 +403,8 @@ def order_page(
         f"<h1>Skew-Hadamard matrix of order {order}</h1>"
         "<p>A skew-Hadamard matrix of order n is an n × n matrix H with entries 1 and −1 such that "
         "H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I, where H<sup>T</sup> is the transpose of H and I is the "
-        f"identity matrix of order n. The board has no cell for n = {order // 4}: its cells cover odd n up to "
-        f"{BOARD_MAX_N}.</p>"
+        f"identity matrix of order n. The board has no cell for quadruples with a skew block at n = {order // 4}: "
+        "a skew circulant block needs odd n.</p>"
         f"{block}<h2>References</h2>{bib.listing(keys, '../')}"
         '<p><a href="../#board">Back to the board</a></p></article>'
     )

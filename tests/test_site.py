@@ -202,3 +202,19 @@ def test_cell_with_a_registered_replay_never_says_it_was_not_replayed(board):
         text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", module.cell_page(cell, d, r)))
         assert not re.search(r"not (been )?replayed|awaiting a full replay", text), (cell["n"], cell["stratum"])
     assert pages > 0
+
+
+def test_cell_page_states_a_published_count_beside_the_board_count(board):
+    module = site_build()
+    d, r, b = board
+    by_cell = {(c["n"], c["stratum"]): c for c in summary(d, r, b)["cells"]}
+    page = module.cell_page(by_cell[18, "williamson"], d, r)
+    assert "Published count: <strong>23 classes</strong>" in page and "shifting a block cyclically by n/2" in page
+    assert 'href="../references.html#ref-bright2020williamson"' in page
+    assert "540 verified classes" in page or "<h2>Matrices</h2>" in page
+    # A cited construction gives existence and no count.
+    assert "Published count" not in module.cell_page(by_cell[128, "williamson"], d, r)
+    # An open cell says what open means here.
+    open_page = module.cell_page(by_cell[94, "williamson"], d, r)
+    assert "is known to us in the sources the board cites" in open_page and "Published count" not in open_page
+    assert "is known to us" not in page

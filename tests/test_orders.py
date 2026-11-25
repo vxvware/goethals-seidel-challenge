@@ -6,8 +6,9 @@ import sys
 
 import pytest
 
+from verify import census_engine
 from verify.board import load, summary
-from verify.common import BOARD_MAX_N, ROOT, TRACKS, read_json
+from verify.common import BOARD_MAX_N, EVEN_TRACKS, ROOT, TRACKS, read_json
 
 sys.path.insert(0, str(ROOT / "site"))
 from test_site import gs_array, site_build
@@ -324,15 +325,17 @@ def test_grid_columns_agree_with_the_data_file(data, states):
                 assert state == "board" and states[4 * n][name]["entries"]
             assert classes == orders.STATES[state][1]
         hrefs = re.findall(r'href="([^"]+)"', orders.grid_cells(n, states))
-        if orders.covered(n):
+        if n % 2:
             # Each order cell links to the board cell of n for its type.
             assert hrefs == [f"cells/n{n}-general.html", f"cells/n{n}-skew-sds.html"]
         else:
-            # The board has no cell: the skew-Hadamard order has its own page and the Hadamard cell no link.
-            assert hrefs == [f"orders/skew-{4 * n}.html"]
+            # No quadruple has a skew block at even n: the skew-Hadamard order has its own page.
+            assert hrefs == [f"cells/n{n}-general.html", f"orders/skew-{4 * n}.html"]
     row = {name: (state, text) for _, name, _, state, text in cells(orders.grid_cells(89, states))}
     assert row == {"hadamard": ("board", "356"), "skew-hadamard": ("board", "356")}
-    assert [orders.covered(n) for n in (1, 2, 131, 132, 133)] == [True, False, True, False, False]
+    assert all(orders.has_cell(n, track) for n in (1, 131, 133, 299) for track in TRACKS)
+    assert [t for t in TRACKS if orders.has_cell(300, t)] == list(orders.EVEN_TRACKS) == list(EVEN_TRACKS)
+    assert not orders.has_cell(301, "williamson") and orders.BOARD_MAX_N == BOARD_MAX_N == 300
 
 
 def test_orders_listed_without_a_matrix_say_so_in_the_tooltip(data, states):
@@ -410,20 +413,56 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     assert skew85["skew-hadamard"] == ("verified", "340")
     assert 'data-status="unresolved"' in row[85].split("<td")[3]
     assert row[89].split("<td")[3].count('class="participant"') == 1
-    # A row the board has no cells for: the two order cells, then a blank cell per family.
-    for n in (2, 132, 133, 300):
-        extra = by_n[n]
-        assert extra.startswith(f'<tr data-n="{n}" data-extra>')
-        assert {name: state for _, name, _, state, _ in cells(extra)} == {
+    # An even row: the two order cells, a Williamson board cell, and the three families with a skew block
+    # marked impossible. No row has a cell without a state.
+    assert "data-extra" not in rows and ">·<" not in rows and "Not tracked" not in rows
+    for n in (2, 132, 300):
+        even = by_n[n]
+        assert {name: state for _, name, _, state, _ in cells(even)} == {
             name: states[4 * n][name]["state"] for name in orders.TYPES
         }
-        assert re.findall(r'data-track="([a-z-]+)"', extra) == ["general", "skew-sds", *module.PRIMARY]
-        assert extra.count('<td class="blank') == len(module.PRIMARY) and "cells/" not in extra
-        assert re.findall(r'href="([^"]+)"', extra) == [f"orders/skew-{4 * n}.html"]
-        # The double of a new skew-Hadamard order carries the new-result marker off the board rows too.
-        assert extra.count('class="participant"') == 0
-        # At even n no skew circulant exists, so the three families with a skew block are marked impossible.
-        assert extra.count('class="blank impossible"') == (0 if n % 2 else 3)
+        assert re.findall(r'data-track="([a-z-]+)"', even) == ["general", "skew-sds", *module.PRIMARY]
+        assert re.findall(r'href="([^"]+)"', even) == [
+            f"cells/n{n}-general.html",
+            f"orders/skew-{4 * n}.html",
+            f"cells/n{n}-williamson.html",
+        ]
+        assert even.count('class="blank impossible"') == 3 and even.count(">×</td>") == 3
+    for n in range(1, 301):
+        assert by_n[n].count('class="blank impossible"') == (0 if n % 2 else 3)
+        assert by_n[n].count("<td") == 7
+
+    def family(n, track, by_n=by_n):
+        """The text of a family cell and its tooltip."""
+        html = by_n[n].split("<td")[4 + module.PRIMARY.index(track)]
+        return re.search(r">([^<]*)(?:<span[^>]*></span>)?</a>", html).group(1), re.search(
+            r'title="([^"]*)"', html
+        ).group(1)
+
+    # Even n: the board's own equiv-v1 count where it enumerated the order, with the published count in the
+    # tooltip. The module's board skips the replays, so the ten censuses are replayed here.
+    quads = {ident: x for ident, x in r.items() if x["type"] == "quadruple"}
+    replayed = dict(r)
+    for n in range(2, 21, 2):
+        ident = f"williamson-n{n}"
+        assert family(n, "williamson")[0] == "✓"
+        replayed[ident] = r[ident] | census_engine.verify(d[ident], quads)
+    full = module.grid(summary(d, replayed, b), replayed)[1]
+    full = {int(re.match(r'<tr data-n="(\d+)"', row).group(1)): row for row in full.split("</tr>") if row}
+    counts = [int(family(n, "williamson", full)[0]) for n in range(2, 21, 2)]
+    assert counts == [1, 5, 4, 5, 12, 36, 76, 27, 540, 412]
+    assert "published count 23, under a coarser equivalence than equiv-v1" in family(18, "williamson", full)[1]
+    # Published and not on the board: the count stays in the tooltip, since it is not an equiv-v1 count.
+    text, tip = family(64, "williamson")
+    assert text == "pub" and "published count 69960" in tip and "no rows on the board" in tip
+    assert family(128, "williamson")[0] == "pub" and "published count" not in family(128, "williamson")[1]
+    # Open: no source the board cites gives one, which is all the tooltip says.
+    for n, track in ((94, "williamson"), (130, "williamson"), (133, "williamson"), (133, "best"), (299, "good")):
+        text, tip = family(n, track)
+        assert text == "?" and tip.endswith("no quadruple of this type is known to us in the cited sources"), (n, track)
+    # Past 131: the constructed families are verified cells, and best cells follow the square rule.
+    assert family(135, "williamson")[0] == family(297, "williamson")[0] == family(135, "kkss")[0] == "✓"
+    assert family(299, "best")[0] == "×" and family(137, "kkss")[0] in ("0", "?")
     assert by_n[178].count('class="participant"') == 1
     # A best cell where 4n - 3 is not a square is empty by a theorem and shows the cross, not a zero.
     assert ">×</a>" in row[5] and ">×</a>" not in row[7]
@@ -432,12 +471,14 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     assert 'data-state="verified" data-track="skew-sds" data-status="exists"' in by_n[2]
 
 
-def test_default_view_shows_every_row_and_a_smaller_range_hides_the_uncovered_ones():
+def test_default_view_shows_every_row_and_through_n_shortens_it():
     source = (ROOT / "site/build.py").read_text()
-    assert "<option>{orders.BOARD_MAX_N}</option><option selected value=" in source
+    assert '<option>131</option><option selected value="{orders.BOARD_MAX_N}">' in source
     assert ", every n</option></select>" in source
+    # Every row has cells, so no row is hidden for lack of them, and the legend has no item for an untracked cell.
+    assert "untracked" not in source and "untracked" not in (ROOT / "site/style.css").read_text()
     script = (ROOT / "site/app.js").read_text()
-    assert "!every&&row.hasAttribute('data-extra')" in script and "\nfilter();\n" in script
+    assert "data-extra" not in script and "\nfilter();\n" in script
     assert "if(td.classList.contains('blank'))continue;" in script
 
 
@@ -663,7 +704,7 @@ def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tm
     module = site_build()
     module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
     written = {int(p.stem.removeprefix("skew-")) for p in (tmp_path / "orders").iterdir()}
-    assert written == {4 * n for n in range(1, 301) if not orders.covered(n)} and len(written) == 234
+    assert written == {4 * n for n in range(2, 301, 2)} and len(written) == 150
     is_open = set(data["types"]["skew-hadamard"]["open"])
     for order in sorted(written):
         page = (tmp_path / f"orders/skew-{order}.html").read_text()
