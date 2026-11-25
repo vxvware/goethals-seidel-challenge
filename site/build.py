@@ -352,7 +352,10 @@ CONTRADICTION_NOTES = {
 # symmetric Hadamard matrix; neither the Hadamard nor the skew-Hadamard order
 # is new there, so the grid does not mark it. An item is shown only while its
 # contribution is marked featured in baselines/contributions.json, which is the
-# maintainer's decision.
+# maintainer's decision. A stored matrix of origin found
+# (baselines/skew-matrices.json) is an existence result too: it is not a board
+# entry, so no contribution carries it, and its record states the search of the
+# literature. matrix_results lists those.
 NEW_EXISTENCE = {
     "skew-pool-join-89": ("skew", "2026-11-22"),
     "propus-pool-join-65": ("propus", "2026-11-24"),
@@ -403,7 +406,24 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
             )
             item |= {"n": n, "stratum": "skew-sds", "text": text, "double": double}
         items.append(item)
-    return items
+    return items + matrix_results()
+
+
+def matrix_results() -> list[JSONObject]:
+    """The stored skew-Hadamard matrices found for this board, each linked to the page that describes it."""
+    return [
+        {
+            "kind": "matrix",
+            "source": None,
+            "qualifier": None,
+            "n": order // 4,
+            "stratum": orders.CELL_TRACKS[skew.NAME],
+            "text": f"A skew-Hadamard matrix of order {order}.",
+            "href": orders.order_href(order // 4, skew.NAME),
+        }
+        for order, record in sorted(STORED.items())
+        if record["origin"] == "found"
+    ]
 
 
 def propus_entries(stats: JSONObject) -> set[str]:

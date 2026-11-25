@@ -94,6 +94,24 @@ def test_existence_results_appear_only_when_featured(board):
     assert "first" not in html.lower()
 
 
+def test_found_matrix_is_listed_among_the_existence_results(board):
+    module = site_build()
+    d, r, b = board
+    stats = summary(d, r, b)
+    (item,) = (x for x in module.existence_results(stats, r) if x["kind"] == "matrix")
+    assert item["text"] == "A skew-Hadamard matrix of order 808." and item["qualifier"] is None
+    assert (item["n"], item["href"]) == (202, "orders/skew-808.html")
+    html = module.new_results_section(stats, r)
+    assert '<a href="orders/skew-808.html">A skew-Hadamard matrix of order 808.</a>' in html
+    assert "did not find in the sources it read" in html and "does not claim priority" in html
+    assert "first" not in html.lower() and "1616" not in html
+    # The board has no cell for n = 202, so no family cell is marked; the order cell carries the marker.
+    assert not any(n == 202 for _, n in module.new_cells(stats, r))
+    _, rows, _ = module.grid(stats, r)
+    row = rows[rows.index('<tr data-n="202"') :]
+    assert row[: row.index("</tr>")].count('class="participant"') == 1
+
+
 def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
     module = site_build()
     d, r, b = board
@@ -109,7 +127,8 @@ def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
     assert not any(n == 65 for _, n in module.new_cells(stats, r))
     assert module.propus_entries(stats) == {ident}
     stats["contributions"] = [g | {"featured": False} for g in stats["contributions"]]
-    assert not module.existence_results(stats, r)
+    # A stored matrix found for this board belongs to no contribution, so it has no featured switch.
+    assert {x["kind"] for x in module.existence_results(stats, r)} == {"matrix"}
     assert module.propus_entries(stats) == {ident}
 
 
