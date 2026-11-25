@@ -324,6 +324,7 @@ NEW_RESULTS = (
     ("good", 59),
     ("good", 61),
     ("good", 67),
+    ("good", 75),
     ("kkss", 49),
     ("kkss", 51),
     ("kkss", 55),
