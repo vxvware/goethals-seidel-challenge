@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "entry_id": "good-n75",
+  "entry_sha256": "f6ac58cf1764fce19bb711fa9cd369d9a21cd98703f4d26d6f3a107c738c5cd4",
+  "engine_id": "good-compress2-v1",
+  "engine_sha256": {
+    "research/starter/compress2/pc2_inst.c": "49cc507bafb593fc1619b84ddd29b19074d5d43f71751dcefc302cdc7d9ff100",
+    "research/starter/compress2/pc2_join.c": "a9724fd456c2042016a55831cb26c1839f1c7ebf14cdd301b4891ba0d4f2c828"
+  },
+  "mode": "full",
+  "status": "passed",
+  "host": "K11",
+  "threads": 14,
+  "date": "2026-11-25",
+  "wall_seconds": 17599.0,
+  "command": "LINES=20000 THREADS=1 bash research/starter/compress2/run_census2.sh ksss 75 5 3 14 (PC_CACHE_MB=400 PC_ORBIT_MB=150 PC_PAIR_MB=200 PC_MEM_MB=400; 1612793 instances in 3137 signature groups, 79 join units, 212443 CPU seconds; sorted instance lines md5 b2ec093844e4383c57b99379972489fe)",
+  "rows": [],
+  "compression": [
+    5,
+    3
+  ]
+}
