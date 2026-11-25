@@ -119,7 +119,7 @@ def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
     (group,) = (g for g in stats["contributions"] if g["id"] == "propus-pool-join-65")
     (ident,) = group["entry_ids"]
     (item,) = (x for x in module.existence_results(stats, r) if x["kind"] == "propus")
-    assert item["text"] == "A symmetric Hadamard matrix of order 260, from a propus family over Z_65."
+    assert item["text"] == "A symmetric Hadamard matrix of order 260 from circulant blocks."
     html = module.new_results_section(stats, r)
     assert f'<a href="entries/{ident}.html">{item["text"]}</a>' in html
     assert "first" not in html.lower()
