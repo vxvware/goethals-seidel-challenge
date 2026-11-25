@@ -893,6 +893,8 @@ def test_skew_check_rejects_a_matrix_that_is_not_skew_hadamard():
 
 def test_every_written_matrix_is_skew_hadamard(board, data, states, tmp_path):
     """Every order that is not open has a file that is a skew-Hadamard matrix; an open order has none."""
+    import hashlib
+
     import numpy as np
 
     import skew
@@ -902,6 +904,13 @@ def test_every_written_matrix_is_skew_hadamard(board, data, states, tmp_path):
     assert chosen == skew.chosen_entries(states)
     is_open = set(data["types"]["skew-hadamard"]["open"])
     written = {int(p.stem.removeprefix("skew-")) for p in (tmp_path / "matrices").iterdir()}
+    # The orders above the range with a found matrix have a file too. Each is rebuilt from its record,
+    # and test_bordered_matrix_is_the_array_of_the_sources checks it a second way.
+    above = bordered_records(data)
+    for order, record in above.items():
+        text = (tmp_path / skew.file_name(order)).read_bytes()
+        assert hashlib.sha256(text).hexdigest() == record["sha256"] and text.count(b"\n") == order
+    written -= set(above)
     assert written == set(orders.in_range(data)) - is_open and len(written) == 300 - len(is_open)
     assert {356, 476, 712, 952, 996, 1200} <= written and not {404, 428, 668} & written
     for order in sorted(written):
@@ -925,7 +934,7 @@ def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tm
     module = site_build()
     module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
     written = {int(p.stem.removeprefix("skew-")) for p in (tmp_path / "orders").iterdir()}
-    assert written == {4 * n for n in range(2, 301, 2)} and len(written) == 150
+    assert written == {4 * n for n in range(2, 301, 2)} | set(BORDERED) and len(written) == 154
     is_open = set(data["types"]["skew-hadamard"]["open"])
     for order in sorted(written):
         page = (tmp_path / f"orders/skew-{order}.html").read_text()
@@ -938,3 +947,60 @@ def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tm
     block, _ = skew.matrix_block(data, 340, states[340]["skew-hadamard"], module.STORED, {}, Bibliography())
     assert block in module.cell_page(cell, d, r, block) and "Matrix of order 340" in block
     assert "Matrix of order" not in module.cell_page(cell, d, r)
+
+
+def test_pages_of_orders_above_the_range_describe_the_bordered_array(board, data, states, tmp_path):
+    from test_site import SLUGS, visible
+
+    import skew
+
+    module = site_build()
+    module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
+    records = bordered_records(data)
+    for order, (moduli, _, size, orbits) in BORDERED.items():
+        page = (tmp_path / f"orders/skew-{order}.html").read_text()
+        text = visible(page)
+        w = order // 4 - 1
+        assert f"<h1>Skew-Hadamard matrix of order {order}</h1>" in page
+        assert f"Order {order} is above the range of the board, which has a row for every order up to 1200" in text
+        assert "needs odd n" not in text and '<span class="tag">verified</span>' in page
+        assert f"Construction: Wallis–Whiteman bordered array, group of order {w}, Z_" in text
+        assert "found on 2026-11-25" in text and "with a computer search" in text
+        assert "not a Goethals–Seidel quadruple, and the order is above the board's range" in text
+        assert f"The matrix H of order {order} = 4({w} + 1) is the block matrix" in text
+        assert "  1  −1  −1  −1  −e  −e  −e  −e\n" in page and " eᵀ  eᵀ  eᵀ −eᵀ −Bᵀ  Aᵀ  −D   C\n" in page
+        assert "A, B and D be the type 1 matrices of the first, second and fourth rows" in text
+        assert "C be the type 2 matrix of the third" in text
+        assert f"each subset have {(w - 1) // 2} elements" in text and f"in {w - 3} ways" in text
+        assert "it is −1 times the matrix printed in" in text and "state as a theorem" in text
+        assert "every row has sum 1" in text and "add to −4 at every nonzero s" in text
+        assert f"which has order {size}" in text and f"It has {orbits} orbits besides {{0}}." in text
+        assert all(line in page for line in records[order]["rows"])
+        assert "The repository holds the four rows and the sha256 of the matrix file, not the file" in text
+        assert "The result has not been reviewed." in text and "does not claim priority" in text
+        assert f"on 2026-11-25 found no earlier skew-Hadamard matrix of order {order}" in text
+        assert f'href="../matrices/skew-{order}.txt" download' in page and "<h2>References</h2>" in page
+        for key in ("wallis1972some", "momihara2019constructions", "cati2024database", "egan2026recent"):
+            assert f'href="../references.html#ref-{key}"' in page, key
+        # Plain language: no schema value, no marker left unresolved, no priority wording.
+        assert not re.search(SLUGS, text), re.search(SLUGS, text).group(0)
+        assert "—" not in text and "[@" not in text and "to our knowledge" not in text
+        assert "first skew" not in text.lower() and "new record" not in text.lower()
+        if len(moduli) == 1:
+            assert f"G is the group of the integers modulo {w} under addition" in text
+            assert "They are the circulant and the back-circulant matrix of x." in text
+            assert "not circulant" not in text
+        else:
+            m1, m2 = moduli
+            assert f"Here G is the group Z {m1} × Z {m2} :" in text
+            assert f"Since {m1} and {m2} have no common factor, G is a cyclic group of order {w}" in text
+            assert "they are not circulant matrices" in text
+            assert f"consists of {m1} × {m1} blocks of order {m2}, each of them circulant" in text
+    page = visible((tmp_path / "orders/skew-1712.html").read_text())
+    assert "(4x 1 , 12x 2 ) of G, which has order 15 and takes k(1, 1) to 256k(1, 1)" in page
+    assert 256 % 7 == 4 and 256 % 61 == 12
+    assert "which gives t = 10 for m = 107, while 1712 = 2⁴ × 107" in page
+    page = visible((tmp_path / "orders/skew-1416.html").read_text())
+    assert "the map z ↦ 231z of G, which has order 11. It has 32 orbits besides {0}." in page
+    # The page of a grid order keeps its own sentence.
+    assert "a skew circulant block needs odd n" in (tmp_path / "orders/skew-808.html").read_text()

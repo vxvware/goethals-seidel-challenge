@@ -1166,9 +1166,8 @@ def write_skew_matrices(out: Path, states: orders.OrderStates, r: Results, quick
     and checked exactly before it is written; any failure raises ValueError and
     stops the build. A quick build compares the sha256 only and skips the exact
     check of the stored files, which the full build and the tests run. A found
-    matrix of an order above the range has no stored file and no page yet: it
-    is rebuilt from its record and checked in the same way, and nothing is
-    written for it.
+    matrix of an order above the range has no stored file: it is rebuilt from
+    its record, checked in the same way and written like the others.
     """
     files = skew_matrices(states, r)
     folder = out / "matrices"
@@ -1182,7 +1181,7 @@ def write_skew_matrices(out: Path, states: orders.OrderStates, r: Results, quick
             (out / skew.file_name(order)).write_text(skew.stored_text(STORED[order], check=not quick))
     for order, record in STORED.items():
         if orders.beyond_range(ORDERS, order):
-            skew.stored_text(record, check=not quick)
+            (out / skew.file_name(order)).write_text(skew.stored_text(record, check=not quick))
     return {order: ident for order, (ident, _) in files.items()}
 
 
@@ -1202,15 +1201,20 @@ def write_propus_matrices(out: Path, idents: Iterable[str], r: Results) -> None:
 
 
 def write_order_pages(out: Path, states: orders.OrderStates, chosen: dict[int, str]) -> None:
-    """Write the page of every skew-Hadamard order whose n has no board cell for a skew block: the even n."""
+    """Write the page of every skew-Hadamard order without a board cell for a skew block.
+
+    These are the orders 4n of the grid with n even, and the orders above the
+    range of the grid that have a found matrix.
+    """
     folder = out / "orders"
     if folder.exists():
         shutil.rmtree(folder)
     folder.mkdir()
-    for order, s in states.items():
+    pages = {order: s[skew.NAME] for order, s in states.items()}
+    pages |= {order: orders.beyond_state() for order in STORED if orders.beyond_range(ORDERS, order)}
+    for order, info in pages.items():
         if orders.has_cell(order // 4, orders.CELL_TRACKS[skew.NAME]):
             continue
-        info = s[skew.NAME]
         (folder / f"skew-{order}.html").write_text(
             shell(
                 f"Skew-Hadamard matrix of order {order}",
