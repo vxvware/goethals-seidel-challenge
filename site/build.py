@@ -711,10 +711,19 @@ def grid(stats: JSONObject, r: Results) -> tuple[str, str, str]:
     rows = []
     untracked = f"Not tracked: the board classifies odd n up to {orders.BOARD_MAX_N}"
     blank = "".join(f'<td class="blank" data-track="{track}" title="{untracked}">·</td>' for track in PRIMARY)
+    # A skew circulant block has x[n - j] = -x[j] for j != 0, which at even n fails at j = n / 2.
+    impossible = "Cannot exist: a skew circulant block needs odd n"
+    blank_even = "".join(
+        f'<td class="blank impossible" data-track="{track}" title="{impossible}">×</td>'
+        if track in SKEW_TRACKS
+        else f'<td class="blank" data-track="{track}" title="{untracked}">·</td>'
+        for track in PRIMARY
+    )
     for n in range(1, ORDERS["range"]["max"] // 4 + 1):
         if not orders.covered(n):
             # The board has no cells here: the two order columns, and blank family columns.
-            rows.append(f'<tr data-n="{n}" data-extra><td>{n}</td>{orders.grid_cells(n, states)}{blank}</tr>')
+            family = blank if n % 2 else blank_even
+            rows.append(f'<tr data-n="{n}" data-extra><td>{n}</td>{orders.grid_cells(n, states)}{family}</tr>')
             continue
         found = {track: grid_cell(by_cell[n, track], marked, r) for track in TRACKS}
         cells = [
@@ -865,7 +874,7 @@ def build(quick: bool = False) -> JSONObject:
     head, rows, options = grid(stats, r)
     body = f"""<section class="hero"><div><h1>Hunting Hadamards</h1><p>Hadamard matrices are believed to exist in every size divisible by 4, but some sizes have never been found. This board tracks the search.</p>{hero_figure(r)}</div>{DEFINITION}</section>
 <section id="board"><h2>The board</h2><p class="key">{orders.intro(ORDERS)} (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>)</p><div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option>{orders.BOARD_MAX_N}</option><option selected value="{ORDERS["range"]["max"] // 4}">{ORDERS["range"]["max"] // 4}, every n</option></select></label></div>
-<div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="untracked">not tracked</span><span class="participant">new result</span></div>
+<div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="untracked">not tracked</span><span class="impossible">cannot exist</span><span class="participant">new result</span></div>
 <div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{rows}</tbody></table></div></section>
 {new_results_section(stats, r)}
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Found four sequences that fit? The verifier checks them exactly, works out their family and rejects duplicates of entries already here.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>

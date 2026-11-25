@@ -318,8 +318,10 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
             name: states[4 * n][name]["state"] for name in orders.TYPES
         }
         assert re.findall(r'data-track="([a-z-]+)"', extra) == ["general", "skew-sds", *module.PRIMARY]
-        assert extra.count('<td class="blank"') == len(module.PRIMARY) and "cells/" not in extra
+        assert extra.count('<td class="blank') == len(module.PRIMARY) and "cells/" not in extra
         assert re.findall(r'href="([^"]+)"', extra) == [f"orders/skew-{4 * n}.html"]
+        # At even n no skew circulant exists, so the three families with a skew block are marked impossible.
+        assert extra.count('class="blank impossible"') == (0 if n % 2 else 3)
     # An open order off the board reads as a research target in the status filter.
     assert 'data-state="open" data-track="skew-sds" data-status="unresolved"' in by_n[101]
     assert 'data-state="verified" data-track="skew-sds" data-status="exists"' in by_n[2]
