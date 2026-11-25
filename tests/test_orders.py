@@ -451,11 +451,11 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     full = {int(re.match(r'<tr data-n="(\d+)"', row).group(1)): row for row in full.split("</tr>") if row}
     counts = [int(family(n, "williamson", full)[0]) for n in range(2, 21, 2)]
     assert counts == [1, 5, 4, 5, 12, 36, 76, 27, 540, 412]
-    assert "published count 23, under a coarser equivalence than equiv-v1" in family(18, "williamson", full)[1]
+    assert "23 classes published, under an equivalence that merges more" in family(18, "williamson", full)[1]
     # Published and not on the board: the count stays in the tooltip, since it is not an equiv-v1 count.
     text, tip = family(64, "williamson")
-    assert text == "✓" and "published count 69960" in tip and "no rows on the board" in tip
-    assert family(128, "williamson")[0] == "✓" and "published count" not in family(128, "williamson")[1]
+    assert text == "✓" and "69,960 classes published" in tip and "the board holds no quadruple" in tip
+    assert family(128, "williamson")[0] == "✓" and "classes published" not in family(128, "williamson")[1]
     # Open: no source the board cites gives one, which is all the tooltip says.
     for n, track in ((94, "williamson"), (130, "williamson"), (133, "williamson"), (133, "best"), (299, "good")):
         text, tip = family(n, track)

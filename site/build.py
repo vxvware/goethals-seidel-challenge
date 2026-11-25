@@ -68,10 +68,71 @@ DESCRIPTION = (
 )
 
 
+# What each track's quadruples are called in a sentence. The slugs of the schema (track names, tiers,
+# equivalence versions, availability) stay in data attributes and JSON; visible text uses these words.
+TRACK_NOUNS = {
+    "williamson": ("Williamson quadruple of length {n}", "Williamson quadruples of length {n}"),
+    "good": ("quadruple of good matrices of length {n}", "quadruples of good matrices of length {n}"),
+    "best": ("quadruple of best matrices of length {n}", "quadruples of best matrices of length {n}"),
+    "kkss": ("quadruple of G-matrices of length {n}", "quadruples of G-matrices of length {n}"),
+    "skew-sds": (
+        "Goethals–Seidel quadruple of length {n} with a skew block",
+        "Goethals–Seidel quadruples of length {n} with a skew block",
+    ),
+    "general": ("Goethals–Seidel quadruple of length {n}", "Goethals–Seidel quadruples of length {n}"),
+}
+# A record without a tier, by its provenance.
+RECORD_WORDS = {
+    "literature": "published result",
+    "unreplayed-census": "report of a complete search",
+    "archived-computation": "archived search with incomplete records",
+}
+# How a result is supported, by verification tier or, without a tier, by the provenance of its record.
+EVIDENCE_WORDS = {
+    "proven": "proved by a rule the board checks",
+    "reproduced": "complete search rerun here",
+    "spot-checked": "archived search records checked and a sample rerun here",
+    "receipt-backed": "archived search records checked, search not rerun here",
+    "unreplayed-census": "complete search reported, not rerun here",
+    "archived-computation": "archived search with incomplete records, not rerun here",
+    "literature": "published result, not checked here",
+}
+SAME_CLASS = (
+    "Two quadruples are in the same class when one comes from the other by reordering the blocks, negating a "
+    "block, reversing a block, or applying one multiplier to the indices of all four blocks."
+)
+SHIFT_CLASS = "cyclic shifts of single blocks also count as equivalent"
+# The two operations of the published equivalence at even n that the board's classes do not have.
+PUBLISHED_MERGES = (
+    "The published count merges quadruples that differ by a half-period shift of a block or by negating every "
+    "second entry of all four blocks; the board counts those separately, so its count is at least the published one."
+)
+PUBLISHED_CLASSES = (
+    "The published classes treat two quadruples as the same when one comes from the other by reordering the "
+    "blocks, negating a block, applying one multiplier to the indices of all four blocks, shifting a block by "
+    "half its length, or negating every second entry of all four blocks."
+)
+
+
+def nouns(track: str, n: int) -> tuple[str, str]:
+    """The quadruples of a track at length n, singular and plural, for a sentence."""
+    singular, many = TRACK_NOUNS[track]
+    return singular.format(n=n), many.format(n=n)
+
+
+def plural(count: int, singular: str, many: str | None = None) -> str:
+    return f"{count:,} {singular if count == 1 else many or singular + 's'}"
+
+
+def evidence_words(tier: str | None) -> str | None:
+    """A tier or provenance value in words; an unknown value is an error, so no slug reaches a page."""
+    return None if tier is None else EVIDENCE_WORDS[tier]
+
+
 def tier_label(tier: str | None, rows: bool = False) -> str | None:
-    """The displayed name of a tier. The schema value stays `reproduced`; for a
+    """The displayed words of a tier. The schema value stays `reproduced`; for a
     quadruple, or a cell that holds one, that tier means its rows were verified."""
-    return "rows verified" if rows and tier == "reproduced" else tier
+    return "rows verified" if rows and tier == "reproduced" else evidence_words(tier)
 
 
 def scope_text(scope: JSONObject) -> str:
@@ -82,7 +143,7 @@ def scope_text(scope: JSONObject) -> str:
             "quadruples whose four blocks are unions of cosets of the multiplier subgroup "
             f"of order {scope['subgroup_order']}{zero}"
         )
-    return scope["kind"]
+    return "a restricted family" if scope["kind"] != "full" else "every quadruple of the cell"
 
 
 def certificate_label(result: JSONObject) -> str | None:
@@ -90,10 +151,12 @@ def certificate_label(result: JSONObject) -> str | None:
     is not read as a statement about the whole cell."""
     tier = result.get("tier")
     if tier == "proven" and result["scope"]["kind"] != "full":
-        return "proven empty within a restricted family, not for the whole cell"
+        return "proved empty within a restricted family, not for the whole cell"
     if tier == "proven":
-        return "proven empty"
-    return tier
+        return "proved empty by a rule the board checks"
+    if result.get("claim") == "partial":
+        return "partial search, does not settle the cell"
+    return evidence_words(tier) or RECORD_WORDS.get(result.get("provenance", ""))
 
 
 def display_rows(result: JSONObject) -> tuple[list[Row], str]:
@@ -494,24 +557,19 @@ def new_results_section(stats: JSONObject, r: Results) -> str:
 def cell_description(c: JSONObject) -> str:
     """The meta description of a cell page, for search results and link previews."""
     n, track = c["n"], c["stratum"]
-    head = f"Order n = {n}, {TRACK_LABELS[track]}: "
+    singular, many = nouns(track, n)
     count = len(c["quadruples"])
     if count:
-        noun = "quadruple" if count == 1 else "quadruples"
-        kind = (
-            f"with a skew block, each giving a skew-Hadamard matrix of order {4 * n}"
-            if track in SKEW_TRACKS
-            else f"each giving a Hadamard matrix of order {4 * n}"
+        kind = "skew-Hadamard" if track in SKEW_TRACKS else "Hadamard"
+        return (
+            f"{plural(count, 'exactly verified ' + singular, 'exactly verified ' + many)}, "
+            f"each giving a {kind} matrix of order {4 * n}."
         )
-        return f"{head}{count} exactly verified Goethals–Seidel {noun} {kind}."
-    return (
-        head
-        + {
-            "exists": "existence is published and no rows are on the board yet.",
-            "empty": "recorded as empty.",
-            "unresolved": "unresolved, with no quadruple and no proof of emptiness on the board.",
-        }[c["status"]]
-    )
+    return {
+        "exists": f"{many} exist by a published result; the board holds none yet.",
+        "empty": f"No {singular} exists.",
+        "unresolved": f"Open: no {singular} is known in the sources the board cites.",
+    }[c["status"]]
 
 
 def entry_description(doc: JSONObject, result: JSONObject) -> str:
@@ -554,60 +612,189 @@ def rows_block(doc: JSONObject, result: JSONObject) -> str:
     return f'<section class="rows-text"><h2>Rows</h2><p>{esc(text)}</p><pre>{esc(lines)}</pre></section>'
 
 
+def two_odd_squares(m: int) -> bool:
+    """Whether m is a sum of two odd squares."""
+    return any(
+        (rest := m - a * a) >= 0 and math.isqrt(rest) ** 2 == rest and math.isqrt(rest) % 2 == 1
+        for a in range(1, math.isqrt(m) + 1, 2)
+    )
+
+
+def impossible(c: JSONObject) -> str:
+    """Why a cell is empty by arithmetic, as a clause, or '' when no such rule applies."""
+    n, track = c["n"], c["stratum"]
+    if c["status"] != "empty":
+        return ""
+    if track == "best" and math.isqrt(4 * n - 3) ** 2 != 4 * n - 3:
+        # Best matrices need 4n - 3 to be a square.
+        return f"best matrices need 4n − 3 to be a square, and {4 * n - 3} is not one"
+    if track == "kkss" and n % 2 and not two_odd_squares(4 * n - 2):
+        # Two skew blocks have row sum 1, so the other two row sums are odd with squares adding to 4n - 2.
+        return f"with two skew blocks, 4n − 2 must be a sum of two odd squares, and {4 * n - 2} is not one"
+    return ""
+
+
+def published_classes(c: JSONObject) -> JSONObject | None:
+    """The cell's baseline record with a published class count for this very track, if any."""
+    return next((s for s in c["sources"] if "published_classes" in s and s["stratum"] == c["stratum"]), None)
+
+
+def source_marks(c: JSONObject, prefix: str) -> str:
+    """The reference numbers of the cell's literature sources, each once, with a leading space."""
+    keys = dict.fromkeys(source_keys(s["source"] for s in c["sources"]))
+    return "".join(f" {BIB.mark(key, prefix)}" for key in keys)
+
+
+def cell_tag(c: JSONObject) -> str:
+    """The status chip of a cell page, in words."""
+    held = len(c["quadruples"])
+    if c["status"] == "exists":
+        return (
+            f"exists · {plural(held, 'quadruple')} here, rows verified" if held else "exists · published, none here yet"
+        )
+    if c["status"] == "unresolved":
+        return "open"
+    basis = "by arithmetic" if impossible(c) else evidence_words(c["tier"])
+    if not basis:
+        basis = "; ".join(EVIDENCE_WORDS[b] for b in c["empty_basis"]) or "published result, not checked here"
+    return f"none exists · {basis}"
+
+
+def cell_lead(c: JSONObject, r: Results, prefix: str = "../") -> str:
+    """The opening sentences of a cell page: what is known and what the board holds, as HTML."""
+    n, track = c["n"], c["stratum"]
+    singular, many = nouns(track, n)
+    held = len(c["quadruples"])
+    marks = source_marks(c, prefix)
+    census = r[c["censuses"][0]] if c["censuses"] else None
+    if c["status"] == "unresolved":
+        text = (
+            f"Open: no {singular} is known to us in the sources the board cites, and the board "
+            "holds no proof that none exists. This is not a statement that the literature has none."
+        )
+        if c["evidence"]:
+            text += " The records below cover part of the search and do not settle it."
+        return text
+    if c["status"] == "empty":
+        if rule := impossible(c):
+            return f"No {singular} exists: {rule}."
+        if c["tier"] == "reproduced":
+            also = f" The same is published{marks}." if marks else ""
+            return f"No {singular} exists: a complete search rerun here found none.{also}"
+        basis = "; ".join(EVIDENCE_WORDS[b] for b in c["empty_basis"]) or "published result, not checked here"
+        return f"No {singular} is reported to exist{marks}. Basis: {basis}."
+    if not held:
+        published = published_classes(c)
+        if published:
+            count = published["published_classes"]["count"]
+            return (
+                f"{many[0].upper()}{many[1:]} exist: {plural(count, 'class', 'classes')} "
+                f"{'is' if count == 1 else 'are'} published{marks}. The board holds none of them yet."
+            )
+        return f"{many[0].upper()}{many[1:]} exist by a published result{marks}. The board holds none yet."
+    kind = "skew-Hadamard" if track in SKEW_TRACKS else "Hadamard"
+    gives = f" {'It gives' if held == 1 else 'Each gives'} a {kind} matrix of order {4 * n}."
+    verified = f"{plural(held, 'verified ' + singular, 'verified ' + many)}"
+    if census is None:
+        distinct = ", no two in the same class" if held > 1 else ""
+        return f"The board holds {verified}{distinct}. No complete search is recorded here.{gives}"
+    count, complete = census["count"], census["bound"] == "exact"
+    classes = plural(count, "class", "classes")
+    if census.get("count_only"):
+        rerun = "A complete count rerun here gives" if complete else "A complete count, not rerun in this build, gives"
+        text = f"The board holds {verified}. {rerun} {classes} when {SHIFT_CLASS}; the classes are not all stored."
+    elif census["equivalence"] == "equiv-v2":
+        end = (
+            ", and a complete search rerun here found no other class."
+            if complete
+            else "; a complete search, not rerun in this build, found no other class."
+            if census["claim_kind"] == "computed-exact"
+            else "; the list is not known to be complete."
+        )
+        text = f"The board holds {verified}. They fall into {classes} when {SHIFT_CLASS}{end}"
+    elif complete and count == held:
+        text = (
+            f"The board holds {plural(held, singular, many)}, "
+            f"{'the only class' if held == 1 else 'one per class'}. A complete search rerun here found no others."
+        )
+    elif published_count(census) and count == held:
+        text = (
+            f"The board holds {plural(held, singular, many)}, "
+            f"{'the only class' if held == 1 else 'one per class'} of the published classification{marks}. "
+            "The search has not been rerun here."
+        )
+    elif census["claim_kind"] == "computed-exact" and count == held:
+        text = (
+            f"The board holds {plural(held, singular, many)}, "
+            f"{'the only class' if held == 1 else 'one per class'} of a complete search that this build did not rerun."
+        )
+    else:
+        distinct = ", no two in the same class" if held > 1 else ""
+        text = f"The board holds {verified}{distinct}. The list is not known to be complete."
+    return text + gives
+
+
+def cell_rows_text(c: JSONObject, r: Results) -> str:
+    """The quadruples of a cell as a text file: one per line, its four rows as sign strings, in page order."""
+    return "".join(" ".join(signs(row) for row in display_rows(r[ident])[0]) + "\n" for ident in c["quadruples"])
+
+
+def record_words(result: JSONObject) -> str:
+    """One evidence or census record of a cell, in words."""
+    if result["type"] == "certificate":
+        detail = "nonexistence record"
+        if label := certificate_label(result):
+            detail += f" · {label}"
+        if result["scope"]["kind"] != "full":
+            detail += f" · covers only {scope_text(result['scope'])}"
+        return detail
+    if result["bound"] != "exact" and result["count"] == 0:
+        return "class list · published as empty, not rerun here"
+    known = "" if result["bound"] == "exact" or published_count(result) else " known"
+    detail = f"class list · {plural(result['count'], 'class', 'classes')}{known}"
+    if result["equivalence"] == "equiv-v2":
+        detail += " · shifted blocks count as the same"
+    if result.get("count_only"):
+        detail += " · a count only"
+    if published_count(result):
+        detail += " · published count"
+    if result.get("tier"):
+        detail += f" · {EVIDENCE_WORDS[result['tier']]}"
+    return detail
+
+
 def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
-    """One page per order and track: status, credit, sources, and the matrices.
+    """One page per order and track: what is known in one sentence, the quadruples, credit and sources.
 
     matrix is the block about the skew-Hadamard matrix of order 4n, which the
-    page of the track for quadruples with a skew block carries.
+    page of the track for quadruples with a skew block carries. Visible text
+    uses no schema slug; the track and status values stay in data attributes.
     """
     n, track = c["n"], c["stratum"]
-    tier = tier_label(c["tier"], rows=bool(c["quadruples"]))
-    status = " · ".join(x for x in (c["status"], c["artifact_status"], tier) if x)
-    expanded = " (sds: supplementary difference sets)" if track == "skew-sds" else ""
     parts = [
-        f'<article class="entry"><div class="eyebrow">cell · order {n} · {esc(track)}{expanded}'
-        f'</div><h1>n = {n} · {esc(TRACK_LABELS[track])}</h1><span class="tag">{esc(status)}</span>'
+        f'<article class="entry" data-track="{esc(track)}" data-status="{esc(c["status"])}" '
+        f'data-artifact="{esc(c["artifact_status"])}"><div class="eyebrow">board cell · length {n} · '
+        f"matrix order {4 * n}</div><h1>n = {n} · {esc(TRACK_LABELS[track])}</h1>"
+        f'<span class="tag">{esc(cell_tag(c))}</span><p class="census">{cell_lead(c, r)}</p>'
     ]
-    if c["censuses"]:
-        x = r[c["censuses"][0]]
-        link = f'<a href="../entries/{esc(x["id"])}.html">{esc(x["id"])}</a>'
-        if x["bound"] != "exact" and x["count"] == 0:
-            parts.append(f'<p class="census">published empty census · awaiting a full replay · {link}</p>')
-        else:
-            kind = (
-                "complete census"
-                if x["bound"] == "exact"
-                else "published classification, not replayed here"
-                if published_count(x)
-                else "the search was not exhaustive"
+    published = published_classes(c)
+    if c["censuses"] or published:
+        words = []
+        if c["censuses"] and c["status"] == "exists":
+            words.append(SAME_CLASS)
+        if published and c["quadruples"]:
+            count = published["published_classes"]["count"]
+            key = BIB.resolve(published["source"]["url"])
+            words.append(
+                f"Published count: <strong>{plural(count, 'class', 'classes')}</strong>"
+                f"{' ' + BIB.mark(key, '../') if key else ''}. {PUBLISHED_MERGES}"
             )
-            if x["equivalence"] == "equiv-v2":
-                kind += " under equiv-v2, which also identifies independent cyclic shifts"
-            if x.get("count_only"):
-                kind += " · a count only, the classes are not stored"
-            stated = census_count(c, r) or (f"{x['count']} {'class' if x['count'] == 1 else 'classes'} known")
-            parts.append(
-                f'<p class="census"><strong>{esc(stated)}</strong> · {kind} · '
-                f"{esc(x['tier'] or 'verified representatives')} · {link}</p>"
-            )
-    if c["note"]:
+        elif published:
+            words.append(PUBLISHED_CLASSES)
+        if words:
+            parts.append(f'<p class="muted">{" ".join(words)}</p>')
+    if c["note"] and c["status"] != "empty":
         parts.append(f"<p>{esc(c['note'])}</p>")
-    for record in c["sources"]:
-        if published := record.get("published_classes"):
-            # A count under another equivalence is stated beside the board's own, never in place of it.
-            key = BIB.resolve(record["source"]["url"])
-            noun = "class" if published["count"] == 1 else "classes"
-            parts.append(
-                f'<p class="census">Published count: <strong>{published["count"]} {noun}</strong> '
-                f"{BIB.mark(key, '../') if key else ''}, counted under {BIB.cite(published['equivalence'], '../')}. "
-                "The board's equiv-v1 has neither the shift by n/2 nor the alternating negation, so its classes "
-                "are finer and its count at this order is at least the published one.</p>"
-            )
-    if c["status"] == "unresolved":
-        parts.append(
-            "<p>No quadruple of this type at this order is known to us in the sources the board cites, and the "
-            "board holds no proof that none exists. This is not a statement that the literature has none.</p>"
-        )
     for claim in c["contradicted"]:
         parts.append(
             '<p class="contradiction">Exactly verified rows on this board contradict a published '
@@ -617,6 +804,21 @@ def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
             + "</p>"
         )
     parts.append(matrix)
+    if c["quadruples"]:
+        count = len(c["quadruples"])
+        parts.append(
+            f"<h2>{plural(count, 'quadruple')}</h2>"
+            f'<p><a href="n{n}-{esc(track)}.txt" download>Download {"it" if count == 1 else f"all {count:,}"} '
+            "as text</a>: "
+            "one quadruple per line, its four rows separated by spaces, + for 1 and - for −1. "
+            f"Each name below opens the page of that quadruple.</p>{PICTURE_KEY}"
+            '<div class="gallery">'
+        )
+        for ident in c["quadruples"]:
+            result = r[ident]
+            caption = f'<a href="../entries/{esc(ident)}.html">{esc(ident)}</a>'
+            parts.append(quad_figure(d[ident], result, caption))
+        parts.append("</div>")
     # The catalogue credit is the same paragraph for every imported cell; the
     # cell's own sources already name the original authors. A contribution that
     # reports quadruples of the cell comes before one that only holds evidence,
@@ -626,53 +828,19 @@ def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
         for group in sorted(c["contributions"], key=lambda g: not set(g["entry_ids"]) & set(c["quadruples"]))
         if group["id"] != "published-catalogues"
     )
-    if c["quadruples"]:
-        count = len(c["quadruples"])
-        heading = "Matrices" if c["censuses"] else f"{count} verified {'class' if count == 1 else 'classes'}"
-        parts.append(f'<h2>{heading}</h2>{PICTURE_KEY}<div class="gallery">')
-        for ident in c["quadruples"]:
-            result = r[ident]
-            caption = f'<a href="../entries/{esc(ident)}.html">{esc(ident)}</a>'
-            parts.append(quad_figure(d[ident], result, caption))
-        parts.append("</div>")
     records = [*c["evidence"], *c["censuses"]]
     if records:
-        items = []
-        for ident in records:
-            result = r[ident]
-            detail = result["type"]
-            if result["type"] == "census" and result["bound"] != "exact" and result["count"] == 0:
-                detail += " · published empty, awaiting a full replay"
-            elif result["type"] == "census":
-                known = "" if result["bound"] == "exact" or published_count(result) else " known"
-                detail += f" · {result['count']} {'class' if result['count'] == 1 else 'classes'}{known}"
-                if result["equivalence"] == "equiv-v2":
-                    detail += " · equiv-v2 (shifts identified)"
-                if published_count(result):
-                    detail += " · published count"
-            if result["type"] == "certificate":
-                if label := certificate_label(result):
-                    detail += f" · {label}"
-                if result["scope"]["kind"] != "full":
-                    detail += f" · covers only {scope_text(result['scope'])}"
-            elif result.get("tier"):
-                detail += f" · {result['tier']}"
-            items.append(f'<li><a href="../entries/{esc(ident)}.html">{esc(ident)}</a> · {esc(detail)}</li>')
-        parts.append(f"<h2>Evidence and census records</h2><ul>{''.join(items)}</ul>")
+        items = [
+            f'<li><a href="../entries/{esc(ident)}.html">{esc(ident)}</a> · {esc(record_words(r[ident]))}</li>'
+            for ident in records
+        ]
+        parts.append(f"<h2>Search and evidence records</h2><ul>{''.join(items)}</ul>")
     if c["sources"]:
         parts.append("<h2>Sources</h2><ul>" + "".join(source_item(s["source"], "../") for s in c["sources"]) + "</ul>")
     parts.append('<p><a href="../#board">Back to the board</a></p></article>')
     if c["quadruples"]:
         parts.append('<script src="../picture.js" defer></script>')
     return "".join(parts)
-
-
-def two_odd_squares(m: int) -> bool:
-    """Whether m is a sum of two odd squares."""
-    return any(
-        (rest := m - a * a) >= 0 and math.isqrt(rest) ** 2 == rest and math.isqrt(rest) % 2 == 1
-        for a in range(1, math.isqrt(m) + 1, 2)
-    )
 
 
 def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) -> JSONObject:
@@ -689,15 +857,22 @@ def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) ->
         if c["status"] == "empty"
         else "Unresolved"
     )
+    spoken = {
+        "Contradicts published": "exists, contradicting a published result",
+        "Verified": "exists, verified here",
+        "Published": "exists by a published result",
+        "Empty": "none exists",
+        "Unresolved": "open",
+    }[label]
     small = tier_label(c["tier"], rows=bool(c["quadruples"])) or (
-        " / ".join(c["empty_basis"]) or "literature"
+        "; ".join(EVIDENCE_WORDS[b] for b in c["empty_basis"]) or "published result, not checked here"
         if c["status"] == "empty"
-        else "claim / partial evidence"
+        else "partial search records"
         if c["evidence"]
         else ""
     )
     origin_words = ", ".join(ORIGIN_LABELS[o] for o in c["origins"])
-    accessible = "; ".join(x for x in (f"Order {n}, {TRACK_LABELS[track]}: {label}", small, origin_words) if x)
+    accessible = "; ".join(x for x in (f"n = {n}, {TRACK_LABELS[track]}: {spoken}", small, origin_words) if x)
     origins = list(c["origins"])
     new = (track, n) in marked
     if new and "participant-result" not in origins:
@@ -706,27 +881,23 @@ def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) ->
     if count:
         accessible += f"; {count}"
     elif label in ("Verified", "Contradicts published"):
-        accessible += "; exists, no class count"
+        accessible += "; no class count"
     elif label == "Published":
-        accessible += "; exists by a cited construction or enumeration, no rows on the board"
+        accessible += "; the board holds no quadruple of this type yet"
     elif label == "Unresolved":
         accessible += "; no quadruple of this type is known to us in the cited sources"
-    published = next((s["published_classes"] for s in c["sources"] if "published_classes" in s), None)
-    if published:
-        accessible += f"; published count {published['count']}, under a coarser equivalence than equiv-v1"
+    if published := published_classes(c):
+        number = plural(published["published_classes"]["count"], "class", "classes")
+        accessible += f"; {number} published, under an equivalence that merges more than the board's"
     text = (
         count.replace(" classes", "").replace(" class", "")
         if count
         else {"Empty": "0", "Unresolved": "?"}.get(label, "✓")
     )
-    if label == "Empty" and track == "best" and math.isqrt(4 * n - 3) ** 2 != 4 * n - 3:
-        # Best matrices need 4n - 3 to be a square, so this cell is empty by a theorem and not by a search.
+    if rule := impossible(c):
+        # Empty by a theorem and not by a search: the cell shows a cross, not a zero.
         text = "×"
-        accessible += "; cannot exist: 4n − 3 is not a square"
-    if c["status"] == "empty" and track == "kkss" and n % 2 and not two_odd_squares(4 * n - 2):
-        # Two skew blocks have row sum 1, so the other two row sums are odd with squares adding to 4n - 2.
-        text = "×"
-        accessible += "; cannot exist: 4n − 2 is not a sum of two odd squares"
+        accessible += f"; cannot exist: {rule}"
     return {
         "track": track,
         "status": c["status"],
@@ -923,7 +1094,7 @@ def build(quick: bool = False) -> JSONObject:
         (out / f"badges/{key}.svg").write_text(badge)
     head, rows, options = grid(stats, r)
     body = f"""<section class="hero"><div><h1>Hunting Hadamards</h1><p>Hadamard matrices are believed to exist in every size divisible by 4, but some sizes have never been found. This board tracks the search.</p>{hero_figure(r)}</div>{DEFINITION}</section>
-<section id="board"><h2>The board</h2><p class="key">{orders.intro(ORDERS)} (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>)</p><div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option>131</option><option selected value="{orders.BOARD_MAX_N}">{orders.BOARD_MAX_N}, every n</option></select></label></div>
+<section id="board"><h2>The board</h2><p class="key">{orders.intro(ORDERS)} (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>)</p><div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Open</option><option value="published-not-imported">Published, none on the board</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option>131</option><option selected value="{orders.BOARD_MAX_N}">{orders.BOARD_MAX_N}, every n</option></select></label></div>
 <div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="impossible">cannot exist</span><span class="participant">new result</span></div>
 <div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{rows}</tbody></table></div></section>
 {new_results_section(stats, r)}
@@ -1011,6 +1182,11 @@ def build(quick: bool = False) -> JSONObject:
         (out / f"cells/n{c['n']}-{c['stratum']}.html").write_text(
             shell(title, cell_page(c, d, r, matrix), "../", description=cell_description(c))
         )
+        listing = out / f"cells/n{c['n']}-{c['stratum']}.txt"
+        if c["quadruples"]:
+            listing.write_text(cell_rows_text(c, r))
+        else:
+            listing.unlink(missing_ok=True)
     print(
         f"Built docs/: {stats['quadruples']} quadruples, {stats['certificates']} evidence records, "
         f"{stats['censuses']} censuses."
