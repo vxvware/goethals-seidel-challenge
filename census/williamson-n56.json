@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "n": 56,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      56
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-25",
+  "discovered_by": [
+    "Bright, Kotsireas, Ganesh 2020 exhaustive enumeration of the even orders up to 70, and the earlier constructions credited there; rows from the authors' dataset (Zenodo 10.5281/zenodo.1195693, CC BY 4.0), put in canonical form by tools/import_bright_williamson.py"
+  ],
+  "sources": [
+    {
+      "title": "Bright, Kotsireas, Ganesh, Applying computer algebra systems with SAT solvers to the Williamson conjecture, J. Symbolic Comput. 100 (2020), Section 2.2 and Table 1",
+      "url": "https://doi.org/10.1016/j.jsc.2019.07.024"
+    },
+    {
+      "title": "Bright, Kotsireas, Ganesh, Enumeration of Williamson sequences divisible by 2 or 3, Zenodo (2018), file williamson-56.txt, sha256 b7b896a84fd35577d12fdaa9d53ec32f316a68e189c4d59d4de8f82f927b0daa",
+      "url": "https://doi.org/10.5281/zenodo.1195693"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n56",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [],
+  "catalogue": {
+    "path": "evidence/catalogues/williamson-n56.txt.gz",
+    "sha256": "12085ccd5330dd5779c7bd47e745eb89b7d1b132d8ba67fa132256c8674dfd3d"
+  },
+  "published_classes": {
+    "count": 40315,
+    "split": false
+  },
+  "claimed_count": 40315,
+  "claim_kind": "lower-bound",
+  "notes": "40315 quadruples, one from each of the 40315 classes of the cited enumeration, from the authors' dataset and stored in canonical form. The published equivalence also identifies the cyclic shift of a single block by n/2 and the negation of every second entry of all four blocks, which the board's does not: each of these classes splits into as many as 32 classes under the board's equivalence, more than the 5000 up to which a catalogue lists them all. The count here is a lower bound on the board's classes. No search was rerun for this entry."
+}

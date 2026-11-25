@@ -1,0 +1,260 @@
+{
+  "title": "Enumeration of Williamson sequences divisible by 2 or 3",
+  "authors": [
+    "Curtis Bright",
+    "Ilias Kotsireas",
+    "Vijay Ganesh"
+  ],
+  "record": "https://doi.org/10.5281/zenodo.1195693",
+  "license": "CC BY 4.0, as stated on the Zenodo record",
+  "location_named_by": "https://uwaterloo.ca/mathcheck/download/williamson-sequences, the page the paper names for its data (uwaterloo.ca/mathcheck), which links each file on the Zenodo record",
+  "downloaded": "2026-11-25",
+  "note": "The even orders 2 to 70 were downloaded; the files of the odd orders divisible by 3 on the same record were not. Each file's size and md5 matched the record's metadata. The files are not redistributed here: the board's catalogue files hold the same quadruples in canonical form, and at twelve orders their split under the board's equivalence.",
+  "files": [
+    {
+      "file": "williamson-02.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-02.txt",
+      "bytes": 12,
+      "sha256": "b08dfca5edb1acc049de6c6fa3f1d47e2d051b5d6b40cf3c6f25839fb4a89cb8",
+      "lines": 1
+    },
+    {
+      "file": "williamson-04.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-04.txt",
+      "bytes": 20,
+      "sha256": "dcacf648199992ab160199476fee360c0bae77903a802d4fa12aca489f871c03",
+      "lines": 1
+    },
+    {
+      "file": "williamson-06.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-06.txt",
+      "bytes": 28,
+      "sha256": "69b25bf661d0edc1b9306512847832eb70542d0a8b74dcb292dcba39a5d25f5e",
+      "lines": 1
+    },
+    {
+      "file": "williamson-08.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-08.txt",
+      "bytes": 36,
+      "sha256": "ebc491f11cef3c2bd3482cbb06de5ca2f090d175dd13f8a897e3b25a5b606214",
+      "lines": 1
+    },
+    {
+      "file": "williamson-10.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-10.txt",
+      "bytes": 88,
+      "sha256": "6ff23f63d266044cb6de96b37bff95fbb35b2874d31249396b73dc41c4972a90",
+      "lines": 2
+    },
+    {
+      "file": "williamson-12.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-12.txt",
+      "bytes": 156,
+      "sha256": "c96a383c272c1e597dec103eebaf7de6a1df37542dad43591e5fc246ed4ed3d9",
+      "lines": 3
+    },
+    {
+      "file": "williamson-14.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-14.txt",
+      "bytes": 300,
+      "sha256": "176d02277a2c4a123e7f0db50676e50540e5ae5147280911ad42622ac446e3a2",
+      "lines": 5
+    },
+    {
+      "file": "williamson-16.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-16.txt",
+      "bytes": 408,
+      "sha256": "2ec02716eb8ae89f1f73eea9538d7f6a0c6f7407815100989b15e7b491653ecb",
+      "lines": 6
+    },
+    {
+      "file": "williamson-18.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-18.txt",
+      "bytes": 1748,
+      "sha256": "6c1715483edc975c04634083152bab1fab8074532ac58ca7cc13a7267de4eea0",
+      "lines": 23
+    },
+    {
+      "file": "williamson-20.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-20.txt",
+      "bytes": 1428,
+      "sha256": "4f48f939cf6a209dd3b0835c23ada5f66b20312a58f6175f1fd06022a5ece7dc",
+      "lines": 17
+    },
+    {
+      "file": "williamson-22.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-22.txt",
+      "bytes": 1380,
+      "sha256": "a689bbdf1d4efe783f0bd028171a6cedd67e8cc400cc8602174d1a4285c7621f",
+      "lines": 15
+    },
+    {
+      "file": "williamson-24.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-24.txt",
+      "bytes": 7200,
+      "sha256": "f50429283b56a9f7c8ff86f2665d26b371093231f720a3f445ff30a35f4caa48",
+      "lines": 72
+    },
+    {
+      "file": "williamson-26.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-26.txt",
+      "bytes": 2808,
+      "sha256": "269cd314b9b372c96bdc2203ab7afff5aa2cdbf950bdeb84dcdbbb420f2ace54",
+      "lines": 26
+    },
+    {
+      "file": "williamson-28.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-28.txt",
+      "bytes": 9628,
+      "sha256": "c7fd6051927f05e3f338c313c4923f88d716e9c7fa68bfe950e4dd5ed377a59e",
+      "lines": 83
+    },
+    {
+      "file": "williamson-30.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-30.txt",
+      "bytes": 18600,
+      "sha256": "190b30075703415002fca47c806f522fafe4a1ec779a27ecbcc554842ad260d8",
+      "lines": 150
+    },
+    {
+      "file": "williamson-32.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-32.txt",
+      "bytes": 20064,
+      "sha256": "2fe54b3639107fc7bd7d04bb68ccb3de8acf930b27ca48cd9af82e14c45a9f35",
+      "lines": 152
+    },
+    {
+      "file": "williamson-34.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-34.txt",
+      "bytes": 12740,
+      "sha256": "5c8805ef6e3c091690c540abceef03c50273671335df95764d24536dbd921854",
+      "lines": 91
+    },
+    {
+      "file": "williamson-36.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-36.txt",
+      "bytes": 70596,
+      "sha256": "07d7ad068dd3a481b132572dad32bbc8bd99f9c729289e9870818cbc103cc33b",
+      "lines": 477
+    },
+    {
+      "file": "williamson-38.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-38.txt",
+      "bytes": 7800,
+      "sha256": "8937dece118841e5b8eeda48bf98a1b65fea4cd9bb85e37f8f87013a549fd8b8",
+      "lines": 50
+    },
+    {
+      "file": "williamson-40.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-40.txt",
+      "bytes": 245836,
+      "sha256": "97a41917b8e0483ec1eb2decd1401368f878b318f7e2b9bd904da04e056c7b9a",
+      "lines": 1499
+    },
+    {
+      "file": "williamson-42.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-42.txt",
+      "bytes": 51772,
+      "sha256": "805b22f8279ca4df86b63e164f0ea9f7de00b97af45c519eb78a36ae3d5ed163",
+      "lines": 301
+    },
+    {
+      "file": "williamson-44.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-44.txt",
+      "bytes": 44820,
+      "sha256": "65f1a8c48dd0bc4c19d3feadf8f1bc4b730b20470d958dcf273e3e980b5f7d36",
+      "lines": 249
+    },
+    {
+      "file": "williamson-46.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-46.txt",
+      "bytes": 9400,
+      "sha256": "ffcd326347c789b023d04a2c75e8f490fc0496167be257c53ec9f1788f3bb215",
+      "lines": 50
+    },
+    {
+      "file": "williamson-48.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-48.txt",
+      "bytes": 1920800,
+      "sha256": "4a078b4e9f7464c46e0cd1896e390c10388e3304dc0cf126d7695d304f79d392",
+      "lines": 9800
+    },
+    {
+      "file": "williamson-50.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-50.txt",
+      "bytes": 56100,
+      "sha256": "d1af3f3c55fa03ce4ebf8a486504fa7c7c9fe9b07e8eaa3576a4a4739aacd90c",
+      "lines": 275
+    },
+    {
+      "file": "williamson-52.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-52.txt",
+      "bytes": 196312,
+      "sha256": "a543631f811789a8a23cf9a1f3d657c17384901ae1d04ec0d803877a4f450eef",
+      "lines": 926
+    },
+    {
+      "file": "williamson-54.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-54.txt",
+      "bytes": 109560,
+      "sha256": "7e30aded822891f2f54be541448b9b005c6d472ae0159dacfa2f9d35b9968bda",
+      "lines": 498
+    },
+    {
+      "file": "williamson-56.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-56.txt",
+      "bytes": 9191820,
+      "sha256": "b7b896a84fd35577d12fdaa9d53ec32f316a68e189c4d59d4de8f82f927b0daa",
+      "lines": 40315
+    },
+    {
+      "file": "williamson-58.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-58.txt",
+      "bytes": 17228,
+      "sha256": "fdfc8879c109bec82379c50e7caaaa05d73058d420424914a9caef4027cefc01",
+      "lines": 73
+    },
+    {
+      "file": "williamson-60.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-60.txt",
+      "bytes": 996252,
+      "sha256": "00daa4fcc5870207a92aa43465546c09661ee915d33b7198a97b4d515bd07a1b",
+      "lines": 4083
+    },
+    {
+      "file": "williamson-62.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-62.txt",
+      "bytes": 15372,
+      "sha256": "0584017670214f61203367247409a7a41480781c1d62ef6746d69a0b99d50f1a",
+      "lines": 61
+    },
+    {
+      "file": "williamson-64.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-64.txt",
+      "bytes": 18189600,
+      "sha256": "82c71045e9a03996effcf57807a3575587ee9c73c165ba45a6a92551fb3a5dc8",
+      "lines": 69960
+    },
+    {
+      "file": "williamson-66.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-66.txt",
+      "bytes": 70216,
+      "sha256": "aed3dd4c27b63e2277dea3728f8521a4a6f7a86b80a0dccc3ed26dad9daabe3c",
+      "lines": 262
+    },
+    {
+      "file": "williamson-68.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-68.txt",
+      "bytes": 307188,
+      "sha256": "862e5b40b95578cda63bdbff527dfdb49dcbd2f6940063ab279bc8b27efa47d6",
+      "lines": 1113
+    },
+    {
+      "file": "williamson-70.txt",
+      "url": "https://zenodo.org/records/1195693/files/williamson-70.txt",
+      "bytes": 27832,
+      "sha256": "f5119d34343b489147fb23439159f017955c53054903d4be03445a5514a113db",
+      "lines": 98
+    }
+  ]
+}
