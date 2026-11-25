@@ -669,6 +669,14 @@ def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
     return "".join(parts)
 
 
+def two_odd_squares(m: int) -> bool:
+    """Whether m is a sum of two odd squares."""
+    return any(
+        (rest := m - a * a) >= 0 and math.isqrt(rest) ** 2 == rest and math.isqrt(rest) % 2 == 1
+        for a in range(1, math.isqrt(m) + 1, 2)
+    )
+
+
 def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) -> JSONObject:
     """What the front-page grid shows for one board cell, and the words of its tooltip."""
     track, n = c["stratum"], c["n"]
@@ -711,12 +719,16 @@ def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) ->
     text = (
         count.replace(" classes", "").replace(" class", "")
         if count
-        else {"Published": "pub", "Empty": "0", "Unresolved": "?"}.get(label, "✓")
+        else {"Empty": "0", "Unresolved": "?"}.get(label, "✓")
     )
     if label == "Empty" and track == "best" and math.isqrt(4 * n - 3) ** 2 != 4 * n - 3:
         # Best matrices need 4n - 3 to be a square, so this cell is empty by a theorem and not by a search.
         text = "×"
         accessible += "; cannot exist: 4n − 3 is not a square"
+    if c["status"] == "empty" and track == "kkss" and n % 2 and not two_odd_squares(4 * n - 2):
+        # Two skew blocks have row sum 1, so the other two row sums are odd with squares adding to 4n - 2.
+        text = "×"
+        accessible += "; cannot exist: 4n − 2 is not a sum of two odd squares"
     return {
         "track": track,
         "status": c["status"],

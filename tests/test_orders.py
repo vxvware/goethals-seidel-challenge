@@ -454,15 +454,15 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     assert "published count 23, under a coarser equivalence than equiv-v1" in family(18, "williamson", full)[1]
     # Published and not on the board: the count stays in the tooltip, since it is not an equiv-v1 count.
     text, tip = family(64, "williamson")
-    assert text == "pub" and "published count 69960" in tip and "no rows on the board" in tip
-    assert family(128, "williamson")[0] == "pub" and "published count" not in family(128, "williamson")[1]
+    assert text == "✓" and "published count 69960" in tip and "no rows on the board" in tip
+    assert family(128, "williamson")[0] == "✓" and "published count" not in family(128, "williamson")[1]
     # Open: no source the board cites gives one, which is all the tooltip says.
     for n, track in ((94, "williamson"), (130, "williamson"), (133, "williamson"), (133, "best"), (299, "good")):
         text, tip = family(n, track)
         assert text == "?" and tip.endswith("no quadruple of this type is known to us in the cited sources"), (n, track)
     # Past 131: the constructed families are verified cells, and best cells follow the square rule.
     assert family(135, "williamson")[0] == family(297, "williamson")[0] == family(135, "kkss")[0] == "✓"
-    assert family(299, "best")[0] == "×" and family(137, "kkss")[0] in ("0", "?")
+    assert family(299, "best")[0] == "×" and family(137, "kkss")[0] in ("×", "?")
     assert by_n[178].count('class="participant"') == 1
     # A best cell where 4n - 3 is not a square is empty by a theorem and shows the cross, not a zero.
     assert ">×</a>" in row[5] and ">×</a>" not in row[7]
