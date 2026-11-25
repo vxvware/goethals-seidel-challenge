@@ -192,7 +192,8 @@ def test_intro_names_the_smallest_open_skew_orders(data):
     first, second = data["types"]["skew-hadamard"]["open"][:2]
     assert f"the smallest open skew-Hadamard orders are {first} and {second}" in text
     assert "first" not in text.lower().replace("first,", "")
-    assert "for odd n up to 131. Choosing 300 under Through n adds the rows for even n" in text
+    assert "for odd n up to 131; the rows for even n and for larger n have the two order columns only" in text
+    assert "choosing 131 under Through n hides them" in text
 
 
 def test_front_page_has_no_orders_page_or_box():
@@ -326,9 +327,10 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     assert 'data-state="verified" data-track="skew-sds" data-status="exists"' in by_n[2]
 
 
-def test_default_view_hides_the_rows_the_board_does_not_cover():
+def test_default_view_shows_every_row_and_a_smaller_range_hides_the_uncovered_ones():
     source = (ROOT / "site/build.py").read_text()
-    assert "<option selected>{orders.BOARD_MAX_N}</option>" in source and ", every n</option></select>" in source
+    assert "<option>{orders.BOARD_MAX_N}</option><option selected value=" in source
+    assert ", every n</option></select>" in source
     script = (ROOT / "site/app.js").read_text()
     assert "!every&&row.hasAttribute('data-extra')" in script and "\nfilter();\n" in script
     assert "if(td.classList.contains('blank'))continue;" in script
