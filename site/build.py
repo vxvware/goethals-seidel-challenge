@@ -420,7 +420,8 @@ CONTRADICTION_NOTES = {
 # maintainer's decision. A stored matrix of origin found
 # (baselines/skew-matrices.json) is an existence result too: it is not a board
 # entry, so no contribution carries it, and its record states the search of the
-# literature. matrix_results lists those.
+# literature. matrix_results lists those, with one shared line for the orders
+# above the range of the grid.
 NEW_EXISTENCE = {
     "skew-pool-join-89": ("skew", "2026-11-22"),
     "propus-pool-join-65": ("propus", "2026-11-24"),
@@ -473,8 +474,14 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
 
 
 def matrix_results() -> list[JSONObject]:
-    """The stored skew-Hadamard matrices found for this board, each linked to the page that describes it."""
-    return [
+    """The stored skew-Hadamard matrices found for this board, each linked to the page that describes it.
+
+    An order of the grid has a line of its own. The orders above the range of
+    the grid share one line, in which each order links to its page.
+    """
+    found = [order for order, record in sorted(STORED.items()) if record["origin"] == "found"]
+    above = [order for order in found if orders.beyond_range(ORDERS, order)]
+    items: list[JSONObject] = [
         {
             "kind": "matrix",
             "source": None,
@@ -484,9 +491,21 @@ def matrix_results() -> list[JSONObject]:
             "text": f"A skew-Hadamard matrix of order {order}.",
             "href": orders.order_href(order // 4, skew.NAME),
         }
-        for order, record in sorted(STORED.items())
-        if record["origin"] == "found" and not orders.beyond_range(ORDERS, order)
+        for order in found
+        if order not in above or len(above) == 1
     ]
+    if len(above) > 1:
+        items.append(
+            {
+                "kind": "matrices",
+                "source": None,
+                "qualifier": None,
+                "lead": "Skew-Hadamard matrices of orders",
+                "text": f"Skew-Hadamard matrices of orders {orders.listing(above)}.",
+                "links": {order: orders.order_href(order // 4, skew.NAME) for order in above},
+            }
+        )
+    return items
 
 
 def propus_entries(stats: JSONObject) -> set[str]:
@@ -537,8 +556,13 @@ def new_results_section(stats: JSONObject, r: Results) -> str:
     for title, items in new_results(stats, r):
         parts.append(f"<h3>{esc(title)}</h3><ul>")
         for x in items:
-            href = x.get("href") or f"cells/n{x['n']}-{x['stratum']}.html"
-            link = f'<a href="{esc(href)}">{esc(x["text"])}</a>'
+            if "links" in x:
+                # One line for several orders: each order is the link to its own page.
+                anchors = [f'<a href="{esc(href)}">{order}</a>' for order, href in x["links"].items()]
+                link = f"{esc(x['lead'])} {orders.listing(anchors)}."
+            else:
+                href = x.get("href") or f"cells/n{x['n']}-{x['stratum']}.html"
+                link = f'<a href="{esc(href)}">{esc(x["text"])}</a>'
             if x["source"]:
                 url = x["source"]["url"]
                 key = BIB.resolve(url)
