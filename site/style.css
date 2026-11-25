@@ -72,7 +72,6 @@ td .cell{display:flex;align-items:center;justify-content:space-between;gap:.3rem
 td .cell .participant{width:.4667rem;height:.4667rem;background:var(--violet);transform:rotate(45deg);flex:none}
 td .cell:hover{border-color:var(--green);background:#0d3b20;color:var(--bright)}
 .exists .cell{background:#082a16;color:#6dffa0}
-.published-not-imported .cell{background:#06202b;color:var(--cyan)}
 .empty .cell{background:#0a100c;color:#557060}
 td.blank{color:#2f4a3c;padding-left:1.1rem}
 .unresolved .cell{background:#261b00;color:var(--gold)}
