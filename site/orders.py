@@ -40,16 +40,18 @@ STATE_WORDS = {
 }
 # The board cell a grid existence cell links to, by type.
 CELL_TRACKS = {"hadamard": "general", "skew-hadamard": "skew-sds"}
-# The board covers odd n up to this value; summary() uses the same bound.
-BOARD_MAX_N = 131
+# The board has cells for every n up to this value, the last row of the grid (verify.common.BOARD_MAX_N).
+BOARD_MAX_N = 300
+# The tracks with a cell at even n, where no row is skew (verify.common.EVEN_TRACKS).
+EVEN_TRACKS = ("williamson", "general")
 ORIGINS = ("sagemath", "repository", "board", "found")
 # What a stored matrix of origin found records besides the fields of every stored matrix.
 FOUND_FIELDS = ("date", "contributors", "rows", "block_signs", "multiplier", "row_sums", "search", "checked")
 
 
-def covered(n: int) -> bool:
-    """Whether the board has cells for n: the odd n up to BOARD_MAX_N."""
-    return n % 2 == 1 and n <= BOARD_MAX_N
+def has_cell(n: int, track: str) -> bool:
+    """Whether the board has a cell for the track at n: every track at odd n, those without a skew row at even n."""
+    return n <= BOARD_MAX_N and (n % 2 == 1 or track in EVEN_TRACKS)
 
 
 def esc(value: object) -> str:
@@ -284,10 +286,10 @@ def state_cell(
 def order_href(n: int, name: str) -> str | None:
     """The page an order cell of row n links to.
 
-    Where the board covers n it is the board cell of the type's track. Elsewhere
-    a skew-Hadamard order has a page of its own and a Hadamard order has none.
+    It is the board cell of the type's track where there is one. At even n no
+    quadruple has a skew block, so a skew-Hadamard order has a page of its own.
     """
-    if covered(n):
+    if has_cell(n, CELL_TRACKS[name]):
         return f"cells/n{n}-{CELL_TRACKS[name]}.html"
     return f"orders/skew-{4 * n}.html" if name == "skew-hadamard" else None
 
@@ -297,13 +299,13 @@ def grid_cells(
 ) -> str:
     """The two order cells of the front-page grid row of n, showing the order 4n.
 
-    Where the board covers n, each links to the board cell of n for its type:
-    any quadruple for a Hadamard matrix, a quadruple with a skew block for a
+    Each links to the board cell of n for its type where there is one: any
+    quadruple for a Hadamard matrix, a quadruple with a skew block for a
     skew-Hadamard matrix. Its colour is the state of the order, so a
     skew-Hadamard order with a matrix from another construction is not shown as
-    open while the board's cell is unresolved. Where the board does not cover n,
-    the cells carry the attributes the grid filters read: the track of the
-    column, and whether the order is settled.
+    open while the board's cell is unresolved. A type with no board cell at n,
+    which is the skew-Hadamard type at even n, carries the attributes the grid
+    filters read: the track of the column, and whether the order is settled.
 
     new_skew holds the n whose skew-Hadamard order is a featured existence
     result of this board; that cell gets the new-result marker, and so does a
@@ -312,13 +314,11 @@ def grid_cells(
     state_cell takes.
     """
     order = 4 * n
-    board = board or {}
-    if not covered(n):
-        status = {"open": "unresolved"}
-        board = {
-            name: {"data": {"track": CELL_TRACKS[name], "status": status.get(states[order][name]["state"], "exists")}}
-            for name in TYPES
-        }
+    board = dict(board or {})
+    for name in TYPES:
+        if not has_cell(n, CELL_TRACKS[name]):
+            status = "unresolved" if states[order][name]["state"] == "open" else "exists"
+            board[name] = {"data": {"track": CELL_TRACKS[name], "status": status}}
     return "".join(
         state_cell(
             order,

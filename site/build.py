@@ -17,7 +17,7 @@ import propus
 import skew
 from references import Bibliography
 from verify.board import load, summary
-from verify.common import ROOT, TRACKS, JSONObject, Row, write_json
+from verify.common import ROOT, JSONObject, Row, tracks_at, write_json
 
 type Results = dict[str, JSONObject]
 """Entry documents or verifier results, by entry id."""
@@ -594,6 +594,22 @@ def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
             )
     if c["note"]:
         parts.append(f"<p>{esc(c['note'])}</p>")
+    for record in c["sources"]:
+        if published := record.get("published_classes"):
+            # A count under another equivalence is stated beside the board's own, never in place of it.
+            key = BIB.resolve(record["source"]["url"])
+            noun = "class" if published["count"] == 1 else "classes"
+            parts.append(
+                f'<p class="census">Published count: <strong>{published["count"]} {noun}</strong> '
+                f"{BIB.mark(key, '../') if key else ''}, counted under {BIB.cite(published['equivalence'], '../')}. "
+                "The board's equiv-v1 has neither the shift by n/2 nor the alternating negation, so its classes "
+                "are finer and its count at this order is at least the published one.</p>"
+            )
+    if c["status"] == "unresolved":
+        parts.append(
+            "<p>No quadruple of this type at this order is known to us in the sources the board cites, and the "
+            "board holds no proof that none exists. This is not a statement that the literature has none.</p>"
+        )
     for claim in c["contradicted"]:
         parts.append(
             '<p class="contradiction">Exactly verified rows on this board contradict a published '
@@ -685,6 +701,13 @@ def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) ->
         accessible += f"; {count}"
     elif label in ("Verified", "Contradicts published"):
         accessible += "; exists, no class count"
+    elif label == "Published":
+        accessible += "; exists by a cited construction or enumeration, no rows on the board"
+    elif label == "Unresolved":
+        accessible += "; no quadruple of this type is known to us in the cited sources"
+    published = next((s["published_classes"] for s in c["sources"] if "published_classes" in s), None)
+    if published:
+        accessible += f"; published count {published['count']}, under a coarser equivalence than equiv-v1"
     text = (
         count.replace(" classes", "").replace(" class", "")
         if count
@@ -735,31 +758,19 @@ def grid(stats: JSONObject, r: Results) -> tuple[str, str, str]:
     # The doubled order of a new skew-Hadamard order is marked as new with it.
     new_skew = {x["n"] for x in skew_results} | {x["double"] // 4 for x in skew_results if x["double"]}
     rows = []
-    untracked = f"Not tracked: the board classifies odd n up to {orders.BOARD_MAX_N}"
-    blank = "".join(f'<td class="blank" data-track="{track}" title="{untracked}">·</td>' for track in PRIMARY)
     # A skew circulant block has x[n - j] = -x[j] for j != 0, which at even n fails at j = n / 2.
     impossible = "Cannot exist: a skew circulant block needs odd n"
-    blank_even = "".join(
-        f'<td class="blank impossible" data-track="{track}" title="{impossible}">×</td>'
-        if track in SKEW_TRACKS
-        else f'<td class="blank" data-track="{track}" title="{untracked}">·</td>'
-        for track in PRIMARY
-    )
     for n in range(1, ORDERS["range"]["max"] // 4 + 1):
-        if not orders.covered(n):
-            # The board has no cells here: the two order columns, and blank family columns.
-            family = blank if n % 2 else blank_even
-            rows.append(
-                f'<tr data-n="{n}" data-extra><td>{n}</td>{orders.grid_cells(n, states, new_skew)}{family}</tr>'
-            )
-            continue
-        found = {track: grid_cell(by_cell[n, track], marked, r) for track in TRACKS}
+        # Every track has a cell at odd n. At even n only the tracks without a skew row do, and the
+        # three families with one are marked impossible.
+        found = {track: grid_cell(by_cell[n, track], marked, r) for track in tracks_at(n)}
         cells = [
             f'<td class="{esc(x["classes"])}"{filter_attributes(x)}>'
             f'<a class="cell" href="cells/n{n}-{track}.html" aria-label="{esc(x["accessible"])}" '
             f'title="{esc(x["accessible"])}">{esc(x["text"])}{x["marker"]}</a></td>'
-            for track, x in found.items()
-            if track in PRIMARY
+            if (x := found.get(track))
+            else f'<td class="blank impossible" data-track="{track}" title="{impossible}">×</td>'
+            for track in PRIMARY
         ]
         board = {
             name: {
@@ -770,6 +781,7 @@ def grid(stats: JSONObject, r: Results) -> tuple[str, str, str]:
                 "data": filter_data(found[track]),
             }
             for name, track in orders.CELL_TRACKS.items()
+            if track in found
         }
         rows.append(
             f'<tr data-n="{n}"><td>{n}</td>{orders.grid_cells(n, states, new_skew, board)}' + "".join(cells) + "</tr>"
@@ -852,13 +864,13 @@ def write_propus_matrices(out: Path, idents: Iterable[str], r: Results) -> None:
 
 
 def write_order_pages(out: Path, states: orders.OrderStates, chosen: dict[int, str]) -> None:
-    """Write the page of every skew-Hadamard order whose n has no board cell."""
+    """Write the page of every skew-Hadamard order whose n has no board cell for a skew block: the even n."""
     folder = out / "orders"
     if folder.exists():
         shutil.rmtree(folder)
     folder.mkdir()
     for order, s in states.items():
-        if orders.covered(order // 4):
+        if orders.has_cell(order // 4, orders.CELL_TRACKS[skew.NAME]):
             continue
         info = s[skew.NAME]
         (folder / f"skew-{order}.html").write_text(
@@ -901,8 +913,8 @@ def build(quick: bool = False) -> JSONObject:
         (out / f"badges/{key}.svg").write_text(badge)
     head, rows, options = grid(stats, r)
     body = f"""<section class="hero"><div><h1>Hunting Hadamards</h1><p>Hadamard matrices are believed to exist in every size divisible by 4, but some sizes have never been found. This board tracks the search.</p>{hero_figure(r)}</div>{DEFINITION}</section>
-<section id="board"><h2>The board</h2><p class="key">{orders.intro(ORDERS)} (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>)</p><div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option>{orders.BOARD_MAX_N}</option><option selected value="{ORDERS["range"]["max"] // 4}">{ORDERS["range"]["max"] // 4}, every n</option></select></label></div>
-<div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="untracked">not tracked</span><span class="impossible">cannot exist</span><span class="participant">new result</span></div>
+<section id="board"><h2>The board</h2><p class="key">{orders.intro(ORDERS)} (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>)</p><div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option>131</option><option selected value="{orders.BOARD_MAX_N}">{orders.BOARD_MAX_N}, every n</option></select></label></div>
+<div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="impossible">cannot exist</span><span class="participant">new result</span></div>
 <div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{rows}</tbody></table></div></section>
 {new_results_section(stats, r)}
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Found four sequences that fit? The verifier checks them exactly, works out their family and rejects duplicates of entries already here.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
