@@ -16,8 +16,10 @@ import orders
 import propus
 import skew
 from references import Bibliography
+from verify import catalogue
 from verify.board import load, summary
-from verify.common import ROOT, JSONObject, Row, tracks_at, write_json
+from verify.common import ROOT, JSONObject, Row, Rows, tracks_at, write_json
+from verify.gs_verify import row_types
 
 type Results = dict[str, JSONObject]
 """Entry documents or verifier results, by entry id."""
@@ -558,7 +560,7 @@ def cell_description(c: JSONObject) -> str:
     """The meta description of a cell page, for search results and link previews."""
     n, track = c["n"], c["stratum"]
     singular, many = nouns(track, n)
-    count = len(c["quadruples"])
+    count = max(len(c["quadruples"]), sum(x["rows"] for x in c.get("catalogues", [])))
     if count:
         kind = "skew-Hadamard" if track in SKEW_TRACKS else "Hadamard"
         return (
@@ -645,9 +647,73 @@ def source_marks(c: JSONObject, prefix: str) -> str:
     return "".join(f" {BIB.mark(key, prefix)}" for key in keys)
 
 
-def cell_tag(c: JSONObject) -> str:
+# How many lines of a catalogue a cell page draws; the rest are in the text file.
+CATALOGUE_SHOWN = 12
+
+
+def cell_catalogue(c: JSONObject) -> JSONObject | None:
+    """The catalogue of a cell, if it has one: the verifier's record of the file and its checked numbers."""
+    return c["catalogues"][0] if c.get("catalogues") else None
+
+
+def catalogue_lines(cat: JSONObject) -> list[str]:
+    """The lines of a catalogue file. The board load has checked every one of them."""
+    return catalogue.lines(ROOT / cat["path"])
+
+
+def catalogue_file(cat: JSONObject) -> str:
+    """The name of the text file the site serves for a catalogue, under catalogues/."""
+    return f"{cat['census']}.txt"
+
+
+def outside_catalogue(c: JSONObject, r: Results) -> list[str]:
+    """The quadruple entries of a cell that are not lines of its catalogue, which add to its count."""
+    cat = cell_catalogue(c)
+    if not cat or not c["quadruples"]:
+        return list(c["quadruples"])
+    present = set(catalogue_lines(cat))
+    return [i for i in c["quadruples"] if catalogue.format_line(r[i]["canonical_rows"]) not in present]
+
+
+def held_count(c: JSONObject, r: Results) -> int:
+    """The number of pairwise inequivalent verified quadruples the board holds for a cell."""
+    cat = cell_catalogue(c)
+    return (cat["rows"] if cat else 0) + len(outside_catalogue(c, r))
+
+
+def line_figure(n: int, line: str, caption: str) -> str:
+    """The picture of one catalogue line, drawn like a quadruple entry."""
+    rows: Rows = catalogue.parse_line(line, n)
+    pattern = "".join("k" if "k" in row_types(x) else "s" if "s" in row_types(x) else "·" for x in rows)
+    return quad_figure({"n": n}, {"canonical_rows": rows, "pattern": pattern}, caption)
+
+
+def own_pages(c: JSONObject, r: Results) -> str:
+    """The end of the heading over the quadruple entries of a cell that also has a catalogue file."""
+    extra, count = len(outside_catalogue(c, r)), len(c["quadruples"])
+    where = ", also in the file" if extra == 0 else ", not in the file" if extra == count else ""
+    return f" with {'a page of its own' if count == 1 else 'pages of their own'}{where}"
+
+
+def cell_sources(c: JSONObject, d: Results) -> list[JSONObject]:
+    """The sources a cell page lists: the cited records of the cell, then those of its catalogue.
+
+    A cell with no cited record lists the sources of the quadruples it holds, so that a quadruple built by a
+    published construction shows where the construction is from.
+    """
+    found = [s["source"] for s in c["sources"]]
+    cat = cell_catalogue(c)
+    if cat and cat["stratum"] == c["stratum"]:
+        found += d[cat["census"]]["sources"]
+    if not found:
+        found = [s for ident in c["quadruples"][:20] for s in d[ident]["sources"]]
+    unique = {(s["title"], s["url"]): s for s in found}
+    return list(unique.values())
+
+
+def cell_tag(c: JSONObject, r: Results) -> str:
     """The status chip of a cell page, in words."""
-    held = len(c["quadruples"])
+    held = held_count(c, r)
     if c["status"] == "exists":
         return (
             f"exists · {plural(held, 'quadruple')} here, rows verified" if held else "exists · published, none here yet"
@@ -683,6 +749,8 @@ def cell_lead(c: JSONObject, r: Results, prefix: str = "../") -> str:
             return f"No {singular} exists: a complete search rerun here found none.{also}"
         basis = "; ".join(EVIDENCE_WORDS[b] for b in c["empty_basis"]) or "published result, not checked here"
         return f"No {singular} is reported to exist{marks}. Basis: {basis}."
+    if cat := cell_catalogue(c):
+        return catalogue_lead(c, cat, r, prefix)
     if not held:
         published = published_classes(c)
         if published:
@@ -734,6 +802,47 @@ def cell_lead(c: JSONObject, r: Results, prefix: str = "../") -> str:
     return text + gives
 
 
+def catalogue_lead(c: JSONObject, cat: JSONObject, r: Results, prefix: str) -> str:
+    """The opening sentences of a cell whose quadruples are in a catalogue file."""
+    n, track = c["n"], c["stratum"]
+    singular, many = nouns(track, n)
+    rows, classes = cat["rows"], cat.get("published_classes")
+    extra = len(outside_catalogue(c, r))
+    marks = source_marks(c, prefix)
+    gives = f" Each gives a Hadamard matrix of order {4 * n}."
+    if cat["stratum"] != track:
+        other_singular, other_many = nouns(cat["stratum"], n)
+        more = f", and {plural(extra, 'other verified ' + singular, 'other verified ' + many)}" if extra else ""
+        return (
+            f"The board holds {plural(rows, 'verified ' + other_singular, 'verified ' + other_many)}{more}; every one "
+            f"is a {singular.split(' of length')[0]}. They are listed on the page of the "
+            f'<a href="n{n}-{esc(cat["stratum"])}.html">{esc(TRACK_LABELS[cat["stratum"]])}</a> cell.{gives}'
+        )
+    also = (
+        f" The board holds {plural(extra, 'more ' + singular, 'more ' + many)} with "
+        f"{'a page of its own' if extra == 1 else 'pages of their own'}, listed below."
+        if extra
+        else ""
+    )
+    if classes and cat["split"]:
+        return (
+            f"The board holds {plural(rows, singular, many)}, no two in the same class: the "
+            f"{plural(classes, 'class', 'classes')} of the published enumeration{marks}, split under the board's "
+            "finer equivalence. Every one is checked exactly here. The list is complete if the published one is; "
+            f"no search was rerun here.{also}{gives}"
+        )
+    if classes:
+        return (
+            f"The board holds {plural(rows, singular, many)}, one from each of the "
+            f"{plural(classes, 'class', 'classes')} of the published enumeration{marks}. Every one is checked "
+            f"exactly here; no search was rerun here.{also}{gives}"
+        )
+    return (
+        f"The board holds {plural(rows, 'verified ' + singular, 'verified ' + many)}, no two in the same class. "
+        f"The list is not known to be complete.{also}{gives}"
+    )
+
+
 def cell_rows_text(c: JSONObject, r: Results) -> str:
     """The quadruples of a cell as a text file: one per line, its four rows as sign strings, in page order."""
     return "".join(" ".join(signs(row) for row in display_rows(r[ident])[0]) + "\n" for ident in c["quadruples"])
@@ -750,6 +859,12 @@ def record_words(result: JSONObject) -> str:
         return detail
     if result["bound"] != "exact" and result["count"] == 0:
         return "class list · published as empty, not rerun here"
+    if cat := result.get("catalogue"):
+        detail = f"catalogue file · {plural(cat['rows'], 'quadruple')}, every line checked here"
+        if "published_classes" in cat:
+            how = "every class inside them under the board's equivalence" if cat["split"] else "one quadruple each"
+            detail += f" · {plural(cat['published_classes'], 'published class', 'published classes')}, {how}"
+        return detail
     known = "" if result["bound"] == "exact" or published_count(result) else " known"
     detail = f"class list · {plural(result['count'], 'class', 'classes')}{known}"
     if result["equivalence"] == "equiv-v2":
@@ -775,14 +890,21 @@ def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
         f'<article class="entry" data-track="{esc(track)}" data-status="{esc(c["status"])}" '
         f'data-artifact="{esc(c["artifact_status"])}"><div class="eyebrow">board cell · length {n} · '
         f"matrix order {4 * n}</div><h1>n = {n} · {esc(TRACK_LABELS[track])}</h1>"
-        f'<span class="tag">{esc(cell_tag(c))}</span><p class="census">{cell_lead(c, r)}</p>'
+        f'<span class="tag">{esc(cell_tag(c, r))}</span><p class="census">{cell_lead(c, r)}</p>'
     ]
     published = published_classes(c)
+    cat = cell_catalogue(c)
+    own = cat if cat and cat["stratum"] == track else None
     if c["censuses"] or published:
         words = []
         if c["censuses"] and c["status"] == "exists":
             words.append(SAME_CLASS)
-        if published and c["quadruples"]:
+        if published and own and not own["split"]:
+            words.append(
+                f"{PUBLISHED_CLASSES} The last two are not operations of the board's equivalence, under which a "
+                "published class splits into as many as 32 classes; those are not listed for this length."
+            )
+        elif published and (c["quadruples"] or own):
             count = published["published_classes"]["count"]
             key = BIB.resolve(published["source"]["url"])
             words.append(
@@ -804,10 +926,26 @@ def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
             + "</p>"
         )
     parts.append(matrix)
+    if own:
+        shown = catalogue_lines(own)[:CATALOGUE_SHOWN]
+        first = "It is drawn below." if own["rows"] == 1 else f"The first {len(shown)} are drawn below."
+        parts.append(
+            f"<h2>{plural(own['rows'], 'quadruple')} in one file</h2>"
+            f'<p><a href="../catalogues/{esc(catalogue_file(own))}" download>Download all {own["rows"]:,} as text</a>: '
+            "one quadruple per line, its four rows separated by spaces, + for 1 and - for −1, each line the "
+            f"least member of its class. {first} The same file is kept compressed in the repository as "
+            f'<a href="{REPOSITORY}/blob/main/{esc(own["path"])}" rel="noopener">{esc(own["path"])}</a>. '
+            f"The rows were imported from the sources listed at the foot of this page"
+            f"{''.join(' ' + BIB.mark(key, '../') for key in dict.fromkeys(source_keys(d[own['census']]['sources'])))}"
+            ".</p>"
+            f'{PICTURE_KEY}<div class="gallery">'
+        )
+        parts.extend(line_figure(n, line, f"line {k}") for k, line in enumerate(shown, 1))
+        parts.append("</div>")
     if c["quadruples"]:
         count = len(c["quadruples"])
         parts.append(
-            f"<h2>{plural(count, 'quadruple')}</h2>"
+            f"<h2>{plural(count, 'quadruple')}{own_pages(c, r) if own else ''}</h2>"
             f'<p><a href="n{n}-{esc(track)}.txt" download>Download {"it" if count == 1 else f"all {count:,}"} '
             "as text</a>: "
             "one quadruple per line, its four rows separated by spaces, + for 1 and - for −1. "
@@ -835,10 +973,10 @@ def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
             for ident in records
         ]
         parts.append(f"<h2>Search and evidence records</h2><ul>{''.join(items)}</ul>")
-    if c["sources"]:
-        parts.append("<h2>Sources</h2><ul>" + "".join(source_item(s["source"], "../") for s in c["sources"]) + "</ul>")
+    if sources := cell_sources(c, d):
+        parts.append("<h2>Sources</h2><ul>" + "".join(source_item(s, "../") for s in sources) + "</ul>")
     parts.append('<p><a href="../#board">Back to the board</a></p></article>')
-    if c["quadruples"]:
+    if c["quadruples"] or own:
         parts.append('<script src="../picture.js" defer></script>')
     return "".join(parts)
 
@@ -850,7 +988,7 @@ def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) ->
         "Contradicts published"
         if c["contradicted"]
         else "Verified"
-        if c["quadruples"]
+        if c["quadruples"] or c.get("catalogues")
         else "Published"
         if c["artifact_status"] == "published-not-imported"
         else "Empty"
@@ -864,7 +1002,7 @@ def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) ->
         "Empty": "none exists",
         "Unresolved": "open",
     }[label]
-    small = tier_label(c["tier"], rows=bool(c["quadruples"])) or (
+    small = tier_label(c["tier"], rows=bool(c["quadruples"] or c.get("catalogues"))) or (
         "; ".join(EVIDENCE_WORDS[b] for b in c["empty_basis"]) or "published result, not checked here"
         if c["status"] == "empty"
         else "partial search records"
@@ -880,6 +1018,8 @@ def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) ->
     count = census_count(c, r)
     if count:
         accessible += f"; {count}"
+    elif cat := cell_catalogue(c):
+        accessible += f"; {plural(cat['rows'], 'quadruple')} in a catalogue file, no complete class count"
     elif label in ("Verified", "Contradicts published"):
         accessible += "; no class count"
     elif label == "Published":
@@ -1174,6 +1314,14 @@ def build(quick: bool = False) -> JSONObject:
     # Files of the page this build no longer writes.
     for name in ("skew.html", "skew.js"):
         (out / name).unlink(missing_ok=True)
+    folder = out / "catalogues"
+    if folder.exists():
+        shutil.rmtree(folder)
+    folder.mkdir()
+    for c in stats["cells"]:
+        for cat in c["catalogues"]:
+            if cat["stratum"] == c["stratum"]:
+                (folder / catalogue_file(cat)).write_text("".join(line + "\n" for line in catalogue_lines(cat)))
     for c in stats["cells"]:
         title = f"n = {c['n']} · {TRACK_LABELS[c['stratum']]}"
         matrix = ""

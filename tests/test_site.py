@@ -306,9 +306,9 @@ def test_cell_page_opens_with_one_plain_sentence(board):
         "The board holds 11 verified Goethals–Seidel quadruples of length 89 with a skew block, no two in the "
         "same class. No complete search is recorded here."
     )
-    assert module.cell_tag(bare(28, "williamson")) == "exists · published, none here yet"
-    assert module.cell_tag(by_cell[83, "good"]) == "open"
-    assert module.cell_tag(by_cell[47, "best"]) == "none exists · by arithmetic"
+    assert module.cell_tag(bare(28, "williamson"), r) == "exists · published, none here yet"
+    assert module.cell_tag(by_cell[83, "good"], r) == "open"
+    assert module.cell_tag(by_cell[47, "best"], r) == "none exists · by arithmetic"
     # A published count of Williamson quadruples is not a count of the cell for any quadruple.
     assert "83 classes" not in lead(28, "general", bare(28, "general"))
 
@@ -324,3 +324,105 @@ def test_cell_text_file_lists_the_rows_of_every_quadruple(board):
     for line, ident in zip(lines, cell["quadruples"], strict=True):
         rows = [[1 if x == "+" else -1 for x in word] for word in line.split()]
         assert validate_rows(rows, 18) == tuple(map(tuple, module.display_rows(r[ident])[0]))
+
+
+def catalogue_cells(module, tmp_path, records, split):
+    """Board cells at n = 10 whose Williamson quadruples are in a catalogue file under tmp_path."""
+    import gzip
+    import hashlib
+
+    from verify import catalogue
+    from verify.board import cells
+    from verify.census_engine import williamson_even
+    from verify.equivalence import canonical_half_shifts
+
+    classes = sorted(williamson_even(10))
+    if not split:
+        classes = sorted({canonical_half_shifts(q): q for q in classes}.values())
+    packed = gzip.compress("".join(catalogue.format_line(q) + "\n" for q in classes).encode(), mtime=0)
+    (tmp_path / "evidence/catalogues").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "evidence/catalogues/williamson-n10.txt.gz").write_bytes(packed)
+    entry = {
+        "id": "williamson-n10",
+        "type": "census",
+        "n": 10,
+        "stratum": "williamson",
+        "equivalence": "equiv-v1",
+        "representatives": [],
+        "claimed_count": len(classes),
+        "claim_kind": "lower-bound",
+        "catalogue": {
+            "path": "evidence/catalogues/williamson-n10.txt.gz",
+            "sha256": hashlib.sha256(packed).hexdigest(),
+        },
+        "published_classes": {"count": 2, "split": split},
+        "sources": [{"title": "The dataset of the enumeration", "url": "https://doi.org/10.5281/zenodo.1195693"}],
+    }
+    d = {entry["id"]: entry}
+    r = {entry["id"]: catalogue.verify(entry, {}, tmp_path, True) | {"contributions": []}}
+    module.ROOT = tmp_path
+    return d, r, {(c["n"], c["stratum"]): c for c in cells(d, r, records, max_n=10)}
+
+
+def test_catalogue_cell_page_says_what_the_file_holds(board, tmp_path):
+    import re
+
+    module = site_build()
+    d, r, grid = catalogue_cells(module, tmp_path, board[2], split=True)
+    cell = grid[10, "williamson"]
+    page = module.cell_page(cell, d, r)
+    text = visible(page)
+    assert "exists · 12 quadruples here, rows verified" in text
+    assert (
+        "The board holds 12 Williamson quadruples of length 10, no two in the same class: the 2 classes of the "
+        "published enumeration"
+    ) in text
+    assert "The list is complete if the published one is; no search was rerun here." in text
+    assert "Published count: 2 classes" in text and "half-period shift of a block" in text
+    assert (
+        'href="../catalogues/williamson-n10.txt" download' in page
+        and "evidence/catalogues/williamson-n10.txt.gz" in page
+    )
+    # Twelve lines are drawn and each carries its rows for picture.js.
+    assert page.count('<figure class="quad">') == 12 and "line 12" in text and "picture.js" in page
+    assert "catalogue file · 12 quadruples, every line checked here · 2 published classes, every class inside" in text
+    # The dataset is a source of the page, with its reference number.
+    assert "The dataset of the enumeration" in text and "ref-bright2018enumeration" in page
+    assert not re.search(SLUGS, text)
+    tip = module.grid_cell(cell, set(), r)
+    assert tip["text"] == "✓" and "12 quadruples in a catalogue file, no complete class count" in tip["accessible"]
+    assert "exists, verified here" in tip["accessible"] and "2 classes published" in tip["accessible"]
+    assert module.cell_description(cell).startswith("12 exactly verified Williamson quadruples of length 10")
+    wider = re.sub(r"<[^>]+>", "", module.cell_lead(grid[10, "general"], r))
+    assert wider.startswith("The board holds 12 verified Williamson quadruples of length 10; every one is a Goethals")
+    assert "listed on the page of the Williamson (ssss) cell" in wider
+
+
+def test_catalogue_with_one_quadruple_per_published_class_says_so(board, tmp_path):
+    import re
+
+    module = site_build()
+    d, r, grid = catalogue_cells(module, tmp_path, board[2], split=False)
+    cell = grid[10, "williamson"]
+    text = visible(module.cell_page(cell, d, r))
+    assert (
+        "The board holds 2 Williamson quadruples of length 10, one from each of the 2 classes of the published "
+        "enumeration"
+    ) in text
+    assert "a published class splits into as many as 32 classes; those are not listed for this length" in text
+    assert "2 published classes, one quadruple each" in text and "The first 2 are drawn below" in text
+    assert not re.search(SLUGS, text)
+    # A quadruple entry outside the file adds to the count, and the page says it is not in the file.
+    from verify.census_engine import williamson_even
+    from verify.gs_verify import verify as verify_rows
+
+    lines = set(module.catalogue_lines(cell["catalogues"][0]))
+    other = next(q for q in sorted(williamson_even(10)) if module.catalogue.format_line(q) not in lines)
+    doc = {"id": "n10-other", "n": 10, "group": {"kind": "cyclic", "invariant_factors": [10]}, "rows": other}
+    doc["sources"] = []
+    with_entry = cell | {"quadruples": ["n10-other"]}
+    results = r | {"n10-other": verify_rows(doc)}
+    assert module.cell_tag(with_entry, results) == "exists · 3 quadruples here, rows verified"
+    page = visible(module.cell_page(with_entry, d | {"n10-other": doc}, results))
+    assert "The board holds 1 more Williamson quadruple of length 10 with a page of its own, listed below." in page
+    assert "1 quadruple with a page of its own, not in the file" in page
