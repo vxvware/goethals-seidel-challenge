@@ -24,7 +24,7 @@ Each row of the front-page grid is an n and the order 4n. The grid opens on ever
 
 A number in a family cell is a count of equivalence classes and ✓ means a quadruple exists with no class count. Class counts use `equiv-v1`, which treats independent reversals, sign changes, block permutations and multipliers as equivalent (see the [mathematical contract](notes/mathematical-contract.md)). The class counts of the general and skew-sds cells, shown on their cell pages, also identify independent cyclic shifts of each row (`equiv-v2`), without which every class at those orders splits into thousands.
 
-The same colours mean the same thing in every column: green means it exists (in the order columns, a matrix of that order is known, whether or not this board holds one; in the family columns, the board holds a verified quadruple), dark is empty, amber is open, an amber outline is reported in a source that is not reviewed (hadamard column only), a red outline contradicts a published result, a small amber square marks a skew-Hadamard order that the cited lists give as open and that has since been filled, and a violet diamond is a new result.
+The same colours mean the same thing in every column: green means it exists (in the order columns, a matrix of that order is known, whether or not this board holds one; in the family columns, the board holds a verified quadruple), dark is empty, amber is open, an amber outline is reported in a source that is not reviewed (hadamard column only), a red outline contradicts a published result, and a violet diamond is a new result.
 
 ## Verification levels
 
