@@ -367,3 +367,39 @@ def test_filled_baseline_gaps_name_flagged_entries(board):
         for ident in idents:
             flags = board[1][ident]["flags"]
             assert any(f["kind"] == "fills-a-baseline-gap" and f["order"] == order for f in flags)
+
+
+def test_even_williamson_baseline_records(board):
+    _, _, records = board
+    even = {rec["n"]: rec for rec in records if rec["n"] % 2 == 0}
+    assert all(rec["stratum"] == "williamson" and rec["status"] == "exists" for rec in even.values())
+    counted = {n: rec["published_classes"]["count"] for n, rec in even.items() if "published_classes" in rec}
+    assert sorted(counted) == list(range(2, 71, 2))
+    assert (counted[18], counted[64], counted[70]) == (23, 69960, 98)
+    # The total over the even orders up to 70 that the authors state in their later paper.
+    assert sum(counted.values()) == 130739
+    assert all("E1 to E5" in rec["published_classes"]["equivalence"] for rec in even.values() if rec["n"] <= 70)
+    # Above 70 a record needs an existence record at the odd part of n, which 47, 53, 59 and 65 lack.
+    assert sorted(set(range(72, 132, 2)) - set(even)) == [94, 106, 118, 130]
+    # Past 130 as well, an even n lacks a record exactly when its odd part has no existence record.
+    odd = {rec["n"] for rec in records if rec["n"] % 2 and rec["stratum"] == "williamson" and rec["status"] == "exists"}
+    assert all((n // (n & -n) in odd) == (n in even) for n in range(72, 301, 2))
+    assert len(set(range(2, 301, 2)) - set(even)) == 38
+
+
+def test_baseline_rules_reach_the_end_of_the_grid(board):
+    _, _, records = board
+    late = [rec for rec in records if rec["n"] > 131]
+    assert max(rec["n"] for rec in late) == 300 and {rec["baseline_date"] for rec in late} == {"2026-11-25"}
+    turyn = sorted(rec["n"] for rec in late if rec["n"] % 2 and rec["stratum"] == "williamson")
+    assert (
+        turyn[:4] == [135, 139, 141, 145]
+        and len(turyn) == 29
+        and all(
+            "Turyn" in rec["source"]["title"] for rec in late if rec["n"] in turyn and rec["stratum"] == "williamson"
+        )
+    )
+    spence = sorted(rec["n"] for rec in late if rec["stratum"] == "kkss" and rec["status"] == "exists")
+    assert spence == [135, 139, 147, 159, 175, 187, 195, 199, 211, 231, 255, 271, 279]
+    # No good or best record exists past 131: the cited sources give no infinite family of either.
+    assert {rec["stratum"] for rec in late} == {"williamson", "kkss"}
