@@ -48,7 +48,7 @@ ORIGINS = ("sagemath", "repository", "board", "found")
 # What a stored matrix of origin found records besides the fields of every stored matrix,
 # and what each array it can name adds.
 FOUND_FIELDS = ("date", "contributors", "array", "rows", "multiplier", "row_sums", "search", "checked")
-ARRAY_FIELDS = {"williamson8": ("block_signs",), "bordered": ("group",)}
+ARRAY_FIELDS = {"williamson8": ("block_signs",), "bordered": ("group",), "bordered8": ("derivation",)}
 
 
 def has_cell(n: int, track: str) -> bool:
