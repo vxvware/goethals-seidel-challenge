@@ -144,7 +144,8 @@ def test_states_follow_the_data_file(data, states):
     assert states[532]["hadamard"]["state"] == "known"
     assert states[404]["skew-hadamard"]["state"] == "open"
     assert states[668]["hadamard"]["state"] == "known"
-    assert states[88]["hadamard"]["state"] == "known"
+    # n = 94 is reached by none of the constructions of Williamson quadruples at even n.
+    assert states[376]["hadamard"]["state"] == "known"
     # An order that is neither open nor held needs a stored matrix.
     with pytest.raises(ValueError, match="no stored matrix of order 4,"):
         orders.table(data, {}, stored=[])
@@ -454,10 +455,13 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     assert "23 classes published, under an equivalence that merges more" in family(18, "williamson", full)[1]
     # Published and not on the board: the count stays in the tooltip, since it is not an equiv-v1 count.
     text, tip = family(64, "williamson")
-    assert text == "✓" and "69,960 classes published" in tip and "the board holds no quadruple" in tip
+    assert text == "✓" and "69,960 classes published" in tip
+    # The same cell without quadruples on the board says so, whatever the board holds today.
+    bare = by_cell[64, "williamson"] | {"quadruples": [], "censuses": [], "artifact_status": "published-not-imported"}
+    assert "the board holds no quadruple of this type yet" in module.grid_cell(bare, set(), r)["accessible"]
     assert family(128, "williamson")[0] == "✓" and "classes published" not in family(128, "williamson")[1]
     # Open: no source the board cites gives one, which is all the tooltip says.
-    for n, track in ((94, "williamson"), (130, "williamson"), (133, "williamson"), (133, "best"), (299, "good")):
+    for n, track in ((94, "williamson"), (106, "williamson"), (133, "williamson"), (133, "best"), (299, "good")):
         text, tip = family(n, track)
         assert text == "?" and tip.endswith("no quadruple of this type is known to us in the cited sources"), (n, track)
     # Past 131: the constructed families are verified cells, and best cells follow the square rule.

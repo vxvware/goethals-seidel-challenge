@@ -217,6 +217,7 @@ def test_cell_page_states_a_published_count_beside_the_board_count(board):
     assert "<h2>540 quadruples</h2>" in page and 'href="n18-williamson.txt"' in page
     # A cited construction gives existence and no count.
     assert "Published count" not in module.cell_page(by_cell[128, "williamson"], d, r)
+    assert "classes are published" not in module.cell_page(by_cell[128, "williamson"], d, r)
     # An open cell says what open means here.
     open_page = module.cell_page(by_cell[94, "williamson"], d, r)
     assert "is known to us in the sources the board cites" in open_page and "Published count" not in open_page
@@ -268,11 +269,19 @@ def test_cell_page_opens_with_one_plain_sentence(board):
     d, r, b = board
     by_cell = {(c["n"], c["stratum"]): c for c in summary(d, r, b)["cells"]}
 
-    def lead(n, track):
-        return re.sub(r"<[^>]+>", "", module.cell_lead(by_cell[n, track], r))
+    def bare(n, track):
+        """The cell as it reads while the board holds none of its quadruples, whatever it holds today."""
+        return by_cell[n, track] | {"quadruples": [], "censuses": [], "artifact_status": "published-not-imported"}
 
-    assert lead(28, "williamson").startswith("Williamson quadruples of length 28 exist: 83 classes are published [")
-    assert lead(128, "williamson").startswith("Williamson quadruples of length 128 exist by a published result [")
+    def lead(n, track, cell=None):
+        return re.sub(r"<[^>]+>", "", module.cell_lead(cell or by_cell[n, track], r))
+
+    assert lead(28, "williamson", bare(28, "williamson")).startswith(
+        "Williamson quadruples of length 28 exist: 83 classes are published ["
+    )
+    assert lead(128, "williamson", bare(128, "williamson")).startswith(
+        "Williamson quadruples of length 128 exist by a published result ["
+    )
     assert lead(83, "good").startswith("Open: no quadruple of good matrices of length 83 is known to us")
     assert lead(47, "best") == (
         "No quadruple of best matrices of length 47 exists: best matrices need 4n − 3 to be a square, "
@@ -292,11 +301,11 @@ def test_cell_page_opens_with_one_plain_sentence(board):
         "The board holds 11 verified Goethals–Seidel quadruples of length 89 with a skew block, no two in the "
         "same class. No complete search is recorded here."
     )
-    assert module.cell_tag(by_cell[28, "williamson"]) == "exists · published, none here yet"
+    assert module.cell_tag(bare(28, "williamson")) == "exists · published, none here yet"
     assert module.cell_tag(by_cell[83, "good"]) == "open"
     assert module.cell_tag(by_cell[47, "best"]) == "none exists · by arithmetic"
     # A published count of Williamson quadruples is not a count of the cell for any quadruple.
-    assert "83 classes" not in lead(28, "general")
+    assert "83 classes" not in lead(28, "general", bare(28, "general"))
 
 
 def test_cell_text_file_lists_the_rows_of_every_quadruple(board):
