@@ -386,9 +386,7 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
             item |= {
                 "n": n,
                 "stratum": "general",
-                "text": (
-                    f"A symmetric Hadamard matrix of order {4 * n}, from a propus family over Z_{n}."
-                ),
+                "text": (f"A symmetric Hadamard matrix of order {4 * n}, from a propus family over Z_{n}."),
                 # The entry page carries the propus array and the matrix file.
                 "href": f"entries/{entries[0]['id']}.html",
             }
