@@ -330,6 +330,6 @@ def intro(data: JSONObject) -> str:
     return (
         "Each row is an order 4n. Green means a matrix of that order is known and amber "
         f"that it is open{tail}. The family columns count cyclic Goethals–Seidel quadruples "
-        f"of each type, for odd n up to {BOARD_MAX_N}. Choosing {data['range']['max'] // 4} under Through n adds "
-        "the rows for even n and for larger n, which have the two order columns only."
+        f"of each type, for odd n up to {BOARD_MAX_N}; the rows for even n and for larger n have the two order "
+        f"columns only, and choosing {BOARD_MAX_N} under Through n hides them."
     )
