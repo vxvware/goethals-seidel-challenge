@@ -709,7 +709,8 @@ def grid(stats: JSONObject, r: Results) -> tuple[str, str, str]:
     # The doubled order of a new skew-Hadamard order is marked as new with it.
     new_skew = {x["n"] for x in skew_results} | {x["double"] // 4 for x in skew_results if x["double"]}
     rows = []
-    blank = "".join(f'<td class="blank" data-track="{track}"></td>' for track in PRIMARY)
+    untracked = f"Not tracked: the board classifies odd n up to {orders.BOARD_MAX_N}"
+    blank = "".join(f'<td class="blank" data-track="{track}" title="{untracked}">·</td>' for track in PRIMARY)
     for n in range(1, ORDERS["range"]["max"] // 4 + 1):
         if not orders.covered(n):
             # The board has no cells here: the two order columns, and blank family columns.
@@ -864,7 +865,7 @@ def build(quick: bool = False) -> JSONObject:
     head, rows, options = grid(stats, r)
     body = f"""<section class="hero"><div><h1>Hunting Hadamards</h1><p>Hadamard matrices are believed to exist in every size divisible by 4, but some sizes have never been found. This board tracks the search.</p>{hero_figure(r)}</div>{DEFINITION}</section>
 <section id="board"><h2>The board</h2><p class="key">{orders.intro(ORDERS)} (<a href="{REPOSITORY}/blob/main/TRACKS.md#reading-the-board">how to read the board</a>)</p><div class="controls"><label>Column <select id="track"><option value="">Every column</option>{options}</select></label><label>Show <select id="status"><option value="">Every status</option><option value="unresolved">Research targets</option><option value="published-not-imported">Import tasks</option><option value="exists">Existence known</option><option value="empty">Nonexistence</option></select></label><label>Origin <select id="origin"><option value="">Every origin</option><option value="participant-result">Challenge results</option><option value="independent-reproduction">Independent reproductions</option><option value="published-import">Literature / catalog</option></select></label><label>Through n <select id="max-order"><option>31</option><option>63</option><option>{orders.BOARD_MAX_N}</option><option selected value="{ORDERS["range"]["max"] // 4}">{ORDERS["range"]["max"] // 4}, every n</option></select></label></div>
-<div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="participant">new result</span></div>
+<div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="untracked">not tracked</span><span class="participant">new result</span></div>
 <div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{rows}</tbody></table></div></section>
 {new_results_section(stats, r)}
 <section class="columns"><article class="card"><h3>Bring a construction</h3><p>Found four sequences that fit? The verifier checks them exactly, works out their family and rejects duplicates of entries already here.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
