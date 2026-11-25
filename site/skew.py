@@ -187,11 +187,6 @@ def origin_sentence(record: JSONObject, bib: Bibliography, prefix: str) -> str:
     )
 
 
-def filled_since(info: JSONObject) -> str | None:
-    """The date of the record that filled an order the cited lists give as open, if it is filled."""
-    return info["record"]["date"] if info["record"] and info["state"] != "open" else None
-
-
 def matrix_block(
     data: JSONObject,
     order: int,
@@ -210,11 +205,10 @@ def matrix_block(
     t = data["types"][NAME]
     state = info["state"]
     parts = [f'<p><span class="tag">{esc(STATES[state][0])}</span>']
-    since = filled_since(info)
-    if since:
+    if info["record"] and state != "open":
         parts.append(
-            f' <span class="tag">filled since the cited lists, {esc(since)}</span></p>'
-            f"<p>The sources {marks(bib, t['listed_open_sources'], prefix)} list order {order} without a matrix.</p>"
+            f"</p><p>The sources {marks(bib, t['listed_open_sources'], prefix)} list order {order} without a matrix; "
+            f"this one dates from {esc(info['record']['date'])}.</p>"
         )
     else:
         parts.append("</p>")
@@ -244,7 +238,7 @@ def matrix_block(
         if "note" in record:
             parts.append(f"<p>{bib.cite(record['note'], prefix)}</p>")
         parts.append(download)
-    if since:
+    if info["record"] and state != "open":
         keys |= set(t["listed_open_sources"])
     return f"<h2>Matrix of order {order}</h2>{''.join(parts)}", keys
 

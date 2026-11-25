@@ -235,19 +235,17 @@ def test_grid_columns_agree_with_the_data_file(data, states):
     assert [orders.covered(n) for n in (1, 2, 131, 132, 133)] == [True, False, True, False, False]
 
 
-def test_filled_orders_carry_the_since_marker(data, states):
-    """An order the cited lists give as open and that now has a matrix is marked in the grid."""
+def test_orders_listed_without_a_matrix_say_so_in_the_tooltip(data, states):
+    """An order the cited lists give without a matrix and that now has one says so, with the date."""
     t = data["types"]["skew-hadamard"]
     filled = {o for record in t["since"] for o in record["orders"]}
     assert {356, 476, 712, 952, 820, 996} <= filled
     for n in range(1, 301):
         skew_cell = orders.grid_cells(n, states).split("<td")[2]
-        assert ('class="since"' in skew_cell) == (4 * n in filled), n
+        assert 'class="since"' not in skew_cell and "filled since" not in skew_cell
         if 4 * n in filled:
             date = next(record["date"] for record in t["since"] if 4 * n in record["orders"])
-            assert f"listed as open in the cited sources, filled since ({date})" in skew_cell
-    # The Hadamard column keeps its states and has no marker.
-    assert 'class="since"' not in orders.grid_cells(167, states).split("<td")[1]
+            assert f"the cited sources list this order without a matrix, and this one dates from {date}" in skew_cell
     assert states[668]["hadamard"]["state"] == "reported"
 
 
@@ -427,7 +425,8 @@ def test_matrix_block_states_the_construction_and_links_the_file(data, states, b
             assert "Construction: " in block
     filled = {o for record in t["since"] for o in record["orders"]}
     for order, (block, _) in blocks.items():
-        assert ("filled since the cited lists, 20" in block) == (order in filled), order
+        assert "filled since" not in block
+        assert ("without a matrix; this one dates from 20" in block) == (order in filled), order
     assert "Construction: Paley I, q = 7 " in blocks[8][0]
     assert "generated with SageMath" in blocks[8][0] and "hadamard_matrix_paleyI" in blocks[8][0]
     assert "Doubling of a matrix of order 92 (Good matrices)" in blocks[184][0] and "is not cited" in blocks[184][0]

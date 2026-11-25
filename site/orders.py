@@ -217,9 +217,7 @@ def state_cell(
 ) -> str:
     """One table cell for an order and a type, in the grid's cell style.
 
-    Without href the cell is not a link. A cell whose order the cited lists give
-    as open and which has since been filled carries a marker with the date.
-    With new set, the cell carries the grid's new-result marker. board, when
+    Without href the cell is not a link. With new set, the cell carries the grid's new-result marker. board, when
     given, describes the board cell the grid cell links to: its class count
     (named in the tooltip when the board holds a matrix of this type; the cell
     shows only the order), whether it contradicts
@@ -231,7 +229,9 @@ def state_cell(
     record = info.get("record")
     filled = info["listed_open"] and info["state"] in ("board", "verified")
     if filled:
-        spoken += "; listed as open in the cited sources" + (f", filled since ({record['date']})" if record else "")
+        spoken += "; the cited sources list this order without a matrix" + (
+            f", and this one dates from {record['date']}" if record else ""
+        )
     board = board or {}
     data = dict(board.get("data", {}))
     # The origin filter asks who settled the order, not who supplied the board cell's rows:
@@ -251,8 +251,7 @@ def state_cell(
     if board.get("words"):
         spoken += f"; {board['words']}"
     new = new or board.get("new", False)
-    marker = '<span class="since" title="Filled since the cited lists"></span>' if filled else ""
-    marker += '<span class="participant" title="New result"></span>' if new else ""
+    marker = '<span class="participant" title="New result"></span>' if new else ""
     if new:
         spoken += "; new result of this board"
     if count and count not in spoken:
