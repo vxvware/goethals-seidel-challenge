@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "n": 24,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      24
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-25",
+  "discovered_by": [
+    "Bright, Kotsireas, Ganesh 2020 exhaustive enumeration of the even orders up to 70, and the earlier constructions credited there; rows from the authors' dataset (Zenodo 10.5281/zenodo.1195693, CC BY 4.0), put in canonical form by tools/import_bright_williamson.py"
+  ],
+  "sources": [
+    {
+      "title": "Bright, Kotsireas, Ganesh, Applying computer algebra systems with SAT solvers to the Williamson conjecture, J. Symbolic Comput. 100 (2020), Section 2.2 and Table 1",
+      "url": "https://doi.org/10.1016/j.jsc.2019.07.024"
+    },
+    {
+      "title": "Bright, Kotsireas, Ganesh, Enumeration of Williamson sequences divisible by 2 or 3, Zenodo (2018), file williamson-24.txt, sha256 f50429283b56a9f7c8ff86f2665d26b371093231f720a3f445ff30a35f4caa48",
+      "url": "https://doi.org/10.5281/zenodo.1195693"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n24",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [],
+  "catalogue": {
+    "path": "evidence/catalogues/williamson-n24.txt.gz",
+    "sha256": "b3b32edf4781f0bd575b8a3cf4f3698116f7eab7616a47d08d4b6570de50a31d"
+  },
+  "published_classes": {
+    "count": 72,
+    "split": true
+  },
+  "claimed_count": 768,
+  "claim_kind": "lower-bound",
+  "notes": "768 quadruples, no two equivalent: every class under the board's equivalence inside the 72 published classes of the cited enumeration. They were obtained from the one quadruple per class in the authors' dataset by applying the two operations the published equivalence has and the board's does not, the cyclic shift of a single block by n/2 and the negation of every second entry of all four blocks, and are stored in canonical form. The list is complete exactly when the published classification is. No search was rerun for this entry, so the count is a lower bound here."
+}

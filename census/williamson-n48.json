@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "n": 48,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      48
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-25",
+  "discovered_by": [
+    "Bright, Kotsireas, Ganesh 2020 exhaustive enumeration of the even orders up to 70, and the earlier constructions credited there; rows from the authors' dataset (Zenodo 10.5281/zenodo.1195693, CC BY 4.0), put in canonical form by tools/import_bright_williamson.py"
+  ],
+  "sources": [
+    {
+      "title": "Bright, Kotsireas, Ganesh, Applying computer algebra systems with SAT solvers to the Williamson conjecture, J. Symbolic Comput. 100 (2020), Section 2.2 and Table 1",
+      "url": "https://doi.org/10.1016/j.jsc.2019.07.024"
+    },
+    {
+      "title": "Bright, Kotsireas, Ganesh, Enumeration of Williamson sequences divisible by 2 or 3, Zenodo (2018), file williamson-48.txt, sha256 4a078b4e9f7464c46e0cd1896e390c10388e3304dc0cf126d7695d304f79d392",
+      "url": "https://doi.org/10.5281/zenodo.1195693"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n48",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [],
+  "catalogue": {
+    "path": "evidence/catalogues/williamson-n48.txt.gz",
+    "sha256": "28d2b8fbc252dd019cb26568b8eb5028c9b975899e228a1c7e2058f273e838e5"
+  },
+  "published_classes": {
+    "count": 9800,
+    "split": false
+  },
+  "claimed_count": 9800,
+  "claim_kind": "lower-bound",
+  "notes": "9800 quadruples, one from each of the 9800 classes of the cited enumeration, from the authors' dataset and stored in canonical form. The published equivalence also identifies the cyclic shift of a single block by n/2 and the negation of every second entry of all four blocks, which the board's does not: each of these classes splits into as many as 32 classes under the board's equivalence, more than the 5000 up to which a catalogue lists them all. The count here is a lower bound on the board's classes. No search was rerun for this entry."
+}

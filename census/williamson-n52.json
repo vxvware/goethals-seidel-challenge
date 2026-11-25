@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "n": 52,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      52
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-25",
+  "discovered_by": [
+    "Bright, Kotsireas, Ganesh 2020 exhaustive enumeration of the even orders up to 70, and the earlier constructions credited there; rows from the authors' dataset (Zenodo 10.5281/zenodo.1195693, CC BY 4.0), put in canonical form by tools/import_bright_williamson.py"
+  ],
+  "sources": [
+    {
+      "title": "Bright, Kotsireas, Ganesh, Applying computer algebra systems with SAT solvers to the Williamson conjecture, J. Symbolic Comput. 100 (2020), Section 2.2 and Table 1",
+      "url": "https://doi.org/10.1016/j.jsc.2019.07.024"
+    },
+    {
+      "title": "Bright, Kotsireas, Ganesh, Enumeration of Williamson sequences divisible by 2 or 3, Zenodo (2018), file williamson-52.txt, sha256 a543631f811789a8a23cf9a1f3d657c17384901ae1d04ec0d803877a4f450eef",
+      "url": "https://doi.org/10.5281/zenodo.1195693"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n52",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [],
+  "catalogue": {
+    "path": "evidence/catalogues/williamson-n52.txt.gz",
+    "sha256": "a1866db5573c6164f5b45054ae74a568a85debf2452c7dfbf2b59c1fb1b8f24e"
+  },
+  "published_classes": {
+    "count": 926,
+    "split": false
+  },
+  "claimed_count": 926,
+  "claim_kind": "lower-bound",
+  "notes": "926 quadruples, one from each of the 926 classes of the cited enumeration, from the authors' dataset and stored in canonical form. The published equivalence also identifies the cyclic shift of a single block by n/2 and the negation of every second entry of all four blocks, which the board's does not: these classes split into 16792 classes under the board's equivalence, more than the 5000 up to which a catalogue lists them all. The count here is a lower bound on the board's classes. No search was rerun for this entry."
+}
