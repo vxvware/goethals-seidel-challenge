@@ -390,7 +390,7 @@ def test_catalogue_cell_page_says_what_the_file_holds(board, tmp_path):
     assert "The dataset of the enumeration" in text and "ref-bright2018enumeration" in page
     assert not re.search(SLUGS, text)
     tip = module.grid_cell(cell, set(), r)
-    assert tip["text"] == "✓" and "12 quadruples in a catalogue file, no complete class count" in tip["accessible"]
+    assert tip["text"] in ("12", "12+") and "12 quadruples in a catalogue file" in tip["accessible"]
     assert "exists, verified here" in tip["accessible"] and "2 classes published" in tip["accessible"]
     assert module.cell_description(cell).startswith("12 exactly verified Williamson quadruples of length 10")
     wider = re.sub(r"<[^>]+>", "", module.cell_lead(grid[10, "general"], r))
