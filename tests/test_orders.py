@@ -472,6 +472,223 @@ def test_bordered_record_that_disagrees_with_its_rows_is_rejected(data):
         skew.stored_text(bad)
 
 
+# The pattern of the bordered eight-block array, transcribed apart from site/skew.py.
+EIGHT_BLOCKS = """
+ X1  X2  X3  X4  X5  X6  X7  X8
+-X2  X1  X4 -X3  X6 -X5 -X8  X7
+-X3 -X4  X1  X2  X7  X8 -X5 -X6
+-X4  X3 -X2  X1  X8 -X7  X6 -X5
+-X5 -X6 -X7 -X8  X1  X2  X3  X4
+-X6  X5 -X8  X7 -X2  X1 -X4  X3
+-X7  X8  X5 -X6 -X3  X4  X1 -X2
+-X8 -X7  X6  X5 -X4 -X3  X2  X1
+"""
+
+
+def eight_block_rows(w):
+    """Every row of + and - of odd length w of skew type, and every symmetric one of sum 1."""
+    import itertools
+
+    half = (w - 1) // 2
+    swap = {"+": "-", "-": "+"}
+    of_skew_type = [
+        "+" + "".join(x) + "".join(swap[c] for c in reversed(x)) for x in itertools.product("+-", repeat=half)
+    ]
+    symmetric = [c + "".join(x) + "".join(reversed(x)) for c in "+-" for x in itertools.product("+-", repeat=half)]
+    return of_skew_type, [x for x in symmetric if x.count("+") - x.count("-") == 1]
+
+
+def autocorrelations(rows):
+    """The sum over the rows of their periodic autocorrelations, at each nonzero shift."""
+    w = len(rows[0])
+    values = [[1 if c == "+" else -1 for c in x] for x in rows]
+    return [sum(v[j] * v[(j + s) % w] for v in values for j in range(w)) for s in range(1, w)]
+
+
+def eight_block_matrix(rows):
+    """The bordered eight-block array from the matrices T and R, Kronecker products and the pattern above."""
+    import numpy as np
+
+    w = len(rows[0])
+    one = np.eye(w, dtype=np.int8)
+    shift, back = np.roll(one, 1, axis=1), one[::-1]
+    j, i = np.meshgrid(np.arange(w), np.arange(w))
+    values = np.array([[1 if c == "+" else -1 for c in x] for x in rows], dtype=np.int8)
+    # x_0 I + x_1 T + ... + x_(w-1) T^(w-1) has x[(j - i) mod w] in position (i, j): T^k has its ones at j - i = k.
+    circulant = [v[(j - i) % w] for v in values]
+    if w < 20:
+        powers = [np.linalg.matrix_power(shift.astype(int), k) for k in range(w)]
+        assert all(
+            np.array_equal(c, sum(a * m for a, m in zip(v, powers, strict=True)))
+            for c, v in zip(circulant, values, strict=True)
+        )
+    names = {"X1": circulant[0]} | {f"X{k + 1}": circulant[k] @ back for k in range(1, 8)}
+    p = block_matrix(EIGHT_BLOCKS, names)
+    s = block_matrix(EIGHT_BLOCKS, {f"X{k}": np.ones((1, 1), dtype=np.int8) for k in range(1, 9)})
+    e = np.ones((w, 1), dtype=np.int8)
+    return np.block([[s.T, np.kron(s, e.T)], [-np.kron(s.T, e), p]]), names
+
+
+def test_eight_block_pattern_has_the_properties_the_argument_uses():
+    """What the page's argument for the bordered eight-block array asks of the pattern, checked exactly."""
+    import numpy as np
+
+    import skew
+
+    words = [line.split() for line in EIGHT_BLOCKS.strip().splitlines()]
+    pattern = [[int(word.lstrip("-")[1:]) * (-1 if word[0] == "-" else 1) for word in line] for line in words]
+    assert pattern == [list(band) for band in skew.BORDERED8]
+    sign = np.sign(np.array(pattern))
+    block = np.abs(np.array(pattern))
+    # S is a skew-Hadamard matrix of order 8.
+    assert np.array_equal(sign @ sign.T, 8 * np.eye(8, dtype=int)) and np.array_equal(
+        sign + sign.T, 2 * np.eye(8, dtype=int)
+    )
+    # Block 1 fills the diagonal, the same block stands in (i, j) and (j, i), and every block stands once
+    # in each row and each column.
+    assert np.array_equal(block, block.T) and set(np.diag(block)) == {1}
+    assert all(sorted(line) == list(range(1, 9)) for line in [*block.tolist(), *block.T.tolist()])
+    # For two different rows the columns fall into pairs: the same two blocks in exchanged places,
+    # with opposite products of signs.
+    for a in range(8):
+        for b in range(a):
+            where = {(block[a][m], block[b][m]): sign[a][m] * sign[b][m] for m in range(8)}
+            assert len(where) == 8 and all(where[x, y] == -where[y, x] for x, y in where)
+
+
+@pytest.mark.parametrize(("w", "count"), [(3, 2), (5, 4), (7, 0), (9, 30)])
+def test_bordered_eight_block_array_at_small_orders(w, count):
+    """Every choice of rows that meets the conditions of the array gives a skew-Hadamard matrix of order 8(w + 1).
+
+    The rows are found by exhaustive search: one of skew type and seven symmetric of sum 1, up to the
+    order of the seven, with periodic autocorrelations adding to -8.
+    """
+    import itertools
+
+    import numpy as np
+
+    import skew
+
+    of_skew_type, symmetric = eight_block_rows(w)
+    found = [
+        [first, *others]
+        for first in of_skew_type
+        for others in itertools.combinations_with_replacement(symmetric, 7)
+        if set(autocorrelations([first, *others])) == {-8}
+    ]
+    assert len(found) == count
+    order = 8 * (w + 1)
+    for rows in found:
+        text = skew.bordered8_text(rows)
+        assert skew.check_skew_text(text) == order
+        h, names = eight_block_matrix(rows)
+        assert as_text(h) == text.encode()
+        h = h.astype(int)
+        assert np.array_equal(h @ h.T, order * np.eye(order, dtype=int))
+        assert np.array_equal(h + h.T, 2 * np.eye(order, dtype=int))
+        # The steps of the page's argument: the blocks are amicable, their Gram matrices add to
+        # 8(w + 1)I - 8J, and every row sum is 1.
+        blocks = [names[f"X{k}"].astype(int) for k in range(1, 9)]
+        assert all(np.array_equal(x @ y.T, y @ x.T) for x in blocks for y in blocks)
+        assert np.array_equal(sum(x @ x.T for x in blocks), order * np.eye(w, dtype=int) - 8)
+        assert all((x.sum(axis=1) == 1).all() for x in blocks)
+        assert np.array_equal(blocks[0] + blocks[0].T, 2 * np.eye(w, dtype=int))
+        assert all(np.array_equal(x, x.T) for x in blocks[1:])
+    # Rows that miss one condition do not give a skew-Hadamard matrix: the sum -8, a row sum, the skew type.
+    if w == 9:
+        good = found[0]
+        other = next(x for x in symmetric if set(autocorrelations([*good[:7], x])) != {-8})
+        minus = good[7].translate(str.maketrans("+-", "-+"))
+        assert set(autocorrelations([*good[:7], minus])) == {-8}
+        for rows in ([*good[:7], other], [*good[:7], minus], [good[1], *good[1:]]):
+            with pytest.raises(ValueError):
+                skew.check_skew_text(skew.bordered8_text(rows))
+
+
+def eight_block_record(rows, **changes):
+    """A record for the bordered eight-block array of rows of length 9, as the baseline file would hold it."""
+    import hashlib
+
+    import skew
+
+    return {
+        "order": 80,
+        "sha256": hashlib.sha256(skew.bordered8_text(rows).encode()).hexdigest(),
+        "construction": "Bordered eight-block array",
+        "parameters": {"group_order": 9, "group": "Z_9"},
+        "sources": ["wallis1972some", "kotsireas2008new"],
+        "origin": "found",
+        "array": "bordered8",
+        "date": "2026-11-25",
+        "contributors": [{"name": "vxvware", "github": "vxvware"}],
+        "derivation": "It was derived for a test.",
+        "rows": rows,
+        "multiplier": {"generator": 1, "order": 1},
+        "row_sums": [1] * 8,
+        "search": "An exhaustive search.",
+        "checked": "Nothing else was checked.",
+        "generated": "a test",
+    } | changes
+
+
+def test_bordered_eight_block_record_is_checked_and_described(data):
+    from test_site import SLUGS, visible
+
+    import skew
+
+    rows = ["+++++----", "+++----++", "++-+--+-+", "++--++--+", "+-++--++-", "+-++--++-", "+-++--++-", "+-+-++-+-"]
+    x = eight_block_record(rows)
+    text = skew.stored_text(x)
+    assert text == skew.bordered8_text(rows) == skew.found_text(x) and text.count("\n") == 80
+    swap = str.maketrans("+-", "-+")
+    for change, message in (
+        ({"rows": [rows[0], rows[2], rows[1], *rows[3:]]}, "does not match its sha256"),
+        ({"sha256": "0" * 64}, "does not match its sha256"),
+        ({"rows": [rows[1], *rows[1:]]}, "skew type"),
+        ({"rows": [*rows[:7], rows[0]]}, "not symmetric"),
+        ({"rows": rows[:7]}, "eight rows"),
+        ({"rows": [*rows[:7], rows[7].translate(swap)]}, "row sums"),
+        ({"row_sums": [1] * 7 + [3]}, "row sums"),
+        ({"rows": [*rows[:7], rows[1]]}, "do not add to -8"),
+        ({"multiplier": {"generator": 1, "order": 3}}, "does not have order 3"),
+        ({"multiplier": {"generator": 2, "order": 6}}, "not fixed by the multiplier"),
+        ({"multiplier": {"generator": 3, "order": 1}}, "does not have order"),
+        ({"order": 84}, "8\\(w \\+ 1\\)"),
+        ({"parameters": {"group_order": 11}}, "group order"),
+    ):
+        with pytest.raises(ValueError, match=message):
+            skew.stored_text(x | change, check=False)
+    # The record needs its fields in the baseline file.
+    assert orders.ARRAY_FIELDS["bordered8"] == ("derivation",)
+    doc = {"matrices": [*orders.load_matrices()["matrices"], x | {"order": 2000}]}
+    assert 2000 in orders.validate_matrices(doc, data, Bibliography())
+    doc["matrices"][-1] = {k: v for k, v in x.items() if k != "derivation"} | {"order": 2000}
+    with pytest.raises(ValueError, match="lacks a field of a found matrix"):
+        orders.validate_matrices(doc, data, Bibliography())
+    # The page says that the array is not from a published source and gives the argument as ours.
+    page = skew.order_page(
+        data | {"range": data["range"] | {"max": 76}}, 80, orders.beyond_state(), {80: x}, {}, Bibliography()
+    )
+    seen = visible(page)
+    assert (
+        "The array is not taken from a published source: it was worked out for this board from the two cited." in seen
+    )
+    assert "The array used here is not taken from a published source." in seen and "It was derived for a test." in seen
+    assert "The statement that this matrix is skew-Hadamard rests on the exact check of the build." in seen
+    assert "The argument that follows is ours and has not been reviewed." in seen
+    assert "X1 is the circulant matrix of the first of the eight rows" in seen
+    assert "X2, …, X8 are the back-circulant matrices of the other seven" in seen
+    assert "add to −8 at every nonzero shift" in seen and "these eight products add to 80I − 8J" in seen
+    assert "The matrix H of order 80 = 8(9 + 1) has four parts." in seen
+    assert "gives 8I + 8 × 9I = 80I for the first 8 rows" in seen
+    assert "−X2  X1  X4 −X3  X6 −X5 −X8  X7\n" in page and "−1  1  1 −1  1 −1 −1  1\n" in page
+    assert "  Sᵀ       S ⊗ eᵀ\n −Sᵀ ⊗ e   P" in page
+    assert "the subgroup of order 1 generated by 1" in seen and "It has 8 orbits besides {0}." in seen
+    assert "eight rows of length 9 placed in a bordered array, not a Goethals–Seidel quadruple" in seen
+    assert all(line in page for line in rows)
+    assert not re.search(SLUGS, seen) and "—" not in seen and "[@" not in seen and "to our knowledge" not in seen
+
+
 def test_found_order_is_marked_as_a_new_result_of_the_board(data, states, blocks):
     info = states[808]["skew-hadamard"]
     assert info["state"] == "verified" and info["listed_open"] and orders.found(info)

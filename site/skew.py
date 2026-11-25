@@ -71,6 +71,20 @@ BORDERED_BANDS = (
     ("-DT", "-C", "B", "AT"),
 )
 SWAP = str.maketrans("+-", "-+")
+# The pattern of the eight blocks in the bordered eight-block array, which is not from a published
+# source: entry k stands for the k-th block and -k for its negative. With commuting symbols its rows
+# are orthogonal, block 1 fills the diagonal, the same block stands in positions (i, j) and (j, i),
+# and its signs form a skew-Hadamard matrix of order 8; tests/test_orders.py checks each of these.
+BORDERED8 = (
+    (1, 2, 3, 4, 5, 6, 7, 8),
+    (-2, 1, 4, -3, 6, -5, -8, 7),
+    (-3, -4, 1, 2, 7, 8, -5, -6),
+    (-4, 3, -2, 1, 8, -7, 6, -5),
+    (-5, -6, -7, -8, 1, 2, 3, 4),
+    (-6, 5, -8, 7, -2, 1, -4, 3),
+    (-7, 8, 5, -6, -3, 4, 1, -2),
+    (-8, -7, 6, 5, -4, -3, 2, 1),
+)
 CHECKED = "The build checks H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I exactly, with n the order, before it writes the file."  # noqa: E501
 
 
@@ -268,6 +282,76 @@ def bordered_rows(record: JSONObject) -> list[str]:
     return rows
 
 
+def bordered8_text(rows: Sequence[str]) -> str:
+    """The bordered eight-block array of eight rows of + and - of one length w, as a matrix file.
+
+    Block 1 is the circulant matrix of rows[0], with entry rows[0][(j - i) mod w]
+    in row i and column j, and blocks 2, ..., 8 are the back-circulant matrices
+    of rows[1], ..., rows[7], the circulant matrix times the back diagonal, with
+    entry x[(w - 1 - i - j) mod w]. P is the block matrix of BORDERED8 and S the
+    8 x 8 matrix of its signs. With e the column of w ones, the matrix of order
+    8(w + 1) has the transpose of S in the corner, a row of w entries s over
+    each block for each entry s of S, a column of w entries -s beside each band
+    for each entry s of the transpose of S, and P.
+    """
+    w = len(rows[0])
+    if len(rows) != 8 or any(len(row) != w or row.strip("+-") for row in rows):
+        raise ValueError("the bordered eight-block array takes eight rows of + and - of one length")
+    blocks = [["".join(rows[0][(j - i) % w] for j in range(w)) for i in range(w)]]
+    blocks += [["".join(x[(w - 1 - i - j) % w] for j in range(w)) for i in range(w)] for x in rows[1:]]
+    negated = [[line.translate(SWAP) for line in block] for block in blocks]
+    sign = {True: "+", False: "-"}
+    lines = [
+        "".join(sign[BORDERED8[j][i] > 0] for j in range(8)) + "".join(sign[s > 0] * w for s in BORDERED8[i])
+        for i in range(8)
+    ]
+    for i, band in enumerate(BORDERED8):
+        left = "".join(sign[BORDERED8[j][i] < 0] for j in range(8))
+        lines += [left + "".join((blocks if e > 0 else negated)[abs(e) - 1][r] for e in band) for r in range(w)]
+    return "".join(line + "\n" for line in lines)
+
+
+def bordered8_rows(record: JSONObject) -> list[str]:
+    """The eight rows of a found matrix from the bordered eight-block array, after an exact check of its record.
+
+    The record gives eight rows of + and - of length w, with 8(w + 1) the
+    order. The first is of skew type (x[0] = 1 and x[w - j] = -x[j] for j != 0)
+    and the others are symmetric (x[w - j] = x[j]). Every row has sum 1, as the
+    record states. Each is fixed by the multiplier g of the record,
+    x[g j mod w] = x[j], and g has the stated order modulo w. The periodic
+    autocorrelations of the eight rows add to -8 at every nonzero shift.
+    Raises ValueError otherwise.
+    """
+    name, order, rows = label(record), record["order"], record["rows"]
+    w = order // 8 - 1
+    if 8 * (w + 1) != order or w % 2 == 0 or record["parameters"].get("group_order") != w:
+        raise ValueError(f"{name}: the order is not 8(w + 1) with w odd and the group order of the parameters")
+    if len(rows) != 8 or any(len(row) != w or row.strip("+-") for row in rows):
+        raise ValueError(f"{name}: the record does not hold eight rows of + and - of length {w}")
+    if rows[0][0] != "+" or any(rows[0][w - j] == rows[0][j] for j in range(1, w)):
+        raise ValueError(f"{name}: the first row is not of skew type")
+    if any(x[w - j] != x[j] for x in rows[1:] for j in range(1, w)):
+        raise ValueError(f"{name}: a row after the first is not symmetric")
+    sums = [x.count("+") - x.count("-") for x in rows]
+    if sums != record["row_sums"] or sums != [1] * 8:
+        raise ValueError(f"{name}: the row sums are not all 1 as the array needs and the record states")
+    g, h = record["multiplier"]["generator"], record["multiplier"]["order"]
+    if math.gcd(g, w) != 1 or min(k for k in range(1, w) if pow(g, k, w) == 1) != h:
+        raise ValueError(f"{name}: {g} does not have order {h} modulo {w}")
+    if any(x[g * j % w] != x[j] for x in rows for j in range(w)):
+        raise ValueError(f"{name}: a row is not fixed by the multiplier {g}")
+    bits = str.maketrans("+-", "01")
+    packed = [int(x.translate(bits), 2) for x in rows]
+    for s in range(1, w):
+        # A row and its cyclic shift by s differ in d places, and their inner product is w - 2d.
+        differ = sum(
+            (p ^ int((x[s:] + x[:s]).translate(bits), 2)).bit_count() for p, x in zip(packed, rows, strict=True)
+        )
+        if 8 * w - 2 * differ != -8:
+            raise ValueError(f"{name}: the periodic autocorrelations of the rows do not add to -8")
+    return rows
+
+
 def found_rows(record: JSONObject) -> list[list[int]]:
     """The eight rows of a found matrix from the 8-Williamson array, after an exact check of what its record says.
 
@@ -303,6 +387,8 @@ def found_text(record: JSONObject) -> str:
     """The matrix file of a stored matrix of origin found, rebuilt from the rows of its record."""
     if record["array"] == "bordered":
         return bordered_text(bordered_rows(record), record["group"])
+    if record["array"] == "bordered8":
+        return bordered8_text(bordered8_rows(record))
     if record["array"] != "williamson8":
         raise ValueError(f"{label(record)}: unknown array {record['array']}")
     signs = record["block_signs"]
@@ -436,16 +522,25 @@ def origin_sentence(record: JSONObject, bib: Bibliography, prefix: str) -> str:
             else esc(person["name"])
             for person in record["contributors"]
         )
+        ours = ""
         if record["array"] == "bordered":
             what = (
                 f"four rows on a group of order {math.prod(record['group'])} placed in a bordered array, not a "
                 "Goethals–Seidel quadruple, and the order is above the board's range"
             )
+        elif record["array"] == "bordered8":
+            what = (
+                f"eight rows of length {record['parameters']['group_order']} placed in a bordered array, not a "
+                "Goethals–Seidel quadruple, and the order is above the board's range"
+            )
+            ours = (
+                "The array is not taken from a published source: it was worked out for this board from the two cited. "
+            )
         else:
             what = f"eight rows of length {record['parameters']['v']}, not a Goethals–Seidel quadruple"
         return (
-            f"The matrix was found on {esc(record['date'])} by {people} with a computer search. It is not a board "
-            f"entry: the object is {what}."
+            f"{ours}The matrix was found on {esc(record['date'])} by {people} with a computer search. It is not a "
+            f"board entry: the object is {what}."
         )
     half = record["order"] // 2
     return (
@@ -458,10 +553,12 @@ def origin_sentence(record: JSONObject, bib: Bibliography, prefix: str) -> str:
 def found_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
     """The array, the rows, the search and the checks of a stored matrix of origin found.
 
-    The rows pass found_rows or bordered_rows first, so the page states only what was checked.
+    The rows pass found_rows, bordered_rows or bordered8_rows first, so the page states only what was checked.
     """
     if record["array"] == "bordered":
         return bordered_details(record, bib, prefix)
+    if record["array"] == "bordered8":
+        return bordered8_details(record, bib, prefix)
     rows = found_rows(record)
     v, last = len(rows[0]), len(rows[0]) - 1
     g, h = record["multiplier"]["generator"], record["multiplier"]["order"]
@@ -595,6 +692,72 @@ def bordered_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
         f"<p>Each row is constant on the orbits of {multiplier}. It has {orbits} orbits besides {{0}}.</p>"
         f"<p>{esc(record['search'])}</p>"
         "<p>The repository holds the four rows and the sha256 of the matrix file, not the file, which is "
+        f"{megabytes} MB of text. The build checks in integers that the rows have the properties stated here, "
+        "rebuilds the matrix from them by the definitions above, compares the sha256 and checks the two defining "
+        f"conditions exactly. {esc(record['checked'])}</p>"
+    )
+
+
+def bordered8_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
+    """The array, an argument for it, the rows, the search and the checks of a found matrix from the bordered
+    eight-block array.
+
+    The rows pass bordered8_rows first, so the page states only what was checked.
+    The array is not from a published source, and the page says so.
+    """
+    rows = bordered8_rows(record)
+    order, w = record["order"], len(rows[0])
+    last = w - 1
+    border, plain = (bib.mark(key, prefix) for key in record["sources"][:2])
+    g, h = record["multiplier"]["generator"], record["multiplier"]["order"]
+    orbits = len({min(j * pow(g, k, w) % w for k in range(h)) for j in range(1, w)})
+    pattern = "\n".join(" ".join(("−" if e < 0 else " ") + f"X{abs(e)}" for e in band) for band in BORDERED8)
+    signs = "\n".join(" ".join("−1" if e < 0 else " 1" for e in band) for band in BORDERED8)
+    megabytes = round(order * (order + 1) / 1e6, 1)
+    t = "<sup>T</sup>"
+    return (
+        "<p>The array used here is not taken from a published source. It is an analogue for eight blocks of the "
+        f"bordered array of {border} for four, built on the eight-block array of {plain}. "
+        f"{esc(record['derivation'])} The statement that this matrix is skew-Hadamard rests on the exact check of "
+        "the build.</p>"
+        f"<p>Let T be the permutation matrix of order {w} with a 1 in position (i, i + 1 mod {w}) for "
+        f"i = 0, …, {last}, and let R be the permutation matrix with ones on the back diagonal. A row "
+        f"x = (x<sub>0</sub>, …, x<sub>{last}</sub>) gives the circulant matrix x<sub>0</sub>I + x<sub>1</sub>T + … + "
+        f"x<sub>{last}</sub>T<sup>{last}</sup>, and the back-circulant matrix that is this one times R. X1 is the "
+        "circulant matrix of the first of the eight rows of this page, and X2, …, X8 are the back-circulant matrices "
+        f"of the other seven, in order. The first row is of skew type: x<sub>0</sub> = 1 and x<sub>{w}−j</sub> = "
+        f"−x<sub>j</sub> for j = 1, …, {last}. The other seven are symmetric: x<sub>{w}−j</sub> = x<sub>j</sub>. "
+        "Every row has sum 1, and the periodic autocorrelations of the eight rows add to −8 at every nonzero "
+        "shift.</p>"
+        "<p>Let P be the block matrix</p>"
+        f'<div class="rows-text"><pre>{pattern}</pre></div>'
+        "<p>and let S be the matrix of order 8 of its signs:</p>"
+        f'<div class="rows-text"><pre>{signs}</pre></div>'
+        f"<p>Let e be the column of {w} ones, and write a superscript T for the transpose. The matrix H of order "
+        f"{order} = 8({w} + 1) has four parts. Its first 8 rows are S{t} followed by S ⊗ e{t}, which is S with "
+        f"each entry s replaced by a row of {w} entries s. Its other rows are −S{t} ⊗ e, which is S{t} with each "
+        f"entry s replaced by a column of {w} entries −s, followed by P.</p>"
+        f'<div class="rows-text"><pre>  Sᵀ       S ⊗ eᵀ\n −Sᵀ ⊗ e   P</pre></div>'
+        "<p>The argument that follows is ours and has not been reviewed. A back-circulant matrix is symmetric, "
+        f"circulant matrices commute, and RX{t} = XR for a circulant matrix X, so that XY{t} = YX{t} for any two of "
+        f"X1, …, X8, the rows after the first being symmetric. The product of X1, …, X8 each with its own transpose "
+        "is the circulant matrix of the periodic autocorrelations of its row, so these eight products add to "
+        f"{order}I − 8J, with J the matrix of ones. In P every block stands once in each row and each column of "
+        "blocks, and for two different rows of blocks the columns fall into pairs in which the same two blocks meet "
+        f"in exchanged places and with opposite products of signs; hence PP{t} has {order}I − 8J in each diagonal "
+        "position and zero elsewhere. S is a skew-Hadamard matrix of order 8, and each of X1, …, X8 has every row "
+        f"sum equal to 1. Multiplying H by its transpose part by part then gives 8I + 8 × {w}I = {order}I for the "
+        f"first 8 rows, −8I ⊗ e{t} + 8I ⊗ e{t} = 0 between the first 8 rows and the others, and "
+        f"8I ⊗ J + I ⊗ ({order}I − 8J) = {order}I for the others, so HH{t} = {order}I. For H + H{t} = 2I: "
+        f"S{t} + S = 2I, the two border parts are the negatives of each other's transposes, the diagonal of P holds "
+        f"X1 with X1 + X1{t} = 2I, and positions (i, j) and (j, i) of P hold the same symmetric block with opposite "
+        "signs.</p>"
+        f'<div class="rows-text"><pre>{"\n".join(esc(line) for line in record["rows"])}</pre></div>'
+        f"<p>Each row is constant on the orbits of the subgroup of order {h} generated by {g} in the multiplicative "
+        f"group of the integers modulo {w}, which acts on the positions 0, …, {last} by multiplication. It has "
+        f"{orbits} orbits besides {{0}}.</p>"
+        f"<p>{esc(record['search'])}</p>"
+        "<p>The repository holds the eight rows and the sha256 of the matrix file, not the file, which is "
         f"{megabytes} MB of text. The build checks in integers that the rows have the properties stated here, "
         "rebuilds the matrix from them by the definitions above, compares the sha256 and checks the two defining "
         f"conditions exactly. {esc(record['checked'])}</p>"
