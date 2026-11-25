@@ -293,13 +293,9 @@ def test_found_order_is_marked_as_a_new_result_of_the_board(data, states, blocks
     assert "not a Goethals–Seidel quadruple" in block and "to our knowledge" not in block
 
 
-def test_intro_names_the_smallest_open_skew_orders(data):
+def test_intro_is_one_sentence(data):
     text = orders.intro(data)
-    first, second = data["types"]["skew-hadamard"]["open"][:2]
-    assert f"the smallest open skew-Hadamard orders are {first} and {second}" in text
-    assert "first" not in text.lower().replace("first,", "")
-    assert "for odd n up to 131; the rows for even n and for larger n have the two order columns only" in text
-    assert "choosing 131 under Through n hides them" in text
+    assert text.startswith("Each row is an order 4n") and text.count(". ") == 0 and text.endswith(".")
 
 
 def test_front_page_has_no_orders_page_or_box():
