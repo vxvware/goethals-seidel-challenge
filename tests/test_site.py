@@ -105,6 +105,19 @@ def test_found_matrix_is_listed_among_the_existence_results(board):
     assert '<a href="orders/skew-808.html">A skew-Hadamard matrix of order 808.</a>' in html
     assert "did not find in the sources it read" in html and "does not claim priority" in html
     assert "first" not in html.lower() and "1616" not in html
+    # The found matrices of orders above the range of the grid share one line, each order linked to its page.
+    (line,) = (x for x in module.existence_results(stats, r) if x["kind"] == "matrices")
+    assert line["text"] == "Skew-Hadamard matrices of orders 1416, 1712, 2360 and 5336." and line["qualifier"] is None
+    assert line["links"][1416] == "orders/skew-1416.html" and list(line["links"]) == [1416, 1712, 2360, 5336]
+    assert (
+        '<li>Skew-Hadamard matrices of orders <a href="orders/skew-1416.html">1416</a>, '
+        '<a href="orders/skew-1712.html">1712</a>, <a href="orders/skew-2360.html">2360</a> and '
+        '<a href="orders/skew-5336.html">5336</a>.</li>'
+    ) in html
+    assert html.index("order 808.") < html.index("Skew-Hadamard matrices of orders")
+    # None of them has a row in the grid, and none marks a cell.
+    assert not any(n > 300 for _, n in module.new_cells(stats, r))
+    assert 'data-n="354"' not in module.grid(stats, r)[1]
     # The board has no cell for n = 202, so no family cell is marked; the order cell carries the marker.
     assert not any(n == 202 for _, n in module.new_cells(stats, r))
     _, rows, _ = module.grid(stats, r)
@@ -128,7 +141,7 @@ def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
     assert module.propus_entries(stats) == {ident}
     stats["contributions"] = [g | {"featured": False} for g in stats["contributions"]]
     # A stored matrix found for this board belongs to no contribution, so it has no featured switch.
-    assert {x["kind"] for x in module.existence_results(stats, r)} == {"matrix"}
+    assert {x["kind"] for x in module.existence_results(stats, r)} == {"matrix", "matrices"}
     assert module.propus_entries(stats) == {ident}
 
 
