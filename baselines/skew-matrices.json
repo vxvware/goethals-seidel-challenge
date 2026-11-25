@@ -1,7 +1,7 @@
 {
-  "id": "skew-matrices-2026-11-24",
-  "compiled": "2026-11-24",
-  "description": "One skew-Hadamard matrix for each order from 4 to 1200 that is not open in baselines/hadamard-orders.json and that the board does not hold as a verified quadruple; for the orders the board holds, the site derives the matrix from an entry. Each record gives the order, the file, the sha256 of the uncompressed text, the construction and its parameters, the keys of the sources in baselines/references.bib, the origin of the file and how it was generated. A file is the matrix as text, one row per line, + for 1 and - for -1, compressed with xz. For a doubled order the sources are those of the doubling construction followed by those of the matrix that is doubled, and the doubling of H is the block matrix with rows (H, H) and (-H^T, H^T). The files of origin sagemath were generated on 2026-11-24 with passagemath-combinat 10.8.14, a modular distribution of SageMath, on CPython 3.12 by the call skew_hadamard_matrix(n, check=False, skew_normalize=False) after set_random_seed(n), followed by the skew normalisation D M D with D the diagonal matrix of the first row of M; the function named in a record is the builder that call reached. The files of origin repository come from the software repository cited as kishan2026skew, which is not peer reviewed. The files of origin board are doublings of the Goethals-Seidel array of the named board entry, with its skew block first and in the block layout of site/skew.py; a test rebuilds them from the entry. A file of origin found is a matrix found by a search run for this board that is not a board quadruple: its record gives the date, the contributors, the eight rows, the sign of each block, the multiplier that fixes every row, the row sums, the search and the checks made before it was stored, and the build rebuilds the matrix from the rows with site/skew.py and compares it with the file. The files of origin sagemath and repository were not produced by this repository's code. The site build decompresses each file, compares its sha256 with the one recorded here, and checks exactly that the matrix H of order n has entries 1 and -1 and satisfies H H^T = nI and H + H^T = 2I. A note says where a source that a construction goes back to is not cited.",
+  "id": "skew-matrices-2026-11-25",
+  "compiled": "2026-11-25",
+  "description": "One skew-Hadamard matrix for each order from 4 to 1200 that is not open in baselines/hadamard-orders.json and that the board does not hold as a verified quadruple; for the orders the board holds, the site derives the matrix from an entry. After these come found matrices of orders above 1200, which the orders file and the grid do not cover. Each record gives the order, the file, the sha256 of the uncompressed text, the construction and its parameters, the keys of the sources in baselines/references.bib, the origin of the file and how it was generated. A file is the matrix as text, one row per line, + for 1 and - for -1, compressed with xz. For a doubled order the sources are those of the doubling construction followed by those of the matrix that is doubled, and the doubling of H is the block matrix with rows (H, H) and (-H^T, H^T). The files of origin sagemath were generated on 2026-11-24 with passagemath-combinat 10.8.14, a modular distribution of SageMath, on CPython 3.12 by the call skew_hadamard_matrix(n, check=False, skew_normalize=False) after set_random_seed(n), followed by the skew normalisation D M D with D the diagonal matrix of the first row of M; the function named in a record is the builder that call reached. The files of origin repository come from the software repository cited as kishan2026skew, which is not peer reviewed. The files of origin board are doublings of the Goethals-Seidel array of the named board entry, with its skew block first and in the block layout of site/skew.py; a test rebuilds them from the entry. A matrix of origin found is one found by a search run for this board that is not a board quadruple: its record gives the date, the contributors, the array (williamson8 for the 8-Williamson array, bordered for the bordered array of Wallis and Whiteman), the rows, the multiplier that fixes every row, the row sums, the search and the checks made before it was stored. A williamson8 record has eight rows of one length and the sign of each block. A bordered record has the moduli of the group Z_m1 x ... x Z_mk and four rows indexed by its elements in lexicographic order, the last component fastest; its multiplier acts componentwise. The build rebuilds a found matrix from the rows with site/skew.py and compares it with the file. A found matrix of an order above 1200 has no file: its sha256 is that of the rebuilt text, one row per line as in a file, and the build compares it and runs the same exact check. The files of origin sagemath and repository were not produced by this repository's code. The site build decompresses each file, compares its sha256 with the one recorded here, and checks exactly that the matrix H of order n has entries 1 and -1 and satisfies H H^T = nI and H + H^T = 2I. A note says where a source that a construction goes back to is not cited.",
   "matrices": [
     {
       "order": 8,
@@ -2155,6 +2155,7 @@
         "kotsireas2008new"
       ],
       "origin": "found",
+      "array": "williamson8",
       "date": "2026-11-25",
       "contributors": [
         {
@@ -3602,6 +3603,200 @@
       "origin": "sagemath",
       "software": "passagemath2026combinat",
       "generated": "passagemath-combinat 10.8.14, skew_hadamard_matrix(1200), which calls skew_hadamard_matrix_from_complementary_difference_sets"
+    },
+    {
+      "order": 1416,
+      "sha256": "5ce12e796534fc2bd6697fd16544916e6c90c194ba23655259f39f13a48409ed",
+      "construction": "Wallis–Whiteman bordered array",
+      "parameters": {
+        "group_order": 353,
+        "group": "Z_353"
+      },
+      "sources": [
+        "wallis1972some",
+        "momihara2019constructions"
+      ],
+      "origin": "found",
+      "array": "bordered",
+      "date": "2026-11-25",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "group": [
+        353
+      ],
+      "rows": [
+        "+-++++---+-++-+-++++++-+--+--+++-++-----+-+++--+-+----+--+-++-+--+++-++------+-+-+-----++-+--+++++-+-++++-+--++-+--++++++-+--++-++---+--++---++----+++---+--++-++++---+-++++--+--++-++----+-+++----+--++-+++---++++--+++--++-+++--+--++-+------++-+--++-+----+-+-----++-+--+++++-+-+-++++++--+---++-+--+-++-++++-+-++---+-+++++--+---++-++-+------+-+--+-+++----+",
+        "+-++----+----+---+++++-++---+-++++---+--+--+++-+++-----++--++++--++++--+-+++-+-+-+-++--+--++-+++---+-+-++---++-++-+++++----+-+-----------+++-+++-+--++++-+--++++---+------+--++++-++++-+-----++---+----+--+++-+-+-+-+--++------++++-+-+---++-++++---++++-+--+--+--+--+++--++----+--++++++++++-++---+--+-+++++--+-+-+-+--++-+++--+++-+++-++--++--+-+++-+---+---++-",
+        "+-+--+--++--++-+-+++-+-++++---+-+---+-++---+++++++-----+---+++---+--+----+----+--++++-+---++-++++-+++-+------+++-+-++---+-----++--+--+-----+-+-+++-----+++-+++++++--++-+-+-----++--+-+-++-+-++----+--++-++--+-+--+-----+---+-+-++++--+---++--+-++---++-+++--++-+-----++-+-+++--+++-+-++-++-++-+++-++----+--+-++++-++-++-++++++--++++++--+-+-+++++-++--+++--+--++-",
+        "+-+--+---++----+++--++---++---++++-++-++----+-++----+---+--+----+------+-++--+++-++--+++-+++---++++-++-+++---++-++-++++-++++-+-+--+----+++---++-+-+-+++-+--++--+---++++++++--+----+-+-+-+-+-+-+++++--+++++-+-----++--+-++--+++++--+++++--+-+-+-+----+++----+-+-+------+--+-+---+++--+-+++-+-----+-+----+-+--+-+-+-++-+++--++++-+-+-+-++-+++++-+++----+--+-++-+-++"
+      ],
+      "multiplier": {
+        "generator": [
+          231
+        ],
+        "order": 11
+      },
+      "row_sums": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "search": "The search fixes the multiplier 231 and draws rows on the group that are constant on its orbits: rows of skew type and rows of sum 1. It joins the row of skew type and one other row against the remaining two through a 64-bit hash of the summed periodic autocorrelations and rechecks every match in integers. Its output holds 4 solutions, and this matrix is the first of them. How many rows the run drew, its seed and its running time were not recorded, so the search is not a census.",
+      "checked": "Before the record was stored, the matrix was also checked by three programs that share no code with the build: a script that rebuilds it from a list of the group elements and the four rows and compares its rows as Python integers, a C program that reads the matrix file and compares its rows by exclusive or and bit counts, and a check of the two defining conditions with integer numpy arrays.",
+      "generated": "bordered array of the four rows of this record; the rows are solution 0 of the search output w353_11.sol (sha256 0b0a5a55e444fed8caeab7754ae10116ea600548a6464c76fe8ed452591f8073), written by the program join4 from the orbit file w353_11.spec (sha256 fdb2acb59cbbcac5233e193ef27f8ddb5d9031e5be08b00a7f153af08851755f), and the matrix text is the file skew1416.txt of the search directory",
+      "note": "The result has not been reviewed. A search of the literature and public repositories on 2026-11-25 found no earlier skew-Hadamard matrix of order 1416; this reports the search and does not claim priority. The sources checked were the table in [@cati2024database] of the least t for which a skew-Hadamard matrix of order 2ᵗm is known, which gives t = 4 for m = 177, while 1416 = 2³ × 177; the survey [@egan2026recent]; and the skew directory of the repository [@kishan2026skew]. Tables of skew-Hadamard orders in books were not read. Whether a published infinite family of skew-Hadamard matrices gives order 1416 has not been checked in full."
+    },
+    {
+      "order": 1712,
+      "sha256": "e76bc37d6abad7cdb30e59843a95dac3d06fdaf74556eef44355cce5a572bd67",
+      "construction": "Wallis–Whiteman bordered array",
+      "parameters": {
+        "group_order": 427,
+        "group": "Z_7 × Z_61"
+      },
+      "sources": [
+        "wallis1972some",
+        "momihara2019constructions"
+      ],
+      "origin": "found",
+      "array": "bordered",
+      "date": "2026-11-25",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "group": [
+        7,
+        61
+      ],
+      "rows": [
+        "+--++++-+-++--+--+-+-+-----+++-+---+++++-+-+-++-++--+-+----++++--++--++-++++++--++-++++--+----++-++++--+--++++++--+--+++--+++++-++-+--+++++-+++++--+-+------+-+---++++---+-+--+-+++++++--+---+++--++-----+--+-+++--+----+---++-+-++---+--+--+++-+-+-++-+-+---++-++-+++--+-+--+++-++++-++---+-++-+++++--++---+++-+--------+-++-+-+++----+++-+-++++++-+-++-----+-----++-+--+-----++---++-++------++-++----+--++++-++----+--++------+--++--++-",
+        "++----+-++++++-+++--+++--+--++-+--++-++---++---+------+-++++-+----++-+-++-+-+++---++++-+-++++++-+-+++---++++-+-++-++-+--+-+-+-+-+++-+++-+--+++-+-+++--++-+-+-++++-+-++---+-++--+++-+-+---+---++--+-+----++--+---++--++++--+----+-+++--+---+--++-+-+-++++--++++++-----++-++----+++++++-++-++-++-++------++-++--+++--+---+++--+-+-++-+--++++---+----+---++-+--+------+--++++--+--+------++++-----+--+--++-+-++++++++-++-----+-----++-+----+--",
+        "++-+++---+--+++++--++-+--+-+------+-+--+-++--+++++--+---+++-+----+++-+--++-+----+-+---++-+-+-+---++++--++++++++-+--+--+-+--+-++-+--++---+--+-+++-++--+-+-+-++++----+-+-----++-+++---++++---+-+---+-++++++-+-+++++---+-+-+-++-----++---+-++--++-++-+---++-+-++-++-+-++++---+----+++-+---+-+++++---++-+---+--++---+++---++-++-+-+-++---+++---+-+-+-+-+--+++---++++-+--+--+-+-++-++++---++++++----++-+----+-+++-+--++-++-+++----+----+--+-++-+",
+        "+++----+-+--++-++-+-+-+++++---+-+++-----+-+-+--+--++-+-++++---+--+++--+---++++--++++++--------++-+--+---+-++-+++--++-+-++---+++--+--+-++++++++--+--+-+-+-+---++---+++----+-+--+--+++--++++----+-++-++-++++-+-+--++--++++-++----+-+-+--+---+---++++---+-+-+--++-++-------+----++++-+-+-+--+++-++-+++++--++----++-++++---++-+--++-++-+-++++++-------++-----+-++---+--+--+++++++-++------++-+++-++---+-+++++-+-+-+++--++---+-+--+--++-+--+++--"
+      ],
+      "multiplier": {
+        "generator": [
+          4,
+          12
+        ],
+        "order": 15
+      },
+      "row_sums": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "search": "The search fixes the multiplier (4, 12) and draws rows on the group that are constant on its orbits: rows of skew type and rows of sum 1. It joins the row of skew type and one other row against the remaining two through a 64-bit hash of the summed periodic autocorrelations and rechecks every match in integers. Its output holds 2 solutions, and this matrix is the first of them. How many rows the run drew, its seed and its running time were not recorded, so the search is not a census.",
+      "checked": "Before the record was stored, the matrix was also checked by three programs that share no code with the build: a script that rebuilds it from a list of the group elements and the four rows and compares its rows as Python integers, a C program that reads the matrix file and compares its rows by exclusive or and bit counts, and a check of the two defining conditions with integer numpy arrays.",
+      "generated": "bordered array of the four rows of this record; the rows are solution 0 of the search output w427_15a.sol (sha256 b774ebc26b7c0dc70af09d8c5f2051f208df3976d85eb93e5f87a8a3bd942472), written by the program join4 from the orbit file w427_15a.spec (sha256 bdeec6fa866ad53735acac2106827ae894147942580f34463f5b8eb3060cdb7e), and the matrix text is the file skew1712.txt of the search directory",
+      "note": "The result has not been reviewed. A search of the literature and public repositories on 2026-11-25 found no earlier skew-Hadamard matrix of order 1712; this reports the search and does not claim priority. The sources checked were the table in [@cati2024database] of the least t for which a skew-Hadamard matrix of order 2ᵗm is known, which gives t = 10 for m = 107, while 1712 = 2⁴ × 107; the survey [@egan2026recent]; and the skew directory of the repository [@kishan2026skew]. Tables of skew-Hadamard orders in books were not read. Whether a published infinite family of skew-Hadamard matrices gives order 1712 has not been checked in full."
+    },
+    {
+      "order": 2360,
+      "sha256": "cc1e66f86176b7c3b1f255f26e3b7d5862de3bc75d0e2c47524733e178eedd65",
+      "construction": "Wallis–Whiteman bordered array",
+      "parameters": {
+        "group_order": 589,
+        "group": "Z_19 × Z_31"
+      },
+      "sources": [
+        "wallis1972some",
+        "momihara2019constructions"
+      ],
+      "origin": "found",
+      "array": "bordered",
+      "date": "2026-11-25",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "group": [
+        19,
+        31
+      ],
+      "rows": [
+        "+--+--+----+++-+-+---++++-++-+++++-+--++--+-++-+--+-++--++-+---++++++-+++-+---+++-+---+-------++++++-+++-+---+++-+---+------+----+-+-++---++--+++--+-+-+++++++++++-+++-+---+++-+---+------+----+-+-++---++--+++--+-+-+++++++-+--++--+-++-+--+-++--++-+---++-+--++--+-++-+--+-++--++-+--+----+-+-++---++--+++--+-+-++++-----+-+-++---++--+++--+-+-+++++++-+--++--+-++-+--+-++--++-+---++-+--++--+-++-+--+-++--++-+-------+-+-++---++--+++--+-+-++++-++++++-+++-+---+++-+---+-----------+-+-++---++--+++--+-+-+++++++++++-+++-+---+++-+---+------+++++++-+++-+---+++-+---+-------++-+--++--+-++-+--+-++--++-+--",
+        "+--+--+----+++-+-+---++++-++-++-++++-+-+--+++--++---++-+-+----+++++++-+++-+---+++-+---+------+++++++-+++-+---+++-+---+-------------+---+-+++---+-+++-++++++---+-++--++-+--+-++-+--++--+-++-------+---+-+++---+-+++-++++++-++++-+-+--+++--++---++-+-+----+++-+--++--+-++-+--+-++--++-+---------+---+-+++---+-+++-+++++++----+-+-++---++--+++--+-+-++++-++++-+-+--+++--++---++-+-+----+++-+--++--+-++-+--+-++--++-+--+----+-+-++---++--+++--+-+-+++++++++++-+++-+---+++-+---+------+----+-+-++---++--+++--+-+-++++---+-++--++-+--+-++-+--++--+-++---+-++--++-+--+-++-+--++--+-+++++-+--++--+-++-+--+-++--++-+--",
+        "+++-++-++++---+-+-+++----+--+--+----+-+-++---++--+++--+-+-++++-++++++-+++-+---+++-+---+-------++++++-+++-+---+++-+---+------+++++++-+++-+---+++-+---+------+++-+--++--+-++-+--+-++--++-+--+++++++-+++-+---+++-+---+------+----+-+-++---++--+++--+-+-++++-++-+--++--+-++-+--+-++--++-+--+++++++-+++-+---+++-+---+-----------+-+-++---++--+++--+-+-+++++----+-+-++---++--+++--+-+-++++-++-+--++--+-++-+--+-++--++-+-------+-+-++---++--+++--+-+-++++-++++++-+++-+---+++-+---+-----------+-+-++---++--+++--+-+-+++++++-+--++--+-++-+--+-++--++-+--+++-+--++--+-++-+--+-++--++-+---++-+--++--+-++-+--+-++--++-+--",
+        "+--+--+----+++-+-+---++++-++-+++++++++-+++-+--++++-+--++--+-++-++++-+-+---+---++------+-------++++-+-+---+---++------+------+++++-+++--++++-++-+-++-+++-+--+----+-+-+++-+++--++++++-+++++++++++-+++--++++-++-+-++-+++-+--+++++++-+++-+--++++-+--++--+-++-------+---+-++----+-++--++-+--+++++-+++--++++-++-+-++-+++-+-------+---++----+--+-+--+---+-+++++++++-+++-+--++++-+--++--+-++-------+---+-++----+-++--++-+-------+---++----+--+-+--+---+-++-++++-+-+---+---++------+-----------+---++----+--+-+--+---+-+++----+-+-+++-+++--++++++-+++++++----+-+-+++-+++--++++++-++++++-------+---+-++----+-++--++-+--"
+      ],
+      "multiplier": {
+        "generator": [
+          16,
+          20
+        ],
+        "order": 45
+      },
+      "row_sums": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "search": "The search fixes the multiplier (16, 20) and takes every row on the group that is constant on its orbits and is of skew type, 256 rows, and every such row of sum 1, 3,696 rows. It joins the row of skew type and one other row against the remaining two through a 64-bit hash of the summed periodic autocorrelations and rechecks every match in integers. The join is complete over these lists and gives 5,760 solutions, counting a first row, a second row and an unordered pair for the other two. This matrix is the first solution in the output, and a rerun on 2026-11-25 gave the same solutions.",
+      "checked": "Before the record was stored, the matrix was also checked by three programs that share no code with the build: a script that rebuilds it from a list of the group elements and the four rows and compares its rows as Python integers, a C program that reads the matrix file and compares its rows by exclusive or and bit counts, and a check of the two defining conditions with integer numpy arrays.",
+      "generated": "bordered array of the four rows of this record; the rows are solution 0 of the search output w589_a.sol (sha256 73e9f4cf07e4941e517c8698d2a56c95a144a610217c024a00326e99f84d783a), written by the program join4 from the orbit file w589_a.spec (sha256 976a9d121045c20a72501f9689fc4bec1489ff4400e313be357fd96ba77b26a0), and the matrix text is the file skew2360.txt of the search directory",
+      "note": "The result has not been reviewed. A search of the literature and public repositories on 2026-11-25 found no earlier skew-Hadamard matrix of order 2360; this reports the search and does not claim priority. The sources checked were the table in [@cati2024database] of the least t for which a skew-Hadamard matrix of order 2ᵗm is known, which gives t = 4 for m = 295, while 2360 = 2³ × 295; the survey [@egan2026recent]; and the skew directory of the repository [@kishan2026skew]. Tables of skew-Hadamard orders in books were not read. Whether a published infinite family of skew-Hadamard matrices gives order 2360 has not been checked in full."
+    },
+    {
+      "order": 5336,
+      "sha256": "3214df7815c6633a5eac3eb6ff6061f5d3b61ecc0002968a445af7db67103500",
+      "construction": "Wallis–Whiteman bordered array",
+      "parameters": {
+        "group_order": 1333,
+        "group": "Z_31 × Z_43"
+      },
+      "sources": [
+        "wallis1972some",
+        "momihara2019constructions"
+      ],
+      "origin": "found",
+      "array": "bordered",
+      "date": "2026-11-25",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "group": [
+        31,
+        43
+      ],
+      "rows": [
+        "+-++-+-++---+-----+++-+---+++++-+++--+-+--+-++++++-+-+++---+--++++++--+---+++-+-++++++-++++++-+-+++---+--++++++--+---+++-+-+++++++++-+---+--+----+----++----+----+--+---+-++-++++++-+-+++---+--++++++--+---+++-+-++++++-++-+--+++-+-++++++--++--++++++-+-+++--+-+++++-+---+--+----+----++----+----+--+---+-++---+-+++-++-++++-++++--++++-++++-++-+++-+---++++++-+-+++---+--++++++--+---+++-+-++++++-++-+--+++-+-++++++--++--++++++-+-+++--+-++-++-+--+++-+-++++++--++--++++++-+-+++--+-+++--+-++---+-+------++--++------+-+---++-+--+++-+---+--+----+----++----+----+--+---+-+++--+-++---+-+------++--++------+-+---++-+-----+-+++-++-++++-++++--++++-++++-++-+++-+--+------+-+---+++-++------++-+++---+-+-------++++++-+-+++---+--++++++--+---+++-+-+++++++++-+---+--+----+----++----+----+--+---+-++-++-+--+++-+-++++++--++--++++++-+-+++--+-++---+-+++-++-++++-++++--++++-++++-++-+++-+---++-+--+++-+-++++++--++--++++++-+-+++--+-+++--+-++---+-+------++--++------+-+---++-+--+--+-++---+-+------++--++------+-+---++-+--+------+-+---+++-++------++-+++---+-+------+++-+---+--+----+----++----+----+--+---+-++---+-+++-++-++++-++++--++++-++++-++-+++-+--+--+-++---+-+------++--++------+-+---++-+--+------+-+---+++-++------++-+++---+-+---------+-+++-++-++++-++++--++++-++++-++-+++-+--+------+-+---+++-++------++-+++---+-+------+------+-+---+++-++------++-+++---+-+------",
+        "++--+-+--+++-+++++---+-+++-----+---++-+-++--+-+++---+-+++++++-+++---+-------+-+++---+--+-+++---+-+++++++-+++---+-------+-+++---+-++-++++---+++---+--+++-++------+-+-+-++-++--+-+++---+-+++++++-+++---+-------+-+++---+---+---+-+++--+++-+----++++-+---++---+-+++-+++-++++---+++---+--+++-++------+-+-+-++-++--+--+-++--++----+-+--+-++-+-++++--++--+-++--+-+++---+-+++++++-+++---+-------+-+++---+---+---+-+++--+++-+----++++-+---++---+-+++-+--+---+-+++--+++-+----++++-+---++---+-+++-++-----++-++--+++-++----++++-++++--+-+-+-+--++-++++---+++---+--+++-++------+-+-+-++-++-+-----++-++--+++-++----++++-++++--+-+-+-+---+--+-++--++----+-+--+-++-+-++++--++--+-++-+++-+---++-+-+++++---++--+-+----+--++--+-++-+-+++---+-+++++++-+++---+-------+-+++---+-++-++++---+++---+--+++-++------+-+-+-++-++---+---+-+++--+++-+----++++-+---++---+-+++-+-+--+-++--++----+-+--+-++-+-++++--++--+-++---+---+-+++--+++-+----++++-+---++---+-+++-++-----++-++--+++-++----++++-++++--+-+-+-+--+-----++-++--+++-++----++++-++++--+-+-+-+--+++-+---++-+-+++++---++--+-+----+--++--+-++++-++++---+++---+--+++-++------+-+-+-++-++--+--+-++--++----+-+--+-++-+-++++--++--+-++-+-----++-++--+++-++----++++-++++--+-+-+-+--+++-+---++-+-+++++---++--+-+----+--++--+-++-+--+-++--++----+-+--+-++-+-++++--++--+-++-+++-+---++-+-+++++---++--+-+----+--++--+-+++++-+---++-+-+++++---++--+-+----+--++--+-++",
+        "+-++-+-++---+-----+++-+---+++++-+++--+-+--+--+---+++-+-------+---+++-+++++++-+---+++-+--+---+++-+-------+---+++-+++++++-+---+++-+++-++++---+++---+--+++-++------+-+-+-++-++---+---+++-+-------+---+++-+++++++-+---+++-+-+-+++-+---++---+-++++----+-+++--+++-+---+-++-++++---+++---+--+++-++------+-+-+-++-++---++-+--++--++++-+-++-+--+-+----++--++-+--+--+---+++-+-------+---+++-+++++++-+---+++-+-+-+++-+---++---+-++++----+-+++--+++-+---+--+-+++-+---++---+-++++----+-+++--+++-+---+-+-----++-++--+++-++----++++-++++--+-+-+-+--++-++++---+++---+--+++-++------+-+-+-++-++-+-----++-++--+++-++----++++-++++--+-+-+-+----++-+--++--++++-+-++-+--+-+----++--++-+--++++-+---++-+-+++++---++--+-+----+--++--+-++--+---+++-+-------+---+++-+++++++-+---+++-+++-++++---+++---+--+++-++------+-+-+-++-++--+-+++-+---++---+-++++----+-+++--+++-+---+---++-+--++--++++-+-++-+--+-+----++--++-+--+-+-+++-+---++---+-++++----+-+++--+++-+---+-+-----++-++--+++-++----++++-++++--+-+-+-+--+-----++-++--+++-++----++++-++++--+-+-+-+--+++-+---++-+-+++++---++--+-+----+--++--+-++++-++++---+++---+--+++-++------+-+-+-++-++---++-+--++--++++-+-++-+--+-+----++--++-+--++-----++-++--+++-++----++++-++++--+-+-+-+--+++-+---++-+-+++++---++--+-+----+--++--+-++--++-+--++--++++-+-++-+--+-+----++--++-+--++++-+---++-+-+++++---++--+-+----+--++--+-+++++-+---++-+-+++++---++--+-+----+--++--+-++",
+        "+-++-+-++---+-----+++-+---+++++-+++--+-+--++-+---+-+++--+++-+----++++-+---++---+-+++-++-+---+-+++--+++-+----++++-+---++---+-+++-+--++-++-+-+-+------++-+++--+---+++---++++-++-+---+-+++--+++-+----++++-+---++---+-+++-+++--+-++--++----+-+--+-++-+-++++--++--+-++---++-++-+-+-+------++-+++--+---+++---++++-+++-+++---+-+++++++-+++---+-------+-+++---+-+-+---+-+++--+++-+----++++-+---++---+-+++-+++--+-++--++----+-+--+-++-+-++++--++--+-++-++--+-++--++----+-+--+-++-+-++++--++--+-++----+-+-+-+--++++-++++----++-+++--++-++-------++-++-+-+-+------++-+++--+---+++---++++-+---+-+-+-+--++++-++++----++-+++--++-++-----++-+++---+-+++++++-+++---+-------+-+++---+--++-+--++--+----+-+--++---+++++-+-++---+-+++-+---+-+++--+++-+----++++-+---++---+-+++-+--++-++-+-+-+------++-+++--+---+++---++++-+++--+-++--++----+-+--+-++-+-++++--++--+-++-++-+++---+-+++++++-+++---+-------+-+++---+-++--+-++--++----+-+--+-++-+-++++--++--+-++----+-+-+-+--++++-++++----++-+++--++-++--------+-+-+-+--++++-++++----++-+++--++-++------++-+--++--+----+-+--++---+++++-+-++---+-++--++-++-+-+-+------++-+++--+---+++---++++-+++-+++---+-+++++++-+++---+-------+-+++---+----+-+-+-+--++++-++++----++-+++--++-++------++-+--++--+----+-+--++---+++++-+-++---+-++++-+++---+-+++++++-+++---+-------+-+++---+--++-+--++--+----+-+--++---+++++-+-++---+-++-++-+--++--+----+-+--++---+++++-+-++---+-++"
+      ],
+      "multiplier": {
+        "generator": [
+          18,
+          17
+        ],
+        "order": 105
+      },
+      "row_sums": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "search": "The search fixes the multiplier (18, 17) and takes every row on the group that is constant on its orbits and is of skew type, 256 rows, and every such row of sum 1, 3,696 rows. It joins the row of skew type and one other row against the remaining two through a 64-bit hash of the summed periodic autocorrelations and rechecks every match in integers. The join is complete over these lists and gives 1,728 solutions, counting a first row, a second row and an unordered pair for the other two. This matrix is the first solution in the output, and a rerun on 2026-11-25 gave the same solutions.",
+      "checked": "Before the record was stored, the matrix was also checked by three programs that share no code with the build: a script that rebuilds it from a list of the group elements and the four rows and compares its rows as Python integers, a C program that reads the matrix file and compares its rows by exclusive or and bit counts, and a check of the two defining conditions with integer numpy arrays.",
+      "generated": "bordered array of the four rows of this record; the rows are solution 0 of the search output w1333_a.sol (sha256 6a329e835ff956a36c99fb536ac0c2996a75d326c767d88581ffae416a751ec1), written by the program join4 from the orbit file w1333_a.spec (sha256 fb7819b6afefe6791e5c245af09c2086a387db6822a1d5bb2ecc4ff15f4549f2), and the matrix text is the file skew5336.txt of the search directory",
+      "note": "The result has not been reviewed. A search of the literature and public repositories on 2026-11-25 found no earlier skew-Hadamard matrix of order 5336; this reports the search and does not claim priority. The sources checked were the table in [@cati2024database] of the least t for which a skew-Hadamard matrix of order 2ᵗm is known, which gives t = 6 for m = 667, while 5336 = 2³ × 667; the survey [@egan2026recent]; and the skew directory of the repository [@kishan2026skew]. Tables of skew-Hadamard orders in books were not read. Whether a published infinite family of skew-Hadamard matrices gives order 5336 has not been checked in full."
     }
   ]
 }

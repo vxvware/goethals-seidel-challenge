@@ -117,8 +117,18 @@ def test_stored_skew_matrices_match_their_records():
     listed = [x["order"] for x in records]
     assert listed == sorted(set(listed))
     r = orders["range"]
-    assert all(r["min"] <= order <= r["max"] and order % r["step"] == 0 for order in listed)
     assert not set(listed) & set(orders["types"]["skew-hadamard"]["open"])
+    # A found matrix of an order above the range has no file: the build rebuilds it from its record.
+    above = [x for x in records if x["order"] > r["max"]]
+    assert all(x["origin"] == "found" and "file" not in x and len(x["sha256"]) == 64 for x in above)
+    records = [x for x in records if x["order"] <= r["max"]]
+    listed = [x["order"] for x in records]
+    assert all(r["min"] <= order and order % r["step"] == 0 for order in listed)
+    for x in [*records, *above]:
+        assert x["sources"] and set(x["sources"]) <= set(bib.entries), x["order"]
+        assert x["origin"] in ("sagemath", "repository", "board", "found") and x["generated"], x["order"]
+        assert x.get("software", "cati2024database") in bib.entries, x["order"]
+        bib.keys_in(x.get("note", ""))
     for x in records:
         order = x["order"]
         assert x["file"] == f"matrices/skew/skew-{order}.txt.xz"
@@ -126,9 +136,5 @@ def test_stored_skew_matrices_match_their_records():
         assert hashlib.sha256(text).hexdigest() == x["sha256"], order
         lines = text.decode("ascii").splitlines()
         assert len(lines) == order and all(len(line) == order and set(line) <= {"+", "-"} for line in lines), order
-        assert x["sources"] and set(x["sources"]) <= set(bib.entries), order
-        assert x["origin"] in ("sagemath", "repository", "board", "found") and x["generated"], order
-        assert x.get("software", "cati2024database") in bib.entries, order
-        bib.keys_in(x.get("note", ""))
     # No stored file is left without a record.
     assert {p.name for p in (ROOT / "matrices/skew").iterdir()} == {f"skew-{order}.txt.xz" for order in listed}

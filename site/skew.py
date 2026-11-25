@@ -5,13 +5,17 @@ the board holds, the file is the Goethals–Seidel array of one quadruple. For
 every other order it is a file stored in matrices/skew and listed in
 baselines/skew-matrices.json. Each is written only after an exact check that it
 is a skew-Hadamard matrix. A stored matrix of origin found also carries the
-eight rows it is built from, and is rebuilt from them whenever it is read.
+rows it is built from, and is rebuilt from them whenever it is read. A found
+matrix of an order above the range of the board has no file: its record holds
+the rows and the sha256 of the matrix text, and the build rebuilds it.
 """
 
 import hashlib
+import itertools
 import lzma
 import math
 from collections.abc import Sequence
+from functools import cache
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -51,6 +55,22 @@ WILLIAMSON8 = (
     (8, 7, -6, -5, 4, 3, -2, 1),
 )
 BLOCK_NAMES = "ABCDEFGH"
+# The bordered array of wallis1972some for four blocks, in the form momihara2019constructions states it,
+# which is -1 times the matrix the first prints, and written for the matrices A, B, C, D of four rows of
+# 1 and -1, which are the negatives of the (1, -1)-matrices of the four subsets in both sources. The
+# matrix has four rows and columns of border around four bands of four blocks. CORNER is the 4 x 4
+# corner. Row i of EDGE gives the sign of the row of ones over each block in row i, and the columns
+# left of band i repeat row i of CORNER down the band. An entry of BANDS is a block, - for its
+# negative, T for its transpose.
+BORDER_CORNER = ((1, -1, -1, -1), (1, 1, 1, -1), (1, -1, 1, 1), (1, 1, -1, 1))
+BORDER_EDGE = ((-1, -1, -1, -1), (1, -1, 1, -1), (1, -1, -1, 1), (1, 1, -1, -1))
+BORDERED_BANDS = (
+    ("A", "B", "C", "D"),
+    ("-BT", "AT", "-D", "C"),
+    ("-C", "DT", "A", "-BT"),
+    ("-DT", "-C", "B", "AT"),
+)
+SWAP = str.maketrans("+-", "-+")
 CHECKED = "The build checks H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I exactly, with n the order, before it writes the file."  # noqa: E501
 
 
@@ -113,8 +133,143 @@ def williamson8_array(rows: Sequence[Sequence[int]], signs: Sequence[int]) -> Ma
     ]
 
 
+def label(record: JSONObject) -> str:
+    """How an error names a stored matrix: its file, or its order when it has none."""
+    return record.get("file") or f"the matrix of order {record['order']}"
+
+
+def group_elements(moduli: Sequence[int]) -> list[tuple[int, ...]]:
+    """The elements of Z_m1 x ... x Z_mk as tuples, in lexicographic order with the last component fastest."""
+    return list(itertools.product(*(range(m) for m in moduli)))
+
+
+@cache
+def group_table(moduli: tuple[int, ...]) -> tuple[list[list[int]], list[int]]:
+    """The addition table and the negatives of Z_m1 x ... x Z_mk, by position in group_elements.
+
+    With z_0, z_1, ... the elements in that order, table[i][j] is the position
+    of z_i + z_j and negative[i] the position of -z_i, both componentwise.
+    """
+    elements = group_elements(moduli)
+    position = {z: i for i, z in enumerate(elements)}
+    table = [
+        [position[tuple((x + y) % m for x, y, m in zip(z, t, moduli, strict=True))] for t in elements] for z in elements
+    ]
+    negative = [position[tuple(-x % m for x, m in zip(z, moduli, strict=True))] for z in elements]
+    return table, negative
+
+
+def type_one(row: str, moduli: Sequence[int]) -> list[str]:
+    """The type 1 matrix of a function on the group, as lines: entry (i, j) is row[z_j - z_i]."""
+    table, negative = group_table(tuple(moduli))
+    return ["".join(map(row.__getitem__, table[negative[i]])) for i in range(len(row))]
+
+
+def type_two(row: str, moduli: Sequence[int]) -> list[str]:
+    """The type 2 matrix of a function on the group, as lines: entry (i, j) is row[z_j + z_i]."""
+    table, _ = group_table(tuple(moduli))
+    return ["".join(map(row.__getitem__, table[i])) for i in range(len(row))]
+
+
+def bordered_text(rows: Sequence[str], moduli: Sequence[int]) -> str:
+    """The bordered array of wallis1972some for four rows of + and - on Z_m1 x ... x Z_mk, as a matrix file.
+
+    The rows are functions on the group, in the order of group_elements. A, B
+    and D are the type 1 matrices of rows[0], rows[1] and rows[3], and C is the
+    type 2 matrix of rows[2]. The matrix has order 4(w + 1) with w the order of
+    the group: BORDER_CORNER in the corner, a row of w equal entries over each
+    block with the signs of BORDER_EDGE, the rows of BORDER_CORNER repeated down
+    the left of the four bands, and the blocks of BORDERED_BANDS.
+    """
+    w = math.prod(moduli)
+    if len(rows) != 4 or any(len(row) != w or row.strip("+-") for row in rows):
+        raise ValueError("the bordered array takes four rows of + and - indexed by the group")
+    blocks = {"A": type_one(rows[0], moduli), "B": type_one(rows[1], moduli), "D": type_one(rows[3], moduli)}
+    blocks["C"] = type_two(rows[2], moduli)
+    for name in "ABD":
+        blocks[name + "T"] = ["".join(column) for column in zip(*blocks[name], strict=True)]
+    for name in list(blocks):
+        blocks["-" + name] = [line.translate(SWAP) for line in blocks[name]]
+    sign = {1: "+", -1: "-"}
+    lines = [
+        "".join(sign[s] for s in corner) + "".join(sign[s] * w for s in edge)
+        for corner, edge in zip(BORDER_CORNER, BORDER_EDGE, strict=True)
+    ]
+    for corner, band in zip(BORDER_CORNER, BORDERED_BANDS, strict=True):
+        left = "".join(sign[s] for s in corner)
+        lines += [left + "".join(blocks[name][i] for name in band) for i in range(w)]
+    return "".join(line + "\n" for line in lines)
+
+
+def multiplier_orbits(moduli: Sequence[int], generator: Sequence[int]) -> list[list[int]]:
+    """The orbits of z -> (g1 z1, ..., gk zk) on the group, as lists of positions in group_elements."""
+    elements = group_elements(moduli)
+    position = {z: i for i, z in enumerate(elements)}
+    seen: set[int] = set()
+    orbits = []
+    for i, start in enumerate(elements):
+        if i in seen:
+            continue
+        orbit, z = [i], start
+        while True:
+            z = tuple(g * x % m for g, x, m in zip(generator, z, moduli, strict=True))
+            if z == start:
+                break
+            orbit.append(position[z])
+        seen.update(orbit)
+        orbits.append(orbit)
+    return orbits
+
+
+def bordered_rows(record: JSONObject) -> list[str]:
+    """The four rows of a found matrix from the bordered array, after an exact check of what its record says.
+
+    The record names the group Z_m1 x ... x Z_mk by its moduli, all odd, with
+    w their product and 4(w + 1) the order, and gives four rows of + and - of
+    length w, read as functions x on the group in the order of group_elements.
+    The first is of skew type: x(0) = 1 and x(-z) = -x(z) for z != 0. Every row
+    has sum 1, as the record states. Each row is constant on the orbits of the
+    multiplier z -> (g1 z1, ..., gk zk) of the record, which has the stated
+    order. The periodic autocorrelations of the four rows, the sums of
+    x(z) x(z + s) over z, add to -4 at every nonzero s. Raises ValueError otherwise.
+    """
+    name, order, moduli = label(record), record["order"], record["group"]
+    w = math.prod(moduli)
+    rows = record["rows"]
+    if not moduli or any(m < 3 or m % 2 == 0 for m in moduli) or 4 * (w + 1) != order:
+        raise ValueError(f"{name}: the group is not a product of odd cyclic groups of order {order // 4 - 1}")
+    if record["parameters"].get("group_order") != w:
+        raise ValueError(f"{name}: the parameters do not give the group order {w}")
+    if len(rows) != 4 or any(len(row) != w or row.strip("+-") for row in rows):
+        raise ValueError(f"{name}: the record does not hold four rows of + and - of length {w}")
+    table, negative = group_table(tuple(moduli))
+    first = rows[0]
+    if first[0] != "+" or any(first[negative[i]] == first[i] for i in range(1, w)):
+        raise ValueError(f"{name}: the first row is not of skew type")
+    sums = [row.count("+") - row.count("-") for row in rows]
+    if sums != record["row_sums"] or sums != [1, 1, 1, 1]:
+        raise ValueError(f"{name}: the row sums are not 1, 1, 1, 1 as the array needs and the record states")
+    g, h = record["multiplier"]["generator"], record["multiplier"]["order"]
+    if len(g) != len(moduli) or any(math.gcd(x, m) != 1 for x, m in zip(g, moduli, strict=True)):
+        raise ValueError(f"{name}: the multiplier {g} is not a unit in each component")
+    orbits = multiplier_orbits(moduli, g)
+    if math.lcm(*(len(orbit) for orbit in orbits)) != h:
+        raise ValueError(f"{name}: the multiplier {g} does not have order {h}")
+    if any(len({row[i] for i in orbit}) != 1 for row in rows for orbit in orbits):
+        raise ValueError(f"{name}: a row is not fixed by the multiplier {g}")
+    bits = str.maketrans("+-", "01")
+    packed = [int(row.translate(bits), 2) for row in rows]
+    for s in range(1, w):
+        # A row and its translate by z_s differ in d places, and their inner product is w - 2d.
+        shifted = (int("".join(map(row.__getitem__, table[s])).translate(bits), 2) for row in rows)
+        differ = sum((x ^ y).bit_count() for x, y in zip(packed, shifted, strict=True))
+        if 4 * w - 2 * differ != -4:
+            raise ValueError(f"{name}: the periodic autocorrelations of the rows do not add to -4")
+    return rows
+
+
 def found_rows(record: JSONObject) -> list[list[int]]:
-    """The eight rows of a stored matrix of origin found, after an exact check of what its record says of them.
+    """The eight rows of a found matrix from the 8-Williamson array, after an exact check of what its record says.
 
     The record gives eight rows of + and - of length v with 8v the order. The
     first is of skew type (x[0] = 1 and x[v - j] = -x[j] for j != 0) and the
@@ -123,7 +278,7 @@ def found_rows(record: JSONObject) -> list[list[int]]:
     sums are the ones stated, and the periodic autocorrelations of the eight
     rows add to zero at every nonzero shift. Raises ValueError otherwise.
     """
-    name, order, v = record["file"], record["order"], record["parameters"]["v"]
+    name, order, v = label(record), record["order"], record["parameters"]["v"]
     lines = record["rows"]
     if 8 * v != order or len(lines) != 8 or any(len(line) != v or line.strip("+-") for line in lines):
         raise ValueError(f"{name}: the record does not hold eight rows of + and - of length {v}")
@@ -146,9 +301,13 @@ def found_rows(record: JSONObject) -> list[list[int]]:
 
 def found_text(record: JSONObject) -> str:
     """The matrix file of a stored matrix of origin found, rebuilt from the rows of its record."""
+    if record["array"] == "bordered":
+        return bordered_text(bordered_rows(record), record["group"])
+    if record["array"] != "williamson8":
+        raise ValueError(f"{label(record)}: unknown array {record['array']}")
     signs = record["block_signs"]
     if len(signs) != 8 or signs[0] != 1 or any(s not in (1, -1) for s in signs):
-        raise ValueError(f"{record['file']}: the block signs are not 1 followed by seven of 1 and -1")
+        raise ValueError(f"{label(record)}: the block signs are not 1 followed by seven of 1 and -1")
     return matrix_text(williamson8_array(found_rows(record), signs))
 
 
@@ -212,24 +371,30 @@ def stored_text(record: JSONObject, check: bool = True) -> str:
     """The text of a stored matrix, after comparing its sha256 with the record.
 
     A matrix of origin found must equal the array rebuilt from the rows of its
-    record, whose stated properties are checked on the way. With check set, the
+    record, whose stated properties are checked on the way; one without a file
+    is that array, and its sha256 must be the one recorded. With check set, the
     text must also pass the exact skew-Hadamard check and have the order of its
     record. Raises ValueError otherwise.
     """
-    order = record["order"]
-    text = lzma.decompress((ROOT / record["file"]).read_bytes())
-    if hashlib.sha256(text).hexdigest() != record["sha256"]:
-        raise ValueError(f"{record['file']} does not match its sha256")
-    decoded = text.decode("ascii")
-    if record["origin"] == "found" and found_text(record) != decoded:
-        raise ValueError(f"{record['file']} is not the array of the rows of its record")
+    order, name = record["order"], label(record)
+    if "file" in record:
+        text = lzma.decompress((ROOT / record["file"]).read_bytes())
+        if hashlib.sha256(text).hexdigest() != record["sha256"]:
+            raise ValueError(f"{name} does not match its sha256")
+        decoded = text.decode("ascii")
+        if record["origin"] == "found" and found_text(record) != decoded:
+            raise ValueError(f"{name} is not the array of the rows of its record")
+    else:
+        decoded = found_text(record)
+        if hashlib.sha256(decoded.encode("ascii")).hexdigest() != record["sha256"]:
+            raise ValueError(f"{name}, rebuilt from the rows of its record, does not match its sha256")
     if check:
         try:
             found = check_skew_text(decoded)
         except ValueError as error:
-            raise ValueError(f"{record['file']} is not a skew-Hadamard matrix: {error}") from error
+            raise ValueError(f"{name} is not a skew-Hadamard matrix: {error}") from error
         if found != order:
-            raise ValueError(f"{record['file']} does not have order {order}")
+            raise ValueError(f"{name} does not have order {order}")
     return decoded
 
 
