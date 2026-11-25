@@ -14,6 +14,8 @@ zero. Membership is computed, including membership in containing strata.
 | general | any verified quadruple | Hadamard order 4n |
 
 At n=1 the predicates overlap; all tracks contain the trivial quadruple.
+At even n no row is skew, so only the williamson and general tracks have cells.
+The board has cells for every n up to 300.
 Cyclic groups are supported now. Noncyclic abelian invariant factors are
 reserved in the schema and fail validation until a future version implements
 the required operations.
@@ -67,7 +69,8 @@ prime cyclic group. Source citations alone are not machine-checked proofs.
 
 The small good-matrix enumerator exhausts the normalized search space at odd
 n≤15 using exact PAF joins, and returns the one quadruple at n=1 for every
-stratum. The bundled C good census replays odd orders 3 to 43, the bundled
+stratum. The even-order Williamson enumerator (williamson-even-exact-v1) does
+the same for symmetric rows at even n≤20, with no row-sum or spectral filter. The bundled C good census replays odd orders 3 to 43, the bundled
 Williamson census replays odd orders 3 to 37, and the bundled best census
 replays orders 3,7,13,21,31,43; every returned solution is independently
 checked. Its spectral pruning is

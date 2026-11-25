@@ -176,6 +176,7 @@ census = entry(
                 "skew-sds-census-c-v1",
                 "small-exact-v1",
                 "williamson-census-c-v1",
+                "williamson-even-exact-v1",
             ]
         },
         "secondary": {

@@ -7,7 +7,7 @@ import sys
 import pytest
 
 from verify.board import load, summary
-from verify.common import ROOT, TRACKS, read_json
+from verify.common import BOARD_MAX_N, ROOT, TRACKS, read_json
 
 sys.path.insert(0, str(ROOT / "site"))
 from test_site import gs_array, site_build
@@ -117,8 +117,8 @@ def test_every_board_entry_appears_as_held(board, states):
     for name in orders.TYPES:
         held = {o for o, s in states.items() if s[name]["state"] == "board"}
         assert held == seen[name]
-        # The board covers odd n only.
-        assert all(o % 8 == 4 and o <= 4 * orders.BOARD_MAX_N for o in held)
+        # A quadruple with a skew block has odd n.
+        assert all(o <= 4 * BOARD_MAX_N and (name == "hadamard" or o % 8 == 4) for o in held)
 
 
 def test_states_follow_the_data_file(data, states):
@@ -135,15 +135,15 @@ def test_states_follow_the_data_file(data, states):
         if name == "skew-hadamard":
             assert {s[name]["state"] for s in states.values()} == {"board", "verified", "open"}
             assert since <= {o for o, s in states.items() if s[name]["state"] == "verified"}
-    # Orders the board does not hold. Use orders beyond the board's range, n > 131, so
+    # Orders the board does not hold. Use even n, where no quadruple has a skew block, so
     # that a new board entry cannot turn one into "board".
-    assert states[532]["skew-hadamard"]["state"] == "verified"
-    assert states[540]["skew-hadamard"]["state"] == "verified"
+    assert states[536]["skew-hadamard"]["state"] == "verified"
+    assert states[544]["skew-hadamard"]["state"] == "verified"
     assert states[712]["skew-hadamard"]["state"] == states[820]["skew-hadamard"]["state"] == "verified"
     assert states[532]["hadamard"]["state"] == "known"
     assert states[404]["skew-hadamard"]["state"] == "open"
     assert states[668]["hadamard"]["state"] == "known"
-    assert states[8]["hadamard"]["state"] == "known"
+    assert states[88]["hadamard"]["state"] == "known"
     # An order that is neither open nor held needs a stored matrix.
     with pytest.raises(ValueError, match="no stored matrix of order 4,"):
         orders.table(data, {}, stored=[])

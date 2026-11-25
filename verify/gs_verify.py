@@ -51,8 +51,8 @@ def validate_rows(rows: object, n: object = None) -> Rows:
     if not isinstance(rows, (list, tuple)) or len(rows) != 4:
         raise ValueError("exactly four rows are required")
     n = len(rows[0]) if n is None else n
-    if type(n) is not int or not 1 <= n <= MAX_N or n % 2 != 1:
-        raise ValueError(f"order must be odd, between 1 and {MAX_N}")
+    if type(n) is not int or not 1 <= n <= MAX_N:
+        raise ValueError(f"order must be between 1 and {MAX_N}")
     for row in rows:
         if not isinstance(row, (list, tuple)) or len(row) != n:
             raise ValueError("row length does not match order")

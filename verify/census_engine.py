@@ -44,6 +44,50 @@ def small_exact(n: int, stratum: str) -> set[Rows]:
     return found
 
 
+# The even orders the Williamson enumerator below replays inline: order 20 takes about two seconds, and the
+# pair table grows fourfold with each step of two.
+WILLIAMSON_EVEN_ORDERS = range(2, 21, 2)
+
+
+@lru_cache(maxsize=len(WILLIAMSON_EVEN_ORDERS))
+def williamson_even(n: int) -> set[Rows]:
+    """Every equiv-v1 class of Williamson quadruples at an even order n, from the definition.
+
+    A symmetric row with first entry +1 is fixed by its entries at 1 to n/2, so there are 2^(n/2) of them.
+    Every unordered pair of rows is filed under the sum of its two PAF vectors at shifts 1 to n/2, and two
+    pairs form a quadruple exactly when their sums cancel. Nothing is pruned: no row-sum or spectral
+    filter is applied, and the arithmetic is exact. Every class returned is rechecked from its rows.
+    """
+    if n not in WILLIAMSON_EVEN_ORDERS:
+        raise ValueError(
+            f"williamson-even-exact-v1 supports even orders {WILLIAMSON_EVEN_ORDERS[0]} to {WILLIAMSON_EVEN_ORDERS[-1]}"
+        )
+    h = n // 2
+    rows: list[tuple[Row, tuple[int, ...]]] = []
+    for code in range(1 << h):
+        half = tuple(1 if code & (1 << j) else -1 for j in range(h))
+        row = (1, *half, *half[-2::-1])
+        rows.append((row, paf(row)[1 : h + 1]))
+    pairs: dict[tuple[int, ...], list[tuple[int, int]]] = {}
+    for i, (_, first) in enumerate(rows):
+        for j in range(i, len(rows)):
+            pairs.setdefault(tuple(x + y for x, y in zip(first, rows[j][1], strict=True)), []).append((i, j))
+    found: set[Rows] = set()
+    for total, left in pairs.items():
+        opposite = tuple(-x for x in total)
+        # A sum and its negative are joined once; the zero sum is joined with itself.
+        if opposite < total or opposite not in pairs:
+            continue
+        for i, j in left:
+            for k, m in pairs[opposite]:
+                found.add(canonical((rows[i][0], rows[j][0], rows[k][0], rows[m][0])))
+    for q in found:
+        validate_rows(q, n)
+        if "williamson" not in memberships(q):
+            raise ValueError("williamson-even-exact-v1 produced a row that is not symmetric")
+    return found
+
+
 @lru_cache(maxsize=8)
 def best_census(n: int) -> tuple[set[Rows], dict[str, int]]:
     if n not in (3, 7, 13, 21, 31, 43):
@@ -343,6 +387,8 @@ def verify(entry: JSONObject, quadruples: ById, reproduce: bool = True) -> JSONO
             expected = c_census(engine, entry["n"])
         elif engine == "small-exact-v1":
             expected = small_exact(entry["n"], entry["stratum"])
+        elif engine == "williamson-even-exact-v1" and entry["stratum"] == "williamson":
+            expected = williamson_even(entry["n"])
         else:
             raise ValueError("no trusted enumerator for this census")
         if expected != unique or entry["claimed_count"] != len(expected):
