@@ -42,7 +42,9 @@ STATE_WORDS = {
 CELL_TRACKS = {"hadamard": "general", "skew-hadamard": "skew-sds"}
 # The board covers odd n up to this value; summary() uses the same bound.
 BOARD_MAX_N = 131
-ORIGINS = ("sagemath", "repository", "board")
+ORIGINS = ("sagemath", "repository", "board", "found")
+# What a stored matrix of origin found records besides the fields of every stored matrix.
+FOUND_FIELDS = ("date", "contributors", "rows", "block_signs", "multiplier", "row_sums", "search", "checked")
 
 
 def covered(n: int) -> bool:
@@ -78,12 +80,12 @@ def validate(data: JSONObject, bib: Bibliography) -> JSONObject:
                 raise ValueError(f"hadamard-orders: {name} {label} is not a sorted list in range")
         settled = []
         for record in t["since"]:
-            if record["status"] not in ("board", "reported"):
+            if record["status"] not in ("board", "reported", "found"):
                 raise ValueError(f"hadamard-orders: unknown status {record['status']}")
             if record["status"] == "board" and not record.get("entry_ids"):
                 raise ValueError("hadamard-orders: a board record names its entries")
-            if record["status"] == "reported" and not record["sources"]:
-                raise ValueError("hadamard-orders: a reported order names a source")
+            if record["status"] in ("reported", "found") and not record["sources"]:
+                raise ValueError("hadamard-orders: a reported or found order names a source")
             settled.extend(record["orders"])
             cited.update(record["sources"])
             cited.update(bib.keys_in(record["note"]))
@@ -112,11 +114,16 @@ def validate_matrices(doc: JSONObject, data: JSONObject, bib: Bibliography) -> d
     """The stored skew-Hadamard matrices by order. Raises ValueError unless the file is consistent.
 
     The orders are distinct, in range and not open, and every source, software
-    key and note marker has a reference. The files themselves are checked when
-    the build reads them.
+    key and note marker has a reference. A matrix of origin found has the
+    fields of FOUND_FIELDS, and its order and date are those of a record of
+    status found in the orders file; no other order has such a record. The
+    files themselves, and the rows of a found matrix, are checked when the
+    build reads them.
     """
     stored: dict[int, JSONObject] = {}
     is_open = set(data["types"]["skew-hadamard"]["open"])
+    since = data["types"]["skew-hadamard"]["since"]
+    dates = {order: x["date"] for x in since if x["status"] == "found" for order in x["orders"]}
     for record in doc["matrices"]:
         order = record["order"]
         if order in stored or order not in in_range(data) or order in is_open:
@@ -125,15 +132,23 @@ def validate_matrices(doc: JSONObject, data: JSONObject, bib: Bibliography) -> d
             raise ValueError(f"skew-matrices: unexpected file name for order {order}")
         if record["origin"] not in ORIGINS or not record["sources"] or not record["generated"]:
             raise ValueError(f"skew-matrices: order {order} lacks an origin, a source or how it was generated")
-        if (record["origin"] == "board") != ("entry" in record) or (record["origin"] != "board") != (
+        if (record["origin"] == "board") != ("entry" in record) or (record["origin"] in ("sagemath", "repository")) != (
             "software" in record
         ):
             raise ValueError(f"skew-matrices: order {order} names an entry or a software key that its origin lacks")
+        if (record["origin"] == "found") != (order in dates):
+            raise ValueError(f"skew-matrices: order {order} is found in one of the two baseline files only")
+        if record["origin"] == "found" and (
+            any(not record.get(field) for field in FOUND_FIELDS) or record["date"] != dates[order]
+        ):
+            raise ValueError(f"skew-matrices: order {order} lacks a field of a found matrix or has another date")
         keys = [*record["sources"], *bib.keys_in(record.get("note", "")), record.get("software", record["sources"][0])]
         missing = sorted(key for key in keys if key not in bib.entries)
         if missing:
             raise ValueError(f"skew-matrices: sources without a reference: {missing}")
         stored[order] = record
+    if set(dates) - set(stored):
+        raise ValueError(f"skew-matrices: no stored matrix for the found orders {sorted(set(dates) - set(stored))}")
     return stored
 
 
@@ -235,10 +250,12 @@ def state_cell(
     data = dict(board.get("data", {}))
     # The origin filter asks who settled the order, not who supplied the board cell's rows:
     # an order the sources listed as open and the board now holds takes the board cell's
-    # origins, an order known from the sources is a literature result, and an open order
-    # has no origin.
+    # origins, an order with a matrix found for this board is a challenge result, an order
+    # known from the sources is a literature result, and an open order has no origin.
     if info["state"] == "board" and info["listed_open"]:
         pass
+    elif record and record["status"] == "found":
+        data["origins"] = "participant-result"
     elif info["state"] in ("board", "known") or (info["state"] == "verified" and not info["listed_open"]):
         data["origins"] = "published-import"
     else:
@@ -289,8 +306,10 @@ def grid_cells(
     column, and whether the order is settled.
 
     new_skew holds the n whose skew-Hadamard order is a featured existence
-    result of this board; that cell gets the new-result marker. board maps a
-    type to the description of its board cell that state_cell takes.
+    result of this board; that cell gets the new-result marker, and so does a
+    skew-Hadamard order whose matrix was found for this board (status found in
+    the data file). board maps a type to the description of its board cell that
+    state_cell takes.
     """
     order = 4 * n
     board = board or {}
@@ -307,11 +326,17 @@ def grid_cells(
             states[order][name],
             order_href(n, name),
             text=order,
-            new=name == "skew-hadamard" and n in new_skew,
+            new=name == "skew-hadamard" and (n in new_skew or found(states[order][name])),
             board=board.get(name),
         )
         for name in TYPES
     )
+
+
+def found(info: JSONObject) -> bool:
+    """Whether the matrix of an order was found for this board without being a board quadruple."""
+    record = info.get("record")
+    return record is not None and record["status"] == "found"
 
 
 def listing(values: Iterable[object]) -> str:

@@ -189,6 +189,110 @@ def test_stored_doublings_are_rebuilt_from_their_board_entries(board):
         assert lzma.decompress((ROOT / x["file"]).read_bytes()) == text
 
 
+# The 8-Williamson array, transcribed from the paper cited as kotsireas2008new.
+WILLIAMSON8 = """
+A -B -C -D -E -F -G -H
+B  A -D  C -F  E  H -G
+C  D  A -B -G -H  E  F
+D -C  B  A -H  G -F  E
+E  F  G  H  A -B -C -D
+F -E  H -G  B  A  D -C
+G -H -E  F  C -D  A  B
+H  G -F -E  D  C -B  A
+"""
+
+
+def found_record(data):
+    stored = orders.validate_matrices(orders.load_matrices(), data, Bibliography())
+    found = [x for x in stored.values() if x["origin"] == "found"]
+    assert [x["order"] for x in found] == [808]
+    return found[0]
+
+
+def test_found_matrix_is_the_array_of_its_rows(data):
+    """The stored matrix of order 808 is the 8-Williamson array of the eight rows of its record."""
+    import lzma
+
+    import numpy as np
+
+    import skew
+
+    x = found_record(data)
+    since = [s for s in data["types"]["skew-hadamard"]["since"] if s["status"] == "found"]
+    assert [(s["orders"], s["date"], s["sources"]) for s in since] == [([808], x["date"], x["sources"])]
+    text = lzma.decompress((ROOT / x["file"]).read_bytes()).decode()
+    assert skew.found_text(x) == text == skew.stored_text(x, check=False)
+    # The same array from the matrices of the paper: T is the cyclic shift, R the back
+    # diagonal, a block is a polynomial in T, and the symmetric blocks are multiplied by R.
+    v = x["parameters"]["v"]
+    one = np.eye(v, dtype=int)
+    shift, back = np.roll(one, 1, axis=1), one[::-1]
+    assert shift[0, 1] == shift[v - 1, 0] == 1 and back[0, v - 1] == 1
+    powers = [np.linalg.matrix_power(shift, k) for k in range(v)]
+    rows = [[1 if c == "+" else -1 for c in line] for line in x["rows"]]
+    poly = [sum(c * power for c, power in zip(row, powers, strict=True)) for row in rows]
+    blocks = [poly[0]] + [sign * (m @ back) for sign, m in zip(x["block_signs"][1:], poly[1:], strict=True)]
+    names = dict(zip("ABCDEFGH", blocks, strict=True))
+    pattern = [line.split() for line in WILLIAMSON8.strip().splitlines()]
+    numbered = [[("ABCDEFGH".index(e[-1]) + 1) * (-1 if e[0] == "-" else 1) for e in band] for band in pattern]
+    assert numbered == [list(band) for band in skew.WILLIAMSON8]
+    w = np.block([[-names[e[1]] if e[0] == "-" else names[e] for e in band] for band in pattern])
+    assert skew.matrix_text(w.tolist()) == text
+    # What the paper asks of the blocks, and what the record says of the rows.
+    assert np.array_equal(blocks[0] + blocks[0].T, 2 * one)
+    assert all(np.array_equal(m, m.T) for m in blocks[1:])
+    assert np.array_equal(sum(m @ m.T for m in blocks), 8 * v * one)
+    assert [sum(row) for row in rows] == x["row_sums"] == [1, 1, 1, 19, 21, 1, 1, 1]
+    assert x["multiplier"] == {"generator": 36, "order": 5} and pow(36, 5, v) == 1
+    assert all(row[36 * j % v] == row[j] for row in rows for j in range(v))
+
+
+def test_found_matrix_that_disagrees_with_its_record_is_rejected(data):
+    import skew
+
+    x = found_record(data)
+    rows = x["rows"]
+    for change, message in (
+        ({"rows": [rows[0], rows[2], rows[1], *rows[3:]]}, "not the array of the rows"),
+        ({"block_signs": [1] * 8}, "not the array of the rows"),
+        ({"block_signs": [-1] * 8}, "block signs"),
+        ({"rows": [rows[1], *rows[1:]]}, "skew type"),
+        ({"rows": [*rows[:7], rows[0]]}, "not symmetric"),
+        ({"rows": rows[:7]}, "eight rows"),
+        ({"multiplier": {"generator": 2, "order": 5}}, "order 5 modulo 101"),
+        ({"multiplier": {"generator": 10, "order": 4}}, "not fixed by the multiplier"),
+        ({"row_sums": [1, 1, 1, 21, 19, 1, 1, 1]}, "row sums"),
+        ({"rows": [*rows[:7], rows[1]]}, "do not add to zero"),
+    ):
+        with pytest.raises(ValueError, match=message):
+            skew.stored_text(x | change, check=False)
+
+
+def test_found_order_is_marked_as_a_new_result_of_the_board(data, states, blocks):
+    info = states[808]["skew-hadamard"]
+    assert info["state"] == "verified" and info["listed_open"] and orders.found(info)
+    assert 808 not in data["types"]["skew-hadamard"]["open"]
+    cell = orders.grid_cells(202, states).split("<td")[2]
+    assert 'data-state="verified"' in cell and 'href="orders/skew-808.html"' in cell
+    assert '<span class="participant" title="New result"></span>' in cell
+    assert "new result of this board" in cell and 'data-origins="participant-result"' in cell
+    assert "this one dates from 2026-11-25" in cell
+    # Order 712 is marked through the featured result at 356, which the build passes in.
+    assert 'class="participant"' not in orders.grid_cells(178, states).split("<td")[2]
+    block, keys = blocks[808]
+    assert "Construction: 8-Williamson array, v = 101, Z_101 " in block
+    assert " A −B −C −D −E −F −G −H\n B  A −D  C −F  E  H −G\n" in block
+    assert "in order, each multiplied by −1" in block and "here row 4 begins with −1" in block
+    assert "{1, 36, 84, 87, 95}, the subgroup of order 5 generated by 36" in block
+    assert "The row sums are 1, 1, 1, 19, 21, 1, 1, 1, and their squares add to 808." in block
+    assert "The build rebuilds the matrix from the eight rows" in block
+    assert "The result has not been reviewed." in block and "does not claim priority" in block
+    assert "on 2026-11-25 found no earlier skew-Hadamard matrix of order 808" in block
+    assert all(line in block for line in found_record(data)["rows"])
+    assert {"kotsireas2008new", "sage2026unknown", "cati2024database", "kishan2026skew"} <= keys
+    assert "not a Goethals–Seidel quadruple" in block and "to our knowledge" not in block
+
+
 def test_intro_names_the_smallest_open_skew_orders(data):
     text = orders.intro(data)
     first, second = data["types"]["skew-hadamard"]["open"][:2]
@@ -456,11 +560,26 @@ def test_inconsistent_matrix_records_are_rejected(data):
         lambda m: m[0].update(sources=["nobody1900nothing"]),
         lambda m: m[0].update(origin="memory"),
         lambda m: m[0].update(file="matrices/skew/other.txt.xz"),
+        lambda m: next(x for x in m if x["origin"] == "found").pop("rows"),
+        lambda m: next(x for x in m if x["origin"] == "found").update(date="2026-11-24"),
+        lambda m: next(x for x in m if x["origin"] == "found").update(software="kishan2026skew"),
+        lambda m: m.remove(next(x for x in m if x["origin"] == "found")),
+        lambda m: m[0].update(origin="found"),
     ):
         broken = copy.deepcopy(doc)
         change(broken["matrices"])
         with pytest.raises(ValueError):
             orders.validate_matrices(broken, data, bib)
+    # A found matrix needs its record of status found in the orders file, and that record a source.
+    unlisted = copy.deepcopy(data)
+    since = unlisted["types"]["skew-hadamard"]["since"]
+    record = next(x for x in since if x["status"] == "found")
+    record["status"] = "reported"
+    with pytest.raises(ValueError, match="found in one of the two baseline files only"):
+        orders.validate_matrices(doc, unlisted, bib)
+    record.update(status="found", sources=[])
+    with pytest.raises(ValueError, match="names a source"):
+        orders.validate(unlisted, bib)
 
 
 def test_stored_matrix_with_a_wrong_digest_or_a_changed_entry_is_rejected(data, tmp_path, monkeypatch):
