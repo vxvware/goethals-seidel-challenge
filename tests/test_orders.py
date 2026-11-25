@@ -446,7 +446,7 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     replayed = dict(r)
     for n in range(2, 21, 2):
         ident = f"williamson-n{n}"
-        assert family(n, "williamson")[0] == "✓"
+        assert family(n, "williamson")[0].endswith("+")
         replayed[ident] = r[ident] | census_engine.verify(d[ident], quads)
     full = module.grid(summary(d, replayed, b), replayed)[1]
     full = {int(re.match(r'<tr data-n="(\d+)"', row).group(1)): row for row in full.split("</tr>") if row}
@@ -455,7 +455,7 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
     assert "23 classes published, under an equivalence that merges more" in family(18, "williamson", full)[1]
     # Published and not on the board: the count stays in the tooltip, since it is not an equiv-v1 count.
     text, tip = family(64, "williamson")
-    assert text == "✓" and "69,960 classes published" in tip
+    assert text == "69,960+" and "69,960 classes published" in tip
     # The same cell without quadruples on the board says so, whatever the board holds today.
     bare = by_cell[64, "williamson"] | {
         "quadruples": [],
@@ -464,13 +464,13 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
         "artifact_status": "published-not-imported",
     }
     assert "the board holds no quadruple of this type yet" in module.grid_cell(bare, set(), r)["accessible"]
-    assert family(128, "williamson")[0] == "✓" and "classes published" not in family(128, "williamson")[1]
+    assert family(128, "williamson")[0] == "1+" and "classes published" not in family(128, "williamson")[1]
     # Open: no source the board cites gives one, which is all the tooltip says.
     for n, track in ((94, "williamson"), (106, "williamson"), (133, "williamson"), (133, "best"), (299, "good")):
         text, tip = family(n, track)
         assert text == "?" and tip.endswith("no quadruple of this type is known to us in the cited sources"), (n, track)
     # Past 131: the constructed families are verified cells, and best cells follow the square rule.
-    assert family(135, "williamson")[0] == family(297, "williamson")[0] == family(135, "kkss")[0] == "✓"
+    assert family(135, "williamson")[0] == family(297, "williamson")[0] == family(135, "kkss")[0] == "1+"
     assert family(299, "best")[0] == "×" and family(137, "kkss")[0] in ("×", "?")
     assert by_n[178].count('class="participant"') == 1
     # A best cell where 4n - 3 is not a square is empty by a theorem and shows the cross, not a zero.

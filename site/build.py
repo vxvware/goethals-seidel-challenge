@@ -1034,6 +1034,17 @@ def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) ->
         if count
         else {"Empty": "0", "Unresolved": "?"}.get(label, "✓")
     )
+    if not count and (held := held_count(c, r)):
+        # The cell holds quadruples without a complete census: show how many. A plus sign marks a list that is
+        # not known to be every class; a catalogue that splits every published class is complete if the source is.
+        cat = cell_catalogue(c)
+        whole = bool(cat and cat.get("split") and cat["stratum"] == track and not outside_catalogue(c, r))
+        text = f"{held:,}" if whole else f"{held:,}+"
+        accessible += (
+            "; every class of the published enumeration, complete if that enumeration is"
+            if whole
+            else f"; the board holds {plural(held, 'quadruple')}, no two in the same class, and there may be more"
+        )
     if rule := impossible(c):
         # Empty by a theorem and not by a search: the cell shows a cross, not a zero.
         text = "×"
