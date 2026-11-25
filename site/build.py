@@ -12,6 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import orders
+import propus
 import skew
 from references import Bibliography
 from verify.board import load, summary
@@ -341,11 +342,19 @@ NEW_RESULT_NAMES = {"williamson": "Williamson ", "good": "Good ", "kkss": "G-"}
 CONTRADICTION_NOTES = {
     "djokovic2018goethals": ("{cite} report a complete classification for odd v < 50 with none at this order."),
 }
-# Existence results, by contribution id, with the date of the search of the
-# literature and public repositories that found no earlier matrix. An item is
-# shown only while its contribution is marked featured in
-# baselines/contributions.json, which is the maintainer's decision.
-NEW_EXISTENCE = {"skew-pool-join-89": "2026-11-22"}
+# Existence results, by contribution id, with their kind and the date of the
+# search of the literature and public repositories that found no earlier one.
+# A skew result is skew quadruples of one order, whose Goethals–Seidel array is
+# a skew-Hadamard matrix. A propus result is one quadruple with a symmetric
+# block and two equal blocks, whose propus array (site/propus.py) is a
+# symmetric Hadamard matrix; neither the Hadamard nor the skew-Hadamard order
+# is new there, so the grid does not mark it. An item is shown only while its
+# contribution is marked featured in baselines/contributions.json, which is the
+# maintainer's decision.
+NEW_EXISTENCE = {
+    "skew-pool-join-89": ("skew", "2026-11-22"),
+    "propus-pool-join-65": ("propus", "2026-11-24"),
+}
 NEW_RESULT_GROUPS = (
     ("correction", "Contradicts a published result"),
     ("classification", "Classifications"),
@@ -358,31 +367,45 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
     """The featured existence results, each worded from its verified entries."""
     groups = {g["id"]: g for g in stats["contributions"]}
     items = []
-    for ident in NEW_EXISTENCE:
+    for ident, (kind, _) in NEW_EXISTENCE.items():
         group = groups.get(ident)
         if not group or not group["featured"]:
             continue
         entries = [r[e] for e in group["entry_ids"]]
-        orders = {x["n"] for x in entries}
-        if len(orders) != 1 or any(x["type"] != "quadruple" or "skew-sds" not in x["tracks"] for x in entries):
-            raise ValueError(f"existence result is not skew quadruples of one order: {ident}")
-        n = orders.pop()
-        items.append(
-            {
+        # The section's own sentence carries the search qualifier.
+        item: JSONObject = {"kind": kind, "source": None, "qualifier": None}
+        if kind == "propus":
+            if len(entries) != 1 or entries[0]["type"] != "quadruple" or not propus.shape(*display_rows(entries[0])):
+                raise ValueError(f"existence result is not one propus quadruple: {ident}")
+            n = entries[0]["n"]
+            item |= {
                 "n": n,
-                "stratum": "skew-sds",
-                "source": None,
-                "text": f"A skew-Hadamard matrix of order {4 * n}.",
-                # The section's own sentence carries the search qualifier.
-                "qualifier": None,
+                "stratum": "general",
+                "text": (
+                    f"A propus family over Z_{n}: a symmetric Hadamard matrix of order {4 * n} from circulant blocks."
+                ),
+                # The entry page carries the propus array and the matrix file.
+                "href": f"entries/{entries[0]['id']}.html",
             }
-        )
+        else:
+            orders = {x["n"] for x in entries}
+            if len(orders) != 1 or any(x["type"] != "quadruple" or "skew-sds" not in x["tracks"] for x in entries):
+                raise ValueError(f"existence result is not skew quadruples of one order: {ident}")
+            n = orders.pop()
+            item |= {"n": n, "stratum": "skew-sds", "text": f"A skew-Hadamard matrix of order {4 * n}."}
+        items.append(item)
     return items
 
 
+def propus_entries(stats: JSONObject) -> set[str]:
+    """The entries of the propus existence results, featured or not: their pages carry the propus array."""
+    kinds = {ident: kind for ident, (kind, _) in NEW_EXISTENCE.items()}
+    return {e for g in stats["contributions"] if kinds.get(g["id"]) == "propus" for e in g["entry_ids"]}
+
+
 def new_cells(stats: JSONObject, r: Results) -> set[tuple[str, int]]:
-    """The cells the grid marks as new: the curated list and the featured existence results."""
-    return NEW_CELLS | {(x["stratum"], x["n"]) for x in existence_results(stats, r)}
+    """The cells the grid marks as new: the curated list and the featured skew existence results."""
+    return NEW_CELLS | {(x["stratum"], x["n"]) for x in existence_results(stats, r) if x["kind"] == "skew"}
 
 
 def new_results(stats: JSONObject, r: Results) -> list[tuple[str, list[JSONObject]]]:
@@ -422,7 +445,8 @@ def new_results_section(stats: JSONObject, r: Results) -> str:
     for title, items in new_results(stats, r):
         parts.append(f"<h3>{esc(title)}</h3><ul>")
         for x in items:
-            link = f'<a href="cells/n{x["n"]}-{x["stratum"]}.html">{esc(x["text"])}</a>'
+            href = x.get("href") or f"cells/n{x['n']}-{x['stratum']}.html"
+            link = f'<a href="{esc(href)}">{esc(x["text"])}</a>'
             if x["source"]:
                 url = x["source"]["url"]
                 key = BIB.resolve(url)
@@ -674,7 +698,7 @@ def grid(stats: JSONObject, r: Results) -> tuple[str, str, str]:
     by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
     marked = new_cells(stats, r)
     states = orders.table(ORDERS, r, STORED)
-    new_skew = {x["n"] for x in existence_results(stats, r)}
+    new_skew = {x["n"] for x in existence_results(stats, r) if x["kind"] == "skew"}
     rows = []
     blank = "".join(f'<td class="blank" data-track="{track}"></td>' for track in PRIMARY)
     for n in range(1, ORDERS["range"]["max"] // 4 + 1):
@@ -765,6 +789,21 @@ def write_skew_matrices(out: Path, states: orders.OrderStates, r: Results, quick
     return {order: ident for order, (ident, _) in files.items()}
 
 
+def write_propus_matrices(out: Path, idents: Iterable[str], r: Results) -> None:
+    """Write the propus array of each listed entry as a matrix file.
+
+    Call it after write_skew_matrices, which empties the folder. The array is
+    checked exactly to be a symmetric Hadamard matrix before it is written; a
+    failure raises ValueError and stops the build.
+    """
+    for ident in sorted(idents):
+        try:
+            text = propus.matrix_file(*display_rows(r[ident]))
+        except ValueError as error:
+            raise ValueError(f"the propus array of {ident} is not a symmetric Hadamard matrix: {error}") from error
+        (out / propus.file_name(ident)).write_text(text)
+
+
 def write_order_pages(out: Path, states: orders.OrderStates, chosen: dict[int, str]) -> None:
     """Write the page of every skew-Hadamard order whose n has no board cell."""
     folder = out / "orders"
@@ -823,6 +862,7 @@ def build(quick: bool = False) -> JSONObject:
 <noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
 <script src="app.js" defer></script><script src="picture.js" defer></script><script src="hero.js" defer></script>"""  # noqa: E501
     (out / "index.html").write_text(shell("The board", body, head=MATH_HEAD))
+    with_propus = propus_entries(stats)
     for ident, doc in d.items():
         result = r[ident]
         sources = "".join(source_item(s, "../") for s in doc["sources"])
@@ -842,8 +882,9 @@ def build(quick: bool = False) -> JSONObject:
         tag = result.get("tier")
         if doc["type"] == "quadruple":
             tag = tier_label(tag, rows=True)
+            symmetric = propus.block(ident, *display_rows(result), BIB)[0] if ident in with_propus else ""
             picture = (
-                f"{rows_block(doc, result)}"
+                f"{rows_block(doc, result)}{symmetric}"
                 f'<section class="picture"><h2>Picture</h2>{PICTURE_KEY}'
                 f"{quad_figure(doc, result, '')}"
                 f'<script src="../picture.js" defer></script></section>'
@@ -888,6 +929,7 @@ def build(quick: bool = False) -> JSONObject:
     (out / "references.html").write_text(shell("References", refs))
     states = orders.table(ORDERS, r, STORED)
     chosen = write_skew_matrices(out, states, r, quick)
+    write_propus_matrices(out, with_propus, r)
     write_order_pages(out, states, chosen)
     # Files of the page this build no longer writes.
     for name in ("skew.html", "skew.js"):
