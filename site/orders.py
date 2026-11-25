@@ -30,14 +30,12 @@ STATES = {
     "board": ("on board", "exists verified-on-board"),
     "known": ("known", "exists"),
     "verified": ("verified", "exists"),
-    "reported": ("reported", "reported"),
     "open": ("open", "unresolved"),
 }
 STATE_WORDS = {
     "board": "a verified matrix is on this board",
     "known": "known according to the cited sources, not held on this board",
     "verified": "the site holds a matrix file that the build checks exactly",
-    "reported": "reported, not yet in a reviewed source",
     "open": "open according to the cited sources",
 }
 # The board cell a grid existence cell links to, by type.
@@ -160,8 +158,9 @@ def table(data: JSONObject, results: dict[str, JSONObject], stored: Collection[i
     """The state of every order in range: {order: {type: {...}}}.
 
     For Hadamard matrices a state is board when the board holds a verified
-    matrix of the order, otherwise reported or open as the data file says,
-    otherwise known. For skew-Hadamard matrices it is board, open, or verified:
+    matrix of the order, otherwise open as the data file says, otherwise known;
+    an order announced after the cited lists is known, and its cell names the date.
+    For skew-Hadamard matrices it is board, open, or verified:
     every order that is neither open nor held by the board has a stored matrix
     in baselines/skew-matrices.json, which is what stored lists, and the build
     checks that matrix exactly. Raises ValueError if such an order has none.
@@ -189,8 +188,6 @@ def table(data: JSONObject, results: dict[str, JSONObject], stored: Collection[i
                 if order not in stored:
                     raise ValueError(f"skew-matrices: no stored matrix of order {order}, which is not open")
                 state = "verified"
-            elif record:
-                state = "reported"
             else:
                 state = "known"
             out[order][name] = {
@@ -232,6 +229,8 @@ def state_cell(
         spoken += "; the cited sources list this order without a matrix" + (
             f", and this one dates from {record['date']}" if record else ""
         )
+    elif record and info["state"] == "known":
+        spoken += f"; announced on {record['date']}"
     board = board or {}
     data = dict(board.get("data", {}))
     # The origin filter asks who settled the order, not who supplied the board cell's rows:
@@ -296,7 +295,7 @@ def grid_cells(
     order = 4 * n
     board = board or {}
     if not covered(n):
-        status = {"open": "unresolved", "reported": ""}
+        status = {"open": "unresolved"}
         board = {
             name: {"data": {"track": CELL_TRACKS[name], "status": status.get(states[order][name]["state"], "exists")}}
             for name in TYPES
