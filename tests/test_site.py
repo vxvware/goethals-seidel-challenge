@@ -107,12 +107,15 @@ def test_found_matrix_is_listed_among_the_existence_results(board):
     assert "first" not in html.lower() and "1616" not in html
     # The found matrices of orders above the range of the grid share one line, each order linked to its page.
     (line,) = (x for x in module.existence_results(stats, r) if x["kind"] == "matrices")
-    assert line["text"] == "Skew-Hadamard matrices of orders 1416, 1712, 2360 and 5336." and line["qualifier"] is None
-    assert line["links"][1416] == "orders/skew-1416.html" and list(line["links"]) == [1416, 1712, 2360, 5336]
+    assert (
+        line["text"] == "Skew-Hadamard matrices of orders 1416, 1712, 2360, 5336 and 5392."
+        and line["qualifier"] is None
+    )
+    assert line["links"][1416] == "orders/skew-1416.html" and list(line["links"]) == [1416, 1712, 2360, 5336, 5392]
     assert (
         '<li>Skew-Hadamard matrices of orders <a href="orders/skew-1416.html">1416</a>, '
-        '<a href="orders/skew-1712.html">1712</a>, <a href="orders/skew-2360.html">2360</a> and '
-        '<a href="orders/skew-5336.html">5336</a>.</li>'
+        '<a href="orders/skew-1712.html">1712</a>, <a href="orders/skew-2360.html">2360</a>, '
+        '<a href="orders/skew-5336.html">5336</a> and <a href="orders/skew-5392.html">5392</a>.</li>'
     ) in html
     assert html.index("order 808.") < html.index("Skew-Hadamard matrices of orders")
     # None of them has a row in the grid, and none marks a cell.
