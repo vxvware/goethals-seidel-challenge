@@ -4,6 +4,7 @@
 import argparse
 import html
 import json
+import math
 import shutil
 import sys
 from collections.abc import Collection, Iterable
@@ -666,8 +667,12 @@ def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) ->
     text = (
         count.replace(" classes", "").replace(" class", "")
         if count
-        else {"Published": "pub", "Empty": "–", "Unresolved": "?"}.get(label, "✓")
+        else {"Published": "pub", "Empty": "0", "Unresolved": "?"}.get(label, "✓")
     )
+    if label == "Empty" and track == "best" and math.isqrt(4 * n - 3) ** 2 != 4 * n - 3:
+        # Best matrices need 4n - 3 to be a square, so this cell is empty by a theorem and not by a search.
+        text = "×"
+        accessible += "; cannot exist: 4n − 3 is not a square"
     return {
         "track": track,
         "status": c["status"],
@@ -723,7 +728,9 @@ def grid(stats: JSONObject, r: Results) -> tuple[str, str, str]:
         if not orders.covered(n):
             # The board has no cells here: the two order columns, and blank family columns.
             family = blank if n % 2 else blank_even
-            rows.append(f'<tr data-n="{n}" data-extra><td>{n}</td>{orders.grid_cells(n, states)}{family}</tr>')
+            rows.append(
+                f'<tr data-n="{n}" data-extra><td>{n}</td>{orders.grid_cells(n, states, new_skew)}{family}</tr>'
+            )
             continue
         found = {track: grid_cell(by_cell[n, track], marked, r) for track in TRACKS}
         cells = [

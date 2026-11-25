@@ -320,8 +320,13 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
         assert re.findall(r'data-track="([a-z-]+)"', extra) == ["general", "skew-sds", *module.PRIMARY]
         assert extra.count('<td class="blank') == len(module.PRIMARY) and "cells/" not in extra
         assert re.findall(r'href="([^"]+)"', extra) == [f"orders/skew-{4 * n}.html"]
+        # The double of a new skew-Hadamard order carries the new-result marker off the board rows too.
+        assert extra.count('class="participant"') == 0
         # At even n no skew circulant exists, so the three families with a skew block are marked impossible.
         assert extra.count('class="blank impossible"') == (0 if n % 2 else 3)
+    assert by_n[178].count('class="participant"') == 1
+    # A best cell where 4n - 3 is not a square is empty by a theorem and shows the cross, not a zero.
+    assert ">×</a>" in row[5] and ">×</a>" not in row[7]
     # An open order off the board reads as a research target in the status filter.
     assert 'data-state="open" data-track="skew-sds" data-status="unresolved"' in by_n[101]
     assert 'data-state="verified" data-track="skew-sds" data-status="exists"' in by_n[2]
