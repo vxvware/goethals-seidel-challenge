@@ -6,7 +6,7 @@
     "max": 1200,
     "step": 4
   },
-  "structure": "For each matrix type: listed_open is the list of orders in the range for which the sources named in listed_open_sources give no matrix, copied unchanged. since holds later statements about orders of that list, each with its orders, a status (board: this board holds a verified matrix of the order; reported: a matrix is reported in a source that is not peer reviewed), the keys of the sources in baselines/references.bib, and what was read or checked. open is listed_open without the orders of since: the orders for which none of the sources read gives or reports a matrix. Every other order in the range is known according to known_sources. The sources object records the version and date of each source and how it was read. Nothing here is a statement about priority, and an order is called open only relative to the sources named.",
+  "structure": "For each matrix type: listed_open is the list of orders in the range for which the sources named in listed_open_sources give no matrix, copied unchanged. since holds later statements about orders of that list, each with its orders, a status (board: this board holds a verified matrix of the order; reported: a matrix is reported in a source that is not peer reviewed; found: a matrix that is not a board quadruple was found by a search run for this board, and baselines/skew-matrices.json holds it with the rows it is built from), the keys of the sources in baselines/references.bib, and what was read or checked. open is listed_open without the orders of since: the orders for which none of the sources read gives or reports a matrix. Every other order in the range is known according to known_sources. The sources object records the version and date of each source and how it was read. Nothing here is a statement about priority, and an order is called open only relative to the sources named.",
   "sources": {
     "sage2026unknown": {
       "as_of": "2026-11-14",
@@ -38,6 +38,11 @@
       "as_of": "2026-11-06",
       "version": "Repository commit d885022144ba6bf4efa8315e14871a3736947527, not peer reviewed",
       "read": "skew/476 of the same repository. Its four sequences are the board entry n119-f302cc45a2f83e60917b, which the board's verifier checks exactly."
+    },
+    "kotsireas2008new": {
+      "as_of": "2026-11-25",
+      "version": "Australasian Journal of Combinatorics 41 (2008), pages 235 to 248, the PDF on the journal's site",
+      "read": "Read in full. It gives the 8-Williamson array and the conditions on its eight rows, one of skew type and seven symmetric, and lists searches with this array for rows of length 3 to 15, which give matrices of orders up to 120. It has no matrix of order 808."
     },
     "kishan2026skew": {
       "as_of": "2026-11-06",
@@ -94,6 +99,13 @@
           "note": "Matrices in [@kishan2026skew], a software repository that is not peer reviewed. Each was checked exactly on 2026-11-22; none is held on this board."
         },
         {
+          "orders": [808],
+          "status": "found",
+          "date": "2026-11-25",
+          "sources": ["kotsireas2008new"],
+          "note": "A matrix from the 8-Williamson array of [@kotsireas2008new] with eight rows of length 101, found on 2026-11-25 by a search run for this board; it is not a board quadruple, and baselines/skew-matrices.json holds it with its rows. A search of the literature and public repositories on 2026-11-25 found no earlier skew-Hadamard matrix of order 808; this reports the search and does not claim priority, and the result has not been reviewed."
+        },
+        {
           "orders": [712, 952],
           "status": "reported",
           "date": "2026-11-22",
@@ -103,8 +115,8 @@
         }
       ],
       "open": [
-        404, 428, 596, 612, 668, 708, 716, 764, 772, 804, 808, 856, 892, 900, 916, 932, 940, 1028,
-        1060, 1076, 1108, 1132, 1156, 1180, 1192, 1196
+        404, 428, 596, 612, 668, 708, 716, 764, 772, 804, 856, 892, 900, 916, 932, 940, 1028, 1060,
+        1076, 1108, 1132, 1156, 1180, 1192, 1196
       ]
     }
   }

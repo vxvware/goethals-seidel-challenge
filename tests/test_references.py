@@ -127,7 +127,7 @@ def test_stored_skew_matrices_match_their_records():
         lines = text.decode("ascii").splitlines()
         assert len(lines) == order and all(len(line) == order and set(line) <= {"+", "-"} for line in lines), order
         assert x["sources"] and set(x["sources"]) <= set(bib.entries), order
-        assert x["origin"] in ("sagemath", "repository", "board") and x["generated"], order
+        assert x["origin"] in ("sagemath", "repository", "board", "found") and x["generated"], order
         assert x.get("software", "cati2024database") in bib.entries, order
         bib.keys_in(x.get("note", ""))
     # No stored file is left without a record.

@@ -4,16 +4,18 @@ Every order that is not open has a matrix file in the build output. For an order
 the board holds, the file is the Goethals–Seidel array of one quadruple. For
 every other order it is a file stored in matrices/skew and listed in
 baselines/skew-matrices.json. Each is written only after an exact check that it
-is a skew-Hadamard matrix.
+is a skew-Hadamard matrix. A stored matrix of origin found also carries the
+eight rows it is built from, and is rebuilt from them whenever it is read.
 """
 
 import hashlib
 import lzma
+import math
 from collections.abc import Sequence
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from orders import BOARD_MAX_N, STATES, esc, marks
+from orders import BOARD_MAX_N, STATES, esc, listing, marks
 
 if TYPE_CHECKING:
     from orders import OrderStates
@@ -36,6 +38,19 @@ PARAMETER_WORDS = {
     "amicable_order": "amicable matrices of order {}",
     "from_order": "of a matrix of order {}",
 }
+# The 8-Williamson array as kotsireas2008new prints it: entry k stands for the
+# k-th of the blocks A, ..., H and -k for its negative.
+WILLIAMSON8 = (
+    (1, -2, -3, -4, -5, -6, -7, -8),
+    (2, 1, -4, 3, -6, 5, 8, -7),
+    (3, 4, 1, -2, -7, -8, 5, 6),
+    (4, -3, 2, 1, -8, 7, -6, 5),
+    (5, 6, 7, 8, 1, -2, -3, -4),
+    (6, -5, 8, -7, 2, 1, 4, -3),
+    (7, -8, -5, 6, 3, -4, 1, 2),
+    (8, 7, -6, -5, 4, 3, -2, 1),
+)
+BLOCK_NAMES = "ABCDEFGH"
 CHECKED = "The build checks H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I exactly, with n the order, before it writes the file."  # noqa: E501
 
 
@@ -69,6 +84,72 @@ def gs_array(rows: Sequence[Sequence[int]]) -> Matrix:
         [neg(xr(d)), neg(rx(c)), rx(b), a],
     ]
     return [[v for block in band for v in block[i]] for band in blocks for i in range(n)]
+
+
+def williamson8_array(rows: Sequence[Sequence[int]], signs: Sequence[int]) -> Matrix:
+    """The 8-Williamson array W of kotsireas2008new for eight rows of one length v and a sign for each block.
+
+    Let T be the permutation matrix of order v with a 1 in position
+    (i, i + 1 mod v) and R the one with ones on the back diagonal. A row x gives
+    the circulant x[0] I + x[1] T + ... + x[v-1] T^(v-1), whose entry (i, j) is
+    x[(j - i) mod v], and the back-circulant that is this matrix times R, whose
+    entry (i, j) is x[(v - 1 - i - j) mod v]. Block A is the circulant of
+    rows[0] and blocks B, ..., H are the back-circulants of rows[1], ...,
+    rows[7], each multiplied by its sign. The source has every sign equal to 1.
+    """
+    v = len(rows[0])
+    if len(rows) != 8 or len(signs) != 8 or any(len(row) != v for row in rows):
+        raise ValueError("the 8-Williamson array takes eight rows of one length and eight signs")
+    blocks = [[[signs[0] * rows[0][(j - i) % v] for j in range(v)] for i in range(v)]]
+    blocks += [
+        [[s * x[(v - 1 - i - j) % v] for j in range(v)] for i in range(v)]
+        for s, x in zip(signs[1:], rows[1:], strict=True)
+    ]
+    negated = [[[-t for t in row] for row in block] for block in blocks]
+    return [
+        [t for e in band for t in (blocks if e > 0 else negated)[abs(e) - 1][i]]
+        for band in WILLIAMSON8
+        for i in range(v)
+    ]
+
+
+def found_rows(record: JSONObject) -> list[list[int]]:
+    """The eight rows of a stored matrix of origin found, after an exact check of what its record says of them.
+
+    The record gives eight rows of + and - of length v with 8v the order. The
+    first is of skew type (x[0] = 1 and x[v - j] = -x[j] for j != 0) and the
+    others are symmetric (x[v - j] = x[j]). Each is fixed by the multiplier g of
+    the record, x[g j mod v] = x[j], and g has the stated order modulo v. The row
+    sums are the ones stated, and the periodic autocorrelations of the eight
+    rows add to zero at every nonzero shift. Raises ValueError otherwise.
+    """
+    name, order, v = record["file"], record["order"], record["parameters"]["v"]
+    lines = record["rows"]
+    if 8 * v != order or len(lines) != 8 or any(len(line) != v or line.strip("+-") for line in lines):
+        raise ValueError(f"{name}: the record does not hold eight rows of + and - of length {v}")
+    rows = [[1 if c == "+" else -1 for c in line] for line in lines]
+    if rows[0][0] != 1 or any(rows[0][v - j] != -rows[0][j] for j in range(1, v)):
+        raise ValueError(f"{name}: the first row is not of skew type")
+    if any(x[v - j] != x[j] for x in rows[1:] for j in range(1, v)):
+        raise ValueError(f"{name}: a row after the first is not symmetric")
+    g, h = record["multiplier"]["generator"], record["multiplier"]["order"]
+    if math.gcd(g, v) != 1 or min(k for k in range(1, v) if pow(g, k, v) == 1) != h:
+        raise ValueError(f"{name}: {g} does not have order {h} modulo {v}")
+    if any(x[g * j % v] != x[j] for x in rows for j in range(v)):
+        raise ValueError(f"{name}: a row is not fixed by the multiplier {g}")
+    if [sum(x) for x in rows] != record["row_sums"]:
+        raise ValueError(f"{name}: the row sums are not {record['row_sums']}")
+    if any(sum(x[j] * x[(j + s) % v] for x in rows for j in range(v)) for s in range(1, v)):
+        raise ValueError(f"{name}: the periodic autocorrelations of the rows do not add to zero")
+    return rows
+
+
+def found_text(record: JSONObject) -> str:
+    """The matrix file of a stored matrix of origin found, rebuilt from the rows of its record."""
+    signs = record["block_signs"]
+    if len(signs) != 8 or signs[0] != 1 or any(s not in (1, -1) for s in signs):
+        raise ValueError(f"{record['file']}: the block signs are not 1 followed by seven of 1 and -1")
+    return matrix_text(williamson8_array(found_rows(record), signs))
 
 
 def matrix_text(h: Matrix) -> str:
@@ -130,14 +211,18 @@ def chosen_entries(states: OrderStates) -> dict[int, str]:
 def stored_text(record: JSONObject, check: bool = True) -> str:
     """The text of a stored matrix, after comparing its sha256 with the record.
 
-    With check set, the text must also pass the exact skew-Hadamard check and
-    have the order of its record. Raises ValueError otherwise.
+    A matrix of origin found must equal the array rebuilt from the rows of its
+    record, whose stated properties are checked on the way. With check set, the
+    text must also pass the exact skew-Hadamard check and have the order of its
+    record. Raises ValueError otherwise.
     """
     order = record["order"]
     text = lzma.decompress((ROOT / record["file"]).read_bytes())
     if hashlib.sha256(text).hexdigest() != record["sha256"]:
         raise ValueError(f"{record['file']} does not match its sha256")
     decoded = text.decode("ascii")
+    if record["origin"] == "found" and found_text(record) != decoded:
+        raise ValueError(f"{record['file']} is not the array of the rows of its record")
     if check:
         try:
             found = check_skew_text(decoded)
@@ -179,11 +264,69 @@ def origin_sentence(record: JSONObject, bib: Bibliography, prefix: str) -> str:
             f"The file comes from {bib.mark(record['software'], prefix)}: {esc(record['generated'])}. "
             "The source is a software repository, not peer reviewed."
         )
+    if record["origin"] == "found":
+        people = ", ".join(
+            f'<a href="https://github.com/{esc(person["github"])}">{esc(person["name"])}</a>'
+            if person.get("github")
+            else esc(person["name"])
+            for person in record["contributors"]
+        )
+        return (
+            f"The matrix was found on {esc(record['date'])} by {people} with a computer search. It is not a board "
+            f"entry: the object is eight rows of length {record['parameters']['v']}, not a Goethals–Seidel quadruple."
+        )
     half = record["order"] // 2
     return (
         f"The file is the doubling of the board's matrix of order {half}: with H the array of entry "
         f'<a href="{prefix}entries/{esc(record["entry"])}.html">{esc(record["entry"])}</a>, it is the block matrix '
         "with rows (H, H) and (−H<sup>T</sup>, H<sup>T</sup>)."
+    )
+
+
+def found_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
+    """The array, the rows, the search and the checks of a stored matrix of origin found.
+
+    The rows pass found_rows first, so the page states only what was checked.
+    """
+    rows = found_rows(record)
+    v, last = len(rows[0]), len(rows[0]) - 1
+    g, h = record["multiplier"]["generator"], record["multiplier"]["order"]
+    group = ", ".join(str(x) for x in sorted({pow(g, k, v) for k in range(h)}))
+    array = "\n".join(" ".join(("−" if e < 0 else " ") + BLOCK_NAMES[abs(e) - 1] for e in band) for band in WILLIAMSON8)
+    negated = [BLOCK_NAMES[k] for k, s in enumerate(record["block_signs"]) if s < 0]
+    if len(negated) == 7:
+        signs = ", each multiplied by −1"
+    else:
+        signs = f", with {listing(negated)} multiplied by −1" if negated else ""
+    minus = [k + 1 for k, x in enumerate(rows) if x[0] != 1]
+    start = f"; here row {listing(minus)} begins with −1" if len(minus) == 1 else ""
+    if len(minus) > 1:
+        start = f"; here rows {listing(minus)} begin with −1"
+    sums = ", ".join(str(x) for x in record["row_sums"])
+    return (
+        f"<p>The array of {bib.mark(record['sources'][0], prefix)} is the block matrix W below, in eight blocks of "
+        f"order {v}. The eighth block is written H as in the source; elsewhere on this page H is the whole matrix.</p>"
+        f'<div class="rows-text"><pre>{array}</pre></div>'
+        f"<p>Let T be the permutation matrix of order {v} with a 1 in position (i, i + 1 mod {v}) for "
+        f"i = 0, …, {last}, and let R be the permutation matrix with ones on the back diagonal. A row "
+        f"x = (x<sub>0</sub>, …, x<sub>{last}</sub>) gives the circulant matrix x<sub>0</sub>I + x<sub>1</sub>T + … + "
+        f"x<sub>{last}</sub>T<sup>{last}</sup>, and the back-circulant matrix that is this one times R. A is the "
+        "circulant matrix of the first row below, and B, …, H are the back-circulant matrices of the other seven "
+        f"rows, in order{signs}. The first row is of skew type: x<sub>0</sub> = 1 and x<sub>{v}−j</sub> = "
+        f"−x<sub>j</sub> for j = 1, …, {last}. The other seven are symmetric: x<sub>{v}−j</sub> = x<sub>j</sub>.</p>"
+        f"<p>The source takes every row to begin with 1 and multiplies no block by −1{start}. It gives W for "
+        "commuting symbols and states the conditions on the rows by analogy with the Williamson array, without a "
+        "theorem for this array. The statement that this matrix is skew-Hadamard therefore rests on the exact check "
+        "of the build.</p>"
+        f'<div class="rows-text"><pre>{"\n".join(esc(line) for line in record["rows"])}</pre></div>'
+        f"<p>Each row is constant on the orbits of {{{group}}}, the subgroup of order {h} generated by {g} in the "
+        f"multiplicative group of the integers modulo {v}, which acts on the positions 0, …, {last} by "
+        f"multiplication. The row sums are {sums}, and their squares add to {record['order']}. The periodic "
+        "autocorrelations of the eight rows add to zero at every nonzero shift.</p>"
+        f"<p>{esc(record['search'])}</p>"
+        "<p>The build rebuilds the matrix from the eight rows and compares it with the stored file. It checks in "
+        "integers that the rows have the symmetry types, the multiplier and the row sums stated here and that their "
+        f"periodic autocorrelations add to zero. {esc(record['checked'])}</p>"
     )
 
 
@@ -235,6 +378,8 @@ def matrix_block(
             f"<p>Construction: {esc(construction(record))} {marks(bib, record['sources'], prefix)}. "
             f"{origin_sentence(record, bib, prefix)}</p>"
         )
+        if record["origin"] == "found":
+            parts.append(found_details(record, bib, prefix))
         if "note" in record:
             parts.append(f"<p>{bib.cite(record['note'], prefix)}</p>")
         parts.append(download)
