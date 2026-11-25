@@ -14,7 +14,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "[@djokovic2018goethals] report a complete classification of cyclic families with symmetric or skew blocks for odd v < 50 and find none of type (kkss) at v=49, where the only parameter set of that type is (49; 24,24,22,18; 39). The vxvware census finds eight quadruples with exactly that parameter set, one equiv-v1 class, and the rows verify exactly on this board. The same program reproduces the published counts at v=33, 37, 41, 43, and 45.",
+      "summary": "[@djokovic2018goethals] report a complete classification of cyclic families with symmetric or skew blocks for odd v < 50 and find none of type (kkss) at v=49, where the only parameter set of that type is (49; 24,24,22,18; 39). The vxvware census finds eight quadruples with exactly that parameter set, all in one class under the board's equivalence, and the rows verify exactly on this board. The same program reproduces the published counts at v=33, 37, 41, 43, and 45.",
       "entry_ids": [
         "vxvware-kkss-n49"
       ],
@@ -35,7 +35,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Complete vxvware censuses past the range classified by Đoković and Kotsireas [@djokovic2018goethals]: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and equiv-v1 as one. Existence at 51 and 55 was already known from Spence's infinite family [@spence1977skew] (q = 101 and 109); the class counts at 51 and 55, the nonexistence at 57, and the existence and count at 59 are new. Replays with pinned engines between 2026-11-14 and 2026-11-15 returned the same classes at each order, so the four counts are exact. The empty cell at 53 is not a search result: a (kkss) parameter set exists only when 2v - 1 is a sum of two squares, by the parameter-set condition of [@djokovic2018goethals], and 105 is not.",
+      "summary": "Complete vxvware censuses past the range classified by Đoković and Kotsireas [@djokovic2018goethals]: four classes at n=51, three at n=55, none at n=57, and eight quadruples at n=59 that the source counts as two classes and the board as one. Existence at 51 and 55 was already known from Spence's infinite family [@spence1977skew] (q = 101 and 109); the class counts at 51 and 55, the nonexistence at 57, and the existence and count at 59 are new. Replays with pinned engines between 2026-11-14 and 2026-11-15 returned the same classes at each order, so the four counts are exact. The empty cell at 53 is not a search result: a (kkss) parameter set exists only when 2v - 1 is a sum of two squares, by the parameter-set condition of [@djokovic2018goethals], and 105 is not.",
       "entry_ids": [
         "vxvware-kkss-n51",
         "vxvware-kkss-n55",
@@ -61,7 +61,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18 and finished all 32 pieces on 2026-10-22 after 811 cpu-hours: twelve quadruples, two equiv-v1 classes (three under the source's own convention, which does not transpose blocks). Spence's family [@spence1977skew] does not reach 61, Đoković and Kotsireas [@djokovic2018goethals] classify through 49, and the 2009 table of cyclic families in [@djokovic2009supplementary] leaves type (kkss) unresolved at (61; 30, 30, 25, 25; 49), the only parameter set of that type at 61. The rows verify exactly; the count of two became exact on 2026-11-15, when a replay with the pinned kkss-census-c-v3 engine returned the same classes. The first quadruple keeps its hand-entered id and the census maps its class onto it.",
+      "summary": "The exhaustive vxvware gmat_c census at n=61, the first open G-matrix order, found a (kkss) quadruple with row sums (1, 1, -11, -11) in its ninth piece on 2026-10-18 and finished all 32 pieces on 2026-10-22 after 811 cpu-hours: twelve quadruples, two classes under the board's equivalence (three under the source's own convention, which does not transpose blocks). Spence's family [@spence1977skew] does not reach 61, Đoković and Kotsireas [@djokovic2018goethals] classify through 49, and the 2009 table of cyclic families in [@djokovic2009supplementary] leaves type (kkss) open at (61; 30, 30, 25, 25; 49), the only parameter set of that type at 61. The rows verify exactly; the count of two became exact on 2026-11-15, when a replay with the pinned kkss-census-c-v3 engine returned the same classes. The first quadruple keeps its hand-entered id and the census maps its class onto it.",
       "entry_ids": [
         "n61-c46dadc965084b5d9e77",
         "vxvware-kkss-n61"
@@ -102,7 +102,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The board's compression census at n=63 (kkss-compress-v1, compression by 3) lifted all 923,658 of its compressed instances and found 12 equiv-v1 classes of G-matrices. Existence at 63 was known from Spence's family [@spence1977skew] (q = 125), with parameters (63; 31,31,27,25; 51); no exhaustive count at this order is published. None has parameters (63; 31,31,29,24; 52), the other (kkss) parameter set at 63, which the table of cyclic families in [@djokovic2009supplementary] leaves unresolved: it has no G-matrices. The count is exact on the board through the registered replay of the pinned engine.",
+      "summary": "The board's compression census at n=63 (kkss-compress-v1, compression by 3) lifted all 923,658 of its compressed instances and found 12 classes of G-matrices. Existence at 63 was known from Spence's family [@spence1977skew] (q = 125), with parameters (63; 31,31,27,25; 51); no exhaustive count at this order is published. None has parameters (63; 31,31,29,24; 52), the other (kkss) parameter set at 63, which the table of cyclic families in [@djokovic2009supplementary] leaves open: it has no G-matrices. The count is exact on the board through the registered replay of the pinned engine.",
       "entry_ids": [
         "kkss-n63",
         "n63-f66a2bf97ea6fcf33039",
@@ -131,7 +131,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one equiv-v1 class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact. At 55 a repository note in a commit dated 2026-10-25 [@kishan2026notes] reports an independent exhaustive classification with exactly one class; it cites this board for existence.",
+      "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact. At 55 a repository note in a commit dated 2026-10-25 [@kishan2026notes] reports an independent exhaustive classification with exactly one class; it cites this board for existence.",
       "entry_ids": [
         "vxvware-good-n53",
         "vxvware-good-n55",
@@ -196,7 +196,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The vxvware census recomputes type kkss at every admissible odd order through 45 and agrees with the class counts published by Đoković and Kotsireas [@djokovic2018goethals] at 33, 37, 41, 43, and 45. The imported rows fill the published-not-imported cells with exactly verified representatives.",
+      "summary": "The vxvware census recomputes type kkss at every admissible odd order through 45 and agrees with the class counts published by Đoković and Kotsireas [@djokovic2018goethals] at 33, 37, 41, 43, and 45. The imported rows put exactly verified quadruples in cells that had only a citation.",
       "entry_ids": [
         "vxvware-kkss-n3",
         "vxvware-kkss-n5",
@@ -249,7 +249,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Unconfirmed: one GPU search at n=73 in September 2026 found no best matrices. The board does not treat this as established and the cell stays unresolved. An audit found a rounding bug that had dropped one admissible class (since searched, empty), and 104,500 of about 11.2 million classes lack identity receipts. An independent census with a different program is running. If it holds, 73 would be a counterexample to the best matrix conjecture; order 73 was left open in [@bright2019best].",
+      "summary": "Unconfirmed: one GPU search at n=73 in September 2026 found no best matrices. The board does not treat this as established and the cell stays open. An audit found a rounding bug that had dropped one admissible class (since searched, empty), and 104,500 of about 11.2 million classes lack identity receipts. An independent census with a different program is running. If it holds, 73 would be a counterexample to the best matrix conjecture; order 73 was left open in [@bright2019best].",
       "entry_ids": [
         "best-n73-campaign"
       ],
@@ -268,7 +268,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The vxvware sweep generated 15,360 quadruples, yielding eight verified equiv-v1 classes. Published skew-Hadamard existence at order 292, by a construction of Đoković recorded by Cati and Pasechnik [@cati2024database], is credited separately; these are participant-generated families, without a claim of first existence at this order.",
+      "summary": "The vxvware sweep generated 15,360 quadruples, yielding eight verified classes. Published skew-Hadamard existence at order 292, by a construction of Đoković recorded by Cati and Pasechnik [@cati2024database], is credited separately; these are participant-generated families, without a claim of first existence at this order.",
       "entry_ids": [],
       "seed_artifacts": [
         "skew-p73-d9"
@@ -344,7 +344,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "An independent campaign for the nonexistence result of Bright, Đoković, Kotsireas and Ganesh [@bright2019good]. The archived coverage is receipt-backed; the board has not replayed the GPU search.",
+      "summary": "An independent campaign for the nonexistence result of Bright, Đoković, Kotsireas and Ganesh [@bright2019good]. The archived run records pass the board's checks; the board has not rerun the GPU search.",
       "entry_ids": [
         "good-n41-campaign"
       ],
@@ -693,7 +693,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The board's two-divisor compression census at n=75 (good-compress2-v1, compression by 5 and by 3) lifted all 1,612,793 of its compressed instances of length 15, in 3,137 signature groups, and found no good matrices. Published searches stop below this order: [@djokovic2018goethals] classify the odd orders below 50, and [@bright2019good] enumerate the odd orders divisible by 3 below 70, of which 75 is the next. A search of the literature and of public repositories on 2026-11-25 found no claim at 75 in either direction; to our knowledge this is the first search reported at this order. Orders 65, 71 and 73 are still unresolved on the board (65 carries an archived nonexistence claim), and its empty cells at 63, 67 and 69 rest on a cited search or on a participant run with no verification tier, so 75 does not extend a complete classification. This is a single run of one engine. The engine returned the board's classes at orders from 45 to 63, where n/(d1 d2) is 1 or 3; at 75 it is 5, and no order with that value has a positive control. The nonexistence is exact on the board through the registered replay of the pinned engine.",
+      "summary": "The board's two-divisor compression census at n=75 (good-compress2-v1, compression by 5 and by 3) lifted all 1,612,793 of its compressed instances of length 15, in 3,137 signature groups, and found no good matrices. Published searches stop below this order: [@djokovic2018goethals] classify the odd orders below 50, and [@bright2019good] enumerate the odd orders divisible by 3 below 70, of which 75 is the next. A search of the literature and of public repositories on 2026-11-25 found no claim at 75 in either direction; to our knowledge this is the first search reported at this order. Orders 65, 71 and 73 are still open on the board (65 carries an archived nonexistence claim), and its empty cells at 63, 67 and 69 rest on a cited search or on a participant run with no verification tier, so 75 does not extend a complete classification. This is a single run of one engine. The engine returned the board's classes at orders from 45 to 63, where n/(d1 d2) is 1 or 3; at 75 it is 5, and no order with that value has a positive control. The nonexistence is exact on the board through the registered replay of the pinned engine.",
       "entry_ids": [
         "good-n75"
       ],

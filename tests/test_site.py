@@ -251,8 +251,7 @@ def test_cell_pages_and_tooltips_use_no_schema_slug(board):
     stats = summary(d, r, b)
     for cell in stats["cells"]:
         page = module.cell_page(cell, d, r)
-        # Contribution summaries are curated prose in baselines/contributions.json, checked there.
-        text = visible(re.sub(r'<div class="credit">.*?</div>', " ", page, flags=re.S))
+        text = visible(page)
         assert not re.search(SLUGS, text), (cell["n"], cell["stratum"], re.search(SLUGS, text).group(0))
         assert "—" not in text
         # The slugs stay available to scripts and styles as data attributes.
