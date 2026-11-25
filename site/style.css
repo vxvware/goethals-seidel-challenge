@@ -16,6 +16,9 @@ nav{display:flex;gap:1.2rem}
 nav a{border:0;color:var(--muted)}
 nav a:before{content:"["}
 nav a:after{content:"]"}
+nav a.gh{display:inline-flex;align-items:center}
+nav a.gh:before,nav a.gh:after{content:none}
+nav a.gh:hover{color:var(--green,#6dffa0)}
 .brand{font-weight:600;border:0;color:var(--green);text-shadow:0 0 .6rem rgba(61,255,124,.45)}
 .brand:before{content:"~/";color:var(--muted)}
 .brand:after{content:"\2588";margin-left:.25rem}
