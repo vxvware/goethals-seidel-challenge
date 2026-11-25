@@ -119,6 +119,11 @@ def beyond_range(data: JSONObject, order: int) -> bool:
     return order > data["range"]["max"] and order % data["range"]["step"] == 0
 
 
+def beyond_state() -> JSONObject:
+    """The state of a skew-Hadamard order above the range that has a found matrix, in the form table() gives."""
+    return {"state": "verified", "listed_open": False, "record": None, "entries": []}
+
+
 def validate_matrices(doc: JSONObject, data: JSONObject, bib: Bibliography) -> dict[int, JSONObject]:
     """The stored skew-Hadamard matrices by order. Raises ValueError unless the file is consistent.
 
