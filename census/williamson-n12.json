@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "n": 12,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      12
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-25",
+  "discovered_by": [
+    "Bright, Kotsireas, Ganesh 2020 enumeration of the even orders up to 70; earlier constructions credited there. Enumerated here under equiv-v1 by this board's williamson-even-exact-v1"
+  ],
+  "sources": [
+    {
+      "title": "This board's inline enumerator williamson-even-exact-v1, replayed at n=12",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/main/verify/census_engine.py",
+      "source_path": "verify/census_engine.py"
+    },
+    {
+      "title": "Bright, Kotsireas, Ganesh, Applying computer algebra systems with SAT solvers to the Williamson conjecture, J. Symbolic Comput. 100 (2020), Section 2.2 and Table 1",
+      "url": "https://doi.org/10.1016/j.jsc.2019.07.024"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n12",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [
+    "n12-05a4552350fa9af945ad",
+    "n12-0a851f0205097d90251e",
+    "n12-0b12ea5a225d29158b96",
+    "n12-0bb0ad14810502d3ba50",
+    "n12-116b5a654befc62fada6",
+    "n12-126bfd336a10ce7378b6",
+    "n12-1ea6a0319c7c4ffbb755",
+    "n12-20bf0dbc209b746f0830",
+    "n12-33634e615eadd17c18bf",
+    "n12-43c833b29bb5f0796a55",
+    "n12-50c6efb9b98cfdaa8986",
+    "n12-58e07de9a47ab580a25d",
+    "n12-6df04473dc1827028f16",
+    "n12-6e388ad7fee4cd37bafe",
+    "n12-755bd4d0922101d06292",
+    "n12-77a319dba3da2f3ec89a",
+    "n12-7859e03bb16906748864",
+    "n12-8148e7c90c43f4032c9a",
+    "n12-8504eee1e8d8cbcb53f6",
+    "n12-87aa63d98aedea7cc357",
+    "n12-902706eb3219319d2021",
+    "n12-a31d36c28d5cc1d035a9",
+    "n12-aae2b52661e3378f2d11",
+    "n12-b384c99993c488064d4f",
+    "n12-bad703461a69db61a1a0",
+    "n12-bd9399882a74b301352a",
+    "n12-c274df12b3347744cd8f",
+    "n12-cca2c3ca869b0d52a177",
+    "n12-ce1d787f558b3f8ced87",
+    "n12-dc79ab57089abc7659a1",
+    "n12-dd8e4a36a5933eacb690",
+    "n12-de4d9bb3b57b7760d5ea",
+    "n12-eea609b23a9d799fdd38",
+    "n12-ef46669a1127a52a03a5",
+    "n12-f4b19ba2ff3a0c769252",
+    "n12-f988d037ae144fd13dd1"
+  ],
+  "claimed_count": 36,
+  "claim_kind": "computed-exact",
+  "enumerator": "williamson-even-exact-v1",
+  "notes": "Full census replayed on this board by williamson-even-exact-v1 on every verification: 36 classes under equiv-v1. The published enumeration counts 3 classes at this order under a coarser equivalence, which also identifies the cyclic shift of a single block by n/2 and the negation of every second entry of all four blocks. With those two operations added, the classes here fall into 3, the published count."
+}

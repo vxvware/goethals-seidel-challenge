@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "n": 6,
+  "group": {
+    "kind": "cyclic",
+    "invariant_factors": [
+      6
+    ]
+  },
+  "submitted_by": "vprusso",
+  "submitted_at": "2026-11-25",
+  "discovered_by": [
+    "Bright, Kotsireas, Ganesh 2020 enumeration of the even orders up to 70; earlier constructions credited there. Enumerated here under equiv-v1 by this board's williamson-even-exact-v1"
+  ],
+  "sources": [
+    {
+      "title": "This board's inline enumerator williamson-even-exact-v1, replayed at n=6",
+      "url": "https://github.com/vxvware/goethals-seidel-challenge/blob/main/verify/census_engine.py",
+      "source_path": "verify/census_engine.py"
+    },
+    {
+      "title": "Bright, Kotsireas, Ganesh, Applying computer algebra systems with SAT solvers to the Williamson conjecture, J. Symbolic Comput. 100 (2020), Section 2.2 and Table 1",
+      "url": "https://doi.org/10.1016/j.jsc.2019.07.024"
+    }
+  ],
+  "equivalence": "equiv-v1",
+  "id": "williamson-n6",
+  "type": "census",
+  "stratum": "williamson",
+  "representatives": [
+    "n6-1d3977403b091c43a729",
+    "n6-29ea9b4ae4bd3328391c",
+    "n6-31b8ef0cc9d0c1acf8d8",
+    "n6-619bb6558ecfcc57f277"
+  ],
+  "claimed_count": 4,
+  "claim_kind": "computed-exact",
+  "enumerator": "williamson-even-exact-v1",
+  "notes": "Full census replayed on this board by williamson-even-exact-v1 on every verification: 4 classes under equiv-v1. The published enumeration counts 1 class at this order under a coarser equivalence, which also identifies the cyclic shift of a single block by n/2 and the negation of every second entry of all four blocks. With those two operations added, the classes here fall into 1, the published count."
+}
