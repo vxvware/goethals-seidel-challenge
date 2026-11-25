@@ -3,7 +3,7 @@
 from pathlib import Path
 
 from verify import census_engine, contributions, evidence, gs_verify
-from verify.common import PARENTS, ROOT, TRACKS, ById, JSONObject, PathLike, artifact, read_json
+from verify.common import BOARD_MAX_N, PARENTS, ROOT, TRACKS, ById, JSONObject, PathLike, artifact, read_json, tracks_at
 from verify.model import validate
 
 
@@ -95,10 +95,11 @@ def check_consistency(documents: ById, results: ById, baseline: list[JSONObject]
             raise ValueError(f"contradicted claim without verified rows: {rec['stratum']} n={rec['n']}")
 
 
-def cells(documents: ById, results: ById, baseline: list[JSONObject], max_n: int = 131) -> list[JSONObject]:
+def cells(documents: ById, results: ById, baseline: list[JSONObject], max_n: int = BOARD_MAX_N) -> list[JSONObject]:
+    """One cell per order and stratum: six at odd n, and at even n the two strata that need no skew row."""
     output = []
-    for n in range(1, max_n + 1, 2):
-        for track in TRACKS:
+    for n in range(1, max_n + 1):
+        for track in tracks_at(n):
             relevant = []
             for rec in baseline:
                 if rec["n"] != n:
@@ -170,7 +171,7 @@ def cells(documents: ById, results: ById, baseline: list[JSONObject], max_n: int
     return output
 
 
-def summary(documents: ById, results: ById, baseline: list[JSONObject], max_n: int = 131) -> JSONObject:
+def summary(documents: ById, results: ById, baseline: list[JSONObject], max_n: int = BOARD_MAX_N) -> JSONObject:
     grid = cells(documents, results, baseline, max_n)
     return {
         "schema_version": 1,

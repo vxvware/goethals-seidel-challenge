@@ -19,8 +19,8 @@ def validate(entry: JSONObject) -> JSONObject:
         details = first.context or [first]
         raise ValueError("schema: " + "; ".join(e.message for e in details[:6]))
     n = entry["n"]
-    if type(n) is not int or n % 2 != 1:
-        raise ValueError("n must be an odd integer")
+    if type(n) is not int:
+        raise ValueError("n must be an integer")
     if entry["group"] != {"kind": "cyclic", "invariant_factors": [n]}:
         raise ValueError("noncyclic groups are reserved for v2")
     return entry

@@ -1,6 +1,6 @@
 # Mathematical contract: equiv-v1
 
-The accepted v1 group is cyclic of odd order 1 ≤ n ≤ 511. An entry supplies
+The accepted v1 group is cyclic of order 1 ≤ n ≤ 511, odd or even. An entry supplies
 four length-n rows of integers in {-1,1}, or four distinct-index sets encoding
 negative entries. The invariant factors must be [n]. Noncyclic abelian groups
 are reserved in the schema but rejected by this verifier version.
@@ -51,6 +51,14 @@ origins fixed to +1. At n=43 the full normalized catalogue gives 20 branch-v1
 orbits and five equiv-v1 classes. Independent reversals preserve every PAF.
 
 Source: Bright et al., https://arxiv.org/html/1907.04987v2, §§5.2 and 6.
+
+## Even orders
+
+At even n no row is skew, because the entry at n/2 would equal its own negative. A quadruple of even order belongs to the Williamson stratum when its four rows are symmetric and to the general stratum in every case, and the board has cells for those two strata only. The exact check, the generators and the canonical form are the ones stated above, unchanged.
+
+The published enumeration of Williamson matrices of even order counts classes under a coarser relation. Besides block order, negation of a block and simultaneous multipliers, it identifies the cyclic shift of a single row by n/2, which keeps a row symmetric when n is even, and the negation of every second entry of all four rows at once. Neither is an equiv-v1 generator, so each published class is a union of equiv-v1 classes and an equiv-v1 count at even n is at least the published one: at n=18 there are 540 equiv-v1 classes and 23 published classes. Adding the two operations to the equiv-v1 generators gives the published count at every even n from 2 to 20, which the tests check. A count under the coarser relation would need a new version, as the shift quotient did.
+
+Source: Bright, Kotsireas and Ganesh, https://arxiv.org/abs/1804.01172, Section 2.2 and Table 1.
 
 ## Evidence and status
 

@@ -23,7 +23,12 @@ type PathLike = str | Path
 ROOT = Path(__file__).resolve().parents[1]
 MAX_FILE = 256 * 1024
 MAX_N = 511
+# The board has cells for every n up to this value, which is the last row of the front-page grid.
+BOARD_MAX_N = 300
 TRACKS = ("williamson", "good", "best", "kkss", "skew-sds", "general")
+# A skew row has x[n-j] = -x[j] for j != 0, which at even n fails at j = n/2: only the strata that need
+# no skew row can hold a quadruple there.
+EVEN_TRACKS = ("williamson", "general")
 PARENTS: dict[str, tuple[str, ...]] = {
     "williamson": ("general",),
     "good": ("skew-sds", "general"),
@@ -32,6 +37,11 @@ PARENTS: dict[str, tuple[str, ...]] = {
     "skew-sds": ("general",),
     "general": (),
 }
+
+
+def tracks_at(n: int) -> tuple[str, ...]:
+    """The strata that can hold a quadruple at order n, and so the board cells of n."""
+    return TRACKS if n % 2 else EVEN_TRACKS
 
 
 def unique_object(pairs: Iterable[tuple[str, JSON]]) -> JSONObject:
