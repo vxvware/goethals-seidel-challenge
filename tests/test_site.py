@@ -179,7 +179,7 @@ def test_restricted_certificate_is_not_labelled_as_a_statement_about_the_cell(bo
     d, r, b = board
     cell = next(c for c in summary(d, r, b)["cells"] if (c["n"], c["stratum"]) == (89, "skew-sds"))
     page = module.cell_page(cell, d, r)
-    assert "proven empty within a restricted family, not for the whole cell" in page
+    assert "proved empty within a restricted family, not for the whole cell" in page
     assert "skew-Hadamard matrix of order 356" in page
     assert "rows verified" in page and "reproduced" not in page.split("<h2>")[0]
     assert "skew-Hadamard matrix of order 356" in module.cell_description(cell)
@@ -200,7 +200,10 @@ def test_cell_with_a_registered_replay_never_says_it_was_not_replayed(board):
             continue
         pages += 1
         text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", module.cell_page(cell, d, r)))
-        assert not re.search(r"not (been )?replayed|awaiting a full replay", text), (cell["n"], cell["stratum"])
+        assert not re.search(
+            r"not (been )?(replayed|rerun)|awaiting a full replay",
+            text.split("Search and evidence records")[0].split(' class="credit"')[0],
+        ), (cell["n"], cell["stratum"])
     assert pages > 0
 
 
@@ -209,12 +212,102 @@ def test_cell_page_states_a_published_count_beside_the_board_count(board):
     d, r, b = board
     by_cell = {(c["n"], c["stratum"]): c for c in summary(d, r, b)["cells"]}
     page = module.cell_page(by_cell[18, "williamson"], d, r)
-    assert "Published count: <strong>23 classes</strong>" in page and "shifting a block cyclically by n/2" in page
+    assert "Published count: <strong>23 classes</strong>" in page and "half-period shift of a block" in page
     assert 'href="../references.html#ref-bright2020williamson"' in page
-    assert "540 verified classes" in page or "<h2>Matrices</h2>" in page
+    assert "<h2>540 quadruples</h2>" in page and 'href="n18-williamson.txt"' in page
     # A cited construction gives existence and no count.
     assert "Published count" not in module.cell_page(by_cell[128, "williamson"], d, r)
     # An open cell says what open means here.
     open_page = module.cell_page(by_cell[94, "williamson"], d, r)
     assert "is known to us in the sources the board cites" in open_page and "Published count" not in open_page
     assert "is known to us" not in page
+
+
+def visible(page):
+    """The text a reader sees or hears: text nodes, titles and labels, without scripts and attribute values."""
+    import html
+    import re
+
+    page = re.sub(r"<script.*?</script>", " ", page, flags=re.S)
+    spoken = re.findall(r'(?:title|aria-label)="([^"]*)"', page)
+    return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", page) + " | " + " | ".join(spoken)))
+
+
+# Schema values and internal names that must not reach a reader. Entry ids are link text and may contain a
+# track name, and (kkss) is the symmetry pattern in a column name, so those are matched as whole words only
+# where they cannot be either.
+SLUGS = (
+    r"published-not-imported|verified-on-board|equiv-v\d|branch-v1|E1 to E5|receipt-backed|spot-checked|"
+    r"unreplayed|computed-exact|published-exact|participant-result|published-import|stratum|strata|"
+    r"\breproduced\b|\bunresolved\b|\bproven\b"
+)
+
+
+def test_cell_pages_and_tooltips_use_no_schema_slug(board):
+    import re
+
+    module = site_build()
+    d, r, b = board
+    stats = summary(d, r, b)
+    for cell in stats["cells"]:
+        page = module.cell_page(cell, d, r)
+        # Contribution summaries are curated prose in baselines/contributions.json, checked there.
+        text = visible(re.sub(r'<div class="credit">.*?</div>', " ", page, flags=re.S))
+        assert not re.search(SLUGS, text), (cell["n"], cell["stratum"], re.search(SLUGS, text).group(0))
+        assert "—" not in text
+        # The slugs stay available to scripts and styles as data attributes.
+        assert f'data-track="{cell["stratum"]}"' in page and f'data-status="{cell["status"]}"' in page
+    _, rows, _ = module.grid(stats, r)
+    tips = " | ".join(re.findall(r'title="([^"]*)"', rows))
+    assert not re.search(SLUGS, tips), re.search(SLUGS, tips).group(0)
+
+
+def test_cell_page_opens_with_one_plain_sentence(board):
+    import re
+
+    module = site_build()
+    d, r, b = board
+    by_cell = {(c["n"], c["stratum"]): c for c in summary(d, r, b)["cells"]}
+
+    def lead(n, track):
+        return re.sub(r"<[^>]+>", "", module.cell_lead(by_cell[n, track], r))
+
+    assert lead(28, "williamson").startswith("Williamson quadruples of length 28 exist: 83 classes are published [")
+    assert lead(128, "williamson").startswith("Williamson quadruples of length 128 exist by a published result [")
+    assert lead(83, "good").startswith("Open: no quadruple of good matrices of length 83 is known to us")
+    assert lead(47, "best") == (
+        "No quadruple of best matrices of length 47 exists: best matrices need 4n − 3 to be a square, "
+        "and 185 is not one."
+    )
+    # The module's board skips the inline replays, and the sentence says so instead of claiming a rerun.
+    assert lead(18, "williamson") == (
+        "The board holds 540 Williamson quadruples of length 18, one per class of a complete search that this "
+        "build did not rerun. Each gives a Hadamard matrix of order 72."
+    )
+    # A registered replay holds in every build.
+    assert lead(61, "williamson") == (
+        "The board holds 1 Williamson quadruple of length 61, the only class. A complete search rerun here "
+        "found no others. It gives a Hadamard matrix of order 244."
+    )
+    assert lead(89, "skew-sds").startswith(
+        "The board holds 11 verified Goethals–Seidel quadruples of length 89 with a skew block, no two in the "
+        "same class. No complete search is recorded here."
+    )
+    assert module.cell_tag(by_cell[28, "williamson"]) == "exists · published, none here yet"
+    assert module.cell_tag(by_cell[83, "good"]) == "open"
+    assert module.cell_tag(by_cell[47, "best"]) == "none exists · by arithmetic"
+    # A published count of Williamson quadruples is not a count of the cell for any quadruple.
+    assert "83 classes" not in lead(28, "general")
+
+
+def test_cell_text_file_lists_the_rows_of_every_quadruple(board):
+    from verify.gs_verify import validate_rows
+
+    module = site_build()
+    d, r, b = board
+    cell = next(c for c in summary(d, r, b)["cells"] if (c["n"], c["stratum"]) == (18, "williamson"))
+    lines = module.cell_rows_text(cell, r).splitlines()
+    assert len(lines) == 540
+    for line, ident in zip(lines, cell["quadruples"], strict=True):
+        rows = [[1 if x == "+" else -1 for x in word] for word in line.split()]
+        assert validate_rows(rows, 18) == tuple(map(tuple, module.display_rows(r[ident])[0]))
