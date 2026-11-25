@@ -1,0 +1,33 @@
+# Propus difference family in the cyclic group Z_65, from a three-list pool join: blocks (A, B, B, D) with A symmetric. It gives a symmetric Hadamard matrix of order 260.
+# Run on one machine (16 threads), 2026-11-23 to 2026-11-24. The search code (p3.c, pgu.c, px.c, pxj.c) is not in the repository; this file is the run record.
+# Method. A plan fixes the row sums (ra, rb, rd) of A, B and D and, for B and D and each lag 1..32, a window of four admissible periodic autocorrelation values.
+# List A is complete: every symmetric row of row sum ra. A local search collects rows inside the windows for B and for D, which form two pools; a pool row is
+# reduced to a key (the index of its autocorrelation in the window at each lag) and the pools are deduplicated by key. The join is exact: every triple (A, B, D)
+# with PAF_A + 2 PAF_B + PAF_D = 0 at every nonzero lag whose B and D keys are in the pools is reported.
+# This is a sampling search: the pools hold a part of the rows inside the windows, so the result is one solution, not a census, and it says nothing about how many
+# families exist.
+# Plans. Plan 1 has row sums (7, 9, 7) and plan 2 has (9, 7, 9); the two pools (row sums 9 and 7) serve both plans with their roles exchanged. Windows: the values
+# -7, -3, 1, 5 at every lag, for both pools.
+# Pools. The run was launched for 13 rounds of 2000000000 hits per pool. The numbers of distinct keys of the two pools are not recorded here.
+# Join. The pools are kept on disk in 256 slices by the first four key digits; one pool is loaded in groups of slices and the other one slice at a time. The join
+# stops at the first slice that reports a solution, so it did not cover the pools and the number of solutions in them is not known. The join binary was replaced
+# during the run, at group 9, by one that spawns finer parallel tasks; on a test at v = 45 the two report the same solutions and node counts. The number of groups
+# done and the node count at the stop are not recorded here.
+# Result: one solution, of plan 2. Row sums 9, 7, 7, 9 (81 + 49 + 49 + 81 = 260). As supplementary difference sets, with a block the set of positions of -1:
+# parameters (65; 28, 29, 29, 28; 49).
+# Checks of the solution, in code separate from the search: entries +-1; A symmetric (a_i = a_{65-i}); PAF_A + 2 PAF_B + PAF_D = 0 at every nonzero lag; B and D
+# are not symmetric, no cyclic shift of either is symmetric, and no multiplier of Z_65 other than 1 maps B or D to a shift of itself or of its negative. With
+# circulant matrices A, B, D of these first rows and R the back-diagonal permutation matrix, the propus array with block rows (A, BR, BR, DR),
+# (BR, D^T R, -A, -B^T R), (BR, -A, -D^T R, B^T R), (DR, -B^T R, B^T R, -A) is a matrix H of order 260 with H = H^T and H H^T = 260 I. The Goethals-Seidel
+# array of (A, B, B, D) is a Hadamard matrix of order 260 and is not symmetric.
+# Status of the order. arXiv:2301.02751 (version 3) states that the odd v below 100 with no symmetric Hadamard matrix of order 4v known are 65, 89 and 93, and
+# constructs matrices for 93. A search of the literature and public repositories on 2026-11-24 found no earlier propus difference family in Z_65. It found one
+# symmetric Hadamard matrix of order 260, posted on 2026-10-18 in a public software repository that is not peer reviewed: a bordered propus construction over
+# Z_64, with no circulant blocks of order 65. This reports the search and does not claim priority, and the result has not been reviewed.
+# plan file of plan 2:
+#   65
+#   9 7 9
+#   4 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7
+#   4 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7 -7
+# one row A,B,C,D per solution:
++--+++--+++-+-+-+-++----+-++++++--++++++-+----++-+-+-+-+++--+++--,+-++----+-++--++-+-----++++-+-+-++-++-+++-+++++--+++----+--++-+++,+-++----+-++--++-+-----++++-+-+-++-++-+++-+++++--+++----+--++-+++,++++++--+-+-+--+----+++--++--++++----+-+-+--++--+-+++++-++-++-+++
