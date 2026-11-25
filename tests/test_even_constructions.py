@@ -16,6 +16,7 @@ from tools.construct_even_williamson import (
     recipe,
     with_unit_products,
 )
+from verify.common import ROOT
 from verify.gs_verify import memberships, validate_rows
 
 
@@ -105,6 +106,9 @@ def test_every_recipe_passes_the_exact_check(board):
         reached.append(n)
     # Every even n where a source the board cites gives existence is reached, and the product reaches more.
     assert {22, 64, 128, 130, 140, 256, 286, 300} <= set(reached)
-    assert {94, 106, 118, 250, 280} <= set(missing)
+    # 280 = 40 x 7 needs an even factor from a catalogue file, when the board has one; 162 = 2 x 81 has none.
+    assert {94, 106, 118, 250} <= set(missing)
+    catalogues = (ROOT / "evidence/catalogues/williamson-n40.txt.gz").is_file()
+    assert (280 in reached) == catalogues and (280 in missing) != catalogues and 162 in missing
     assert recipe(128, board)[1]["kind"] == "power-of-two" and recipe(22, board)[1]["kind"] == "doubling"
     assert recipe(44, board)[1] | {"entry": ""} == {"kind": "product", "e": 4, "m": 11, "entry": "", "t": 2}

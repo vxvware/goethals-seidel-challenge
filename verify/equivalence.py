@@ -66,6 +66,35 @@ def canonical_shifts(rows: RowsLike) -> Rows:
     return min(tuple(sorted(column)) for column in zip(*images, strict=False))
 
 
+def canonical_half_shifts(rows: RowsLike) -> Rows:
+    """The published relation on quadruples of even length n: equiv-v1 with two further operations.
+
+    The operations are the cyclic shift of a single row by n/2 and the
+    negation of every second entry of all four rows at once. Both commute with
+    multipliers, and a row can be shifted or not independently of the others,
+    so for each multiplier and each of the two alternations the least sorted
+    tuple takes the smaller of every row's two images. This is a complete
+    invariant of the relation. It is not a board equivalence version: no entry
+    or census is declared under it, and it is used only to say how catalogue
+    rows sit in a published classification.
+    """
+    n = len(rows[0])
+    if n % 2:
+        raise ValueError("the half shift needs even length")
+    h = n // 2
+    best: Rows | None = None
+    for alternate in (False, True):
+        columns = []
+        for row in rows:
+            base = tuple(-x if alternate and j % 2 else x for j, x in enumerate(row))
+            pairs = zip(row_images(base), row_images(base[h:] + base[:h]), strict=True)
+            columns.append([min(a, b) for a, b in pairs])
+        least = min(tuple(sorted(column)) for column in zip(*columns, strict=True))
+        best = least if best is None or least < best else best
+    assert best is not None
+    return best
+
+
 CANONICAL: dict[str, Callable[[RowsLike], Rows]] = {VERSION: canonical, VERSION_SHIFTS: canonical_shifts}
 
 

@@ -179,6 +179,21 @@ census = entry(
                 "williamson-even-exact-v1",
             ]
         },
+        "catalogue": {
+            "type": "object",
+            "additionalProperties": False,
+            "required": ["path", "sha256"],
+            "properties": {
+                "path": {"type": "string", "pattern": "^evidence/catalogues/[a-z0-9-]+\\.txt\\.gz$"},
+                "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            },
+        },
+        "published_classes": {
+            "type": "object",
+            "additionalProperties": False,
+            "required": ["count", "split"],
+            "properties": {"count": {"type": "integer", "minimum": 1}, "split": {"type": "boolean"}},
+        },
         "secondary": {
             "type": "object",
             "additionalProperties": False,

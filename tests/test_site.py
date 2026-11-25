@@ -271,7 +271,12 @@ def test_cell_page_opens_with_one_plain_sentence(board):
 
     def bare(n, track):
         """The cell as it reads while the board holds none of its quadruples, whatever it holds today."""
-        return by_cell[n, track] | {"quadruples": [], "censuses": [], "artifact_status": "published-not-imported"}
+        return by_cell[n, track] | {
+            "quadruples": [],
+            "censuses": [],
+            "catalogues": [],
+            "artifact_status": "published-not-imported",
+        }
 
     def lead(n, track, cell=None):
         return re.sub(r"<[^>]+>", "", module.cell_lead(cell or by_cell[n, track], r))

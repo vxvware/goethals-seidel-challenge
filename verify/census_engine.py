@@ -10,7 +10,7 @@ from math import gcd
 from pathlib import Path
 from typing import NotRequired, TypedDict
 
-from verify.common import ROOT, TRACKS, ById, JSONObject, Row, Rows
+from verify.common import ROOT, TRACKS, ById, JSONObject, PathLike, Row, Rows
 from verify.equivalence import CANONICAL, VERSION, VERSION_SHIFTS, branch_canonical, canonical
 from verify.gs_verify import memberships, paf, validate_rows
 
@@ -342,9 +342,15 @@ def williamson_census(n: int) -> set[Rows]:
     return c_census("williamson-census-c-v1", n)
 
 
-def verify(entry: JSONObject, quadruples: ById, reproduce: bool = True) -> JSONObject:
+def verify(entry: JSONObject, quadruples: ById, reproduce: bool = True, root: PathLike = ROOT) -> JSONObject:
     # Representatives are stored under equiv-v1; a census declared under
     # equiv-v2 compares them, and the enumerator's rows, under that version.
+    if entry.get("catalogue"):
+        from verify import catalogue
+
+        return catalogue.verify(entry, quadruples, root, reproduce)
+    if entry.get("published_classes"):
+        raise ValueError("published_classes describes a catalogue")
     if entry.get("count_only"):
         return verify_count_only(entry, reproduce)
     canonical_form = CANONICAL[entry["equivalence"]]
