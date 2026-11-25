@@ -683,6 +683,25 @@
       "stratum": "williamson"
     },
     {
+      "id": "good-75-empty",
+      "title": "Good-matrix census at n=75, empty",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "The board's two-divisor compression census at n=75 (good-compress2-v1, compression by 5 and by 3) lifted all 1,612,793 of its compressed instances of length 15, in 3,137 signature groups, and found no good matrices. Published searches stop below this order: [@djokovic2018goethals] classify the odd orders below 50, and [@bright2019good] enumerate the odd orders divisible by 3 below 70, of which 75 is the next. A search of the literature and of public repositories on 2026-11-25 found no claim at 75 in either direction; to our knowledge this is the first search reported at this order. Orders 65, 71 and 73 are still unresolved on the board (65 carries an archived nonexistence claim), and its empty cells at 63, 67 and 69 rest on a cited search or on a participant run with no verification tier, so 75 does not extend a complete classification. This is a single run of one engine. The engine returned the board's classes at orders from 45 to 63, where n/(d1 d2) is 1 or 3; at 75 it is 5, and no order with that value has a positive control. The nonexistence is exact on the board through the registered replay of the pinned engine.",
+      "entry_ids": [
+        "good-n75"
+      ],
+      "seed_artifacts": [],
+      "featured": true,
+      "stratum": "good"
+    },
+    {
       "id": "williamson-61-reproduction",
       "title": "Williamson census at n=61, one class, reproducing a published classification",
       "relation": "independent-reproduction",
