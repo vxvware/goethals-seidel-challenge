@@ -496,9 +496,29 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
     return skew_items + sorted((x for x in items if x["kind"] in SYMMETRIC_KINDS), key=lambda x: x["n"])
 
 
+# A found skew-Hadamard order whose odd part is above this has no table of least known orders to be held
+# against (the table of cati2024database stops there), and those orders share one line of the list.
+TABLE_ODD_MAX = 999
+
+
+def odd_part(order: int) -> int:
+    while order % 2 == 0:
+        order //= 2
+    return order
+
+
 def matrix_results() -> list[JSONObject]:
-    """The stored skew-Hadamard matrices found for this board: one line each, linked to the page that describes it."""
-    return [
+    """The stored skew-Hadamard matrices found for this board, each linked to the page that describes it.
+
+    An order whose odd part is at most TABLE_ODD_MAX has a line of its own. The
+    orders with a larger odd part share one line, after the others, in which
+    each order is the link to its own page.
+    """
+    found = [order for order, record in sorted(STORED.items()) if record["origin"] == "found"]
+    large = [order for order in found if odd_part(order) > TABLE_ODD_MAX]
+    if len(large) < 2:
+        large = []
+    items: list[JSONObject] = [
         {
             "kind": "matrix",
             "source": None,
@@ -508,9 +528,21 @@ def matrix_results() -> list[JSONObject]:
             "text": f"A skew-Hadamard matrix of order {order}.",
             "href": orders.order_href(order // 4, skew.NAME),
         }
-        for order, record in sorted(STORED.items())
-        if record["origin"] == "found"
+        for order in found
+        if order not in large
     ]
+    if large:
+        items.append(
+            {
+                "kind": "matrices",
+                "source": None,
+                "qualifier": None,
+                "lead": "Skew-Hadamard matrices of orders",
+                "text": f"Skew-Hadamard matrices of orders {orders.listing(large)}.",
+                "links": {order: orders.order_href(order // 4, skew.NAME) for order in large},
+            }
+        )
+    return items
 
 
 def propus_entries(stats: JSONObject) -> set[str]:
@@ -568,8 +600,13 @@ def new_results_section(stats: JSONObject, r: Results) -> str:
     for title, items in new_results(stats, r):
         parts.append(f"<h3>{esc(title)}</h3><ul>")
         for x in items:
-            href = x.get("href") or f"cells/n{x['n']}-{x['stratum']}.html"
-            link = f'<a href="{esc(href)}">{esc(x["text"])}</a>'
+            if "links" in x:
+                # One line for several orders: each order is the link to its own page.
+                anchors = [f'<a href="{esc(href)}">{order}</a>' for order, href in x["links"].items()]
+                link = f"{esc(x['lead'])} {orders.listing(anchors)}."
+            else:
+                href = x.get("href") or f"cells/n{x['n']}-{x['stratum']}.html"
+                link = f'<a href="{esc(href)}">{esc(x["text"])}</a>'
             if x["source"]:
                 url = x["source"]["url"]
                 key = BIB.resolve(url)
