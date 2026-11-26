@@ -279,7 +279,36 @@ def bordered_rows(record: JSONObject) -> list[str]:
         differ = sum((x ^ y).bit_count() for x, y in zip(packed, shifted, strict=True))
         if 4 * w - 2 * differ != -4:
             raise ValueError(f"{name}: the periodic autocorrelations of the rows do not add to -4")
+    if "pairing" in record:
+        pairing_square(record)
     return rows
+
+
+def pairing_square(record: JSONObject) -> int:
+    """What the pairing of a bordered record squares to, 1 or -1, after an exact check of the pairing.
+
+    The record names a multiplier t = (t1, ..., tk), a unit in each component,
+    and the map z -> (t1 z1, ..., tk zk) of the group carries the first row to
+    the third and the second to the fourth: rows[2] at the image of z is
+    rows[0] at z, and likewise rows[3] and rows[1]. The map applied twice is
+    z -> z or z -> -z. Raises ValueError otherwise.
+    """
+    name, moduli, rows = label(record), record["group"], record["rows"]
+    t = record["pairing"]["multiplier"]
+    if len(t) != len(moduli) or any(math.gcd(x, m) != 1 for x, m in zip(t, moduli, strict=True)):
+        raise ValueError(f"{name}: the pairing multiplier {t} is not a unit in each component")
+    elements = group_elements(moduli)
+    position = {z: i for i, z in enumerate(elements)}
+    image = [position[tuple(x * c % m for x, c, m in zip(t, z, moduli, strict=True))] for z in elements]
+    twice = [image[i] for i in image]
+    _, negative = group_table(tuple(moduli))
+    if twice != negative and twice != list(range(len(elements))):
+        raise ValueError(f"{name}: the pairing multiplier {t} applied twice is neither z nor -z")
+    if any(rows[2][image[i]] != rows[0][i] or rows[3][image[i]] != rows[1][i] for i in range(len(elements))):
+        raise ValueError(
+            f"{name}: the third and fourth rows are not the first two carried by the pairing multiplier {t}"
+        )
+    return -1 if twice == negative else 1
 
 
 def bordered8_text(rows: Sequence[str]) -> str:
@@ -665,6 +694,23 @@ def bordered_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
             f"the map (x<sub>1</sub>, x<sub>2</sub>) ↦ ({g[0]}x<sub>1</sub>, {g[1]}x<sub>2</sub>) of G, which has "
             f"order {h} and takes k(1, 1) to {t}k(1, 1)"
         )
+    pairing = ""
+    if "pairing" in record:
+        t = record["pairing"]["multiplier"]
+        carried = (
+            f"z ↦ {t[0]}z"
+            if len(t) == 1
+            else f"(x<sub>1</sub>, x<sub>2</sub>) ↦ ({t[0]}x<sub>1</sub>, {t[1]}x<sub>2</sub>)"
+        )
+        twice = "z ↦ −z" if pairing_square(record) < 0 else "every z back to itself"
+        pairing = (
+            f"<p>The third row is the first carried along by the map σ: {carried} of G, and the fourth is the second "
+            "carried along in the same way: with a, b, c and d the four rows, c(σ(z)) = a(z) and d(σ(z)) = b(z) for "
+            f"every z in G. Applying σ twice gives {twice}, and a row has the same periodic autocorrelation at s and "
+            "at −s, so the sum of the four autocorrelations is the same at s and at σ(s). A search with the rows tied "
+            "in this way has the first two rows to choose and one condition for each set of shifts that σ, the "
+            "multipliers of the rows and z ↦ −z carry to one another.</p>"
+        )
     megabytes = round(order * (order + 1) / 1e6, 1)
     return (
         f"<p>The array of {first}, in the form in which {second} states it, takes four rows of 1 and −1 whose "
@@ -690,6 +736,7 @@ def bordered_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
         "in G, add to −4 at every nonzero s.</p>"
         f'<div class="rows-text"><pre>{"\n".join(esc(line) for line in record["rows"])}</pre></div>'
         f"<p>Each row is constant on the orbits of {multiplier}. It has {orbits} orbits besides {{0}}.</p>"
+        f"{pairing}"
         f"<p>{esc(record['search'])}</p>"
         "<p>The repository holds the four rows and the sha256 of the matrix file, not the file, which is "
         f"{megabytes} MB of text. The build checks in integers that the rows have the properties stated here, "
