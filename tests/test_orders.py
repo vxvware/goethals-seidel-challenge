@@ -401,6 +401,9 @@ TIED = {
     18632: (4657, 16, 1100, (31, 601), (3, 3, 3, 3, 5, 23), "2,090,801,775"),
     20936: (5233, 49, 4107, (5, 53, 79), (3, 3, 1163), "121,734,443,700"),
     22088: (5521, 34, 4654, (13, 1699), (3, 3, 3, 409), "30,503,715,615"),
+    15176: (3793, 13, 2916, (5, 5, 607), (3, 3, 3, 281), "60,364,537,875"),
+    25928: (6481, 64, 732, (11, 2357), (3, 29, 149), "19,878,760,275"),
+    28232: (7057, 223, 4054, (7, 37, 109), (3, 5, 941), "511,443,941,760"),
 }
 # Each joins the orders of the bordered array, with 48 orbits of a multiplier of order (w - 1)/48, so that
 # the tests of that array, the slow ones among them, cover it. A further order of this kind is one line above.
@@ -428,26 +431,33 @@ def text_sha256(h):
 
     import numpy as np
 
-    out = np.full((len(h), len(h) + 1), ord("-"), dtype=np.uint8)
-    out[:, -1] = ord("\n")
-    out[:, :-1][h > 0] = ord("+")
-    return hashlib.sha256(out).hexdigest()
+    digest = hashlib.sha256()
+    for i in range(0, len(h), 1024):
+        part = h[i : i + 1024]
+        out = np.full((len(part), len(h) + 1), ord("-"), dtype=np.uint8)
+        out[:, -1] = ord("\n")
+        out[:, :-1][part > 0] = ord("+")
+        digest.update(out)
+    return digest.hexdigest()
 
 
 def check_products(h, step=1024):
     """Assert H H^T = nI and H + H^T = 2I for an int8 matrix H of order n, in blocks of rows.
 
     Entries are 1 and -1 and n is below 2^24, so the float32 products are exact integers. Only one
-    block of rows and one of columns are held as float32 at a time.
+    block of rows and one of columns are held as float32 at a time, and nothing else of order n is made.
     """
     import numpy as np
 
     n = len(h)
-    assert h.shape == (n, n) and n < 2**24 and np.array_equal(np.abs(h), np.ones_like(h))
+    assert h.shape == (n, n) and h.dtype == np.int8 and n < 2**24
     for i in range(0, n, step):
         rows = h[i : i + step]
+        assert np.array_equal(rows * rows, np.ones_like(rows)), i
         twice = rows.astype(np.int16) + h[:, i : i + step].T
-        assert np.array_equal(twice, 2 * np.eye(n, dtype=np.int16)[i : i + step]), i
+        expected = np.zeros_like(twice)
+        expected[np.arange(len(rows)), np.arange(i, i + len(rows))] = 2
+        assert np.array_equal(twice, expected), i
         left = rows.astype(np.float32)
         for j in range(i, n, step):
             product = left @ h[j : j + step].T.astype(np.float32)
@@ -868,7 +878,7 @@ def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data,
     records = bordered_records(data)
     x, w = records[2696], 673
     assert x["tie"] == {"multiplier": [58], "chains": [[1, 3], [2, 4]]}
-    assert [o for o, r in records.items() if "tie" in r] == [2696, 7496, 10376, *TIED]
+    assert [o for o, r in records.items() if "tie" in r] == sorted([2696, 7496, 10376, *TIED])
     a, b, c, d = x["rows"]
     assert 58 * 58 % w == w - 1 and skew.tie_classes(x) == 8
     assert all(c[58 * z % w] == a[z] and d[58 * z % w] == b[z] for z in range(w))
@@ -1034,6 +1044,20 @@ def test_tied_orders_above_8000_are_checked_by_their_rows(board, data, states, t
         assert "This check is not a proof that no published construction applies." in seen
         assert f"The sha256 of that text is {x['sha256']}" in seen and "Download the matrix" not in seen
     assert [o // 8 for o in TIED][:7] == [1849, 2089, 2137, 2281, 2329, 2617, 2761]
+    # Orders 15176 and 25928 have the shape m'(m' - 1)(m - 1) of the lemma of wallis1973note only with
+    # m' = 8, and its condition, a skew-Hadamard matrix of order (m - 1)m'/m, fails: that is not an integer.
+    for order, c in ((15176, 271), (25928, 463)):
+        shapes = [(k, order // (k * (k - 1)) + 1) for k in range(2, 200) if order % (k * (k - 1)) == 0]
+        assert shapes == [(2, order // 2 + 1), (8, c + 1)] and (order // 2 + 1) % 2 == 1
+        assert (c + 1) % 4 == 0 and (c * 8) % (c + 1) != 0
+        seen = visible((pages / f"orders/skew-{order}.html").read_text())
+        assert (
+            f"only for m′ = 8 and m = {c + 1}, since m′ = 2 would need the odd number" in seen
+            and f"{c} × 8/{c + 1} is not an integer" in seen
+        )
+        assert "We read the lemma in the paper." in seen
+    assert "m′(m′ − 1)(m − 1)" not in visible((pages / "orders/skew-28232.html").read_text())
+    assert [k for k in range(2, 200) if 28232 % (k * (k - 1)) == 0] == [2]
     # The build checks the rows of such a record and writes them; it does not rebuild the matrix.
     monkeypatch.setattr(skew, "bordered_text", lambda *args: pytest.fail("the build rebuilt a matrix above order 8000"))
     (tmp_path / "matrices").mkdir()
