@@ -5,6 +5,7 @@ import argparse
 import html
 import json
 import math
+import re
 import shutil
 import sys
 from collections.abc import Collection, Iterable
@@ -271,7 +272,25 @@ def credit_block(group: JSONObject, prefix: str = "") -> str:
     )
 
 
+SUPERSCRIPT_DIGITS = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹", "0123456789")
+SUPERSCRIPT_RUN = re.compile("[⁰¹²³⁴⁵⁶⁷⁸⁹]+")
+TAG_OR_SCRIPT = re.compile(r"(<script\b.*?</script>|<[^>]*>)", re.S)
+
+
+def html_superscripts(body: str) -> str:
+    """Write Unicode superscript digits in page text as <sup> digits.
+
+    The superscript one, two and three come from another Unicode block than the other digits, and the page font
+    draws them at a different height, so 2¹⁸ renders with a high 1 and a low 8. Tags and scripts are left alone.
+    """
+    parts = TAG_OR_SCRIPT.split(body)
+    for i in range(0, len(parts), 2):
+        parts[i] = SUPERSCRIPT_RUN.sub(lambda m: f"<sup>{m.group(0).translate(SUPERSCRIPT_DIGITS)}</sup>", parts[i])
+    return "".join(parts)
+
+
 def shell(title: str, body: str, prefix: str = "", head: str = "", description: str = DESCRIPTION) -> str:
+    body = html_superscripts(body)
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Hunting Hadamards</title><meta name="description" content="{esc(description)}"><meta property="og:title" content="{esc(title)} · Hunting Hadamards"><meta property="og:description" content="{esc(description)}">
@@ -447,6 +466,8 @@ NEW_RESULT_BEFORE = {
     ("Good", 53): "no published search",
     ("Good", 55): "no published search",
     ("Good", 61): "no published search",
+    ("Good", 59): "no published search",
+    ("Good", 67): "no published search",
     ("G-matrices", 49): "published: none {cite}",
     ("G-matrices", 51): "exists, not classified",
     ("G-matrices", 55): "exists, not classified",
@@ -458,7 +479,7 @@ NEW_RESULT_BEFORE = {
     ("G-matrices", 69): "not settled",
 }
 # Rows whose page states no short account of what the literature had before: their Before cell is empty.
-NEW_RESULT_BEFORE_EMPTY = {("Good", 59), ("Good", 67)}
+NEW_RESULT_BEFORE_EMPTY: set[tuple[str, int]] = set()
 # Existence results, by contribution id, with their kind and the date of the
 # search of the sources its record names that found no earlier one.
 # A skew result is skew quadruples of one order, whose Goethals–Seidel array is
