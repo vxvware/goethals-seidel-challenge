@@ -32,6 +32,16 @@ def states(board, data):
     return orders.table(data, board[1])
 
 
+@pytest.fixture(scope="module")
+def pages(board, data, states, tmp_path_factory):
+    """The order pages, written once: each found matrix has its rows checked when its page is written."""
+    import skew
+
+    out = tmp_path_factory.mktemp("pages")
+    site_build().write_order_pages(out, states, skew.chosen_entries(states))
+    return out
+
+
 def cells(markup):
     """(class, type, order, state, text) of every order cell in a piece of HTML."""
     return re.findall(
@@ -249,7 +259,7 @@ def test_found_matrix_is_the_array_of_its_rows(data):
     assert all(row[36 * j % v] == row[j] for row in rows for j in range(v))
 
 
-def test_order_3352_is_the_eight_block_array_of_its_rows(board, data, states, tmp_path):
+def test_order_3352_is_the_eight_block_array_of_its_rows(board, data, states, tmp_path, pages):
     """The found matrix of order 3352 has no stored file: it is the 8-Williamson array of the rows of its record."""
     import hashlib
 
@@ -296,8 +306,7 @@ def test_order_3352_is_the_eight_block_array_of_its_rows(board, data, states, tm
     assert [line[0] for line in rows] == list("+----+++")
     # The arithmetic of the note.
     assert (3351, 1675, 837, 3352) == (3 * 1117, 5**2 * 67, 3**3 * 31, 2**3 * 419)
-    module = site_build()
-    module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
+    tmp_path = pages
     page = (tmp_path / "orders/skew-3352.html").read_text()
     seen = visible(page)
     assert "Order 3352 is above the range of the board, which has a row for every order up to 1200" in seen
@@ -376,6 +385,10 @@ BORDERED = {
     2360: ([19, 31], [16, 20], 45, 16),
     2696: ([673], [600], 21, 32),
     7496: ([1873], [491], 39, 48),
+    9672: ([2417], [1131], 151, 16),
+    10376: ([2593], [483], 81, 32),
+    10440: ([2609], [2525], 163, 16),
+    12360: ([3089], [1677], 193, 16),
     5336: ([31, 43], [18, 17], 105, 16),
 }
 
@@ -485,6 +498,9 @@ def test_bordered_matrix_is_the_array_of_the_sources(data, order):
     identity = np.eye(order, dtype=np.float32)
     assert np.array_equal(h + h.T, 2 * identity)
     assert np.array_equal(h @ h.T, order * identity)
+    if not skew.checked_in_build(order):
+        # The build compares the sha256 only at this order; this is its exact check.
+        assert skew.check_skew_text(text) == order
     # What the record says of the rows.
     assert x["row_sums"] == [1, 1, 1, 1] == rows.sum(axis=1).tolist()
     found = skew.multiplier_orbits(moduli, generator)
@@ -793,7 +809,7 @@ def autocorrelation_sum(rows, shifts, w):
     return [sum(v[z] * v[(z + s) % w] for v in values for z in range(w)) for s in shifts]
 
 
-def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data, states, tmp_path):
+def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data, states, tmp_path, pages):
     """The record of order 2696 names the map z -> 58z, which carries the first two rows to the other two."""
     from test_site import visible
 
@@ -802,7 +818,7 @@ def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data,
     records = bordered_records(data)
     x, w = records[2696], 673
     assert x["tie"] == {"multiplier": [58], "chains": [[1, 3], [2, 4]]}
-    assert [o for o, r in records.items() if "tie" in r] == [2696, 7496]
+    assert [o for o, r in records.items() if "tie" in r] == [2696, 7496, 10376]
     a, b, c, d = x["rows"]
     assert 58 * 58 % w == w - 1 and skew.tie_classes(x) == 8
     assert all(c[58 * z % w] == a[z] and d[58 * z % w] == b[z] for z in range(w))
@@ -832,8 +848,7 @@ def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data,
         with pytest.raises(ValueError, match=message):
             skew.stored_text(x | change, check=False)
     assert w - 58 == 615
-    module = site_build()
-    module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
+    tmp_path = pages
     seen = visible((tmp_path / "orders/skew-2696.html").read_text())
     assert "The rows are tied by the map σ: z ↦ 58z of G." in seen
     assert "a row x carried by σ is the row y with y(σ(z)) = x(z) for every z in G" in seen
@@ -852,7 +867,7 @@ def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data,
     assert "Order 5392 is also twice 2696: doubling the matrix of order 2696" in other
 
 
-def test_order_7496_ties_the_third_and_fourth_rows_to_the_second(board, data, states, tmp_path):
+def test_order_7496_ties_the_third_and_fourth_rows_to_the_second(board, data, states, tmp_path, pages):
     """The record of order 7496 names the map z -> 1823z, which fixes the first row and carries the second on."""
     from test_site import visible
 
@@ -893,8 +908,7 @@ def test_order_7496_ties_the_third_and_fourth_rows_to_the_second(board, data, st
     # A chain that closes on the rows needs its power of the multiplier among the multipliers of the rows.
     with pytest.raises(ValueError, match="to the power 3 is not a multiplier of the rows"):
         skew.tie_classes(x | {"multiplier": {"generator": [1], "order": 1}})
-    module = site_build()
-    module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
+    tmp_path = pages
     seen = visible((tmp_path / "orders/skew-7496.html").read_text())
     assert "The rows are tied by the map σ: z ↦ 1823z of G." in seen
     assert (
@@ -918,6 +932,72 @@ def test_order_7496_ties_the_third_and_fourth_rows_to_the_second(board, data, st
     # Its first row read backwards gives the other solution of the pair, with the same other rows.
     twin = [a[0] + a[:0:-1], b, c, d]
     assert twin[0] != a and set(autocorrelation_sum(twin, shifts, w)) == {-4}
+
+
+# Orders above the range of the table of least known orders, with the prime q = n/4 - 1, the odd part,
+# the factors of n - 1 and of n/2 - 1, and the number of solutions of the complete search.
+ABOVE_TABLE = {
+    9672: (2417, 1209, (19, 509), (5, 967), 768),
+    10376: (2593, 1297, (5, 5, 5, 83), (3, 7, 13, 19), 128),
+    10440: (2609, 1305, (11, 13, 73), (17, 307), 768),
+    12360: (3089, 1545, (17, 727), (37, 167), 384),
+}
+
+
+def test_orders_above_the_table_say_how_weak_the_literature_check_is(board, data, states, tmp_path, pages):
+    """The four orders whose odd part is above 999: the rows, the arithmetic of their notes and the page wording."""
+    import math
+
+    from test_site import visible
+
+    import skew
+
+    records = bordered_records(data)
+    tmp_path = pages
+    for order, (q, odd, first, second, solutions) in ABOVE_TABLE.items():
+        x = records[order]
+        assert x["group"] == [q] and order == 4 * (q + 1) == 8 * odd and odd > 999 and odd % 2 == 1
+        assert all(q % p for p in range(2, 60)) and q % 16 == 1
+        assert math.prod(first) == order - 1 and math.prod(second) == order // 2 - 1
+        assert len(set(first)) > 1 and len(set(second)) > 1
+        g, h = x["multiplier"]["generator"][0], x["multiplier"]["order"]
+        fixing = {pow(g, k, q) for k in range(h)}
+        assert len(fixing) == h and all(row[t * z % q] == row[z] for row in x["rows"] for t in (g,) for z in range(q))
+        page = (tmp_path / f"orders/skew-{order}.html").read_text()
+        seen = visible(page)
+        if order == 10376:
+            # 32 classes, and the first two rows carried to the other two by 918, whose square is -1.
+            assert (q - 1) // h == 32 and q % 32 == 1 and 918 * 918 % q == q - 1
+            assert x["tie"] == {"multiplier": [918], "chains": [[1, 3], [2, 4]]} and skew.tie_classes(x) == 8
+            assert carried_by(x["rows"][0], 918, q) == x["rows"][2] and carried_by(x["rows"][1], 918, q) == x["rows"][3]
+            assert "The rows are tied by the map σ: z ↦ 918z of G." in seen and "there are 8 such sets" in seen
+            assert "all 65,536 rows of skew type and all 601,080,390 rows of sum 1" in seen
+            assert "2593 is congruent to 1 modulo 32" in seen
+        else:
+            # The orbits are the 16 classes of sixteenth powers, and q is congruent to 17 modulo 32.
+            assert fixing == {pow(z, 16, q) for z in range(1, q)} and (q - 1) // h == 16 and q % 32 == 17
+            assert "tie" not in x and "tied by the map" not in seen
+            assert f"the 16 classes of sixteenth powers in the field of {q} elements" in seen
+            assert "256 rows, and every such row of sum 1, 12,870 rows" in seen
+            assert f"{q} is such a prime; it is not one of those four" in seen
+            assert "the method used here is the one it describes" in seen
+        assert f"gives {solutions} solutions" in seen or f"It found {solutions} solutions" in seen
+        assert "The check is weaker than for the smaller orders on this board" in seen
+        assert f"{order} = 2³ × {odd}" in seen and "stops at m = 999" in seen
+        assert "no table of known skew-Hadamard orders that we read covers this odd part at this order" in seen
+        assert f"lists v = {odd} as undecided" in seen and f"nor its half {order // 2}" in seen
+        assert f"{q} is a prime congruent to 1 modulo 16" in seen
+        assert "A web search for the order found nothing." in seen
+        assert "This check is not a proof that no published construction applies." in seen
+        assert "The result has not been reviewed." in seen and "does not claim priority" in seen
+        for key in ("djokovic2025census", "kline2026skew", "kishan2026skew", "cati2024database"):
+            assert f'href="../references.html#ref-{key}"' in page, key
+        assert not skew.has_download(order) and skew.checked_in_build(order) == (order != 12360)
+        assert ("a separate test of the repository runs it and the build does not" in seen) == (order == 12360)
+        assert ("leaves the exact check" in seen) == (order == 12360)
+    # None of the primes is one that the release cited for the method treats or selects.
+    assert not {q for q, *_ in ABOVE_TABLE.values()} & {1009, 1297, 1489, 1553, 17, 113, 881, 2129, 2801, 3217}
+    assert "lists v = 937 as undecided" in visible((tmp_path / "orders/skew-7496.html").read_text())
 
 
 def test_order_5392_is_the_bordered_eight_block_array_of_its_rows(data):
@@ -961,13 +1041,10 @@ def test_order_5392_is_the_bordered_eight_block_array_of_its_rows(data):
     assert (5391, 2695, 1347, 5392) == (9 * 599, 5 * 7**2 * 11, 3 * 449, 2**4 * 337)
 
 
-def test_page_of_order_5392_says_the_array_is_not_from_a_published_source(board, data, states, tmp_path):
+def test_page_of_order_5392_says_the_array_is_not_from_a_published_source(board, data, states, tmp_path, pages):
     from test_site import SLUGS, visible
 
-    import skew
-
-    module = site_build()
-    module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
+    tmp_path = pages
     page = (tmp_path / "orders/skew-5392.html").read_text()
     seen = visible(page)
     assert "Order 5392 is above the range of the board, which has a row for every order up to 1200" in seen
@@ -1474,13 +1551,12 @@ def test_every_written_matrix_is_skew_hadamard(board, data, states, tmp_path):
             assert states[order]["skew-hadamard"]["state"] == "verified"
 
 
-def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tmp_path):
+def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tmp_path, pages):
     import skew
 
-    module = site_build()
-    module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
+    tmp_path = pages
     written = {int(p.stem.removeprefix("skew-")) for p in (tmp_path / "orders").iterdir()}
-    assert written == {4 * n for n in range(2, 301, 2)} | set(BORDERED) | {3352, 5392} and len(written) == 158
+    assert written == {4 * n for n in range(2, 301, 2)} | set(BORDERED) | {3352, 5392} and len(written) == 162
     is_open = set(data["types"]["skew-hadamard"]["open"])
     for order in sorted(written):
         page = (tmp_path / f"orders/skew-{order}.html").read_text()
@@ -1490,6 +1566,7 @@ def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tm
         assert (f'href="../matrices/skew-{order}-rows.txt" download' in page) == (not skew.has_download(order)), order
         assert 'href="../style.css"' in page and "—" not in page
     # The pages of the covered rows are the board cells, which carry the same block.
+    module = site_build()
     d, r, b = board
     cell = next(c for c in summary(d, r, b)["cells"] if (c["n"], c["stratum"]) == (85, "skew-sds"))
     block, _ = skew.matrix_block(data, 340, states[340]["skew-hadamard"], module.STORED, {}, Bibliography())
@@ -1497,13 +1574,12 @@ def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tm
     assert "Matrix of order" not in module.cell_page(cell, d, r)
 
 
-def test_pages_of_orders_above_the_range_describe_the_bordered_array(board, data, states, tmp_path):
+def test_pages_of_orders_above_the_range_describe_the_bordered_array(board, data, states, tmp_path, pages):
     from test_site import SLUGS, visible
 
     import skew
 
-    module = site_build()
-    module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
+    tmp_path = pages
     records = bordered_records(data)
     for order, (moduli, _, size, orbits) in BORDERED.items():
         page = (tmp_path / f"orders/skew-{order}.html").read_text()
@@ -1526,7 +1602,8 @@ def test_pages_of_orders_above_the_range_describe_the_bordered_array(board, data
         assert all(line in page for line in records[order]["rows"])
         assert "The repository holds the four rows and the sha256 of the matrix file, not the file" in text
         assert "The result has not been reviewed." in text and "does not claim priority" in text
-        assert f"on 2026-11-25 found no earlier skew-Hadamard matrix of order {order}" in text
+        day = "2026-11-26" if order > 9000 else "2026-11-25"
+        assert f"on {day} found no earlier skew-Hadamard matrix of order {order}" in text
         assert (f'href="../matrices/skew-{order}.txt" download' in page) == skew.has_download(order)
         assert "<h2>References</h2>" in page
         if not skew.has_download(order):
@@ -1538,7 +1615,7 @@ def test_pages_of_orders_above_the_range_describe_the_bordered_array(board, data
         for key in ("wallis1972some", "momihara2019constructions", "cati2024database", "kishan2026skew"):
             assert f'href="../references.html#ref-{key}"' in page, key
         # The survey was among the sources read for the first four orders.
-        assert ('href="../references.html#ref-egan2026recent"' in page) == (order not in (2696, 7496))
+        assert ('href="../references.html#ref-egan2026recent"' in page) == (order < 2696 or order == 5336)
         # Plain language: no schema value, no marker left unresolved, no priority wording.
         assert not re.search(SLUGS, text), re.search(SLUGS, text).group(0)
         assert "—" not in text and "[@" not in text and "to our knowledge" not in text

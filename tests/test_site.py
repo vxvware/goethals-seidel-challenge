@@ -100,7 +100,8 @@ def test_found_matrix_is_listed_among_the_existence_results(board):
     stats = summary(d, r, b)
     found = [x for x in module.existence_results(stats, r) if x["kind"] == "matrix"]
     assert [x["text"] for x in found] == [
-        f"A skew-Hadamard matrix of order {order}." for order in (808, 1416, 1712, 2360, 2696, 3352, 5336, 5392, 7496)
+        f"A skew-Hadamard matrix of order {order}."
+        for order in (808, 1416, 1712, 2360, 2696, 3352, 5336, 5392, 7496, 9672, 10376, 10440, 12360)
     ]
     item = found[0]
     assert item["qualifier"] is None
