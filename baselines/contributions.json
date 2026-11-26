@@ -249,7 +249,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Unconfirmed: one GPU search at n=73 in September 2026 found no best matrices. The board does not treat this as established and the cell stays open. An audit found a rounding bug that had dropped one admissible class (since searched, empty), and the run records of 104,500 of about 11.2 million classes are missing. If the result holds, 73 would be a counterexample to the best matrix conjecture; order 73 was left open in [@bright2019best].",
+      "summary": "Unconfirmed: one GPU search at n=73 in September 2026 found no best matrices. The board does not treat this as established and the cell stays open. An audit found a rounding bug that had dropped one admissible class (since searched, empty), and the run records of 104,500 of about 11.2 million classes are missing. An independent census with a different program is running. If the result holds, 73 would be a counterexample to the best matrix conjecture; order 73 was left open in [@bright2019best].",
       "entry_ids": [
         "best-n73-campaign"
       ],
