@@ -127,7 +127,7 @@ def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
     (group,) = (g for g in stats["contributions"] if g["id"] == "propus-pool-join-65")
     (ident,) = group["entry_ids"]
     (item,) = (x for x in module.existence_results(stats, r) if x["kind"] == "propus")
-    assert item["text"] == "A symmetric Hadamard matrix of order 260."
+    assert item["text"] == "Propus matrices of order 65: at least 1 class."
     html = module.new_results_section(stats, r)
     assert f'<a href="entries/{ident}.html">{item["text"]}</a>' in html
     assert "first" not in html.lower()
@@ -201,10 +201,10 @@ def test_twisted_results_are_worded_linked_and_placed_after_the_skew_lines(board
     first = min(i for i, kind in enumerate(kinds) if kind in module.SYMMETRIC_KINDS)
     assert all(kind in module.SYMMETRIC_KINDS for kind in kinds[first:])
     assert [x["text"] for x in items[first:]] == [
-        "A symmetric Hadamard matrix of order 260.",
         "A symmetric Hadamard matrix of order 988.",
         "A symmetric Hadamard matrix of order 1036.",
         "A symmetric Hadamard matrix of order 1068.",
+        "Propus matrices of order 65: at least 1 class.",
     ]
     html = module.new_results_section(stats, r)
     for order, (ident, *_) in TWISTED.items():

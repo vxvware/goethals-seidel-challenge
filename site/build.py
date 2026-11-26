@@ -464,7 +464,8 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
             item |= {
                 "n": n,
                 "stratum": "general",
-                "text": f"A symmetric Hadamard matrix of order {4 * n}.",
+                # Order 260 was known before by another construction: what is new is the propus family at n.
+                "text": f"Propus matrices of order {n}: at least 1 class.",
                 # The entry page carries the propus array and the matrix file.
                 "href": f"entries/{entries[0]['id']}.html",
             }
@@ -495,7 +496,11 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
     # The skew-Hadamard results stand together, in order of the matrix order; the symmetric ones follow, in
     # order of the matrix order.
     skew_items = [x for x in items if x["kind"] not in SYMMETRIC_KINDS] + matrix_results()
-    return skew_items + sorted((x for x in items if x["kind"] in SYMMETRIC_KINDS), key=lambda x: x["n"])
+    # The propus family is a class count, so it follows the matrix lines and leads the counts.
+    symmetric = sorted(
+        (x for x in items if x["kind"] in SYMMETRIC_KINDS and x["kind"] != "propus"), key=lambda x: x["n"]
+    )
+    return skew_items + symmetric + [x for x in items if x["kind"] == "propus"]
 
 
 def matrix_results() -> list[JSONObject]:
