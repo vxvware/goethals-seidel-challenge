@@ -99,16 +99,20 @@ def test_found_matrix_is_listed_among_the_existence_results(board):
     d, r, b = board
     stats = summary(d, r, b)
     found = [x for x in module.existence_results(stats, r) if x["kind"] == "matrix"]
-    assert [x["text"] for x in found] == [
-        f"A skew-Hadamard matrix of order {order}."
-        for order in sorted(o for o, x in module.STORED.items() if x["origin"] == "found")
-    ]
-    listed = [x["href"] for x in found]
-    assert listed[:14] == [
-        f"orders/skew-{order}.html"
-        for order in (808, 856, 1416, 1712, 2360, 2696, 3352, 5336, 5392, 7496, 9672, 10376, 10440, 12360)
-    ]
-    assert {f"orders/skew-{order}.html" for order in (14792, 16712, 17096, 18248, 18632, 20936, 22088)} <= set(listed)
+    # An order whose odd part is below 1000 has a line of its own.
+    stored = sorted(o for o, x in module.STORED.items() if x["origin"] == "found")
+    small = [o for o in stored if module.odd_part(o) <= 999]
+    assert small == [808, 856, 1416, 1712, 2360, 2696, 3352, 5336, 5392, 7496]
+    assert [x["text"] for x in found] == [f"A skew-Hadamard matrix of order {order}." for order in small]
+    assert [x["href"] for x in found] == [f"orders/skew-{order}.html" for order in small]
+    # The others share one line, in which each order is the link to its page.
+    large = [o for o in stored if module.odd_part(o) > 999]
+    assert large[:4] == [9672, 10376, 10440, 12360] and large[-1] == max(stored) and len(large) >= 14
+    assert [module.odd_part(o) for o in large[:4]] == [1209, 1297, 1305, 1545]
+    (line,) = (x for x in module.existence_results(stats, r) if x["kind"] == "matrices")
+    assert list(line["links"]) == large and line["links"][9672] == "orders/skew-9672.html"
+    assert line["text"].startswith("Skew-Hadamard matrices of orders 9672, 10376, 10440, 12360, 14792, 15176, ")
+    assert line["text"].endswith(f"{large[-2]} and {large[-1]}.") and line["qualifier"] is None
     item = found[0]
     assert item["qualifier"] is None
     assert (item["n"], item["href"]) == (202, "orders/skew-808.html")
@@ -116,8 +120,12 @@ def test_found_matrix_is_listed_among_the_existence_results(board):
     assert '<a href="orders/skew-808.html">A skew-Hadamard matrix of order 808.</a>' in html
     assert "did not find in the sources it read" in html and "does not claim priority" in html
     assert "first" not in html.lower() and "1616" not in html
-    # Every found order has a line of its own, and the skew-Hadamard lines stand together before the others.
     assert '<a href="orders/skew-5392.html">A skew-Hadamard matrix of order 5392.</a>' in html
+    anchors = [f'<a href="orders/skew-{o}.html">{o}</a>' for o in large]
+    assert f"<li>Skew-Hadamard matrices of orders {', '.join(anchors[:-1])} and {anchors[-1]}.</li>" in html
+    assert "A skew-Hadamard matrix of order 9672." not in html and html.count("orders/skew-28232.html") == 1
+    # The shared line follows the line of 7496 and the skew-Hadamard lines stand together before the others.
+    assert html.index("order 7496.") < html.index("Skew-Hadamard matrices of orders") < html.index("symmetric Hadamard")
     kinds = [x["kind"] for x in module.existence_results(stats, r)]
     symmetric = [i for i, kind in enumerate(kinds) if kind in module.SYMMETRIC_KINDS]
     assert symmetric == list(range(len(kinds) - len(symmetric), len(kinds)))
@@ -139,7 +147,7 @@ def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
     assert module.propus_entries(stats) == {ident}
     stats["contributions"] = [g | {"featured": False} for g in stats["contributions"]]
     # A stored matrix found for this board belongs to no contribution, so it has no featured switch.
-    assert {x["kind"] for x in module.existence_results(stats, r)} == {"matrix"}
+    assert {x["kind"] for x in module.existence_results(stats, r)} == {"matrix", "matrices"}
     assert module.propus_entries(stats) == {ident}
 
 
