@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import orders
 import propus
 import skew
+import twisted
 from references import Bibliography
 from verify import catalogue
 from verify.board import load, summary
@@ -415,7 +416,10 @@ CONTRADICTION_NOTES = {
 # a skew-Hadamard matrix. A propus result is one quadruple with a symmetric
 # block and two equal blocks, whose propus array (site/propus.py) is a
 # symmetric Hadamard matrix; neither the Hadamard nor the skew-Hadamard order
-# is new there, so the grid does not mark it. An item is shown only while its
+# is new there, so the grid does not mark it. A twisted result is one quadruple
+# whose rows are tied by a multiplier s with s² = 1 other than 1 and −1, whose
+# array (site/twisted.py) is a symmetric Hadamard matrix; the grid does not
+# mark it either. An item is shown only while its
 # contribution is marked featured in baselines/contributions.json, which is the
 # maintainer's decision. A stored matrix of origin found
 # (baselines/skew-matrices.json) is an existence result too: it is not a board
@@ -425,7 +429,12 @@ CONTRADICTION_NOTES = {
 NEW_EXISTENCE = {
     "skew-pool-join-89": ("skew", "2026-11-22"),
     "propus-pool-join-65": ("propus", "2026-11-24"),
+    "symmetric-twisted-247": ("twisted", "2026-11-25"),
+    "symmetric-twisted-259": ("twisted", "2026-11-25"),
+    "symmetric-twisted-267": ("twisted", "2026-11-25"),
 }
+# The kinds whose result is a symmetric Hadamard matrix shown on the entry page of one quadruple.
+SYMMETRIC_KINDS = ("propus", "twisted")
 NEW_RESULT_GROUPS = (
     ("correction", "Contradicts a published result"),
     ("classification", "Classifications"),
@@ -456,6 +465,17 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
                 # The entry page carries the propus array and the matrix file.
                 "href": f"entries/{entries[0]['id']}.html",
             }
+        elif kind == "twisted":
+            if len(entries) != 1 or entries[0]["type"] != "quadruple" or not twisted.shape(display_rows(entries[0])[0]):
+                raise ValueError(f"existence result is not one quadruple tied by a multiplier: {ident}")
+            n = entries[0]["n"]
+            item |= {
+                "n": n,
+                "stratum": "general",
+                "text": f"A symmetric Hadamard matrix of order {4 * n}.",
+                # The entry page carries the array, the argument for it and the matrix file.
+                "href": f"entries/{entries[0]['id']}.html",
+            }
         else:
             orders = {x["n"] for x in entries}
             if len(orders) != 1 or any(x["type"] != "quadruple" or "skew-sds" not in x["tracks"] for x in entries):
@@ -469,9 +489,10 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
             text = f"A skew-Hadamard matrix of order {4 * n}."
             item |= {"n": n, "stratum": "skew-sds", "text": text, "double": double}
         items.append(item)
-    # The skew-Hadamard results stand together, in order of the matrix order; the others follow.
-    skew_items = [x for x in items if x["kind"] != "propus"] + matrix_results()
-    return skew_items + [x for x in items if x["kind"] == "propus"]
+    # The skew-Hadamard results stand together, in order of the matrix order; the symmetric ones follow, in
+    # order of the matrix order.
+    skew_items = [x for x in items if x["kind"] not in SYMMETRIC_KINDS] + matrix_results()
+    return skew_items + sorted((x for x in items if x["kind"] in SYMMETRIC_KINDS), key=lambda x: x["n"])
 
 
 def matrix_results() -> list[JSONObject]:
@@ -493,8 +514,13 @@ def matrix_results() -> list[JSONObject]:
 
 def propus_entries(stats: JSONObject) -> set[str]:
     """The entries of the propus existence results, featured or not: their pages carry the propus array."""
+    return symmetric_entries(stats, "propus")
+
+
+def symmetric_entries(stats: JSONObject, wanted: str) -> set[str]:
+    """The entries of the existence results of one symmetric kind, featured or not: their pages carry the array."""
     kinds = {ident: kind for ident, (kind, _) in NEW_EXISTENCE.items()}
-    return {e for g in stats["contributions"] if kinds.get(g["id"]) == "propus" for e in g["entry_ids"]}
+    return {e for g in stats["contributions"] if kinds.get(g["id"]) == wanted for e in g["entry_ids"]}
 
 
 def new_cells(stats: JSONObject, r: Results) -> set[tuple[str, int]]:
@@ -1202,6 +1228,21 @@ def write_propus_matrices(out: Path, idents: Iterable[str], r: Results) -> None:
         (out / propus.file_name(ident)).write_text(text)
 
 
+def write_twisted_matrices(out: Path, idents: Iterable[str], r: Results) -> None:
+    """Write the symmetric array of each listed entry, a quadruple tied by a multiplier, as a matrix file.
+
+    Call it after write_skew_matrices, which empties the folder. The matrix is
+    rebuilt from the rows and checked exactly to be a symmetric Hadamard matrix
+    before it is written; a failure raises ValueError and stops the build.
+    """
+    for ident in sorted(idents):
+        try:
+            text = twisted.matrix_file(display_rows(r[ident])[0])
+        except ValueError as error:
+            raise ValueError(f"the array of {ident} is not a symmetric Hadamard matrix: {error}") from error
+        (out / twisted.file_name(ident)).write_text(text)
+
+
 def write_order_pages(out: Path, states: orders.OrderStates, chosen: dict[int, str]) -> None:
     """Write the page of every skew-Hadamard order without a board cell for a skew block.
 
@@ -1266,6 +1307,7 @@ def build(quick: bool = False) -> JSONObject:
 <script src="app.js" defer></script><script src="picture.js" defer></script><script src="hero.js" defer></script>"""  # noqa: E501
     (out / "index.html").write_text(shell("The board", body, head=MATH_HEAD))
     with_propus = propus_entries(stats)
+    with_twisted = symmetric_entries(stats, "twisted")
     for ident, doc in d.items():
         result = r[ident]
         sources = "".join(source_item(s, "../") for s in doc["sources"])
@@ -1286,6 +1328,8 @@ def build(quick: bool = False) -> JSONObject:
         if doc["type"] == "quadruple":
             tag = tier_label(tag, rows=True)
             symmetric = propus.block(ident, *display_rows(result), BIB)[0] if ident in with_propus else ""
+            if ident in with_twisted:
+                symmetric = twisted.block(ident, display_rows(result)[0], BIB)[0]
             picture = (
                 f"{rows_block(doc, result)}{symmetric}"
                 f'<section class="picture"><h2>Picture</h2>{PICTURE_KEY}'
@@ -1333,6 +1377,7 @@ def build(quick: bool = False) -> JSONObject:
     states = orders.table(ORDERS, r, STORED)
     chosen = write_skew_matrices(out, states, r, quick)
     write_propus_matrices(out, with_propus, r)
+    write_twisted_matrices(out, with_twisted, r)
     write_order_pages(out, states, chosen)
     # Files of the page this build no longer writes.
     for name in ("skew.html", "skew.js"):

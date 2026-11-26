@@ -112,7 +112,8 @@ def test_found_matrix_is_listed_among_the_existence_results(board):
     # Every found order has a line of its own, and the skew-Hadamard lines stand together before the others.
     assert '<a href="orders/skew-5392.html">A skew-Hadamard matrix of order 5392.</a>' in html
     kinds = [x["kind"] for x in module.existence_results(stats, r)]
-    assert "propus" not in kinds or kinds.index("propus") == len(kinds) - 1
+    symmetric = [i for i, kind in enumerate(kinds) if kind in module.SYMMETRIC_KINDS]
+    assert symmetric == list(range(len(kinds) - len(symmetric), len(kinds)))
 
 
 def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
@@ -175,6 +176,189 @@ def test_propus_array_is_symmetric_hadamard_and_the_goethals_seidel_array_is_not
     page, keys = propus.block("n65-9bf801f0de9e2d01c459", rows, pattern, Bibliography())
     assert "row A is symmetric and rows B and C are equal" in page and "not symmetric" in page
     assert "matrices/propus-n65-9bf801f0de9e2d01c459.txt" in page and keys == set(propus.ARRAY_SOURCES)
+
+
+# The quadruples whose rows are tied by a multiplier s with s² = 1, by matrix order: the entry, s, the two
+# coprime factors of n on which s is 1 and −1, and the number of multipliers that fix all four rows.
+TWISTED = {
+    988: ("n247-308b784a56a0a484fe03", 170, (13, 19), 9),
+    1036: ("n259-89a912c3ec591210d016", 36, (7, 37), 9),
+    1068: ("n267-53011cacf3f3fb5b6b64", 179, (89, 3), 11),
+}
+
+
+def test_twisted_results_are_worded_linked_and_placed_after_the_skew_lines(board):
+    module = site_build()
+    d, r, b = board
+    stats = summary(d, r, b)
+    items = module.existence_results(stats, r)
+    kinds = [x["kind"] for x in items]
+    # The skew-Hadamard lines stand together first; the symmetric lines follow in order of the matrix order.
+    first = min(i for i, kind in enumerate(kinds) if kind in module.SYMMETRIC_KINDS)
+    assert all(kind in module.SYMMETRIC_KINDS for kind in kinds[first:])
+    assert [x["text"] for x in items[first:]] == [
+        "A symmetric Hadamard matrix of order 260 from circulant blocks.",
+        "A symmetric Hadamard matrix of order 988.",
+        "A symmetric Hadamard matrix of order 1036.",
+        "A symmetric Hadamard matrix of order 1068.",
+    ]
+    html = module.new_results_section(stats, r)
+    for order, (ident, *_) in TWISTED.items():
+        assert f'<a href="entries/{ident}.html">A symmetric Hadamard matrix of order {order}.</a>' in html
+        # Neither the Hadamard nor the skew-Hadamard order is new, so no cell is marked.
+        assert not any(n == order // 4 for _, n in module.new_cells(stats, r))
+    assert "first" not in html.lower()
+    assert module.symmetric_entries(stats, "twisted") == {ident for ident, *_ in TWISTED.values()}
+    assert module.propus_entries(stats) == {"n65-9bf801f0de9e2d01c459"}
+
+
+def tied_solutions(n, s):
+    """Every (w, y, z) of rows of 1 and −1 of length n with w unchanged by k ↦ −sk, z unchanged by k ↦ sk and
+    the periodic autocorrelations of w, y, k ↦ y(sk) and z adding to zero at every nonzero shift.
+
+    The rows y are found by a table of the autocorrelation of every row, not by the site code.
+    """
+    import itertools
+
+    import numpy as np
+
+    lags = range(1, n // 2 + 1)
+
+    def paf(m):
+        return np.stack([(m * np.roll(m, -r, axis=1)).sum(axis=1) for r in range(n)], axis=1)
+
+    def code(q):
+        # An autocorrelation sum lies between −4n and 4n: one digit in base 8n + 1 for each shift.
+        return sum((q[:, r] + 4 * n) * (8 * n + 1) ** i for i, r in enumerate(lags))
+
+    every = np.array(list(itertools.product((1, -1), repeat=n)), dtype=np.int64)
+    fixed = lambda t: every[(every[:, [t * k % n for k in range(n)]] == every).all(axis=1)]  # noqa: E731
+    p = paf(every)
+    # The autocorrelation of k ↦ y(sk) at r is that of y at sr.
+    pair = code(p + p[:, [s * r % n for r in range(n)]])
+    order = np.argsort(pair, kind="stable")
+    keys = pair[order]
+    ws, zs = fixed(-s % n), fixed(s % n)
+    pw, pz = paf(ws), paf(zs)
+    for i, w in enumerate(ws):
+        want = code(-(pw[i] + pz))
+        lo, hi = np.searchsorted(keys, want, "left"), np.searchsorted(keys, want, "right")
+        for j in np.nonzero(hi > lo)[0]:
+            for k in order[lo[j] : hi[j]]:
+                yield w.tolist(), every[k].tolist(), zs[j].tolist()
+
+
+def test_twisted_array_is_symmetric_hadamard_for_every_choice_of_rows_at_small_lengths():
+    import sys
+
+    import numpy as np
+
+    sys.path.insert(0, str(ROOT / "site"))
+    import propus
+    import twisted
+
+    # Lengths 3 and 5 have only s = 1 and s = −1, which the page never uses and the array still covers:
+    # s = 1 is the propus case. Every choice of rows is checked.
+    for n, s, count in ((3, 1, 96), (3, 2, 96), (5, 1, 400), (5, 4, 400)):
+        found = list(tied_solutions(n, s))
+        assert len(found) == count
+        for w, y, z in found:
+            propus.check_symmetric_hadamard(twisted.array(w, y, z, s))
+    # Length 15 is the smallest with an s other than 1 and −1: s = 4, which is 1 modulo 3 and −1 modulo 5.
+    # The search that found the board's matrices counted 2,649,600 choices of rows there, and 691,200 for
+    # s = 1; this enumeration shares no code with it. Every 5000th choice is checked.
+    assert twisted.involutions(15) == [4, 11] and twisted.involutions(13) == []
+    for s, count in ((4, 2649600), (1, 691200)):
+        total = 0
+        for w, y, z in tied_solutions(15, s):
+            if total % 5000 == 0:
+                h = twisted.array(w, y, z, s)
+                propus.check_symmetric_hadamard(h)
+                if s == 4:
+                    c = twisted.carried(y, s)
+                    assert twisted.shape([w, y, c, z]) is not None
+                    # A shift of w keeps its autocorrelation and loses the symmetry of the matrix, unless
+                    # the shifted row happens to be unchanged by k ↦ −sk as well.
+                    shifted = w[1:] + w[:1]
+                    g = twisted.array(shifted, y, z, s)
+                    assert np.array_equal(np.array(g) @ np.array(g).T, 60 * np.eye(60, dtype=int))
+                    if twisted.carried(shifted, -s) != shifted:
+                        with pytest.raises(ValueError, match="transpose"):
+                            propus.check_symmetric_hadamard(g)
+            total += 1
+        assert total == count
+
+
+def test_twisted_array_of_the_board_entries_rebuilt_a_second_way(board):
+    import sys
+
+    import numpy as np
+
+    sys.path.insert(0, str(ROOT / "site"))
+    import twisted
+    from references import Bibliography
+
+    module = site_build()
+    for order, (ident, s, (m1, m2), multipliers) in TWISTED.items():
+        rows, _ = module.display_rows(board[1][ident])
+        n = len(rows[0])
+        assert 4 * n == order and n == m1 * m2
+        found = twisted.shape(rows)
+        assert found is not None and found[0] == s and sorted(found[1:]) == [0, 1, 2, 3]
+        assert s * s % n == 1 and s % m1 == 1 and s % m2 == m2 - 1
+        w, y, c, z = (np.array(rows[i]) for i in found[1:])
+        k = np.arange(n)
+        assert np.array_equal(w[-s * k % n], w) and np.array_equal(z[s * k % n], z) and np.array_equal(y[s * k % n], c)
+        assert not np.array_equal(y, c)
+        group = twisted.multipliers(rows)
+        assert len(group) == multipliers and all(np.array_equal(x[t * k % n], x) for t in group for x in (w, y, c, z))
+        # The second way: circulant matrices and the two permutation matrices of the page's argument.
+        eye = np.eye(n, dtype=np.int64)
+        big_s, big_n = eye[:, s * k % n], eye[:, -k % n]
+        assert big_s[s * 5 % n, 5] == 1 and big_n[-5 % n, 5] == 1
+        for m in (big_s, big_n):
+            assert np.array_equal(m, m.T) and np.array_equal(m @ m, eye)
+        assert np.array_equal(big_s @ big_n, big_n @ big_s)
+        shift = (k[None, :] - k[:, None]) % n
+        cw, cy, cc, cz = w[shift], y[shift], c[shift], z[shift]
+        for x in (cw, cy, cc, cz):
+            assert np.array_equal(big_n @ x, x.T @ big_n)
+        assert np.array_equal(big_s @ cy @ big_s, cc) and np.array_equal(big_s @ cz @ big_s, cz)
+        assert np.array_equal(big_s @ cw @ big_s, cw.T)
+        nn = big_n
+        q = np.block(
+            [
+                [-cw, cy @ nn, cc @ nn, cz @ nn],
+                [cc @ nn, cz.T @ nn, cw, -cy.T @ nn],
+                [cy @ nn, cw, -cz.T @ nn, cc.T @ nn],
+                [cz @ nn, -cc.T @ nn, cy.T @ nn, cw],
+            ]
+        )
+        scale = order * np.eye(order, dtype=np.int64)
+        assert np.array_equal(q @ q.T, scale)
+        h = q @ np.kron(np.eye(4, dtype=np.int64), big_s)
+        assert np.array_equal(h, np.array(twisted.array(rows[found[1]], rows[found[2]], rows[found[4]], s)))
+        assert np.array_equal(h, h.T) and np.array_equal(h @ h.T, scale) and set(np.unique(h)) == {-1, 1}
+        # The entries of the blocks as the page defines them.
+        i, j = 3, 7
+        assert h[i, j] == -w[(s * j - i) % n] and h[i, n + j] == y[(-s * j - i) % n]
+        assert h[n + i, n + j] == z[(s * j + i) % n]
+        text = twisted.matrix_file(rows)
+        assert text.count("\n") == order and text.splitlines()[0] == "".join("+" if v > 0 else "-" for v in h[0])
+        g = gs_array(rows)
+        assert np.array_equal(g @ g.T, scale) and not np.array_equal(g, g.T)
+        page, keys = twisted.block(ident, rows, Bibliography())
+        names = ["ABCD"[p] for p in found[1:]]
+        assert f"Symmetric Hadamard matrix of order {order}</h2>" in page and f"let s = {s}," in page
+        assert f"Row {names[0]} is unchanged by k ↦ −sk" in page and f"row {names[3]} is unchanged by k ↦ sk" in page
+        assert f"{names[2]}(k) = {names[1]}(sk)" in page
+        assert f"the group Z<sub>{m1}</sub> × Z<sub>{m2}</sub> written with one number in place of two" in page
+        assert f"which has order {multipliers} modulo {n}" in page
+        assert "is not taken from a published source" in page and "ours and has not been reviewed" in page
+        assert "rests on the exact check of the build" in page and "first" not in page.replace("first two rows", "")
+        assert f"matrices/symmetric-{ident}.txt" in page and keys == set(twisted.ARRAY_SOURCES)
+    with pytest.raises(ValueError, match="not tied by a multiplier"):
+        twisted.matrix_file(module.display_rows(board[1]["n65-9bf801f0de9e2d01c459"])[0])
 
 
 def test_restricted_certificate_is_not_labelled_as_a_statement_about_the_cell(board):
