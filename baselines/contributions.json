@@ -767,6 +767,63 @@
       "seed_artifacts": [],
       "featured": true,
       "stratum": "general"
+    },
+    {
+      "id": "symmetric-twisted-247",
+      "title": "A symmetric Hadamard matrix of order 988, from four rows on the cyclic group of order 247",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "Four rows of length 247 that give a symmetric Hadamard matrix of order 988. The rows live on the cyclic group of order 247, which the search wrote as Z_13 × Z_19, pairs (x1, x2) of an integer modulo 13 and an integer modulo 19. In the rows as found, one row is unchanged by the map (x1, x2) ↦ (−x1, x2), one is unchanged by (x1, x2) ↦ (x1, −x2), and the other two are carried to each other by (x1, x2) ↦ (x1, −x2); all four are fixed by a group of 9 multipliers. The symmetric matrix is not the Goethals–Seidel array of the rows. It comes from a variant of the propus array [@seberry2015propus] [@balonin2017construction] in which the two equal blocks of that array are replaced by two different blocks tied by the map above. The variant was worked out for this board on 2026-11-25 and is not taken from a published source; the entry page states it with an argument that has not been reviewed, and the claim rests on the build, which rebuilds the matrix from the rows and checks exactly that it is symmetric and Hadamard. What was read about the order on 2026-11-25: the census [@djokovic2025census], a preprint whose file is dated 28 May 2025, lists v = 247 among the 595 odd v below 2500 for which a symmetric Hadamard matrix of order 4v is undecided. For the series of that census, 2v − 1 = 493 = 17 × 29 and 4v − 1 = 987 = 3 × 7 × 47 are not prime powers, 2v is not of the form 1 + (q + 2)q² or 1 + 5 × 9^k, and v is not a fourth power. The one later paper on new symmetric orders that the search found, [@djokovic2025orthogonal], gives orders q(q + 1), and 988 is not of that form; [@egan2026recent] has no list of symmetric orders. A repository that is not peer reviewed holds symmetric Hadamard matrices of 103 orders, without 988 [@kishan2026symmetric]; its notes report searches for propus families at v = 247, exhaustive within three multiplier groups of order 9, one of them the group that fixes these rows, that found none [@kishan2026exhaustive]. Plain web queries for a symmetric Hadamard matrix of order 988 found nothing. Books, the review databases and pages that are not indexed were not read. The rows were found by an exact join over rows constant on the orbits of the maps above. The run record reports 52,128 solutions, all with row sums 25, 11, 11, 11, among 20 feasible patterns of row sums, in 279 seconds on a laptop; the search is exhaustive for that one choice of maps and says nothing about any other. To our knowledge no symmetric Hadamard matrix of order 988 was known; this reports the search and does not claim priority, and the result has not been reviewed. The verifier checks only the rows, whose Goethals–Seidel array is a Hadamard matrix that is not symmetric.",
+      "entry_ids": [
+        "n247-308b784a56a0a484fe03"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "general"
+    },
+    {
+      "id": "symmetric-twisted-259",
+      "title": "A symmetric Hadamard matrix of order 1036, from four rows on the cyclic group of order 259",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "Four rows of length 259 that give a symmetric Hadamard matrix of order 1036. The rows live on the cyclic group of order 259, which the search wrote as Z_7 × Z_37, pairs (x1, x2) of an integer modulo 7 and an integer modulo 37. In the rows as found, one row is unchanged by the map (x1, x2) ↦ (−x1, x2), one is unchanged by (x1, x2) ↦ (x1, −x2), and the other two are carried to each other by (x1, x2) ↦ (x1, −x2); all four are fixed by a group of 9 multipliers. The symmetric matrix is not the Goethals–Seidel array of the rows. It comes from a variant of the propus array [@seberry2015propus] [@balonin2017construction] in which the two equal blocks of that array are replaced by two different blocks tied by the map above. The variant was worked out for this board on 2026-11-25 and is not taken from a published source; the entry page states it with an argument that has not been reviewed, and the claim rests on the build, which rebuilds the matrix from the rows and checks exactly that it is symmetric and Hadamard. What was read about the order on 2026-11-25: the census [@djokovic2025census], a preprint whose file is dated 28 May 2025, lists v = 259 among the 595 odd v below 2500 for which a symmetric Hadamard matrix of order 4v is undecided. For the series of that census, 2v − 1 = 517 = 11 × 47 and 4v − 1 = 1035 = 3 × 3 × 5 × 23 are not prime powers, 2v is not of the form 1 + (q + 2)q² or 1 + 5 × 9^k, and v is not a fourth power. The one later paper on new symmetric orders that the search found, [@djokovic2025orthogonal], gives orders q(q + 1), and 1036 is not of that form; [@egan2026recent] has no list of symmetric orders. A repository that is not peer reviewed holds symmetric Hadamard matrices of 103 orders, without 1036 [@kishan2026symmetric]; its notes report searches for propus families at v = 259, exhaustive within six multiplier groups of orders 9 and 12, one of them the group that fixes these rows, that found none [@kishan2026exhaustive]. Plain web queries for a symmetric Hadamard matrix of order 1036 found nothing. Books, the review databases and pages that are not indexed were not read. The rows were found by an exact join over rows constant on the orbits of the maps above. The run record reports 90,768 solutions, all with row sums 31, 5, 5, 5, the other feasible pattern having none, in 28 seconds on a laptop; the search is exhaustive for that one choice of maps and says nothing about any other. To our knowledge no symmetric Hadamard matrix of order 1036 was known; this reports the search and does not claim priority, and the result has not been reviewed. The verifier checks only the rows, whose Goethals–Seidel array is a Hadamard matrix that is not symmetric.",
+      "entry_ids": [
+        "n259-89a912c3ec591210d016"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "general"
+    },
+    {
+      "id": "symmetric-twisted-267",
+      "title": "A symmetric Hadamard matrix of order 1068, from four rows on the cyclic group of order 267",
+      "relation": "participant-result",
+      "publication_status": "unpublished",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "summary": "Four rows of length 267 that give a symmetric Hadamard matrix of order 1068. The rows live on the cyclic group of order 267, which the search wrote as Z_3 × Z_89, pairs (x1, x2) of an integer modulo 3 and an integer modulo 89. In the rows as found, one row is unchanged by the map (x1, x2) ↦ (−x1, x2), one is unchanged by (x1, x2) ↦ (x1, −x2), and the other two are carried to each other by (x1, x2) ↦ (x1, −x2); all four are fixed by a group of 11 multipliers. The symmetric matrix is not the Goethals–Seidel array of the rows. It comes from a variant of the propus array [@seberry2015propus] [@balonin2017construction] in which the two equal blocks of that array are replaced by two different blocks tied by the map above. The variant was worked out for this board on 2026-11-25 and is not taken from a published source; the entry page states it with an argument that has not been reviewed, and the claim rests on the build, which rebuilds the matrix from the rows and checks exactly that it is symmetric and Hadamard. What was read about the order on 2026-11-25: the census [@djokovic2025census], a preprint whose file is dated 28 May 2025, lists v = 267 among the 595 odd v below 2500 for which a symmetric Hadamard matrix of order 4v is undecided. For the series of that census, 2v − 1 = 533 = 13 × 41 and 4v − 1 = 1067 = 11 × 97 are not prime powers, 2v is not of the form 1 + (q + 2)q² or 1 + 5 × 9^k, and v is not a fourth power. The one later paper on new symmetric orders that the search found, [@djokovic2025orthogonal], gives orders q(q + 1), and 1068 is not of that form; [@egan2026recent] has no list of symmetric orders. A repository that is not peer reviewed holds symmetric Hadamard matrices of 103 orders, without 1068 [@kishan2026symmetric]; its notes report searches for propus families at v = 267, exhaustive within one multiplier group, of order 11, the group that fixes these rows, that found none [@kishan2026exhaustive]. Plain web queries for a symmetric Hadamard matrix of order 1068 found nothing. Books, the review databases and pages that are not indexed were not read. The rows were found by an exact join over rows constant on the orbits of the maps above. The run record reports 14,400 solutions with row sums 1, 23, 23, 3 and 33,120 with row sums 3, 23, 23, 1, the two feasible patterns, in 21 seconds on a laptop; the search is exhaustive for that one choice of maps and says nothing about any other. To our knowledge no symmetric Hadamard matrix of order 1068 was known; this reports the search and does not claim priority, and the result has not been reviewed. The verifier checks only the rows, whose Goethals–Seidel array is a Hadamard matrix that is not symmetric.",
+      "entry_ids": [
+        "n267-53011cacf3f3fb5b6b64"
+      ],
+      "seed_artifacts": [],
+      "featured": false,
+      "stratum": "general"
     }
   ]
 }
