@@ -447,16 +447,16 @@ TYPE_ORDER = ["Skew-Hadamard", "Symmetric Hadamard", "Propus", "Good", "G-matric
 # published result a row contradicts.
 NEW_RESULT_BEFORE = {
     ("Skew-Hadamard", 356): "open, the smallest open order",
-    ("Skew-Hadamard", 808): "open; smallest known 103424 (2¹⁰ × 101)",
-    ("Skew-Hadamard", 856): "open; smallest known 109568 (2¹⁰ × 107)",
-    ("Skew-Hadamard", 1416): "smallest known 2832 (2⁴ × 177)",
-    ("Skew-Hadamard", 1712): "smallest known 109568 (2¹⁰ × 107)",
-    ("Skew-Hadamard", 2360): "smallest known 4720 (2⁴ × 295)",
-    ("Skew-Hadamard", 2696): "smallest known 88342528 (2¹⁸ × 337)",
-    ("Skew-Hadamard", 3352): "smallest known 6704 (2⁴ × 419)",
-    ("Skew-Hadamard", 5336): "smallest known 42688 (2⁶ × 667)",
-    ("Skew-Hadamard", 5392): "smallest known 88342528 (2¹⁸ × 337)",
-    ("Skew-Hadamard", 7496): "smallest known 29984 (2⁵ × 937)",
+    ("Skew-Hadamard", 808): "open",
+    ("Skew-Hadamard", 856): "open",
+    ("Skew-Hadamard", 1416): "smallest known: 2⁴ × 177",
+    ("Skew-Hadamard", 1712): "smallest known: 2¹⁰ × 107",
+    ("Skew-Hadamard", 2360): "smallest known: 2⁴ × 295",
+    ("Skew-Hadamard", 2696): "smallest known: 2¹⁸ × 337",
+    ("Skew-Hadamard", 3352): "smallest known: 2⁴ × 419",
+    ("Skew-Hadamard", 5336): "smallest known: 2⁶ × 667",
+    ("Skew-Hadamard", 5392): "smallest known: 2¹⁸ × 337",
+    ("Skew-Hadamard", 7496): "smallest known: 2⁵ × 937",
     **{
         ("Skew-Hadamard", order): "no table covers this order"
         for order in (9672, 10376, 10440, 12360, 14792, 15176, 16712, 17096, 18248, 18632, 20936, 22088, 25928, 28232)
