@@ -44,6 +44,16 @@
       "version": "Australasian Journal of Combinatorics 41 (2008), pages 235 to 248, the PDF on the journal's site",
       "read": "Read in full. It gives the 8-Williamson array and the conditions on its eight rows, one of skew type and seven symmetric, and lists searches with this array for rows of length 3 to 15, which give matrices of orders up to 120. It has no matrix of order 808."
     },
+    "wallis1972some": {
+      "as_of": "2026-11-25",
+      "version": "Bulletin of the Australian Mathematical Society 7 (1972), pages 233 to 249, the publisher's PDF",
+      "read": "The definition of type 1 and type 2 matrices and the theorem on the bordered array of four supplementary difference sets in an abelian group of odd order, which gives skew-Hadamard matrices of order 4(v + 1). It has no matrix of order 856."
+    },
+    "momihara2019constructions": {
+      "as_of": "2026-11-25",
+      "version": "arXiv version 2 of the paper, in its TeX source; the journal's text was not read",
+      "read": "The statement of the bordered array for a difference family with four blocks, and the corollaries that give matrices for two blocks when q is congruent to 5 modulo 8 and for four blocks when q is congruent to 9 modulo 16. It has no matrix of order 856."
+    },
     "kishan2026skew": {
       "as_of": "2026-11-06",
       "version": "Repository commit d885022144ba6bf4efa8315e14871a3736947527, not peer reviewed",
@@ -106,6 +116,13 @@
           "note": "A matrix from the 8-Williamson array of [@kotsireas2008new] with eight rows of length 101, found on 2026-11-25 by a search run for this board; it is not a board quadruple, and baselines/skew-matrices.json holds it with its rows. A search of the sources named in this file on 2026-11-25 found no earlier skew-Hadamard matrix of order 808; this reports the search and does not claim priority, and the result has not been reviewed."
         },
         {
+          "orders": [856],
+          "status": "found",
+          "date": "2026-11-26",
+          "sources": ["wallis1972some", "momihara2019constructions"],
+          "note": "A matrix from the bordered array of [@wallis1972some], as [@momihara2019constructions] states it, with four rows on the integers modulo 213, found on 2026-11-26 by a search run for this board; it is not a board quadruple, and baselines/skew-matrices.json holds it with its rows. A search of the sources named in the note of that record on 2026-11-26 found no earlier skew-Hadamard matrix of order 856; this reports the search and does not claim priority, and the result has not been reviewed."
+        },
+        {
           "orders": [712, 952],
           "status": "reported",
           "date": "2026-11-22",
@@ -115,8 +132,8 @@
         }
       ],
       "open": [
-        404, 428, 596, 612, 668, 708, 716, 764, 772, 804, 856, 892, 900, 916, 932, 940, 1028, 1060,
-        1076, 1108, 1132, 1156, 1180, 1192, 1196
+        404, 428, 596, 612, 668, 708, 716, 764, 772, 804, 892, 900, 916, 932, 940, 1028, 1060, 1076,
+        1108, 1132, 1156, 1180, 1192, 1196
       ]
     }
   }

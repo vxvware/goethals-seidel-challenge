@@ -707,8 +707,10 @@ def origin_sentence(record: JSONObject, bib: Bibliography, prefix: str) -> str:
         if record["array"] == "bordered":
             what = (
                 f"four rows on a group of order {math.prod(record['group'])} placed in a bordered array, not a "
-                "Goethals–Seidel quadruple, and the order is above the board's range"
+                "Goethals–Seidel quadruple"
             )
+            if "file" not in record:
+                what += ", and the order is above the board's range"
         elif record["array"] == "bordered8":
             what = (
                 f"eight rows of length {record['parameters']['group_order']} placed in a bordered array, not a "
@@ -793,6 +795,19 @@ def found_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
     )
 
 
+def prime_powers(n: int) -> list[tuple[int, int]]:
+    """The primes that divide n, each with its exponent."""
+    out, p = [], 2
+    while p * p <= n:
+        if n % p == 0:
+            k = 0
+            while n % p == 0:
+                n, k = n // p, k + 1
+            out.append((p, k))
+        p += 1
+    return [*out, (n, 1)] if n > 1 else out
+
+
 def bordered_picture() -> str:
     """The bordered array as text: 1 and −1 in the corner, e for a row of ones, ᵀ for a transpose."""
 
@@ -830,6 +845,10 @@ def bordered_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
             f"0, 1, …, {w - 1}."
         )
         shape = "They are the circulant and the back-circulant matrix of x."
+        factors = [p**k for p, k in prime_powers(w)]
+        if len(factors) > 1:
+            product = " × ".join(f"Z<sub>{q}</sub>" for q in factors)
+            group += f" Since {w} = {' × '.join(map(str, factors))}, G is also the product {product}."
         multiplier = f"the map z ↦ {g[0]}z of G, which has order {h}"
     else:
         coprime = all(math.gcd(a, b) == 1 for a, b in itertools.combinations(moduli, 2))
@@ -857,6 +876,13 @@ def bordered_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
             f"the map (x<sub>1</sub>, x<sub>2</sub>) ↦ ({g[0]}x<sub>1</sub>, {g[1]}x<sub>2</sub>) of G, which has "
             f"order {h} and takes k(1, 1) to {t}k(1, 1)"
         )
+    if "file" in record:
+        kept = (
+            "The build rebuilds the matrix from the four rows by the definitions above and compares it with the "
+            "stored file. It checks in integers that the rows have the properties stated here."
+        )
+    else:
+        kept = kept_words(record, "four")
     pairing = ""
     if "tie" in record:
         t, chains, fixed = record["tie"]["multiplier"], record["tie"]["chains"], record["tie"].get("fixed", [])
@@ -908,7 +934,7 @@ def bordered_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
         f"<p>Each row is constant on the orbits of {multiplier}. It has {orbits} orbits besides {{0}}.</p>"
         f"{pairing}"
         f"<p>{esc(record['search'])}</p>"
-        f"<p>{kept_words(record, 'four')} {esc(record['checked'])}</p>"
+        f"<p>{kept} {esc(record['checked'])}</p>"
     )
 
 

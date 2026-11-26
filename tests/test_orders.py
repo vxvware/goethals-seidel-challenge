@@ -231,7 +231,8 @@ def test_found_matrix_is_the_array_of_its_rows(data):
 
     x = found_record(data)
     since = [s for s in data["types"]["skew-hadamard"]["since"] if s["status"] == "found"]
-    assert [(s["orders"], s["date"], s["sources"]) for s in since] == [([808], x["date"], x["sources"])]
+    assert [s["orders"] for s in since] == [[808], [856]]
+    assert (since[0]["date"], since[0]["sources"]) == (x["date"], x["sources"])
     text = lzma.decompress((ROOT / x["file"]).read_bytes()).decode()
     assert skew.found_text(x) == text == skew.stored_text(x, check=False)
     # The same array from the matrices of the paper: T is the cyclic shift, R the back
@@ -332,6 +333,111 @@ def test_order_3352_is_the_eight_block_array_of_its_rows(board, data, states, tm
     # The page of order 808, whose matrix is a stored file, keeps its wording.
     old = visible((tmp_path / "orders/skew-808.html").read_text())
     assert "compares it with the stored file" in old and "above the board's range" not in old
+
+
+def test_order_856_is_the_bordered_array_of_its_rows(board, data, states, blocks, pages):
+    """Order 856, which the cited lists give without a matrix: the stored file, its rows, the grid cell and the page."""
+    import hashlib
+    import lzma
+    import math
+
+    import numpy as np
+    from test_site import SLUGS, visible
+
+    import skew
+
+    stored = orders.validate_matrices(orders.load_matrices(), data, Bibliography())
+    x, w = stored[856], 213
+    assert (x["array"], x["group"], x["file"]) == ("bordered", [w], "matrices/skew/skew-856.txt.xz")
+    assert x["multiplier"] == {"generator": [76], "order": 5} and "tie" not in x and x["date"] == "2026-11-26"
+    (since,) = (s for s in data["types"]["skew-hadamard"]["since"] if s["orders"] == [856])
+    assert (since["status"], since["date"], since["sources"]) == ("found", x["date"], x["sources"])
+    t = data["types"]["skew-hadamard"]
+    assert 856 in t["listed_open"] and 856 not in t["open"] and {428, 404} <= set(t["open"]) and len(t["open"]) == 24
+    text = lzma.decompress((ROOT / x["file"]).read_bytes()).decode()
+    assert hashlib.sha256(text.encode()).hexdigest() == x["sha256"] and x["sha256"].startswith("7df2ed73370fb7338855")
+    assert skew.found_text(x) == text == skew.stored_text(x) and skew.check_skew_text(text) == 856
+    # The rows: the first of skew type, every sum 1, each unchanged by 76, of order 5 modulo 213 = 3 x 71.
+    rows = x["rows"]
+    values = np.array([[1 if c == "+" else -1 for c in line] for line in rows], dtype=np.int8)
+    assert w == 3 * 71 and pow(76, 5, w) == 1 and all(pow(76, k, w) != 1 for k in range(1, 5))
+    assert sorted({pow(76, k, w) for k in range(5)}) == [1, 25, 76, 196, 199]
+    assert all(line[76 * z % w] == line[z] for line in rows for z in range(w))
+    assert rows[0][0] == "+" and all(rows[0][w - z] != rows[0][z] for z in range(1, w))
+    assert not any(all(line[w - z] != line[z] for z in range(1, w)) for line in rows[1:])
+    assert values.sum(axis=1).tolist() == [1, 1, 1, 1] == x["row_sums"]
+    assert set(autocorrelation_sum(rows, range(1, w), w)) == {-4}
+    orbits = skew.multiplier_orbits([w], [76])
+    assert len(orbits) - 1 == 44 and sorted(map(len, orbits)) == [1, 1, 1, *[5] * 42]
+    # The same matrix a second way: the subsets where a row is -1, their circulant and back-circulant
+    # (1, -1)-matrices, and the two printed arrays transcribed above.
+    subsets = [set(np.flatnonzero(row == -1).tolist()) for row in values]
+    assert all(len(subset) == (w - 1) // 2 == 106 for subset in subsets)
+    r = np.arange(w)
+    difference, total = (r[None, :] - r[:, None]) % w, (r[None, :] + r[:, None]) % w
+
+    def incidence(subset, index):
+        member = np.full(w, -1, dtype=np.int8)
+        member[sorted(subset)] = 1
+        return member[index]
+
+    m1, m2, m4 = (incidence(subsets[k], difference) for k in (0, 1, 3))
+    m3 = incidence(subsets[2], total)
+    gram = sum(m.astype(int) @ m.astype(int).T for m in (m1, m2, incidence(subsets[2], difference), m4))
+    assert np.array_equal(gram, 4 * (w + 1) * np.eye(w, dtype=int) - 4) and w - 3 == 210
+    e = np.ones((1, w), dtype=np.int8)
+    printed = block_matrix(WALLIS_WHITEMAN, {"e": e, "A": m1, "B": m2, "C": m3, "D": m4})
+    stated = block_matrix(MOMIHARA_XIANG, {"e": e, "M1": m1, "M2": m2, "M3": m3, "M4": m4})
+    assert np.array_equal(stated, -printed) and as_text(stated) == text.encode()
+    h = stated.astype(int)
+    assert np.array_equal(h @ h.T, 856 * np.eye(856, dtype=int)) and np.array_equal(h + h.T, 2 * np.eye(856, dtype=int))
+    # The arithmetic of the note.
+    assert (855, 427, 213, 856, 428, 1712) == (3**2 * 5 * 19, 7 * 61, 3 * 71, 2**3 * 107, 4 * 107, 2 * 856)
+    assert math.gcd(3, 71) == 1 and all(107 % p for p in range(2, 11))
+    # The grid cell of n = 214 and the page.
+    info = states[856]["skew-hadamard"]
+    assert info["state"] == "verified" and info["listed_open"] and orders.found(info)
+    cell = orders.grid_cells(214, states).split("<td")[2]
+    assert 'data-state="verified"' in cell and 'href="orders/skew-856.html"' in cell
+    assert '<span class="participant" title="New result"></span>' in cell
+    assert "new result of this board" in cell and "this one dates from 2026-11-26" in cell
+    assert states[428]["skew-hadamard"]["state"] == "open"
+    _, keys = blocks[856]
+    assert {"wallis1972some", "momihara2019constructions", "sage2026unknown", "cati2024database"} <= keys
+    assert {"seberry1992hadamard", "djokovic2025census", "kishan2026skew", "kline2026skew", "kumar2026skew"} <= keys
+    seen = visible((pages / "orders/skew-856.html").read_text())
+    assert "Construction: Wallis–Whiteman bordered array, group of order 213, Z_213" in seen
+    assert "four rows on a group of order 213 placed in a bordered array, not a Goethals–Seidel quadruple." in seen
+    assert "above the board's range" not in seen and "a skew circulant block needs odd n" in seen
+    assert "G is the group of the integers modulo 213 under addition" in seen
+    assert "Since 213 = 3 × 71, G is also the product Z 3 × Z 71 ." in seen
+    assert "The matrix H of order 856 = 4(213 + 1) is the block matrix" in seen
+    assert "each subset have 106 elements" in seen and "in 210 ways" in seen
+    assert "the map z ↦ 76z of G, which has order 5. It has 44 orbits besides {0}." in seen
+    assert "all 4,194,304 rows of skew type" in seen and "16,777,216 rows of sum 1" in seen
+    assert "2,865 choices of the six values in 21,127 seconds on twelve threads" in seen
+    assert "a sample and not a census" in seen and "by the account of the run" in seen
+    assert "compares it with the stored file" in seen and "The repository holds the four rows" not in seen
+    assert "which gives t = 10 for m = 107, while 856 = 2³ × 107" in seen and "which names 856" in seen
+    assert "855 = 3² × 5 × 19, 427 = 7 × 61 and 213 = 3 × 71 are not prime powers" in seen
+    assert "order 428 stays open on this board" in seen
+    assert "The result has not been reviewed." in seen and "does not claim priority" in seen
+    assert "is not a proof that no published construction applies" in seen
+    assert 'href="../matrices/skew-856.txt" download' in (pages / "orders/skew-856.html").read_text()
+    assert all(line in (pages / "orders/skew-856.html").read_text() for line in rows)
+    assert not re.search(SLUGS, seen) and "—" not in seen and "[@" not in seen and "to our knowledge" not in seen
+    assert "first skew" not in seen.lower() and "smallest" not in seen.lower()
+    other = visible((pages / "orders/skew-1712.html").read_text())
+    assert "Order 1712 is also twice 856: doubling the matrix of order 856" in other
+    # A record that disagrees with the file is refused.
+    for change, message in (
+        ({"rows": [rows[0], rows[2], rows[1], rows[3]]}, "not the array of the rows"),
+        ({"sha256": "0" * 64}, "sha256"),
+        ({"multiplier": {"generator": [2], "order": 5}}, "does not have order 5"),
+        ({"rows": [*rows[:3], rows[1]]}, "do not add to -4"),
+    ):
+        with pytest.raises(ValueError, match=message):
+            skew.stored_text(x | change, check=False)
 
 
 def test_found_matrix_that_disagrees_with_its_record_is_rejected(data):
