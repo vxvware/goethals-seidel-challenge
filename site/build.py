@@ -438,9 +438,8 @@ NEW_EXISTENCE = {
 SYMMETRIC_KINDS = ("propus", "twisted")
 NEW_RESULT_GROUPS = (
     ("correction", "Contradicts a published result"),
-    ("classification", "Classifications"),
-    ("nonexistence", "Nonexistence"),
     ("existence", "Existence"),
+    ("nonexistence", "Nonexistence"),
 )
 
 
@@ -542,7 +541,8 @@ def new_results(stats: JSONObject, r: Results) -> list[tuple[str, list[JSONObjec
             noun = "class" if census["count"] == 1 else "classes"
             exact = census["bound"] == "exact"
             text = f"{subject}: {'exactly' if exact else 'at least'} {census['count']} {noun}."
-            kind = "classification"
+            kind = "existence"
+            item["kind"] = "count"
         elif c["status"] == "empty":
             # A line beside replayed results must not read as one: a search the
             # board has not rerun carries the wording of its cell.
@@ -556,7 +556,8 @@ def new_results(stats: JSONObject, r: Results) -> list[tuple[str, list[JSONObjec
             kind = "correction"
             item["source"] = c["contradicted"][0]["source"]
         groups[kind].append(item | {"text": text})
-    groups["existence"] = existence_results(stats, r)
+    # Matrices first, then the counts of classes, which also say that the matrices exist.
+    groups["existence"] = existence_results(stats, r) + groups["existence"]
     return [(title, groups[key]) for key, title in NEW_RESULT_GROUPS if groups[key]]
 
 
