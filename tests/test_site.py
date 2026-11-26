@@ -104,9 +104,9 @@ def test_found_matrix_is_listed_among_the_existence_results(board):
         for order in sorted(o for o, x in module.STORED.items() if x["origin"] == "found")
     ]
     listed = [x["href"] for x in found]
-    assert listed[:13] == [
+    assert listed[:14] == [
         f"orders/skew-{order}.html"
-        for order in (808, 1416, 1712, 2360, 2696, 3352, 5336, 5392, 7496, 9672, 10376, 10440, 12360)
+        for order in (808, 856, 1416, 1712, 2360, 2696, 3352, 5336, 5392, 7496, 9672, 10376, 10440, 12360)
     ]
     assert {f"orders/skew-{order}.html" for order in (14792, 16712, 17096, 18248, 18632, 20936, 22088)} <= set(listed)
     item = found[0]
