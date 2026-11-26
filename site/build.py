@@ -66,8 +66,11 @@ PRIMARY = ("williamson", "good", "best", "kkss")
 SKEW_TRACKS = ("good", "best", "kkss", "skew-sds")
 REPOSITORY = "https://github.com/vxvware/goethals-seidel-challenge"
 FOLDERS = {"quadruple": "quadruples", "certificate": "certificates", "census": "census"}
+# What each entry type is called on its page.
+ENTRY_KINDS = {"quadruple": "quadruple", "certificate": "evidence record", "census": "census record"}
 DESCRIPTION = (
-    "An exactly verified catalog of circulant Goethals–Seidel quadruples, research targets, and computational evidence."
+    "Exactly verified circulant Goethals–Seidel quadruples, the Hadamard and skew-Hadamard matrices they give, and the "
+    "orders still open."
 )
 
 
@@ -608,14 +611,14 @@ def entry_description(doc: JSONObject, result: JSONObject) -> str:
         _, pattern = display_rows(result)
         kind = "skew-Hadamard" if "k" in pattern else "Hadamard"
         return (
-            f"Goethals–Seidel quadruple {ident} of order n = {n}, exactly verified. Its array "
+            f"Goethals–Seidel quadruple {ident} of length n = {n}, exactly verified. Its array "
             f"is a {kind} matrix of order {4 * n}."
         )
     label = TRACK_LABELS[result["stratum"]]
     if doc["type"] == "census":
-        return f"Census record {ident} at order n = {n}, {label}: {result['count']} recorded."
+        return f"Census record {ident} at n = {n}, {label}: {plural(result['count'], 'class', 'classes')}."
     what = certificate_label(result) or "attributed claim"
-    return f"Evidence record {ident} at order n = {n}, {label}: {what}."
+    return f"Evidence record {ident} at n = {n}, {label}: {what}."
 
 
 def rows_block(doc: JSONObject, result: JSONObject) -> str:
@@ -634,7 +637,7 @@ def rows_block(doc: JSONObject, result: JSONObject) -> str:
     text += f"Goethals–Seidel array of the rows in this order is a {kind} matrix of order {4 * n}."
     if pattern != result["pattern"]:
         text += (
-            " The verifier result below lists the same rows as canonical_rows in sorted order, "
+            " The verifier output at the foot of this page lists the same rows in sorted order, "
             "in which the skew row is not first."
         )
     lines = "\n".join(f"{name} {letter} {signs(row)}" for name, letter, row in zip("ABCD", pattern, rows, strict=True))
@@ -763,7 +766,7 @@ def cell_lead(c: JSONObject, r: Results, prefix: str = "../") -> str:
     if c["status"] == "unresolved":
         text = (
             f"Open: no {singular} is known to us in the sources the board cites, and the board "
-            "holds no proof that none exists. This is not a statement that the literature has none."
+            "holds no proof that none exists."
         )
         if c["evidence"]:
             text += " The records below cover part of the search and do not settle it."
@@ -775,7 +778,7 @@ def cell_lead(c: JSONObject, r: Results, prefix: str = "../") -> str:
             also = f" The same is published{marks}." if marks else ""
             return f"No {singular} exists: a complete search rerun here found none.{also}"
         basis = "; ".join(EVIDENCE_WORDS[b] for b in c["empty_basis"]) or "published result, not checked here"
-        return f"No {singular} is reported to exist{marks}. Basis: {basis}."
+        return f"No {singular} exists{marks}: {basis}."
     if cat := cell_catalogue(c):
         return catalogue_lead(c, cat, r, prefix)
     if not held:
@@ -946,8 +949,8 @@ def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
         parts.append(f"<p>{esc(c['note'])}</p>")
     for claim in c["contradicted"]:
         parts.append(
-            '<p class="contradiction">Exactly verified rows on this board contradict a published '
-            f'nonexistence claim: <a href="{esc(BIB.link(claim["source"]["url"]))}" rel="noopener">'
+            '<p class="contradiction">The verified rows contradict a published result: '
+            f'<a href="{esc(BIB.link(claim["source"]["url"]))}" rel="noopener">'
             f"{esc(claim['source']['title'])}</a>"
             + "".join(f" {BIB.mark(key, '../')}" for key in source_keys([claim["source"]]))
             + "</p>"
@@ -960,8 +963,8 @@ def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
             f"<h2>{plural(own['rows'], 'quadruple')} in one file</h2>"
             f'<p><a href="../catalogues/{esc(catalogue_file(own))}" download>Download all {own["rows"]:,} as text</a>: '
             "one quadruple per line, its four rows separated by spaces, + for 1 and - for −1, each line the "
-            f"least member of its class. {first} The same file is kept compressed in the repository as "
-            f'<a href="{REPOSITORY}/blob/main/{esc(own["path"])}" rel="noopener">{esc(own["path"])}</a>. '
+            f"least member of its class. {first} A compressed copy is "
+            f'<a href="{REPOSITORY}/blob/main/{esc(own["path"])}" rel="noopener">in the repository</a>. '
             f"The rows were imported from the sources listed at the foot of this page"
             f"{''.join(' ' + BIB.mark(key, '../') for key in dict.fromkeys(source_keys(d[own['census']]['sources'])))}"
             ".</p>"
@@ -1024,7 +1027,7 @@ def grid_cell(c: JSONObject, marked: Collection[tuple[str, int]], r: Results) ->
     )
     spoken = {
         "Contradicts published": "exists, contradicting a published result",
-        "Verified": "exists, verified here",
+        "Verified": "exists",
         "Published": "exists by a published result",
         "Empty": "none exists",
         "Unresolved": "open",
@@ -1370,6 +1373,14 @@ def build(quick: bool = False) -> JSONObject:
         )
         if doc["type"] == "certificate":
             tag = certificate_label(result)
+        if doc["type"] == "census":
+            tag = (
+                EVIDENCE_WORDS["reproduced"]
+                if result["bound"] == "exact"
+                else "published count, search not rerun here"
+                if published_count(result)
+                else "classes found so far, not known to be every class"
+            )
         file = f"{FOLDERS[doc['type']]}/{ident}.json"
         raw = f"https://raw.githubusercontent.com/vxvware/goethals-seidel-challenge/main/{file}"
         links = (
@@ -1377,13 +1388,14 @@ def build(quick: bool = False) -> JSONObject:
         )
         notes = f"<h2>Notes</h2><p>{esc(doc['notes'])}</p>" if doc.get("notes") else ""
         text = (
-            f'<article class="entry"><div class="eyebrow">{esc(doc["type"])} · order {doc["n"]}</div>'
-            f'<h1>{esc(ident)}</h1><span class="tag">{esc(tag or "attributed / archived claim or lower bound")}</span>'
-            f"{credits}<p>Original source attribution: {esc('; '.join(doc['discovered_by']))}<br>"
-            f"Submitted / imported by: {esc(doc['submitted_by'])} · {doc['submitted_at']}<br>"
+            f'<article class="entry"><div class="eyebrow">{esc(ENTRY_KINDS[doc["type"]])} · n = {doc["n"]}</div>'
+            f'<h1>{esc(ident)}</h1><span class="tag">{esc(tag or "claim not checked here")}</span>'
+            f"{credits}<p>Discovered by: {esc('; '.join(doc['discovered_by']))}<br>"
+            f"Submitted by: {esc(doc['submitted_by'])} · {doc['submitted_at']}<br>"
             f"Board cell: {cell_links(result, '../')}{links}</p>{formal}{picture}{notes}"
-            f"<h2>Checks and result</h2><pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre>"
-            f"<h2>Sources</h2><ul>{sources}</ul><details><summary>Submission JSON</summary>"
+            f"<h2>Sources</h2><ul>{sources}</ul><details><summary>Verifier output (JSON)</summary>"
+            f"<pre>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</pre></details>"
+            "<details><summary>Submission JSON</summary>"
             f"<pre>{esc(json.dumps(doc, indent=2, ensure_ascii=False))}</pre></details></article>"
         )
         (out / f"entries/{ident}.html").write_text(
@@ -1391,10 +1403,9 @@ def build(quick: bool = False) -> JSONObject:
         )
     refs = (
         '<article class="entry"><div class="eyebrow">bibliography</div><h1>References</h1>'
-        "<p>Every paper, dataset and software source cited on the board. The numbers are the "
-        "ones used in citations throughout; the list is built from "
+        "<p>Every paper, dataset and software source cited on the board, numbered as in the citations ("
         '<a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/baselines/references.bib">'
-        f"baselines/references.bib</a>.</p>{BIB.listing()}"
+        f"BibTeX</a>).</p>{BIB.listing()}"
         '<p><a href="./#board">Back to the board</a></p></article>'
     )
     (out / "references.html").write_text(shell("References", refs))

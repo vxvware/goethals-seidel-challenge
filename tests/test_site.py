@@ -584,7 +584,7 @@ def test_catalogue_cell_page_says_what_the_file_holds(board, tmp_path):
     assert not re.search(SLUGS, text)
     tip = module.grid_cell(cell, set(), r)
     assert tip["text"] in ("12", "12+") and "12 quadruples in a catalogue file" in tip["accessible"]
-    assert "exists, verified here" in tip["accessible"] and "2 classes published" in tip["accessible"]
+    assert "Williamson (ssss): exists;" in tip["accessible"] and "2 classes published" in tip["accessible"]
     assert module.cell_description(cell).startswith("12 exactly verified Williamson quadruples of length 10")
     wider = re.sub(r"<[^>]+>", "", module.cell_lead(grid[10, "general"], r))
     assert wider.startswith("The board holds 12 verified Williamson quadruples of length 10; every one is a Goethals")

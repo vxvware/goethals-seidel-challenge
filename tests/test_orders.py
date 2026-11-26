@@ -941,10 +941,8 @@ def test_bordered_eight_block_record_is_checked_and_described(data):
         data | {"range": data["range"] | {"max": 76}}, 80, orders.beyond_state(), {80: x}, {}, Bibliography()
     )
     seen = visible(page)
-    assert (
-        "We did not find this array in the sources we read, which is not a proof that none is published: "
-        "it was worked out for this board from the two cited." in seen
-    )
+    # The page says once, not twice, that the array was not found in the sources read.
+    assert "We did not find this array in the sources we read" not in seen
     assert "We did not find an eight-block bordered skew array in the sources we read" in seen
     assert "which is not a proof that none is published" in seen and "It was derived for a test." in seen
     assert "The statement that this matrix is skew-Hadamard rests on the exact check of the build." in seen
@@ -1291,10 +1289,8 @@ def test_page_of_order_5392_says_the_array_is_not_from_a_published_source(board,
     seen = visible(page)
     assert "Order 5392 is above the range of the board, which has a row for every order up to 1200" in seen
     assert "Construction: Bordered eight-block array, group of order 673, Z_673" in seen
-    assert (
-        "We did not find this array in the sources we read, which is not a proof that none is published: "
-        "it was worked out for this board from the two cited." in seen
-    )
+    # The page says once, not twice, that the array was not found in the sources read.
+    assert "We did not find this array in the sources we read" not in seen
     assert "We did not find an eight-block bordered skew array in the sources we read" in seen
     assert "checked exactly at orders 48, 80, 96, 112, 496, 592 and 784" in seen
     assert "The statement that this matrix is skew-Hadamard rests on the exact check of the build." in seen

@@ -24,7 +24,7 @@ A search of the sources named above on 2026-11-22 found no earlier skew-Hadamard
 
 ## Verify an entry
 
-Python 3.11 or later and [uv](https://docs.astral.sh/uv/) are enough for the first two checks. The third replays the bundled censuses and also needs GCC with OpenMP; it took about two and a half minutes on two threads.
+Python 3.15 or later and [uv](https://docs.astral.sh/uv/) are enough for the first two checks. The third reruns the bundled census searches and also needs GCC with OpenMP; it took about two and a half minutes on two threads.
 
 ```sh
 uv sync --locked --group dev
