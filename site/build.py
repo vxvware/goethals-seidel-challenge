@@ -1328,7 +1328,7 @@ def build(quick: bool = False) -> JSONObject:
 <div class="legend"><span class="known">exists</span><span class="empty">empty</span><span class="unresolved">open</span><span class="contradicted">contradicts the literature</span><span class="impossible">cannot exist</span><span class="participant">new result</span></div>
 <div class="grid-wrap"><table id="grid"><thead>{head}</thead><tbody>{rows}</tbody></table></div></section>
 {new_results_section(stats, r)}
-<section class="columns"><article class="card"><h3>Bring a construction</h3><p>Found four sequences that fit? The verifier checks them exactly, works out their family and rejects duplicates of entries already here.</p><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
+<section class="columns"><article class="card"><h3>Submit a result</h3><p><code>./gs verify candidate.json</code><br><code>./gs submit candidate.json</code></p><a href="https://github.com/vxvware/goethals-seidel-challenge/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article></section>
 <noscript><p>JavaScript enables the filters and the matrix drawings. All data remain available in <a href="stats.json">stats.json</a> and <a href="entries.json">entries.json</a>.</p></noscript>
 <script src="app.js" defer></script><script src="picture.js" defer></script><script src="hero.js" defer></script>"""  # noqa: E501
     (out / "index.html").write_text(shell("The board", body, head=MATH_HEAD))
