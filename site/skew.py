@@ -656,8 +656,7 @@ def listed_statements(order: int, t: JSONObject, bib: Bibliography, prefix: str)
         "sage2026unknown": "The SageMath list {mark} names order {order} among the orders up to 1200 with no known "
         "skew-Hadamard matrix.",
         "cati2024database": "By the table in {mark} of the least t for which a skew-Hadamard matrix of order "
-        "2<sup>t</sup>m is known, m odd, none of order {order} is known; the table is the reference compared "
-        "against, not a guarantee.",
+        "2<sup>t</sup>m is known, m odd, none of order {order} is known.",
         "djokovic2023skew": "{mark} lists v = {odd} among the odd v below 200 for which a skew-Hadamard matrix of "
         "order 4v is undecided."
         if order == 4 * odd and odd in DJOKOVIC_UNDECIDED
@@ -741,7 +740,6 @@ def origin_sentence(record: JSONObject, bib: Bibliography, prefix: str) -> str:
             else esc(person["name"])
             for person in record["contributors"]
         )
-        ours = ""
         if record["array"] == "bordered":
             what = (
                 f"four rows on a group of order {math.prod(record['group'])} placed in a bordered array, not a "
@@ -754,16 +752,12 @@ def origin_sentence(record: JSONObject, bib: Bibliography, prefix: str) -> str:
                 f"eight rows of length {record['parameters']['group_order']} placed in a bordered array, not a "
                 "Goethals–Seidel quadruple, and the order is above the board's range"
             )
-            ours = (
-                "We did not find this array in the sources we read, which is not a proof that none is published: "
-                "it was worked out for this board from the two cited. "
-            )
         else:
             what = f"eight rows of length {record['parameters']['v']}, not a Goethals–Seidel quadruple"
             if "file" not in record:
                 what += ", and the order is above the board's range"
         return (
-            f"{ours}The matrix was found on {esc(record['date'])} by {people} with a computer search. It is not a "
+            f"The matrix was found on {esc(record['date'])} by {people} with a computer search. It is not a "
             f"board entry: the object is {what}."
         )
     half = record["order"] // 2
@@ -1102,8 +1096,8 @@ def matrix_block(
         download = (
             f"<p>The matrix file would be {megabytes} MB of text, so the site does not offer it. "
             f'<a href="{prefix}{rows_file_name(order)}" download>Download the rows</a>: one row per line, + for 1 '
-            "and - for −1. The rows and the definitions on this page determine the matrix, and the script "
-            "site/skew.py of the repository rebuilds it from them as lines of + and -, one line for each row of the "
+            "and - for −1. The rows and the definitions on this page determine the matrix, and the build script of "
+            "the repository rebuilds it from them as lines of + and -, one line for each row of the "
             f"matrix. The sha256 of that text is {esc(stored[order]['sha256'])}; {how}.</p>"
         )
     if state == "open":
@@ -1117,9 +1111,9 @@ def matrix_block(
         ident = chosen[order]
         keys = {ARRAY_SOURCE}
         parts.append(
-            f"<p>Construction: Goethals–Seidel array {bib.mark(ARRAY_SOURCE, prefix)} of a board entry, "
-            f'<a href="{prefix}entries/{esc(ident)}.html">{esc(ident)}</a>, the one with the smallest id, with a skew '
-            f"block placed first.</p>{download}"
+            f"<p>Construction: Goethals–Seidel array {bib.mark(ARRAY_SOURCE, prefix)} of the board entry "
+            f'<a href="{prefix}entries/{esc(ident)}.html">{esc(ident)}</a>, with a skew block placed first.</p>'
+            f"{download}"
         )
     else:
         record = stored[order]

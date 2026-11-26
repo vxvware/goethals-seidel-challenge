@@ -128,7 +128,7 @@
           "date": "2026-11-22",
           "sources": ["cati2024database"],
           "doubles": [356, 476],
-          "note": "Twice the orders 356 and 476. The doubling construction stated in [@cati2024database] turns a skew-Hadamard matrix of order n into one of order 2n; applied to the matrices of this board it gives these two orders. No source read states them, and the doubled matrices are not held here."
+          "note": "Twice the orders 356 and 476. The doubling construction stated in [@cati2024database] turns a skew-Hadamard matrix of order n into one of order 2n; applied to the matrices of this board it gives these two orders. No source read states them; the site holds the doubled matrices and checks them exactly."
         }
       ],
       "open": [

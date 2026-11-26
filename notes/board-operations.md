@@ -4,7 +4,7 @@ Detail that used to live in the README: the full command list, what the verifier
 
 ## Commands
 
-Python 3.11+, [uv](https://docs.astral.sh/uv/), and GCC with OpenMP are required for the full census checks. No GPU is needed for the board or its ordinary CI.
+Python 3.15+, [uv](https://docs.astral.sh/uv/), and GCC with OpenMP are required for the full census checks. No GPU is needed for the board or its ordinary CI.
 
 ```sh
 uv sync --locked --group dev

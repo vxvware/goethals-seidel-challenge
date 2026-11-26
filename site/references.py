@@ -163,7 +163,8 @@ class Bibliography:
         """One complete reference as HTML."""
         e = self.entries[key]
         names = join([f"{given} {family}".strip() for given, family in authors(e)])
-        parts = [f"{esc(names)}.", f"{esc(e['title'])}."]
+        # BibTeX writes an en dash as --.
+        parts = [f"{esc(names)}.", f"{esc(e['title'].replace('--', '–'))}."]
         venue = e.get("journal") or e.get("booktitle")
         if venue:
             where = f"<em>{esc(venue)}</em>"

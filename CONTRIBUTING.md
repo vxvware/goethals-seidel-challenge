@@ -5,8 +5,8 @@
    negative indices. Choose a new ID, your GitHub handle as `submitted_by`, an
    ISO submission date, and accurate original discovery attribution and sources.
    Do not add a fingerprint, family, verdict, or tier: those are computed.
-3. Run `./gs verify candidate.json`. A malformed row, failed PAF identity, or
-   unsupported group is an error.
+3. Run `./gs verify candidate.json`. A malformed row, a failed periodic autocorrelation
+   identity, or an unsupported group is an error.
 4. Run `./gs submit candidate.json`. It checks board consistency and duplicate
    equivalence and stages the entry under ignored `research/candidates/`.
 5. To contribute, run `./gs submit candidate.json --write`, or use
@@ -16,7 +16,8 @@
 A source is an HTTPS citation with a title. Local evidence references must be
 repository-relative files with SHA-256 hashes. Do not use private checkout
 paths or promise artifacts that are not in the submitted tree. An importer
-must retain original authorship; a verified baseline-gap flag is not a novelty
+must retain original authorship. The verifier flags an order that was on the
+board's dated list of open skew-Hadamard orders; that flag is not a novelty
 claim.
 
 Explain whether the submitted work is a participant result, an independent
