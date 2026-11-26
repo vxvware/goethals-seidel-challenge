@@ -465,9 +465,8 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
             # the cited lists give it without a matrix.
             skew_orders = ORDERS["types"]["skew-hadamard"]
             double = 8 * n if 8 * n in skew_orders["listed_open"] and 8 * n not in skew_orders["open"] else None
-            text = f"A skew-Hadamard matrix of order {4 * n}" + (
-                f", and of order {double} by doubling." if double else "."
-            )
+            # Every line names its own order only; the section says once that doubling applies to all of them.
+            text = f"A skew-Hadamard matrix of order {4 * n}."
             item |= {"n": n, "stratum": "skew-sds", "text": text, "double": double}
         items.append(item)
     # The skew-Hadamard results stand together, in order of the matrix order; the others follow.
@@ -555,6 +554,18 @@ def new_results_section(stats: JSONObject, r: Results) -> str:
                 link += f' <span class="muted">({esc(x["qualifier"])})</span>'
             parts.append(f"<li>{link}</li>")
         parts.append("</ul>")
+        if any(x.get("kind") in ("skew", "matrix") for x in items):
+            doubles = sorted(x["double"] for x in items if x.get("double"))
+            within = (
+                f" Within the range of the board that gives order {orders.listing(doubles)}, marked on the grid."
+                if doubles
+                else ""
+            )
+            parts.append(
+                '<p class="key">Doubling a skew-Hadamard matrix gives one of twice the order '
+                f"{BIB.mark('wallis1971skew')}, so each skew-Hadamard order listed here also gives its doubles."
+                f"{within}</p>"
+            )
     parts.append("</section>")
     return "".join(parts)
 
