@@ -188,7 +188,7 @@ def test_stored_doublings_are_rebuilt_from_their_board_entries(board):
     import skew
 
     display_rows = site_build().display_rows
-    records = [x for x in read_json(ROOT / "baselines/skew-matrices.json")["matrices"] if x["origin"] == "board"]
+    records = [x for x in orders.load_matrices()["matrices"] if x["origin"] == "board"]
     assert [x["order"] for x in records] == [712, 952]
     for x in records:
         assert x["generated"] == f"doubling of board entry {x['entry']}"
@@ -391,6 +391,20 @@ BORDERED = {
     12360: ([3089], [1677], 193, 16),
     5336: ([31, 43], [18, 17], 105, 16),
 }
+# Orders found with the tie of order 7496: the prime w = n/4 - 1, the multiplier, the map of the tie,
+# the factors of n - 1 and of n/2 - 1, and how many rows of sum 1 the search went through.
+TIED = {
+    14792: (3697, 27, 1430, (7, 2113), (3, 5, 17, 29), "83,646,370,560"),
+    16712: (4177, 2, 479, (17, 983), (3, 5, 557), "20,437,026,510"),
+    17096: (4273, 22, 685, (5, 13, 263), (3, 7, 11, 37), "136,804,567,065"),
+    18248: (4561, 25, 2589, (71, 257), (3, 3041), "49,559,549,805"),
+    18632: (4657, 16, 1100, (31, 601), (3, 3, 3, 3, 5, 23), "2,090,801,775"),
+    20936: (5233, 49, 4107, (5, 53, 79), (3, 3, 1163), "121,734,443,700"),
+    22088: (5521, 34, 4654, (13, 1699), (3, 3, 3, 409), "30,503,715,615"),
+}
+# Each joins the orders of the bordered array, with 48 orbits of a multiplier of order (w - 1)/48, so that
+# the tests of that array, the slow ones among them, cover it. A further order of this kind is one line above.
+BORDERED |= {order: ([w], [g], (w - 1) // 48, 48) for order, (w, g, *_) in TIED.items()}
 
 
 def block_matrix(pattern, names):
@@ -406,6 +420,41 @@ def block_matrix(pattern, names):
         return sign * (m.T if word.endswith("T") else m)
 
     return np.block([[block(word) for word in line.split()] for line in pattern.strip().splitlines()])
+
+
+def text_sha256(h):
+    """The sha256 of the matrix file of a numpy matrix of 1 and -1, built in place to spare memory."""
+    import hashlib
+
+    import numpy as np
+
+    out = np.full((len(h), len(h) + 1), ord("-"), dtype=np.uint8)
+    out[:, -1] = ord("\n")
+    out[:, :-1][h > 0] = ord("+")
+    return hashlib.sha256(out).hexdigest()
+
+
+def check_products(h, step=1024):
+    """Assert H H^T = nI and H + H^T = 2I for an int8 matrix H of order n, in blocks of rows.
+
+    Entries are 1 and -1 and n is below 2^24, so the float32 products are exact integers. Only one
+    block of rows and one of columns are held as float32 at a time.
+    """
+    import numpy as np
+
+    n = len(h)
+    assert h.shape == (n, n) and n < 2**24 and np.array_equal(np.abs(h), np.ones_like(h))
+    for i in range(0, n, step):
+        rows = h[i : i + step]
+        twice = rows.astype(np.int16) + h[:, i : i + step].T
+        assert np.array_equal(twice, 2 * np.eye(n, dtype=np.int16)[i : i + step]), i
+        left = rows.astype(np.float32)
+        for j in range(i, n, step):
+            product = left @ h[j : j + step].T.astype(np.float32)
+            expected = np.zeros_like(product)
+            if i == j:
+                np.fill_diagonal(expected, n)
+            assert np.array_equal(product, expected), (i, j)
 
 
 def as_text(h):
@@ -432,7 +481,7 @@ def above_records(data):
 
 
 @pytest.mark.parametrize(
-    "order", [pytest.param(o, marks=[pytest.mark.slow] if o > 9000 else []) for o in sorted(BORDERED)]
+    "order", [pytest.param(o, marks=[pytest.mark.slow] if o > 8000 else []) for o in sorted(BORDERED)]
 )
 def test_bordered_matrix_is_the_array_of_the_sources(data, order):
     """A found matrix above the range is the bordered array of four subsets of a cyclic group, as both sources give it.
@@ -451,12 +500,18 @@ def test_bordered_matrix_is_the_array_of_the_sources(data, order):
     x = bordered_records(data)[order]
     moduli, generator, size, orbits = BORDERED[order]
     assert (x["group"], x["multiplier"]) == (moduli, {"generator": generator, "order": size})
-    assert "file" not in x and x["origin"] == "found" and x["date"] == "2026-11-25"
+    assert "file" not in x and x["origin"] == "found"
+    assert x["date"] == ("2026-11-26" if order > 14000 else "2026-11-25")
     assert order not in orders.in_range(data) and not (ROOT / f"matrices/skew/skew-{order}.txt.xz").exists()
     w = math.prod(moduli)
     assert order == 4 * (w + 1) and x["parameters"]["group_order"] == w
     text = skew.stored_text(x, check=False)
-    assert text == skew.found_text(x) and hashlib.sha256(text.encode()).hexdigest() == x["sha256"]
+    assert hashlib.sha256(text.encode()).hexdigest() == x["sha256"] and text.count("\n") == order
+    if not skew.rebuilt_in_build(order):
+        # The build checks the rows only at this order; this is its exact check of the matrix.
+        assert skew.check_skew_text(text) == order
+    # From here on the text is needed only through its sha256, and the largest is 438 MB.
+    del text
     # The moduli are coprime, so r -> (r mod m1, r mod m2) is a bijection from the integers modulo w,
     # and place[r] is the position of the image of r in the record's order.
     place = np.zeros(w, dtype=int)
@@ -488,19 +543,14 @@ def test_bordered_matrix_is_the_array_of_the_sources(data, order):
     assert np.array_equal(gram, 4 * (w + 1) * np.eye(w, dtype=np.float32) - 4)
     del gram
     e = np.ones((1, w), dtype=np.int8)
-    printed = block_matrix(WALLIS_WHITEMAN, {"e": e, "A": m1, "B": m2, "C": m3, "D": m4})
     stated = block_matrix(MOMIHARA_XIANG, {"e": e, "M1": m1, "M2": m2, "M3": m3, "M4": m4})
-    assert printed.shape == (order, order) and np.array_equal(stated, -printed)
-    assert as_text(stated) == text.encode()
-    del printed
-    # Entries are 1 and -1 and the order is below 2^24, so the float32 products are exact integers.
-    h = stated.astype(np.float32)
-    identity = np.eye(order, dtype=np.float32)
-    assert np.array_equal(h + h.T, 2 * identity)
-    assert np.array_equal(h @ h.T, order * identity)
-    if not skew.checked_in_build(order):
-        # The build compares the sha256 only at this order; this is its exact check.
-        assert skew.check_skew_text(text) == order
+    assert stated.shape == (order, order) and stated.dtype == np.int8
+    if order < 6000:
+        printed = block_matrix(WALLIS_WHITEMAN, {"e": e, "A": m1, "B": m2, "C": m3, "D": m4})
+        assert np.array_equal(stated, -printed)
+        del printed
+    assert text_sha256(stated) == x["sha256"]
+    check_products(stated)
     # What the record says of the rows.
     assert x["row_sums"] == [1, 1, 1, 1] == rows.sum(axis=1).tolist()
     found = skew.multiplier_orbits(moduli, generator)
@@ -818,7 +868,7 @@ def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data,
     records = bordered_records(data)
     x, w = records[2696], 673
     assert x["tie"] == {"multiplier": [58], "chains": [[1, 3], [2, 4]]}
-    assert [o for o, r in records.items() if "tie" in r] == [2696, 7496, 10376]
+    assert [o for o, r in records.items() if "tie" in r] == [2696, 7496, 10376, *TIED]
     a, b, c, d = x["rows"]
     assert 58 * 58 % w == w - 1 and skew.tie_classes(x) == 8
     assert all(c[58 * z % w] == a[z] and d[58 * z % w] == b[z] for z in range(w))
@@ -934,6 +984,69 @@ def test_order_7496_ties_the_third_and_fourth_rows_to_the_second(board, data, st
     assert twin[0] != a and set(autocorrelation_sum(twin, shifts, w)) == {-4}
 
 
+def test_tied_orders_above_8000_are_checked_by_their_rows(board, data, states, tmp_path, pages, monkeypatch):
+    """Six orders whose matrix the build does not rebuild: the rows, the tie, the notes and the page wording."""
+    import math
+
+    from test_site import visible
+
+    import skew
+
+    records = bordered_records(data)
+    for order, (w, g, t, first, second, examined) in TIED.items():
+        x = records[order]
+        a, b, c, d = x["rows"]
+        odd = order // 8
+        assert x["group"] == [w] and order == 4 * (w + 1) == 8 * odd and odd > 999 and odd % 2 == 1
+        assert all(w % p for p in range(2, 73)) and (w % 16, w % 32, w % 48) == (1, 17, 1)
+        assert math.prod(first) == order - 1 and math.prod(second) == order // 2 - 1 and len(first) > 1 < len(second)
+        fixing = {pow(g, k, w) for k in range((w - 1) // 48)}
+        assert x["multiplier"] == {"generator": [g], "order": (w - 1) // 48} and len(fixing) == (w - 1) // 48
+        assert x["tie"] == {"multiplier": [t], "chains": [[2, 3, 4]], "fixed": [1]} and skew.tie_classes(x) == 8
+        assert pow(t, 3, w) in fixing and t not in fixing and w - t not in fixing
+        # c(x) = b(t^-1 x) and d(x) = b(t^-2 x); the first row is unchanged, the second is not.
+        inverse = pow(t, -1, w)
+        assert all(c[z] == b[inverse * z % w] and d[z] == b[inverse * inverse * z % w] for z in range(w))
+        assert carried_by(a, t, w) == a and carried_by(b, t, w) == c != b and carried_by(c, t, w) == d
+        # The multipliers and t generate the sixteenth powers, on whose classes the first row is constant.
+        assert {h * pow(t, k, w) % w for h in fixing for k in range(3)} == {pow(z, 16, w) for z in range(1, w)}
+        assert a[0] == "+" and all(a[w - z] != a[z] for z in range(1, w))
+        assert [row.count("+") - row.count("-") for row in x["rows"]] == [1, 1, 1, 1]
+        shifts = [1, 2, 3, 5, 7, 11, w - 1, w // 2]
+        assert set(autocorrelation_sum(x["rows"], shifts, w)) == {-4}
+        # Not a prime of the release cited for the method: neither one of its four nor one its test selects.
+        assert w not in {1009, 1297, 1489, 1553, 17, 113, 881, 2129, 2801, 3217, 4721, 6577, 9521}
+        seen = visible((pages / f"orders/skew-{order}.html").read_text())
+        assert f"The rows are tied by the map σ: z ↦ {t}z of G." in seen and "there are 8 such sets" in seen
+        assert f"the map z ↦ {g}z of G, which has order {(w - 1) // 48}. It has 48 orbits besides {{0}}." in seen
+        assert f"it had gone through {examined} second rows" in seen and "is not exhaustive" in seen
+        assert "It does not rebuild the matrix" in seen and "is the theorem of the sources cited for the array" in seen
+        assert "one program rebuilt it from the rows and checked it exactly" in seen
+        assert "The check is weaker than for the smaller orders on this board" in seen
+        assert f"{order} = 2³ × {odd}" in seen and "stops at m = 999" in seen
+        if odd < 2500:
+            assert f"lists v = {odd} as undecided" in seen
+        else:
+            assert f"covers odd v below 2500 only and says nothing about v = {odd}" in seen
+        assert f"{w} is a prime congruent to 1 modulo 16, to 17 modulo 32 and to 1 modulo 48" in seen
+        assert f"so that release does not give order {order}" in seen
+        assert "written from memory of the literature and not from the sources" in seen
+        assert "This check is not a proof that no published construction applies." in seen
+        assert f"The sha256 of that text is {x['sha256']}" in seen and "Download the matrix" not in seen
+    assert [o // 8 for o in TIED][:7] == [1849, 2089, 2137, 2281, 2329, 2617, 2761]
+    # The build checks the rows of such a record and writes them; it does not rebuild the matrix.
+    monkeypatch.setattr(skew, "bordered_text", lambda *args: pytest.fail("the build rebuilt a matrix above order 8000"))
+    (tmp_path / "matrices").mkdir()
+    for order in (9672, 20936):
+        site_build().write_above_matrix(tmp_path, records[order])
+        assert (tmp_path / skew.rows_file_name(order)).read_text().split() == records[order]["rows"]
+        assert not (tmp_path / skew.file_name(order)).exists()
+    with pytest.raises(ValueError, match="do not add to -4"):
+        rows = records[20936]["rows"]
+        site_build().write_above_matrix(tmp_path, records[20936] | {"rows": [*rows[:3], rows[1]]})
+    assert not skew.rebuilt_in_build(8001) and skew.rebuilt_in_build(7496)
+
+
 # Orders above the range of the table of least known orders, with the prime q = n/4 - 1, the odd part,
 # the factors of n - 1 and of n/2 - 1, and the number of solutions of the complete search.
 ABOVE_TABLE = {
@@ -992,9 +1105,8 @@ def test_orders_above_the_table_say_how_weak_the_literature_check_is(board, data
         assert "The result has not been reviewed." in seen and "does not claim priority" in seen
         for key in ("djokovic2025census", "kline2026skew", "kishan2026skew", "cati2024database"):
             assert f'href="../references.html#ref-{key}"' in page, key
-        assert not skew.has_download(order) and skew.checked_in_build(order) == (order != 12360)
-        assert ("a separate test of the repository runs it and the build does not" in seen) == (order == 12360)
-        assert ("leaves the exact check" in seen) == (order == 12360)
+        assert not skew.has_download(order) and not skew.rebuilt_in_build(order)
+        assert "It does not rebuild the matrix" in seen and "the build checks the rows" in seen
     # None of the primes is one that the release cited for the method treats or selects.
     assert not {q for q, *_ in ABOVE_TABLE.values()} & {1009, 1297, 1489, 1553, 17, 113, 881, 2129, 2801, 3217}
     assert "lists v = 937 as undecided" in visible((tmp_path / "orders/skew-7496.html").read_text())
@@ -1531,7 +1643,7 @@ def test_every_written_matrix_is_skew_hadamard(board, data, states, tmp_path):
     assert (tmp_path / skew.rows_file_name(7496)).read_text().split() == above[7496]["rows"]
     (tmp_path / skew.rows_file_name(7496)).unlink()
     assert {o for o in above if skew.has_download(o)} == {1416, 1712, 2360, 2696, 3352, 5336, 5392}
-    assert skew.has_download(7070) and not skew.has_download(7072) and skew.checked_in_build(10440)
+    assert skew.has_download(7070) and not skew.has_download(7072) and skew.rebuilt_in_build(7496)
     with pytest.raises(ValueError, match="does not match its sha256"):
         module.write_above_matrix(tmp_path, above[1416] | {"sha256": "0" * 64}, quick=True)
     assert written == set(orders.in_range(data)) - is_open and len(written) == 300 - len(is_open)
@@ -1556,7 +1668,9 @@ def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tm
 
     tmp_path = pages
     written = {int(p.stem.removeprefix("skew-")) for p in (tmp_path / "orders").iterdir()}
-    assert written == {4 * n for n in range(2, 301, 2)} | set(BORDERED) | {3352, 5392} and len(written) == 162
+    assert written == {4 * n for n in range(2, 301, 2)} | set(BORDERED) | {3352, 5392} and len(written) == 152 + len(
+        BORDERED
+    )
     is_open = set(data["types"]["skew-hadamard"]["open"])
     for order in sorted(written):
         page = (tmp_path / f"orders/skew-{order}.html").read_text()
@@ -1589,7 +1703,7 @@ def test_pages_of_orders_above_the_range_describe_the_bordered_array(board, data
         assert f"Order {order} is above the range of the board, which has a row for every order up to 1200" in text
         assert "needs odd n" not in text and '<span class="tag">verified</span>' in page
         assert f"Construction: Wallis–Whiteman bordered array, group of order {w}, Z_" in text
-        assert "found on 2026-11-25" in text and "with a computer search" in text
+        assert f"found on {records[order]['date']}" in text and "with a computer search" in text
         assert "not a Goethals–Seidel quadruple, and the order is above the board's range" in text
         assert f"The matrix H of order {order} = 4({w} + 1) is the block matrix" in text
         assert "  1  −1  −1  −1  −e  −e  −e  −e\n" in page and " eᵀ  eᵀ  eᵀ −eᵀ −Bᵀ  Aᵀ  −D   C\n" in page
