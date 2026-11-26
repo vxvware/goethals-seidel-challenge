@@ -298,6 +298,7 @@ BORDERED = {
     1416: ([353], [231], 11, 32),
     1712: ([7, 61], [4, 12], 15, 30),
     2360: ([19, 31], [16, 20], 45, 16),
+    2696: ([673], [600], 21, 32),
     5336: ([31, 43], [18, 17], 105, 16),
 }
 
@@ -696,6 +697,59 @@ def test_bordered_eight_block_record_is_checked_and_described(data):
     assert "eight rows of length 9 placed in a bordered array, not a Goethals–Seidel quadruple" in seen
     assert all(line in page for line in rows)
     assert not re.search(SLUGS, seen) and "—" not in seen and "[@" not in seen and "to our knowledge" not in seen
+
+
+def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data, states, tmp_path):
+    """The record of order 2696 names the map z -> 58z, which carries the first two rows to the other two."""
+    from test_site import visible
+
+    import skew
+
+    records = bordered_records(data)
+    x, w = records[2696], 673
+    assert x["pairing"] == {"multiplier": [58]} and [o for o, r in records.items() if "pairing" in r] == [2696]
+    a, b, c, d = x["rows"]
+    assert 58 * 58 % w == w - 1 and skew.pairing_square(x) == -1
+    assert all(c[58 * z % w] == a[z] and d[58 * z % w] == b[z] for z in range(w))
+    # 58 is not among the multipliers that fix the rows, nor the negative of one.
+    fixing = {pow(600, k, w) for k in range(21)}
+    assert len(fixing) == 21 and 58 not in fixing and w - 58 not in fixing and c != a
+    # The sum of the four autocorrelations is the same at s and at 58s, from the pairing alone:
+    # it holds for any two rows in place of a and b.
+    value = lambda row: [1 if ch == "+" else -1 for ch in row]  # noqa: E731
+    carry = lambda row: "".join(row[-58 * z % w] for z in range(w))  # noqa: E731
+    assert carry(a) == c and carry(b) == d
+    one, two = "+" * 300 + "-" * 373, ("+-+" * 225)[:673]
+    rows = [value(r) for r in (one, two, carry(one), carry(two))]
+    total = [sum(r[z] * r[(z + s) % w] for r in rows for z in range(w)) for s in range(40)]
+    assert all(total[s] == sum(r[z] * r[(z + 58 * s) % w] for r in rows for z in range(w)) for s in range(1, 40))
+    assert len(set(total[1:])) > 1
+    for change, message in (
+        ({"pairing": {"multiplier": [600]}}, "neither z nor -z"),
+        ({"pairing": {"multiplier": [672]}}, "not the first two carried"),
+        ({"pairing": {"multiplier": [615]}}, "not the first two carried"),
+        ({"pairing": {"multiplier": [0]}}, "not a unit"),
+        ({"pairing": {"multiplier": [58, 1]}}, "not a unit"),
+    ):
+        with pytest.raises(ValueError, match=message):
+            skew.stored_text(x | change, check=False)
+    assert w - 58 == 615
+    module = site_build()
+    module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
+    seen = visible((tmp_path / "orders/skew-2696.html").read_text())
+    assert "The third row is the first carried along by the map σ: z ↦ 58z of G" in seen
+    assert "c(σ(z)) = a(z) and d(σ(z)) = b(z) for every z in G" in seen
+    assert "Applying σ twice gives z ↦ −z" in seen and "is the same at s and at σ(s)" in seen
+    assert (
+        "all 65,536 rows of skew type and all 601,080,390 rows of sum 1" in seen and "It found 1,024 solutions" in seen
+    )
+    assert "the map z ↦ 600z of G, which has order 21. It has 32 orbits besides {0}." in seen
+    assert "which gives t = 18 for m = 337, while 2696 = 2³ × 337" in seen
+    assert "673 is a prime congruent to 33 modulo 64, which is neither 5 modulo 8 nor 9 modulo 16" in seen
+    assert (w % 64, w % 8, w % 16, 2695, 1347) == (33, 1, 1, 5 * 7**2 * 11, 3 * 449)
+    assert "carried along" not in visible((tmp_path / "orders/skew-1416.html").read_text())
+    other = visible((tmp_path / "orders/skew-5392.html").read_text())
+    assert "Order 5392 is also twice 2696: doubling the matrix of order 2696" in other
 
 
 def test_order_5392_is_the_bordered_eight_block_array_of_its_rows(data):
@@ -1243,7 +1297,7 @@ def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tm
     module = site_build()
     module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
     written = {int(p.stem.removeprefix("skew-")) for p in (tmp_path / "orders").iterdir()}
-    assert written == {4 * n for n in range(2, 301, 2)} | set(BORDERED) | {5392} and len(written) == 155
+    assert written == {4 * n for n in range(2, 301, 2)} | set(BORDERED) | {5392} and len(written) == 156
     is_open = set(data["types"]["skew-hadamard"]["open"])
     for order in sorted(written):
         page = (tmp_path / f"orders/skew-{order}.html").read_text()
@@ -1289,8 +1343,10 @@ def test_pages_of_orders_above_the_range_describe_the_bordered_array(board, data
         assert "The result has not been reviewed." in text and "does not claim priority" in text
         assert f"on 2026-11-25 found no earlier skew-Hadamard matrix of order {order}" in text
         assert f'href="../matrices/skew-{order}.txt" download' in page and "<h2>References</h2>" in page
-        for key in ("wallis1972some", "momihara2019constructions", "cati2024database", "egan2026recent"):
+        for key in ("wallis1972some", "momihara2019constructions", "cati2024database", "kishan2026skew"):
             assert f'href="../references.html#ref-{key}"' in page, key
+        # The survey was among the sources read for the first four orders.
+        assert ('href="../references.html#ref-egan2026recent"' in page) == (order != 2696)
         # Plain language: no schema value, no marker left unresolved, no priority wording.
         assert not re.search(SLUGS, text), re.search(SLUGS, text).group(0)
         assert "—" not in text and "[@" not in text and "to our knowledge" not in text
