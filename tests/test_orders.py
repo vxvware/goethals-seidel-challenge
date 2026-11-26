@@ -1882,3 +1882,48 @@ def test_pages_of_orders_above_the_range_describe_the_bordered_array(board, data
     assert "the map z ↦ 231z of G, which has order 11. It has 32 orbits besides {0}." in page
     # The page of a grid order keeps its own sentence.
     assert "a skew circulant block needs odd n" in (tmp_path / "orders/skew-808.html").read_text()
+
+
+def test_notes_give_what_two_more_tables_list_for_each_odd_part(data, pages):
+    """The tables of koukouvinos2008skew (odd m below 500) and seberry2020hadamard (odd q up to 999), as read.
+
+    Each value is the least t with a skew-Hadamard matrix of order 2^t m known, None where the table marks
+    the odd part as having none, and no entry where the table does not reach it.
+    """
+    from test_site import visible
+
+    first = {89: 4, 101: 10, 107: 10, 177: 12, 295: 5, 337: 18, 419: 4}
+    second = {89: 4, 101: 10, 107: None, 177: None, 295: 5, 337: 18, 419: 4, 667: 6, 937: 5}
+    found = {808: 101, 856: 107, 1416: 177, 1712: 107, 2360: 295, 2696: 337, 3352: 419, 5336: 667, 5392: 337, 7496: 937}
+    stored = orders.validate_matrices(orders.load_matrices(), data, Bibliography())
+    for order, odd in found.items():
+        t = (order // odd).bit_length() - 1
+        assert order == 2**t * odd and odd % 2 == 1 and odd < 1000
+        # The order on the board is below what either table lists for its odd part.
+        assert odd not in first or first[odd] > t
+        assert second[odd] is None or second[odd] > t
+        note = stored[order]["note"]
+        assert "[@koukouvinos2008skew]" in note and "[@seberry2020hadamard]" in note
+        page = (pages / f"orders/skew-{order}.html").read_text()
+        seen = visible(page)
+        if odd in first:
+            assert f"for odd m below 500, gives t = {first[odd]} for m = {odd}" in seen
+        else:
+            assert f"for odd m below 500, stops below m = {odd}" in seen
+        if second[odd] is None:
+            assert f"for odd q up to 999, marks q = {odd} as having no such order known for any t" in seen
+        else:
+            assert f"for odd q up to 999, gives t = {second[odd]} for q = {odd}" in seen
+        assert f"Neither has a skew-Hadamard matrix of order {order} = 2" in seen
+        assert "Other tables of skew-Hadamard orders in books were not read." in seen
+        assert 'ref-koukouvinos2008skew"' in page and 'ref-seberry2020hadamard"' in page
+    # Order 356 is a board entry: its contribution carries the sentence, and both tables give 2^4 x 89.
+    groups = {
+        g["id"]: g for g in read_json(ROOT / "baselines/contributions.json", max_bytes=4 * 1024 * 1024)["contributions"]
+    }
+    text = groups["skew-pool-join-89"]["summary"]
+    assert "both give t = 4 for 89, which is order 1424, and neither has order 356" in text
+    assert (first[89], second[89], 2**4 * 89, 2**2 * 89) == (4, 4, 1424, 356)
+    # The book's table of symmetric orders reaches 399 and marks 247, 259 and 267 as having none known.
+    for v in (247, 259, 267):
+        assert f"marks q = {v} as having none known" in groups[f"symmetric-twisted-{v}"]["summary"]
