@@ -567,6 +567,8 @@ def origin_sentence(record: JSONObject, bib: Bibliography, prefix: str) -> str:
             )
         else:
             what = f"eight rows of length {record['parameters']['v']}, not a Goethals–Seidel quadruple"
+            if "file" not in record:
+                what += ", and the order is above the board's range"
         return (
             f"{ours}The matrix was found on {esc(record['date'])} by {people} with a computer search. It is not a "
             f"board entry: the object is {what}."
@@ -603,6 +605,14 @@ def found_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
     if len(minus) > 1:
         start = f"; here rows {listing(minus)} begin with −1"
     sums = ", ".join(str(x) for x in record["row_sums"])
+    if "file" in record:
+        kept = "The build rebuilds the matrix from the eight rows and compares it with the stored file."
+    else:
+        megabytes = round(record["order"] * (record["order"] + 1) / 1e6, 1)
+        kept = (
+            "The repository holds the eight rows and the sha256 of the matrix file, not the file, which is "
+            f"{megabytes} MB of text. The build rebuilds the matrix from the rows and compares the sha256."
+        )
     return (
         f"<p>The array of {bib.mark(record['sources'][0], prefix)} is the block matrix W below, in eight blocks of "
         f"order {v}. The eighth block is written H as in the source; elsewhere on this page H is the whole matrix.</p>"
@@ -624,7 +634,7 @@ def found_details(record: JSONObject, bib: Bibliography, prefix: str) -> str:
         f"multiplication. The row sums are {sums}, and their squares add to {record['order']}. The periodic "
         "autocorrelations of the eight rows add to zero at every nonzero shift.</p>"
         f"<p>{esc(record['search'])}</p>"
-        "<p>The build rebuilds the matrix from the eight rows and compares it with the stored file. It checks in "
+        f"<p>{kept} It checks in "
         "integers that the rows have the symmetry types, the multiplier and the row sums stated here and that their "
         f"periodic autocorrelations add to zero. {esc(record['checked'])}</p>"
     )

@@ -3802,6 +3802,65 @@
       "note": "The result has not been reviewed. A search of the literature and public repositories on 2026-11-25 found no earlier skew-Hadamard matrix of order 2696; this reports the search and does not claim priority. The sources checked were the table in [@cati2024database] of the least t for which a skew-Hadamard matrix of order 2ᵗm is known, which gives t = 18 for m = 337, while 2696 = 2³ × 337; the skew directory of the repository [@kishan2026skew]; and a plain web search. The only other order below the one in that table that we know of for m = 337 is 5392 = 2⁴ × 337, found for this board on the same day. Tables of skew-Hadamard orders in books were not read. The infinite families we know of were checked by arithmetic and none gives order 2696: the constructions from a prime power q need 2696 − 1, 2696/2 − 1 or 2696/4 − 1 to be a prime power of a suitable form; 2695 = 5 × 7² × 11 and 1347 = 3 × 449 are not prime powers, and 673 is a prime congruent to 33 modulo 64, which is neither 5 modulo 8 nor 9 modulo 16, so the two-block and four-block finite-field families of [@momihara2019constructions] do not apply. This check covers the families named in the sources above and is not a proof that no published construction applies."
     },
     {
+      "order": 3352,
+      "sha256": "1799ea2b07455f6d645973c49815a17c66d5ccc133097103846472f3b2b6ee0f",
+      "construction": "8-Williamson array",
+      "parameters": {
+        "v": 419,
+        "group": "Z_419"
+      },
+      "sources": [
+        "kotsireas2008new"
+      ],
+      "origin": "found",
+      "array": "williamson8",
+      "date": "2026-11-25",
+      "contributors": [
+        {
+          "name": "vxvware",
+          "github": "vxvware"
+        }
+      ],
+      "rows": [
+        "+--+++-+-++---+--++-+-++----+-++-++--+-+-++++++-+-+++-----+---+++++++-++++--+--+++++-++-+-+++-+--++++--+---+-++++-++++-+---+--+++-+---+++---+++-+-+--+++-++--+--++--++++--+++++--+-+--+-+-+--+------+--++++--+++--++---++----++-++++++-++-+-+-++-+-++-----++----++--++-++--+---++-+-+---+++---+++-+---++-+++-+----+----+-+++-++----++-+---+-+--+-----++-++----+-------+++-+++++---+-+------+-+-++--+--+-++++--+-+--++-+++--+-+---++",
+        "--++----+++-+-+++++--+++-++--+++++++++-+-++++--+-++--+----+-+-+----+--+-++------+++-+---++----+++-+++--++-+--+-++++++++-++-----++-+--+----+-+-+-+-+-++---+-++-+-++--++--+-++-----+---++--++-+-+++-++++++-++-+-+++--+++-+-++-++++++-+++-+-++--++---+-----++-+--++--++-+-++-+---++-+-+-+-+-+----+--+-++-----++-++++++++-+--+-++--+++-+++----++---+-+++------++-+--+----+-+-+----+--++-+--++++-+-+++++++++--++-+++--+++++-+-+++----++-",
+        "--+--+++--+-+-++--+-++--+++++++--+-++-+-+-+---++++-+---++-------+++++-----+++++--+-+--++--++-++----+-+---+-++++----+--+---+++++++-+++-+--+++--+--++++-++--+-+--+++-+---+--++-++++-+++++-++-+----++-+-+--++-+++---++---+++-++--+-+-++----+-++-+++++-++++-++--+---+-+++--+-+--++-++++--+--+++--+-+++-+++++++---+--+----++++-+---+-+----++-++--++--+-+--+++++-----+++++-------++---+-++++---+-+-+-++-+--+++++++--++-+--++-+-+--+++--+-",
+        "----++++-++++-++-++--+---+-+-++--+-++---+-+---+++++++---+++-+---++-++-+-+++-+-+++--++-+----+-++-++++-+-------++++----+------++-++-+++--+---+---+-++-+-++--+++---+-+--+-+---+-++++-+++-++-+++++--++-+-+++++++-+---++---+-+++++++-+-++--+++++-++-+++-++++-+---+-+--+-+---+++--++-+-++-+---+---+--+++-++-++------+----++++-------+-++++-++-+----+-++--+++-+-+++-+-++-++---+-+++---+++++++---+-+---++-+--++-+-+---+--++-++-++++-++++---",
+        "-+--+----+-+-+-+++++++-++---+--+--+--------+++-+--+++-++-+++++-+--+--+++++--++-++-+-++---+--+---+++-+-++--++-+-++---++-+++-+-+---+----+++---++-++++---+-++-+-+-++-++-+++++--+-++----+--+-++-+++++--+++++--++----++++----++--+++++--+++++-++-+--+----++-+--+++++-++-++-+-+-++-+---++++-++---+++----+---+-+-+++-++---++-+-++--++-+-+++---+--+---++-+-++-++--+++++--+--+-+++++-++-+++--+-+++--------+--+--+---++-+++++++-+-+-+----+--+",
+        "+--+++++++-+---++-+++++-+--++--++----+-+-+--++++----++++-+---++++++-+----++--++++-++--+-+--++--+++-----++-++-+-++++--+---+-++------+-++++--+-+-+--+--+---+-+-++++-+++-+-----+---++++---+-+++-+++++++-+-++-+---+++--+++---+-++-+-+++++++-+++-+---++++---+-----+-+++-++++-+-+---+--+--+-+-+--++++-+------++-+---+--++++-+-++-++-----+++--++--+-+--++-++++--++----+-++++++---+-++++----++++--+-+-+----++--++--+-+++++-++---+-+++++++--",
+        "+-+-+---+-+++-+-+--+--++--++---+-++-----++-++++-+--++++-++---+-+---++-------+--+-+++--+--+--++-+-+--++-++-+---+---+++-+-++---+--+-++++-++-++++++++--++++-++-+++--++---+++-++++++--++++++---+-+++--+-+---+--+++--++++--+++--+---+-+--+++-+---++++++--++++++-+++---++--+++-++-++++--++++++++-++-++++-+--+---++-+-+++---+---+-++-++--+-+-++--+--+--+++-+--+-------++---+-+---++-++++--+-++++-++-----++-+---++--++--+--+-+-+++-+---+-+-",
+        "+-+------++-+-+++-+-++--++++++++-+-++-+-+-+-+-++++-----++---------+++----+-+-+--++++--++--+--++-+--+-+-+-++++++++--+-++--+++--+++-+++-+--+++--+---+++--+-++++--+++-+------++-+----++-++-++++--+++--+-+-++++-++--+--+--++-++++-+-+--+++--++++-++-++----+-++------+-+++--++++-+--+++---+--+++--+-+++-+++--+++--++-+--++++++++-+-+-+--+-++--+--++--++++--+-+-+----+++---------++-----++++-+-+-+-+-++-+-++++++++--++-+-+++-+-++------+-"
+      ],
+      "block_signs": [
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "multiplier": {
+        "generator": 13,
+        "order": 11
+      },
+      "row_sums": [
+        1,
+        21,
+        21,
+        21,
+        21,
+        23,
+        23,
+        23
+      ],
+      "search": "The search fixes the multiplier 13 and takes every row of length 419 that is constant on its orbits and has a row sum it needs: 524,288 rows of skew type, and 92,378 symmetric rows for each of the row sums 21 and 23. It adds the periodic autocorrelations of the rows in pairs and joins the four lists of pairs in three stages: the first two keep only the pairs whose sums take chosen values at some of the 19 classes of shifts, and the third matches the rest through a 64-bit hash and rechecks every match in integers. The filters discard most combinations, so the search is a sample and not a census. The run recorded with the matrix tried 927 choices of the filter values in 24,771 seconds on eight threads, where a count model predicted 0.76 solutions, and found 2, which differ in the row of skew type and share the seven symmetric rows; this matrix is the first of them.",
+      "checked": "Before the record was stored, the matrix was also checked by two programs that share no code with the build: one builds the matrix from the rows by index arithmetic and compares its rows as Python integers, and the other checks the two defining conditions with integer numpy arrays.",
+      "generated": "8-Williamson array of the eight rows of this record with blocks B to H negated; the rows are solution 0 of rows3352.json (sha256 ebfbae0b9ac723dfac8ea47ce316b60b4ae157c5ad548efa2274f675f02c6a2e), written from the search output join3352.out (sha256 36dae9967be8848333d2355c4cca16eeea6db079437e5aca931ddc73f53060fa), and the matrix text is the file skew3352_0.txt of the search directory",
+      "note": "The result has not been reviewed. A search of the literature and public repositories on 2026-11-25 found no earlier skew-Hadamard matrix of order 3352; this reports the search and does not claim priority. The sources checked were the table in [@cati2024database] of the least t for which a skew-Hadamard matrix of order 2ᵗm is known, which gives t = 4 for m = 419, while 3352 = 2³ × 419; the skew directory of the repository [@kishan2026skew]; and a plain web search. Tables of skew-Hadamard orders in books were not read. The infinite families we know of were checked by arithmetic and none gives order 3352: the constructions from a prime power q need 3352 − 1, 3352/2 − 1 or 3352/4 − 1 to be a prime power of a suitable form, and 3351 = 3 × 1117, 1675 = 5² × 67 and 837 = 3³ × 31 are not prime powers, so the finite-field families of [@momihara2019constructions] do not apply. This check covers the families named in the sources above and is not a proof that no published construction applies."
+    },
+    {
       "order": 5336,
       "sha256": "3214df7815c6633a5eac3eb6ff6061f5d3b61ecc0002968a445af7db67103500",
       "construction": "Wallis–Whiteman bordered array",
