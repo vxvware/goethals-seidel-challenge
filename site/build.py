@@ -412,7 +412,7 @@ CONTRADICTION_NOTES = {
     "djokovic2018goethals": ("{cite} report a complete classification for odd v < 50 with none at this order."),
 }
 # Existence results, by contribution id, with their kind and the date of the
-# search of the literature and public repositories that found no earlier one.
+# search of the sources its record names that found no earlier one.
 # A skew result is skew quadruples of one order, whose Goethals–Seidel array is
 # a skew-Hadamard matrix. A propus result is one quadruple with a symmetric
 # block and two equal blocks, whose propus array (site/propus.py) is a
@@ -483,7 +483,7 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
                 raise ValueError(f"existence result is not skew quadruples of one order: {ident}")
             n = orders.pop()
             # Doubling a skew-Hadamard matrix gives one of twice the order; name that order too when
-            # the cited lists give it without a matrix.
+            # none of the cited sources gives a matrix of it.
             skew_orders = ORDERS["types"]["skew-hadamard"]
             double = 8 * n if 8 * n in skew_orders["listed_open"] and 8 * n not in skew_orders["open"] else None
             # Every line names its own order only; the section says once that doubling applies to all of them.

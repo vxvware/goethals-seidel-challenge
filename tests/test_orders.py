@@ -757,9 +757,11 @@ def test_bordered_eight_block_record_is_checked_and_described(data):
     )
     seen = visible(page)
     assert (
-        "The array is not taken from a published source: it was worked out for this board from the two cited." in seen
+        "We did not find this array in the sources we read, which is not a proof that none is published: "
+        "it was worked out for this board from the two cited." in seen
     )
-    assert "The array used here is not taken from a published source." in seen and "It was derived for a test." in seen
+    assert "We did not find an eight-block bordered skew array in the sources we read" in seen
+    assert "which is not a proof that none is published" in seen and "It was derived for a test." in seen
     assert "The statement that this matrix is skew-Hadamard rests on the exact check of the build." in seen
     assert "The argument that follows is ours and has not been reviewed." in seen
     assert "X1 is the circulant matrix of the first of the eight rows" in seen
@@ -881,9 +883,10 @@ def test_page_of_order_5392_says_the_array_is_not_from_a_published_source(board,
     assert "Order 5392 is above the range of the board, which has a row for every order up to 1200" in seen
     assert "Construction: Bordered eight-block array, group of order 673, Z_673" in seen
     assert (
-        "The array is not taken from a published source: it was worked out for this board from the two cited." in seen
+        "We did not find this array in the sources we read, which is not a proof that none is published: "
+        "it was worked out for this board from the two cited." in seen
     )
-    assert "The array used here is not taken from a published source." in seen
+    assert "We did not find an eight-block bordered skew array in the sources we read" in seen
     assert "checked exactly at orders 48, 80, 96, 112, 496, 592 and 784" in seen
     assert "The statement that this matrix is skew-Hadamard rests on the exact check of the build." in seen
     assert "The argument that follows is ours and has not been reviewed." in seen
@@ -979,7 +982,7 @@ def test_grid_columns_agree_with_the_data_file(data, states):
 
 
 def test_orders_listed_without_a_matrix_say_so_in_the_tooltip(data, states):
-    """An order the cited lists give without a matrix and that now has one says so, with the date."""
+    """An order none of the cited sources gives a matrix of and that now has one says so, with the date."""
     t = data["types"]["skew-hadamard"]
     filled = {o for record in t["since"] for o in record["orders"]}
     assert {356, 476, 712, 952, 820, 996} <= filled
@@ -988,7 +991,9 @@ def test_orders_listed_without_a_matrix_say_so_in_the_tooltip(data, states):
         assert 'class="since"' not in skew_cell and "filled since" not in skew_cell
         if 4 * n in filled:
             date = next(record["date"] for record in t["since"] if 4 * n in record["orders"])
-            assert f"the cited sources list this order without a matrix, and this one dates from {date}" in skew_cell
+            assert (
+                f"none of the cited sources gives a matrix of this order, and this one dates from {date}" in skew_cell
+            )
     assert states[668]["hadamard"]["state"] == "known"
 
 
@@ -1222,7 +1227,7 @@ def test_matrix_block_states_the_construction_and_links_the_file(data, states, b
     filled = {o for record in t["since"] for o in record["orders"]}
     for order, (block, _) in blocks.items():
         assert "filled since" not in block
-        assert ("without a matrix; this one dates from 20" in block) == (order in filled), order
+        assert ("This one dates from 20" in block) == (order in filled), order
     assert "Construction: Paley I, q = 7 " in blocks[8][0]
     assert "generated with SageMath" in blocks[8][0] and "hadamard_matrix_paleyI" in blocks[8][0]
     assert "Doubling of a matrix of order 92 (Good matrices)" in blocks[184][0] and "is not cited" in blocks[184][0]

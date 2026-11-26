@@ -20,7 +20,7 @@ The board covers n up to 300 in six tracks, named by how many of the sequences a
 
 The board holds eleven inequivalent quadruples with a skew block at n = 89, found between 2026-11-22 and 2026-11-23 and listed on the [n = 89 cell page](https://hadamards.com/cells/n89-skew-sds.html). The array of each is a skew-Hadamard matrix of order 356. That order is the smallest listed as open in [[djokovic2023skew](https://hadamards.com/references.html#ref-djokovic2023skew)], [[araya2024classification](https://hadamards.com/references.html#ref-araya2024classification)] and [[egan2026recent](https://hadamards.com/references.html#ref-egan2026recent)], and it was already listed as not yet known in [[wallis1970configurations](https://hadamards.com/references.html#ref-wallis1970configurations)].
 
-A search of the literature and public repositories on 2026-11-22 found no earlier skew-Hadamard matrix of order 356. That reports the search and is not a claim of priority. The result has not been reviewed.
+A search of the sources named above on 2026-11-22 found no earlier skew-Hadamard matrix of order 356. That reports the search and is not a claim of priority. The result has not been reviewed.
 
 ## Verify an entry
 

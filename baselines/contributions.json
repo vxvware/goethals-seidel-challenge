@@ -731,7 +731,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Eleven skew quadruples at n = 89, found on 2026-11-22 and 2026-11-23 (UTC) by a search that fixes one skew block and joins pools of candidate rows for the other three. Each gives a skew-Hadamard matrix of order 356, the smallest order listed as open in [@djokovic2023skew], [@araya2024classification] and [@egan2026recent], and already listed as unknown in [@wallis1970configurations]. A literature search found no earlier one; this does not claim priority, and the result has not been reviewed.",
+      "summary": "Eleven skew quadruples at n = 89, found on 2026-11-22 and 2026-11-23 (UTC) by a search that fixes one skew block and joins pools of candidate rows for the other three. Each gives a skew-Hadamard matrix of order 356, the smallest order listed as open in [@djokovic2023skew], [@araya2024classification] and [@egan2026recent], and already listed as unknown in [@wallis1970configurations]. A search of these sources, of the census [@djokovic2025census], which lists v = 89 among the odd v below 2500 with a skew-Hadamard matrix of order 4v undecided, and of the note [@kumar2026skew] with its repository [@kishan2026skew], which give skew-Hadamard matrices for 106 of the values in that census and none of order 356, found no earlier one; this does not claim priority, and the result has not been reviewed.",
       "entry_ids": [
         "n89-eec2e43c042090883c04",
         "n89-b2a223b0fb7500feb95f",
