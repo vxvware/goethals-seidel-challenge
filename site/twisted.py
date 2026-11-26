@@ -28,6 +28,9 @@ type Matrix = list[list[int]]
 
 # The references for the propus array, of which this array is a variant.
 ARRAY_SOURCES = ("seberry2015propus", "balonin2017construction")
+# The nearest earlier work found: notes that examine arrays of Goethals–Seidel type twisted by a multiplier
+# u with u² = 1 and find only ones with a repeated block.
+TWIST_BEFORE = "kishan2026twist"
 # The array: a sign and a letter for each block. T, U and V are the three
 # matrices of a row defined in array(); w, y, c and z are the row unchanged by
 # k ↦ −sk, one of the two tied rows, the other one, and the row unchanged by
@@ -195,7 +198,10 @@ def block(ident: str, rows: Sequence[Sequence[int]], bib: Bibliography, prefix: 
         f"k ↦ x(−k).</p>"
         f"<p>This array is not taken from a published source. It is a variant of the propus array {cites}, which is "
         f"the case s = 1: the conditions then say that one row is symmetric and that two rows are equal, where here "
-        f"those two are different rows. It was worked out for this board on 2026-11-25. The "
+        f"those two are different rows. It was worked out for this board on 2026-11-25. The nearest earlier work "
+        f"found in the sources read is in the notes of a repository {bib.mark(TWIST_BEFORE, prefix)}, which examine "
+        "arrays of this kind with a block multiplied by the permutation of a multiplier u with u² = 1, find that "
+        "those which exist have two equal blocks and conclude that they give nothing beyond the propus array. The "
         "statement that H is a symmetric Hadamard matrix rests on the exact check of the build.</p>"
         f"<p>The argument that follows is ours and has not been reviewed. Let S be the permutation matrix of order "
         f"{n} with a 1 in row sj and column j, and N the one with a 1 in row −j and column j, for j = 0, …, {last}, "
@@ -223,5 +229,5 @@ def block(ident: str, rows: Sequence[Sequence[int]], bib: Bibliography, prefix: 
         f'<p><a href="{prefix}{file_name(ident)}" download>Download the matrix</a>: one row per line, + for 1 and - '
         "for −1. The build rebuilds H from the four rows by the definitions above and checks H = H<sup>T</sup> and "
         "H H<sup>T</sup> = nI exactly, with n the order, before it writes the file.</p></section>",
-        set(ARRAY_SOURCES),
+        {*ARRAY_SOURCES, TWIST_BEFORE},
     )

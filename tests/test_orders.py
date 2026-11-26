@@ -1927,3 +1927,47 @@ def test_notes_give_what_two_more_tables_list_for_each_odd_part(data, pages):
     # The book's table of symmetric orders reaches 399 and marks 247, 259 and 267 as having none known.
     for v in (247, 259, 267):
         assert f"marks q = {v} as having none known" in groups[f"symmetric-twisted-{v}"]["summary"]
+
+
+def test_pages_credit_earlier_uses_of_the_method(board, data, pages):
+    """Each found order's page says where the parts of its method were used before, with a citation for each."""
+    from test_site import visible
+
+    import skew
+
+    stored = orders.validate_matrices(orders.load_matrices(), data, Bibliography())
+    found = {order: x for order, x in stored.items() if x["origin"] == "found"}
+    assert len(found) >= 24
+    spin = "three of them carried round by a multiplier, were used before in the Goethals–Seidel array"
+    pair = "two pairs each carried by a multiplier, are described for the Goethals–Seidel array"
+    same = "The same bordered array, with rows constant on classes of powers in a field of a prime number of elements"
+    for order, x in found.items():
+        page = (pages / f"orders/skew-{order}.html").read_text()
+        seen = visible(page)
+        cited = lambda key, page=page: f'ref-{key}"' in page  # noqa: E731
+        # Rows constant on the orbits of multipliers: a standard method, cited once on every page.
+        assert seen.count("is a standard way to search for such rows") == 1
+        assert cited("djokovic1992construction") and cited("djokovic2014some")
+        # A tie of three rows is the spin structure of an earlier paper, and two tied pairs the pair-spin
+        # structure of a repository's notes, both for the array without a border.
+        lengths = sorted(len(c) for c in x["tie"]["chains"]) if "tie" in x else []
+        assert (spin in seen) == (lengths == [3]) == cited("djokovic2024two")
+        assert (pair in seen) == (lengths == [2, 2]) == cited("kishan2026pairspin")
+        assert ("here the relation is used in the bordered array" in seen) == bool(lengths)
+        assert skew.tie_source(x) == {(): None, (3,): "djokovic2024two", (2, 2): "kishan2026pairspin"}[tuple(lengths)]
+        # The bordered array was used with rows on classes of powers before: every bordered page cites that release,
+        # in its note or in this sentence.
+        if x["array"] == "bordered":
+            assert cited("kline2026skew") and (same in seen) == ("[@kline2026skew]" not in x["note"])
+        else:
+            assert same not in seen
+        # Matching through a hash, where the search did that.
+        assert ("credits" in x) == ("hash" in x["search"])
+        assert ("was used for searches of this kind in" in seen) == ("credits" in x)
+        staged = "The join in stages on chosen values" in seen
+        assert staged == (order in (856, 3352, 5392)) == cited("kishan2026method")
+        assert "first" not in x.get("credits", "") and "priority" not in x.get("credits", "")
+    assert sorted(o for o, x in found.items() if "tie" in x and len(x["tie"]["chains"]) == 2) == [2696, 10376]
+    assert "the choice of rows whose autocorrelations lie near their mean" in found[856]["credits"]
+    # Other shapes of tie have no earlier work named.
+    assert skew.tie_source({"tie": {"chains": [[1, 2, 3, 4]]}}) is None and skew.tie_source({}) is None

@@ -165,7 +165,12 @@ def validate_matrices(doc: JSONObject, data: JSONObject, bib: Bibliography) -> d
             or record["date"] != dates.get(order, record["date"])
         ):
             raise ValueError(f"skew-matrices: order {order} lacks a field of a found matrix or has another date")
-        keys = [*record["sources"], *bib.keys_in(record.get("note", "")), record.get("software", record["sources"][0])]
+        keys = [
+            *record["sources"],
+            *bib.keys_in(record.get("note", "")),
+            *bib.keys_in(record.get("credits", "")),
+            record.get("software", record["sources"][0]),
+        ]
         missing = sorted(key for key in keys if key not in bib.entries)
         if missing:
             raise ValueError(f"skew-matrices: sources without a reference: {missing}")
