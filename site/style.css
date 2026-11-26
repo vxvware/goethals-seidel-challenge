@@ -154,3 +154,7 @@ details summary{cursor:pointer;font-size:.8667rem;color:var(--green)}
 .refs li{margin:.5333rem 0;overflow-wrap:anywhere}
 .refs li:target{background:var(--panel);outline:1px solid var(--line)}
 footer .credit{margin:1rem 0 0;font-size:.8rem;color:var(--muted)}
+table.results th button{all:unset;cursor:pointer;color:inherit;font:inherit}
+table.results th button:focus-visible{outline:1px solid var(--green);outline-offset:2px}
+table.results th[aria-sort=ascending] button::after{content:" ▲"}
+table.results th[aria-sort=descending] button::after{content:" ▼"}

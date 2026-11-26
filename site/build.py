@@ -430,38 +430,40 @@ NEW_CELLS = set(NEW_RESULTS)
 NEW_RESULT_NAMES = {"williamson": "Williamson ", "good": "Good ", "kkss": "G-"}
 # The Type column of the New results table, by the kind of a matrix result or the track of a family result.
 NEW_RESULT_TYPES = {
-    "skew": "skew-Hadamard",
-    "matrix": "skew-Hadamard",
-    "twisted": "symmetric Hadamard",
+    "skew": "Skew-Hadamard",
+    "matrix": "Skew-Hadamard",
+    "twisted": "Symmetric Hadamard",
     "propus": "Propus",
     "williamson": "Williamson",
     "good": "Good",
     "kkss": "G-matrices",
 }
+# The order of the types in the New results table, which sorting by Type restores.
+TYPE_ORDER = ["Skew-Hadamard", "Symmetric Hadamard", "Propus", "Good", "G-matrices", "Williamson"]
 # The Before column of the New results table: what the literature had, by (type, order) as the row shows
 # them. Each value is taken from the page the row links to, which states it with its citations: for a
 # skew-Hadamard order, the least order 2ᵗm with the same odd part m that the tables quoted on that page
 # give as known, and whether the SageMath list names the order. {cite} is replaced by the citation of the
 # published result a row contradicts.
 NEW_RESULT_BEFORE = {
-    ("skew-Hadamard", 356): "open, the smallest open order",
-    ("skew-Hadamard", 808): "open; smallest known 103424 (2¹⁰ × 101)",
-    ("skew-Hadamard", 856): "open; smallest known 109568 (2¹⁰ × 107)",
-    ("skew-Hadamard", 1416): "smallest known 2832 (2⁴ × 177)",
-    ("skew-Hadamard", 1712): "smallest known 109568 (2¹⁰ × 107)",
-    ("skew-Hadamard", 2360): "smallest known 4720 (2⁴ × 295)",
-    ("skew-Hadamard", 2696): "smallest known 88342528 (2¹⁸ × 337)",
-    ("skew-Hadamard", 3352): "smallest known 6704 (2⁴ × 419)",
-    ("skew-Hadamard", 5336): "smallest known 42688 (2⁶ × 667)",
-    ("skew-Hadamard", 5392): "smallest known 88342528 (2¹⁸ × 337)",
-    ("skew-Hadamard", 7496): "smallest known 29984 (2⁵ × 937)",
+    ("Skew-Hadamard", 356): "open, the smallest open order",
+    ("Skew-Hadamard", 808): "open; smallest known 103424 (2¹⁰ × 101)",
+    ("Skew-Hadamard", 856): "open; smallest known 109568 (2¹⁰ × 107)",
+    ("Skew-Hadamard", 1416): "smallest known 2832 (2⁴ × 177)",
+    ("Skew-Hadamard", 1712): "smallest known 109568 (2¹⁰ × 107)",
+    ("Skew-Hadamard", 2360): "smallest known 4720 (2⁴ × 295)",
+    ("Skew-Hadamard", 2696): "smallest known 88342528 (2¹⁸ × 337)",
+    ("Skew-Hadamard", 3352): "smallest known 6704 (2⁴ × 419)",
+    ("Skew-Hadamard", 5336): "smallest known 42688 (2⁶ × 667)",
+    ("Skew-Hadamard", 5392): "smallest known 88342528 (2¹⁸ × 337)",
+    ("Skew-Hadamard", 7496): "smallest known 29984 (2⁵ × 937)",
     **{
-        ("skew-Hadamard", order): "no table covers this order"
+        ("Skew-Hadamard", order): "no table covers this order"
         for order in (9672, 10376, 10440, 12360, 14792, 15176, 16712, 17096, 18248, 18632, 20936, 22088, 25928, 28232)
     },
-    ("symmetric Hadamard", 988): "none known",
-    ("symmetric Hadamard", 1036): "none known",
-    ("symmetric Hadamard", 1068): "none known",
+    ("Symmetric Hadamard", 988): "none known",
+    ("Symmetric Hadamard", 1036): "none known",
+    ("Symmetric Hadamard", 1068): "none known",
     ("Propus", 65): "no propus family known",
     ("Good", 53): "no published search",
     ("Good", 55): "no published search",
@@ -641,7 +643,7 @@ def new_results(stats: JSONObject, r: Results) -> list[JSONObject]:
     for x in existence_results(stats, r):
         order = x["n"] if x["kind"] == "propus" else 4 * x["n"]
         matrices.append(x | {"type": NEW_RESULT_TYPES[x["kind"]], "order": order, "result": "exists"})
-    rank = {"skew-Hadamard": 0, "symmetric Hadamard": 1, "Propus": 2}
+    rank = {"Skew-Hadamard": 0, "Symmetric Hadamard": 1, "Propus": 2}
     matrices.sort(key=lambda x: (rank[x["type"]], x["order"]))
     return matrices + counts + empty
 
@@ -670,7 +672,8 @@ def new_results_section(stats: JSONObject, r: Results) -> str:
         href = x.get("href") or f"cells/n{x['n']}-{x['stratum']}.html"
         marked = ' class="contradicted"' if x["source"] else ""
         rows.append(
-            f'<tr{marked}><td>{esc(x["type"])}</td><td><a href="{esc(href)}">{x["order"]}</a></td>'
+            f'<tr{marked}><td data-sort="{TYPE_ORDER.index(x["type"])}">{esc(x["type"])}</td>'
+            f'<td><a href="{esc(href)}">{x["order"]}</a></td>'
             f"<td>{esc(x['result'])}</td><td>{new_result_before(x)}</td></tr>"
         )
     return (
