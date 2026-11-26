@@ -380,7 +380,9 @@ def census_count(c: JSONObject, r: Results) -> str:
 # (see the contribution williamson-61-reproduction); Williamson 65, which two
 # earlier public records report (see the contribution
 # williamson-65-confirmation); and G-matrices at 53, where no parameter set
-# exists, so the empty cell is arithmetic and not a search result.
+# exists, so the empty cell is arithmetic and not a search result; and good
+# matrices at 75, whose nonexistence a note of 2026-11-16 reports (see the
+# contribution good-75-empty).
 # G-matrices at 63 and 69 were checked on 2026-11-23.
 LITERATURE_SEARCH_DATE = "2026-11-21"
 NEW_RESULTS = (
@@ -390,7 +392,6 @@ NEW_RESULTS = (
     ("good", 59),
     ("good", 61),
     ("good", 67),
-    ("good", 75),
     ("kkss", 49),
     ("kkss", 51),
     ("kkss", 55),
@@ -543,9 +544,11 @@ def new_results(stats: JSONObject, r: Results) -> list[tuple[str, list[JSONObjec
             text = f"{subject}: {'exactly' if exact else 'at least'} {census['count']} {noun}."
             kind = "classification"
         elif c["status"] == "empty":
-            # Whether the board has replayed the search is shown on the cell page,
-            # not on the front page.
+            # A line beside replayed results must not read as one: a search the
+            # board has not rerun carries the wording of its cell.
             text = f"{subject}: none exist."
+            if "reproduced" not in c["empty_basis"]:
+                item["qualifier"] = "; ".join(EVIDENCE_WORDS[b] for b in c["empty_basis"])
             kind = "nonexistence"
         else:
             raise ValueError(f"new result without a census or an empty cell: {track} n={n}")
