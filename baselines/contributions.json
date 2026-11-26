@@ -784,7 +784,7 @@
         "n247-308b784a56a0a484fe03"
       ],
       "seed_artifacts": [],
-      "featured": false,
+      "featured": true,
       "stratum": "general"
     },
     {
@@ -803,7 +803,7 @@
         "n259-89a912c3ec591210d016"
       ],
       "seed_artifacts": [],
-      "featured": false,
+      "featured": true,
       "stratum": "general"
     },
     {
@@ -822,7 +822,7 @@
         "n267-53011cacf3f3fb5b6b64"
       ],
       "seed_artifacts": [],
-      "featured": false,
+      "featured": true,
       "stratum": "general"
     }
   ]
