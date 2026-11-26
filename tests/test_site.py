@@ -465,6 +465,8 @@ def visible(page):
     import re
 
     page = re.sub(r"<script.*?</script>", " ", page, flags=re.S)
+    # A raised exponent reads as one, as the Unicode superscript digits the page text was written in.
+    page = re.sub(r"<sup>(\d+)</sup>", lambda m: m.group(1).translate(str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")), page)
     spoken = re.findall(r'(?:title|aria-label)="([^"]*)"', page)
     return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", page) + " | " + " | ".join(spoken)))
 
@@ -661,3 +663,9 @@ def test_catalogue_with_one_quadruple_per_published_class_says_so(board, tmp_pat
     page = visible(module.cell_page(with_entry, d | {"n10-other": doc}, results))
     assert "The board holds 1 more Williamson quadruple of length 10 with a page of its own, listed below." in page
     assert "1 quadruple with a page of its own, not in the file" in page
+
+
+def test_superscript_digits_render_as_sup_in_text_only():
+    module = site_build()
+    html = module.html_superscripts('<p title="2¹⁸">2¹⁸ × 337</p><script>"2¹⁸"</script>')
+    assert html == '<p title="2¹⁸">2<sup>18</sup> × 337</p><script>"2¹⁸"</script>'
