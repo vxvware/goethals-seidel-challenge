@@ -887,8 +887,7 @@ def cell_lead(c: JSONObject, r: Results, prefix: str = "../") -> str:
                 f"{'is' if count == 1 else 'are'} published{marks}. The board holds none of them yet."
             )
         return f"{many[0].upper()}{many[1:]} exist by a published result{marks}. The board holds none yet."
-    kind = "skew-Hadamard" if track in SKEW_TRACKS else "Hadamard"
-    gives = f" {'It gives' if held == 1 else 'Each gives'} a {kind} matrix of order {4 * n}."
+    gives = ""
     verified = f"{plural(held, 'verified ' + singular, 'verified ' + many)}"
     if census is None:
         distinct = ", no two in the same class" if held > 1 else ""
@@ -936,7 +935,7 @@ def catalogue_lead(c: JSONObject, cat: JSONObject, r: Results, prefix: str) -> s
     rows, classes = cat["rows"], cat.get("published_classes")
     extra = len(outside_catalogue(c, r))
     marks = source_marks(c, prefix)
-    gives = f" Each gives a Hadamard matrix of order {4 * n}."
+    gives = ""
     if cat["stratum"] != track:
         other_singular, other_many = nouns(cat["stratum"], n)
         more = f", and {plural(extra, 'other verified ' + singular, 'other verified ' + many)}" if extra else ""

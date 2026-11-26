@@ -532,12 +532,12 @@ def test_cell_page_opens_with_one_plain_sentence(board):
     # The module's board skips the inline replays, and the sentence says so instead of claiming a rerun.
     assert lead(18, "williamson") == (
         "The board holds 540 Williamson quadruples of length 18, one per class of a complete search that this "
-        "build did not rerun. Each gives a Hadamard matrix of order 72."
+        "build did not rerun."
     )
     # A registered replay holds in every build.
     assert lead(61, "williamson") == (
         "The board holds 1 Williamson quadruple of length 61, the only class. A complete search rerun here "
-        "found no others. It gives a Hadamard matrix of order 244."
+        "found no others."
     )
     assert lead(89, "skew-sds").startswith(
         "The board holds 11 verified Goethals–Seidel quadruples of length 89 with a skew block, no two in the "
