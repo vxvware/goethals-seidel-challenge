@@ -462,7 +462,7 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
             item |= {
                 "n": n,
                 "stratum": "general",
-                "text": (f"A symmetric Hadamard matrix of order {4 * n} from circulant blocks."),
+                "text": f"A symmetric Hadamard matrix of order {4 * n}.",
                 # The entry page carries the propus array and the matrix file.
                 "href": f"entries/{entries[0]['id']}.html",
             }
@@ -579,8 +579,6 @@ def new_results_section(stats: JSONObject, r: Results) -> str:
                     raise ValueError(f"contradicted source has no note on what was read: {key}")
                 cite = f'<a href="{esc(url)}" rel="noopener">{esc(BIB.short(key))}</a> {BIB.mark(key)}'
                 link += " " + esc(CONTRADICTION_NOTES[key]).replace("{cite}", cite)
-            if x["qualifier"]:
-                link += f' <span class="muted">({esc(x["qualifier"])})</span>'
             parts.append(f"<li>{link}</li>")
         parts.append("</ul>")
     parts.append("</section>")
