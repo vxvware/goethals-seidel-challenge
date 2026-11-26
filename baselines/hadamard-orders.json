@@ -37,7 +37,7 @@
     "kishan2026hadamard": {
       "as_of": "2026-11-06",
       "version": "Repository commit d885022144ba6bf4efa8315e14871a3736947527, not peer reviewed",
-      "read": "skew/476 of the same repository. Its four sequences are the board entry n119-f302cc45a2f83e60917b, which the board's verifier checks exactly."
+      "read": "skew/476 of the same repository. Its four sequences are the board entry n119-f302cc45a2f83e60917b, which the board's verifier checks exactly. The repository's history shows skew/476 added in commit 5d0ebf7 of 2026-10-23 and only its README changed before commit d885022 of 2026-11-06, the version read."
     },
     "kotsireas2008new": {
       "as_of": "2026-11-25",
@@ -96,10 +96,10 @@
         {
           "orders": [476],
           "status": "board",
-          "date": "2026-11-06",
+          "date": "2026-10-23",
           "sources": ["kishan2026hadamard"],
           "entry_ids": ["n119-f302cc45a2f83e60917b"],
-          "note": "A quadruple with a skew block at n = 119 from [@kishan2026hadamard], imported and verified on this board."
+          "note": "A quadruple with a skew block at n = 119 from [@kishan2026hadamard], posted there on 2026-10-23 and imported and verified on this board on 2026-11-17."
         },
         {
           "orders": [820, 836, 980, 996, 1004, 1012, 1036, 1044, 1100, 1140, 1148],
