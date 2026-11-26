@@ -131,7 +131,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact. At 55 a repository note in a commit dated 2026-10-25 [@kishan2026notes] reports an independent exhaustive classification with exactly one class; it cites this board for existence.",
+      "summary": "The vxvware census found good matrices at three orders no published search covers: 104 rows at n=53, 40 at n=55, and 120 at n=61, each yielding one class. The rows verify exactly; replays with the pinned good-census-c-v1 engine on 2026-11-14 to 2026-11-16 returned the same classes, so the three counts are exact. At 55 a repository note in a commit dated 2026-10-25 [@kishan2026notes] reports an independent exhaustive classification with exactly one class; it cites this board for existence at 53, 55 and 61. A note published on 2026-11-16 [@kumar2026good5355] prints one set of good matrices at each of orders 53 and 55, each in the board's class at that order, and calls them the first to its knowledge; it does not mention this board, whose rows at both orders were recorded on 2026-10-15.",
       "entry_ids": [
         "vxvware-good-n53",
         "vxvware-good-n55",
@@ -156,7 +156,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Two independent complete runs of the vxvware census report no good matrices at n=59. A full replay with the pinned good-census-c-v1 engine on 2026-11-18 also found none, so the board reproduces the empty census.",
+      "summary": "Two independent complete runs of the vxvware census report no good matrices at n=59. A full replay with the pinned good-census-c-v1 engine on 2026-11-18 also found none, so the board reproduces the empty census. A note published on 2026-11-16 [@kumar2026williamson75] reports, at the evidence level it calls internal, that its own searches found no good matrices of order 59; it does not mention this board, which has recorded the claim since 2026-10-16.",
       "entry_ids": [
         "vxvware-good-n59-census"
       ],
@@ -287,7 +287,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The campaign reports nonexistence. A missing early receipt chain leaves this an archived claim, with participant credit retained. A repository note in a commit dated 2026-10-25 [@kishan2026notes] reports an independent exhaustive search of 67,437 compressed instances that found no good matrices of order 65; it describes this board's claim as unverified.",
+      "summary": "The campaign reports nonexistence. A missing early receipt chain leaves this an archived claim, with participant credit retained. A repository note in a commit dated 2026-10-25 [@kishan2026notes] reports an independent exhaustive search of 67,437 compressed instances that found no good matrices of order 65; it describes this board's claim as unverified. A note published on 2026-11-16 [@kumar2026williamson75] reports the same at the evidence level it calls internal and does not mention this board, whose claim was recorded on 2026-10-14.",
       "entry_ids": [
         "good-n65-campaign"
       ],
@@ -684,8 +684,8 @@
     },
     {
       "id": "good-75-empty",
-      "title": "Good-matrix census at n=75, empty",
-      "relation": "participant-result",
+      "title": "Good-matrix census at n=75, empty, confirming an earlier report",
+      "relation": "independent-reproduction",
       "publication_status": "unpublished",
       "contributors": [
         {
@@ -693,12 +693,12 @@
           "github": "vxvware"
         }
       ],
-      "summary": "The board's two-divisor compression census at n=75 (good-compress2-v1, compression by 5 and by 3) lifted all 1,612,793 of its compressed instances of length 15, in 3,137 signature groups, and found no good matrices. Published searches stop below this order: [@djokovic2018goethals] classify the odd orders below 50, and [@bright2019good] enumerate the odd orders divisible by 3 below 70, of which 75 is the next. A search of the literature and of public repositories on 2026-11-25 found no claim at 75 in either direction; to our knowledge this is the first search reported at this order. Orders 65, 71 and 73 are still open on the board (65 carries an archived nonexistence claim), and its empty cells at 63, 67 and 69 rest on a cited search or on a participant run with no verification tier, so 75 does not extend a complete classification. This is a single run of one engine. The engine returned the board's classes at orders from 45 to 63, where n/(d1 d2) is 1 or 3; at 75 it is 5, and no order with that value has a positive control. The nonexistence is exact on the board through the registered replay of the pinned engine.",
+      "summary": "The board's two-divisor compression census at n=75 (good-compress2-v1, compression by 5 and by 3) lifted all 1,612,793 of its compressed instances of length 15, in 3,137 signature groups, and found no good matrices; the census entry is dated 2026-11-25. The result was reported earlier: a note published on 2026-11-16 [@kumar2026williamson75] states that an exhaustive computer search found no circulant good matrices of order 75. The note is not peer reviewed, publishes neither its method nor a certificate, and lists the nonexistence as not established. The board's census was run with the board's own program and agrees with it, so it is an independent confirmation, not a first result. Peer-reviewed searches stop below this order: [@djokovic2018goethals] classify the odd orders below 50, and [@bright2019good] enumerate the odd orders divisible by 3 below 70, of which 75 is the next. Orders 65, 71 and 73 are still open on the board (65 carries an archived nonexistence claim), and its empty cells at 63, 67 and 69 rest on a cited search or on a participant run with no verification tier, so 75 does not extend a complete classification. This is a single run of one engine. The engine returned the board's classes at orders from 45 to 63, where n/(d1 d2) is 1 or 3; at 75 it is 5, and no order with that value has a positive control. The nonexistence is exact on the board through the registered replay of the pinned engine.",
       "entry_ids": [
         "good-n75"
       ],
       "seed_artifacts": [],
-      "featured": true,
+      "featured": false,
       "stratum": "good"
     },
     {
@@ -731,7 +731,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Eleven skew quadruples at n = 89, found on 2026-11-22 and 2026-11-23 (UTC) by a search that fixes one skew block and joins pools of candidate rows for the other three. Each gives a skew-Hadamard matrix of order 356, the smallest order listed as open in [@djokovic2023skew], [@araya2024classification] and [@egan2026recent], and already listed as unknown in [@wallis1970configurations]. A literature search found no earlier one; this does not claim priority, and the result has not been reviewed.",
+      "summary": "Eleven skew quadruples at n = 89, found on 2026-11-22 and 2026-11-23 (UTC) by a search that fixes one skew block and joins pools of candidate rows for the other three. Each gives a skew-Hadamard matrix of order 356, the smallest order listed as open in [@djokovic2023skew], [@araya2024classification] and [@egan2026recent], and already listed as unknown in [@wallis1970configurations]. A search of these sources, of the census [@djokovic2025census], which lists v = 89 among the odd v below 2500 with a skew-Hadamard matrix of order 4v undecided, and of the note [@kumar2026skew] with its repository [@kishan2026skew], which give skew-Hadamard matrices for 106 of the values in that census and none of order 356, found no earlier one; this does not claim priority, and the result has not been reviewed.",
       "entry_ids": [
         "n89-eec2e43c042090883c04",
         "n89-b2a223b0fb7500feb95f",
@@ -760,7 +760,7 @@
           "github": "vxvware"
         }
       ],
-      "summary": "Four rows of length 65 that give a symmetric Hadamard matrix of order 260 built from circulant blocks. They form a propus difference family in the cyclic group Z_65: a quadruple (A, B, B, D) with A symmetric, whose propus array [@seberry2015propus] [@balonin2017construction] is a symmetric Hadamard matrix. The published sources have no propus family at 65: [@djokovic2022symmetric] states the conjecture that propus families exist, reports it verified for odd v up to 63 and lists v = 65 as the smallest v for which a symmetric Hadamard matrix of order 4v is undecided, and [@djokovic2023skew] gives 65, 89 and 93 as the odd v below 100 with none known. Order 260 has one earlier matrix, by a different construction: a bordered propus array over Z_64 with no circulant blocks of order 65, posted on 2026-10-18 in a repository that is not peer reviewed [@kishan2026symmetric260]; the notes of that repository report that its searches for propus families over Z_65 with multiplier symmetry found none [@kishan2026propus]. The family has row sums 9, 7, 7, 9 and parameters (65; 28, 29, 29, 28; 49), one of the four propus parameter sets at v = 65; B and D are not symmetric and have no multiplier symmetry. It was found on 2026-11-24 by a search that takes every symmetric row of one row sum for A and joins pools of candidate rows for B and D. The search is not a census and does not settle the conjecture at v = 65. A search of the literature and public repositories on 2026-11-24 found no earlier propus difference family in Z_65; this reports the search and does not claim priority, and the result has not been reviewed. The verifier checks only the rows, whose Goethals–Seidel array is a Hadamard matrix that is not symmetric.",
+      "summary": "Four rows of length 65 that give a symmetric Hadamard matrix of order 260 built from circulant blocks. They form a propus difference family in the cyclic group Z_65: a quadruple (A, B, B, D) with A symmetric, whose propus array [@seberry2015propus] [@balonin2017construction] is a symmetric Hadamard matrix. The published sources have no propus family at 65: [@djokovic2022symmetric] states the conjecture that propus families exist, reports it verified for odd v up to 63 and lists v = 65 as the smallest v for which a symmetric Hadamard matrix of order 4v is undecided, and [@djokovic2023skew] names 65, 89 and 93 as the only odd v below 100 for which none was known and constructs four at v = 93, which leaves 65 and 89. Order 260 has one earlier matrix, by a different construction: a bordered propus array over Z_64 with no circulant blocks of order 65, posted on 2026-10-18 in a repository that is not peer reviewed [@kishan2026symmetric260]; the notes of that repository report that its searches for propus families over Z_65 with multiplier symmetry found none [@kishan2026propus]. The family has row sums 9, 7, 7, 9 and parameters (65; 28, 29, 29, 28; 49), one of the four propus parameter sets at v = 65; B and D are not symmetric and have no multiplier symmetry. It was found on 2026-11-24 by a search that takes every symmetric row of one row sum for A and joins pools of candidate rows for B and D. The search is not a census and does not settle the conjecture at v = 65. A search of the literature and public repositories on 2026-11-24 found no earlier propus difference family in Z_65; this reports the search and does not claim priority, and the result has not been reviewed. The verifier checks only the rows, whose Goethals–Seidel array is a Hadamard matrix that is not symmetric.",
       "entry_ids": [
         "n65-9bf801f0de9e2d01c459"
       ],

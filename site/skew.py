@@ -71,8 +71,8 @@ BORDERED_BANDS = (
     ("-DT", "-C", "B", "AT"),
 )
 SWAP = str.maketrans("+-", "-+")
-# The pattern of the eight blocks in the bordered eight-block array, which is not from a published
-# source: entry k stands for the k-th block and -k for its negative. With commuting symbols its rows
+# The pattern of the eight blocks in the bordered eight-block array, which was not found in the
+# sources read: entry k stands for the k-th block and -k for its negative. With commuting symbols its rows
 # are orthogonal, block 1 fills the diagonal, the same block stands in positions (i, j) and (j, i),
 # and its signs form a skew-Hadamard matrix of order 8; tests/test_orders.py checks each of these.
 BORDERED8 = (
@@ -525,9 +525,50 @@ def construction(record: JSONObject) -> str:
     return text
 
 
+# The sources read for a bordered skew array of eight blocks before the one used here was worked out.
+BORDERED8_SOURCES_READ = ("wallis1972some", "momihara2019constructions", "kotsireas2008new")
+# The odd v below 200 that djokovic2023skew lists with a skew-Hadamard matrix of order 4v undecided.
+DJOKOVIC_UNDECIDED = (89, 101, 107, 119, 149, 153, 167, 177, 179, 191, 193)
+
+
+def listed_statements(order: int, t: JSONObject, bib: Bibliography, prefix: str) -> str:
+    """What each source behind the list of open orders says about one order of that list.
+
+    The sources do not all list the order: one names it, one gives a table from which it follows,
+    one lists odd v for order 4v, and one names only the smallest order. Each is credited with
+    what it says, and a source that says nothing about the order is left out.
+    """
+    odd = order
+    while odd % 2 == 0:
+        odd //= 2
+    says = {
+        "sage2026unknown": "The SageMath list {mark} names order {order} among the orders up to 1200 with no known "
+        "skew-Hadamard matrix.",
+        "cati2024database": "By the table in {mark} of the least t for which a skew-Hadamard matrix of order "
+        "2<sup>t</sup>m is known, m odd, none of order {order} is known; the table is the reference compared "
+        "against, not a guarantee.",
+        "djokovic2023skew": "{mark} lists v = {odd} among the odd v below 200 for which a skew-Hadamard matrix of "
+        "order 4v is undecided."
+        if order == 4 * odd and odd in DJOKOVIC_UNDECIDED
+        else "",
+        "egan2026recent": "The survey {mark} gives {order} as the smallest order with no skew-Hadamard matrix known."
+        if order == min(t["listed_open"])
+        else "",
+    }
+    if set(says) != set(t["listed_open_sources"]):
+        raise ValueError("skew-hadamard: a source of the open list has no statement of what it lists")
+    return " ".join(
+        says[key].format(mark=bib.mark(key, prefix), order=order, odd=odd)
+        for key in sorted(says, key=bib.number.__getitem__)
+        if says[key]
+    )
+
+
 def stored_keys(record: JSONObject, bib: Bibliography) -> set[str]:
     """Every bibliography key the block of a stored matrix cites."""
     keys = {*record["sources"], *bib.keys_in(record.get("note", ""))}
+    if record.get("array") == "bordered8":
+        keys.update(BORDERED8_SOURCES_READ)
     if "software" in record:
         keys.add(record["software"])
     return keys
@@ -563,7 +604,8 @@ def origin_sentence(record: JSONObject, bib: Bibliography, prefix: str) -> str:
                 "Goethals–Seidel quadruple, and the order is above the board's range"
             )
             ours = (
-                "The array is not taken from a published source: it was worked out for this board from the two cited. "
+                "We did not find this array in the sources we read, which is not a proof that none is published: "
+                "it was worked out for this board from the two cited. "
             )
         else:
             what = f"eight rows of length {record['parameters']['v']}, not a Goethals–Seidel quadruple"
@@ -760,7 +802,7 @@ def bordered8_details(record: JSONObject, bib: Bibliography, prefix: str) -> str
     eight-block array.
 
     The rows pass bordered8_rows first, so the page states only what was checked.
-    The array is not from a published source, and the page says so.
+    The array was not found in the sources read, and the page names them.
     """
     rows = bordered8_rows(record)
     order, w = record["order"], len(rows[0])
@@ -773,7 +815,9 @@ def bordered8_details(record: JSONObject, bib: Bibliography, prefix: str) -> str
     megabytes = round(order * (order + 1) / 1e6, 1)
     t = "<sup>T</sup>"
     return (
-        "<p>The array used here is not taken from a published source. It is an analogue for eight blocks of the "
+        "<p>We did not find an eight-block bordered skew array in the sources we read "
+        f"{marks(bib, BORDERED8_SOURCES_READ, prefix)}, which is not a proof that none is published. The array "
+        "used here is an analogue for eight blocks of the "
         f"bordered array of {border} for four, built on the eight-block array of {plain}. "
         f"{esc(record['derivation'])} The statement that this matrix is skew-Hadamard rests on the exact check of "
         "the build.</p>"
@@ -841,8 +885,7 @@ def matrix_block(
     parts = [f'<p><span class="tag">{esc(STATES[state][0])}</span>']
     if info["record"] and state != "open":
         parts.append(
-            f"</p><p>The sources {marks(bib, t['listed_open_sources'], prefix)} list order {order} without a matrix; "
-            f"this one dates from {esc(info['record']['date'])}.</p>"
+            f"</p><p>{listed_statements(order, t, bib, prefix)} This one dates from {esc(info['record']['date'])}.</p>"
         )
     else:
         parts.append("</p>")

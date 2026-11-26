@@ -1,7 +1,7 @@
 """Existence of Hadamard and skew-Hadamard matrices by order, from cited sources.
 
 baselines/hadamard-orders.json records, for each matrix type, the orders that
-the cited sources list without a matrix and the later statements about them.
+none of the cited sources gives a matrix and the later statements about them.
 This module checks that file, joins it with the verified entries of the board
 and with the stored matrices of baselines/skew-matrices.json, and renders the
 two order columns of the front-page grid and the sentence that describes it.
@@ -264,7 +264,7 @@ def state_cell(
     record = info.get("record")
     filled = info["listed_open"] and info["state"] in ("board", "verified")
     if filled:
-        spoken += "; the cited sources list this order without a matrix" + (
+        spoken += "; none of the cited sources gives a matrix of this order" + (
             f", and this one dates from {record['date']}" if record else ""
         )
     elif record and info["state"] == "known":

@@ -349,10 +349,15 @@ def test_new_results_are_worded_from_the_board(board):
     assert "G-matrices of order 57: none exist." in texts
     assert "G-matrices of order 61: exactly 2 classes." in texts
     assert "Not yet replayed" not in groups
-    assert not any(x["qualifier"] for x in groups["Nonexistence"])
-    # The board has not replayed the good-67 census; the cell keeps that on its own page.
+    # The board has not replayed the good-67 census, and its line says so beside the replayed ones.
     by_cell = {(x["n"], x["stratum"]): x for x in summary(*board)["cells"]}
     assert "reproduced" not in by_cell[67, "good"]["empty_basis"]
+    qualified = {x["text"]: x["qualifier"] for x in groups["Nonexistence"] if x["qualifier"]}
+    assert qualified == {"Good matrices of order 67: none exist.": "complete search reported, not rerun here"}
+    # Good matrices at 75 were reported in a note of 2026-11-16, before the board's census: not new.
+    assert "Good matrices of order 75: none exist." not in texts
+    assert by_cell[75, "good"]["status"] == "empty" and "reproduced" in by_cell[75, "good"]["empty_basis"]
+    assert "independent-reproduction" in by_cell[75, "good"]["origins"]
     # The shift-class counts are not claimed as new.
     assert not any("cyclic shifts" in t for t in texts)
 
