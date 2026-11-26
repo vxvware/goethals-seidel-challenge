@@ -412,7 +412,7 @@ NEW_RESULT_NAMES = {"williamson": "Williamson ", "good": "Good ", "kkss": "G-"}
 # What a contradicted source says and what was read of it, by bibliography key.
 # {cite} is the linked reference.
 CONTRADICTION_NOTES = {
-    "djokovic2018goethals": ("{cite} report a complete classification for odd v < 50 with none at this order."),
+    "djokovic2018goethals": "A complete classification for odd v < 50 in {cite} lists none at this order.",
 }
 # Existence results, by contribution id, with their kind and the date of the
 # search of the sources its record names that found no earlier one.
@@ -583,8 +583,7 @@ def new_results_section(stats: JSONObject, r: Results) -> str:
                     raise ValueError(f"contradicted source is not in references.bib: {url}")
                 if key not in CONTRADICTION_NOTES:
                     raise ValueError(f"contradicted source has no note on what was read: {key}")
-                cite = f'<a href="{esc(url)}" rel="noopener">{esc(BIB.short(key))}</a> {BIB.mark(key)}'
-                link += " " + esc(CONTRADICTION_NOTES[key]).replace("{cite}", cite)
+                link += " " + esc(CONTRADICTION_NOTES[key]).replace("{cite}", BIB.mark(key))
             parts.append(f"<li>{link}</li>")
         parts.append("</ul>")
     parts.append("</section>")

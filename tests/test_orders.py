@@ -151,11 +151,14 @@ def test_states_follow_the_data_file(data, states):
     assert states[536]["skew-hadamard"]["state"] == "verified"
     assert states[544]["skew-hadamard"]["state"] == "verified"
     assert states[712]["skew-hadamard"]["state"] == states[820]["skew-hadamard"]["state"] == "verified"
-    assert states[532]["hadamard"]["state"] == "known"
+    # A stored skew-Hadamard matrix is a Hadamard matrix of the same order.
+    assert states[532]["hadamard"]["state"] == "verified"
     assert states[404]["skew-hadamard"]["state"] == "open"
     assert states[668]["hadamard"]["state"] == "known"
-    # n = 94 is reached by none of the constructions of Williamson quadruples at even n.
-    assert states[376]["hadamard"]["state"] == "known"
+    # n = 94 is reached by none of the constructions of Williamson quadruples at even n; the
+    # site holds a skew-Hadamard matrix of order 376.
+    assert states[376]["hadamard"]["state"] == "verified"
+    assert states[596]["hadamard"]["state"] == "known"
     # An order that is neither open nor held needs a stored matrix.
     with pytest.raises(ValueError, match="no stored matrix of order 4,"):
         orders.table(data, {}, stored=[])
@@ -1368,12 +1371,16 @@ def test_grid_columns_agree_with_the_data_file(data, states):
             elif state == "known":
                 assert name == "hadamard" and 4 * n not in t["open"]
             elif state == "verified":
-                assert name == "skew-hadamard" and 4 * n not in t["open"] and not states[4 * n][name]["entries"]
+                assert 4 * n not in t["open"] and not states[4 * n][name]["entries"]
+                assert states[4 * n]["skew-hadamard"]["state"] == "verified"
             else:
                 assert state == "board" and states[4 * n][name]["entries"]
             assert classes == orders.STATES[state][1]
         hrefs = re.findall(r'href="([^"]+)"', orders.grid_cells(n, states))
-        if n % 2:
+        if states[4 * n]["hadamard"]["state"] == "verified":
+            # The Hadamard order is held as a stored skew-Hadamard matrix and links to its page.
+            assert hrefs[0] == hrefs[1] == orders.order_href(n, "skew-hadamard")
+        elif n % 2:
             # Each order cell links to the board cell of n for its type.
             assert hrefs == [f"cells/n{n}-general.html", f"cells/n{n}-skew-sds.html"]
         else:
@@ -1400,6 +1407,20 @@ def test_orders_listed_without_a_matrix_say_so_in_the_tooltip(data, states):
                 f"none of the cited sources gives a matrix of this order, and this one dates from {date}" in skew_cell
             )
     assert states[668]["hadamard"]["state"] == "known"
+
+
+def test_hadamard_cells_count_stored_skew_matrices(states):
+    """No Hadamard cell says nothing is held at an order where a skew-Hadamard matrix is stored."""
+    stored = {x["order"] for x in orders.load_matrices()["matrices"]}
+    assert {808, 856} <= stored
+    for n in range(1, orders.BOARD_MAX_N + 1):
+        cell = orders.grid_cells(n, states).split("<td")[1]
+        assert 'data-type="hadamard"' in cell
+        if 4 * n in stored:
+            assert "not held on this board" not in cell, n
+            assert states[4 * n]["hadamard"]["state"] in ("board", "verified"), n
+            if states[4 * n]["hadamard"]["state"] == "verified":
+                assert orders.HELD_AS_SKEW in cell and f'href="{orders.order_href(n, "skew-hadamard")}"' in cell
 
 
 def test_unresolved_skew_cells_with_a_known_order(board, states):
@@ -1446,7 +1467,9 @@ def test_front_page_grid_merges_the_order_and_track_columns(board, states):
             name: states[4 * n][name]["state"] for name in orders.TYPES
         }
         hrefs = re.findall(r'href="([^"]+)"', row)
-        assert hrefs == [f"cells/n{n}-{t}.html" for t in ("general", "skew-sds", *module.PRIMARY)]
+        # A Hadamard order held as a stored skew-Hadamard matrix links to the skew-Hadamard cell.
+        first = "skew-sds" if states[4 * n]["hadamard"]["state"] == "verified" else "general"
+        assert hrefs == [f"cells/n{n}-{t}.html" for t in (first, "skew-sds", *module.PRIMARY)]
         tracks = re.findall(r'data-track="([a-z-]+)"', row)
         assert tracks == ["general", "skew-sds", *module.PRIMARY]
         # Markers of the merged tracks sit on the order cells.

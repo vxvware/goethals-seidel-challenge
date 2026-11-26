@@ -38,6 +38,11 @@ STATE_WORDS = {
     "verified": "the site holds a matrix file that the build checks exactly",
     "open": "open according to the cited sources",
 }
+# A Hadamard order whose only matrix on the site is a stored skew-Hadamard matrix is in state verified.
+HELD_AS_SKEW = (
+    "the site holds a skew-Hadamard matrix of this order, which is also a Hadamard matrix, "
+    "and the build checks it exactly"
+)
 # The board cell a grid existence cell links to, by type.
 CELL_TRACKS = {"hadamard": "general", "skew-hadamard": "skew-sds"}
 # The board has cells for every n up to this value, the last row of the grid (verify.common.BOARD_MAX_N).
@@ -201,8 +206,10 @@ def table(data: JSONObject, results: dict[str, JSONObject], stored: Collection[i
     """The state of every order in range: {order: {type: {...}}}.
 
     For Hadamard matrices a state is board when the board holds a verified
-    matrix of the order, otherwise open as the data file says, otherwise known;
-    an order announced after the cited lists is known, and its cell names the date.
+    matrix of the order, otherwise open as the data file says, otherwise
+    verified when stored lists the order, since a skew-Hadamard matrix is a
+    Hadamard matrix, otherwise known; an order announced after the cited lists
+    is known, and its cell names the date.
     For skew-Hadamard matrices it is board, open, or verified:
     every order that is neither open nor held by the board has a stored matrix
     in baselines/skew-matrices.json, which is what stored lists, and the build
@@ -230,6 +237,8 @@ def table(data: JSONObject, results: dict[str, JSONObject], stored: Collection[i
             elif name == "skew-hadamard":
                 if order not in stored:
                     raise ValueError(f"skew-matrices: no stored matrix of order {order}, which is not open")
+                state = "verified"
+            elif order in stored:
                 state = "verified"
             else:
                 state = "known"
@@ -265,7 +274,8 @@ def state_cell(
     the grid filters read.
     """
     label, classes = STATES[info["state"]]
-    spoken = f"{TYPE_NAMES[name]} matrix of order {order}: {STATE_WORDS[info['state']]}"
+    words = HELD_AS_SKEW if name == "hadamard" and info["state"] == "verified" else STATE_WORDS[info["state"]]
+    spoken = f"{TYPE_NAMES[name]} matrix of order {order}: {words}"
     record = info.get("record")
     filled = info["listed_open"] and info["state"] in ("board", "verified")
     if filled:
@@ -309,12 +319,16 @@ def state_cell(
     )
 
 
-def order_href(n: int, name: str) -> str | None:
+def order_href(n: int, name: str, state: str = "") -> str | None:
     """The page an order cell of row n links to.
 
     It is the board cell of the type's track where there is one. At even n no
     quadruple has a skew block, so a skew-Hadamard order has a page of its own.
+    A Hadamard order in state verified is held as a stored skew-Hadamard
+    matrix, so its cell links to the page of that skew-Hadamard order.
     """
+    if name == "hadamard" and state == "verified":
+        return order_href(n, "skew-hadamard")
     if has_cell(n, CELL_TRACKS[name]):
         return f"cells/n{n}-{CELL_TRACKS[name]}.html"
     return f"orders/skew-{4 * n}.html" if name == "skew-hadamard" else None
@@ -327,9 +341,10 @@ def grid_cells(
 
     Each links to the board cell of n for its type where there is one: any
     quadruple for a Hadamard matrix, a quadruple with a skew block for a
-    skew-Hadamard matrix. Its colour is the state of the order, so a
-    skew-Hadamard order with a matrix from another construction is not shown as
-    open while the board's cell is unresolved. A type with no board cell at n,
+    skew-Hadamard matrix. A Hadamard order held only as a stored skew-Hadamard
+    matrix links to the page of that skew-Hadamard order instead. Its colour is
+    the state of the order, so a skew-Hadamard order with a matrix from another
+    construction is not shown as open while the board's cell is unresolved. A type with no board cell at n,
     which is the skew-Hadamard type at even n, carries the attributes the grid
     filters read: the track of the column, and whether the order is settled.
 
@@ -350,7 +365,7 @@ def grid_cells(
             order,
             name,
             states[order][name],
-            order_href(n, name),
+            order_href(n, name, states[order][name]["state"]),
             text=order,
             new=name == "skew-hadamard" and (n in new_skew or found(states[order][name])),
             board=board.get(name),
