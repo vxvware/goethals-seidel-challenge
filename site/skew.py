@@ -88,10 +88,10 @@ BORDERED8 = (
 # The site offers a matrix file as a download while its text is at most this many bytes; above that
 # it offers the rows. GitHub Pages refuses a file above 100 MB and a site above about 1 GB.
 DOWNLOAD_LIMIT = 50_000_000
-# The full build runs the exact check on every matrix up to this order. Above it the check takes more
-# than a minute in pure Python: the build compares the sha256 of the rebuilt text, and the tests
-# marked slow run the exact check.
-BUILD_CHECK_MAX = 11_000
+# The build rebuilds a found matrix without a file, compares its sha256 and runs the exact check up to
+# this order. Above it that takes a minute or more for each matrix: the build checks in integers what
+# the array asks of the rows, and the tests marked slow rebuild the matrix and run the exact check.
+BUILD_REBUILD_MAX = 8_000
 CHECKED = "The build checks H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I exactly, with n the order, before it writes the file."  # noqa: E501
 
 
@@ -181,13 +181,23 @@ def group_table(moduli: tuple[int, ...]) -> tuple[list[list[int]], list[int]]:
 
 
 def type_one(row: str, moduli: Sequence[int]) -> list[str]:
-    """The type 1 matrix of a function on the group, as lines: entry (i, j) is row[z_j - z_i]."""
+    """The type 1 matrix of a function on the group, as lines: entry (i, j) is row[z_j - z_i].
+
+    Over one cyclic group line i is the row moved i places to the right, cyclically.
+    """
+    if len(moduli) == 1:
+        return [row[len(row) - i :] + row[: len(row) - i] for i in range(len(row))]
     table, negative = group_table(tuple(moduli))
     return ["".join(map(row.__getitem__, table[negative[i]])) for i in range(len(row))]
 
 
 def type_two(row: str, moduli: Sequence[int]) -> list[str]:
-    """The type 2 matrix of a function on the group, as lines: entry (i, j) is row[z_j + z_i]."""
+    """The type 2 matrix of a function on the group, as lines: entry (i, j) is row[z_j + z_i].
+
+    Over one cyclic group line i is the row moved i places to the left, cyclically.
+    """
+    if len(moduli) == 1:
+        return [row[i:] + row[:i] for i in range(len(row))]
     table, _ = group_table(tuple(moduli))
     return ["".join(map(row.__getitem__, table[i])) for i in range(len(row))]
 
@@ -263,7 +273,9 @@ def bordered_rows(record: JSONObject) -> list[str]:
         raise ValueError(f"{name}: the parameters do not give the group order {w}")
     if len(rows) != 4 or any(len(row) != w or row.strip("+-") for row in rows):
         raise ValueError(f"{name}: the record does not hold four rows of + and - of length {w}")
-    table, negative = group_table(tuple(moduli))
+    # Over one cyclic group the element at place s + j is z_s + z_j, and no table is needed.
+    cyclic = len(moduli) == 1
+    table, negative = ([], [-i % w for i in range(w)]) if cyclic else group_table(tuple(moduli))
     first = rows[0]
     if first[0] != "+" or any(first[negative[i]] == first[i] for i in range(1, w)):
         raise ValueError(f"{name}: the first row is not of skew type")
@@ -282,7 +294,10 @@ def bordered_rows(record: JSONObject) -> list[str]:
     packed = [int(row.translate(bits), 2) for row in rows]
     for s in range(1, w):
         # A row and its translate by z_s differ in d places, and their inner product is w - 2d.
-        shifted = (int("".join(map(row.__getitem__, table[s])).translate(bits), 2) for row in rows)
+        if cyclic:
+            shifted = (int((row[s:] + row[:s]).translate(bits), 2) for row in rows)
+        else:
+            shifted = (int("".join(map(row.__getitem__, table[s])).translate(bits), 2) for row in rows)
         differ = sum((x ^ y).bit_count() for x, y in zip(packed, shifted, strict=True))
         if 4 * w - 2 * differ != -4:
             raise ValueError(f"{name}: the periodic autocorrelations of the rows do not add to -4")
@@ -315,7 +330,7 @@ def tie_classes(record: JSONObject) -> int:
         raise ValueError(f"{name}: the tie does not sort the rows 1 to 4 into chains of two or more and fixed rows")
     elements = group_elements(moduli)
     position = {z: i for i, z in enumerate(elements)}
-    _, negative = group_table(tuple(moduli))
+    negative = [position[tuple(-x % m for x, m in zip(z, moduli, strict=True))] for z in elements]
 
     def scaled(factor: Sequence[int], i: int) -> int:
         return position[tuple(x * c % m for x, c, m in zip(factor, elements[i], moduli, strict=True))]
@@ -538,27 +553,38 @@ def has_download(order: int) -> bool:
     return order * (order + 1) <= DOWNLOAD_LIMIT
 
 
-def checked_in_build(order: int) -> bool:
-    """Whether the full build runs the exact skew-Hadamard check on a matrix of this order; see BUILD_CHECK_MAX."""
-    return order <= BUILD_CHECK_MAX
+def rebuilt_in_build(order: int) -> bool:
+    """Whether the build rebuilds and checks a found matrix of this order, or its rows only; see BUILD_REBUILD_MAX."""
+    return order <= BUILD_REBUILD_MAX
+
+
+def checked_rows(record: JSONObject) -> Sequence[Sequence[int] | str]:
+    """The rows of a found matrix, after the exact check of what its array asks of them."""
+    if record["array"] == "bordered":
+        return bordered_rows(record)
+    if record["array"] == "bordered8":
+        return bordered8_rows(record)
+    return found_rows(record)
 
 
 def kept_words(record: JSONObject, count: str) -> str:
     """What the repository holds of a found matrix without a file, and what the build does with it."""
     order = record["order"]
     megabytes = round(order * (order + 1) / 1e6, 1)
-    if checked_in_build(order):
-        check = "compares the sha256 and checks the two defining conditions exactly."
-    else:
-        check = (
-            "and compares the sha256. At this order the exact check of the two defining conditions takes more than a "
-            "minute, so a separate test of the repository runs it and the build does not; it was run when the record "
-            "was stored."
+    held = (
+        f"The repository holds the {count} rows and the sha256 of the matrix file, not the file, which is "
+        f"{megabytes} MB of text. The build checks in integers that the rows have the properties stated here"
+    )
+    if rebuilt_in_build(order):
+        return (
+            f"{held}, rebuilds the matrix from them by the definitions above, compares the sha256 and checks the two "
+            "defining conditions exactly."
         )
     return (
-        f"The repository holds the {count} rows and the sha256 of the matrix file, not the file, which is "
-        f"{megabytes} MB of text. The build checks in integers that the rows have the properties stated here, "
-        f"rebuilds the matrix from them by the definitions above, {check}"
+        f"{held}. It does not rebuild the matrix: that the array of rows with these properties is a skew-Hadamard "
+        "matrix is the theorem of the sources cited for the array. A test of the repository that is not part of "
+        "every build rebuilds the matrix from the rows by the definitions above, compares the sha256 and checks the "
+        "two defining conditions exactly."
     )
 
 
@@ -977,18 +1003,23 @@ def matrix_block(
     download = f'<p><a href="{prefix}{file_name(order)}" download>Download the matrix</a>: one row per line, + for 1 and - for −1. {CHECKED}</p>'  # noqa: E501
     if state not in ("open", "board") and not has_download(order):
         megabytes = round(order * (order + 1) / 1e6, 1)
-        how = (
-            "checks H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I exactly, with n the order"
-            if checked_in_build(order)
-            else "leaves the exact check of H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I to a separate test"
-        )
+        if rebuilt_in_build(order):
+            how = (
+                "the build rebuilds it, compares the sha256 and checks H H<sup>T</sup> = nI and "
+                "H + H<sup>T</sup> = 2I exactly, with n the order"
+            )
+        else:
+            how = (
+                "a test of the repository that is not part of every build rebuilds it, compares the sha256 and "
+                "checks H H<sup>T</sup> = nI and H + H<sup>T</sup> = 2I exactly, with n the order, and the build "
+                "checks the rows"
+            )
         download = (
             f"<p>The matrix file would be {megabytes} MB of text, so the site does not offer it. "
             f'<a href="{prefix}{rows_file_name(order)}" download>Download the rows</a>: one row per line, + for 1 '
             "and - for −1. The rows and the definitions on this page determine the matrix, and the script "
             "site/skew.py of the repository rebuilds it from them as lines of + and -, one line for each row of the "
-            f"matrix. The sha256 of that text is {esc(stored[order]['sha256'])}; the build rebuilds it, compares the "
-            f"sha256 and {how}.</p>"
+            f"matrix. The sha256 of that text is {esc(stored[order]['sha256'])}; {how}.</p>"
         )
     if state == "open":
         keys = set(t["listed_open_sources"])

@@ -1190,16 +1190,22 @@ def skew_matrices(states: orders.OrderStates, r: Results) -> dict[int, tuple[str
 
 
 def write_above_matrix(out: Path, record: JSONObject, quick: bool = False) -> None:
-    """Rebuild a found matrix of an order above the range from its record and write its file, or its rows.
+    """Check a found matrix of an order above the range from its record and write its file, or its rows.
 
-    The rebuilt text must have the recorded sha256, in a quick build too. A
-    full build also runs the exact check, except above skew.BUILD_CHECK_MAX,
-    where it takes more than a minute and the tests marked slow run it. A
-    matrix whose text is above skew.DOWNLOAD_LIMIT is not written: the site
-    offers the rows of its record, one per line.
+    Up to skew.BUILD_REBUILD_MAX the matrix is rebuilt: its text must have the
+    recorded sha256, in a quick build too, and a full build runs the exact
+    check. Above that order the build checks in integers what the array asks of
+    the rows and does not rebuild; the tests marked slow rebuild the matrix,
+    compare the sha256 and run the exact check. A matrix whose text is above
+    skew.DOWNLOAD_LIMIT is not written: the site offers the rows of its
+    record, one per line.
     """
     order = record["order"]
-    text = skew.stored_text(record, check=not quick and skew.checked_in_build(order))
+    if not skew.rebuilt_in_build(order):
+        skew.checked_rows(record)
+        text = ""
+    else:
+        text = skew.stored_text(record, check=not quick)
     if skew.has_download(order):
         (out / skew.file_name(order)).write_text(text)
     else:
