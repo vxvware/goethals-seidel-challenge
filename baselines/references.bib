@@ -55,6 +55,17 @@
 % not read, and the two are taken to be one paper because OpenAlex lists the
 % arXiv record as a location of the DOI and the reference list Crossref holds
 % for the DOI matches the preprint's.
+% The entries for the symmetric matrices of orders 988, 1036 and 1068 were
+% checked on 2026-11-25. djokovic2025census has no arXiv number and no DOI: its
+% title and authors were read from the first page of the PDF at the URL given,
+% which prints no date, and the date is that of the PDF metadata; the page of
+% invited speakers of the Hadamard 2025 workshop lists a talk of this title.
+% Its list of 595 undecided symmetric values was read in the PDF.
+% djokovic2025orthogonal was checked against the arXiv record (version 1 of
+% 2025-08-23, no journal reference) and read in the arXiv PDF.
+% kishan2026symmetric and kishan2026exhaustive were checked against the
+% repository commit they name, the first through the listing of the folder and
+% the second in the text of the section.
 
 @article{paley1933orthogonal,
   author  = {Paley, R. E. A. C.},
@@ -601,6 +612,22 @@
   eprint  = {2101.05429}
 }
 
+@misc{djokovic2025census,
+  author       = {Đoković, Dragomir Ž. and Seberry, Jennifer},
+  title        = {Census of symmetric and skew Hadamard matrices of order 4v for odd v < 2500},
+  howpublished = {Preprint, 11 pages, with no date printed and a file dated 2025-05-28; the title is that of an invited talk of the Hadamard 2025 workshop; no arXiv number or DOI},
+  year         = {2025},
+  url          = {https://ticmeet.com/assets/archivos/d6f1d9b8-d39f-4888-925a-7eb81c4905cc/jenni-paper.pdf}
+}
+
+@misc{djokovic2025orthogonal,
+  author       = {Đoković, Dragomir Ž.},
+  title        = {Orthogonal designs and symmetric Hadamard matrices},
+  howpublished = {Preprint},
+  year         = {2025},
+  eprint       = {2508.17141}
+}
+
 @misc{kishan2026symmetric260,
   author       = {{Kishan}},
   title        = {New Hadamard matrices, version 2.1.0, symmetric/260: a symmetric Hadamard matrix of order 260},
@@ -615,4 +642,20 @@
   howpublished = {Software repository, commit d885022 of 2026-11-06, not peer reviewed},
   year         = {2026},
   url          = {https://github.com/vatskishan03/Hadamard/blob/d885022144ba6bf4efa8315e14871a3736947527/search/NOTES.md}
+}
+
+@misc{kishan2026symmetric,
+  author       = {{Kishan}},
+  title        = {New Hadamard matrices, version 2.1.0, symmetric: symmetric Hadamard matrices of 103 orders},
+  howpublished = {Software repository, commit d885022 of 2026-11-06, not peer reviewed},
+  year         = {2026},
+  url          = {https://github.com/vatskishan03/Hadamard/tree/d885022144ba6bf4efa8315e14871a3736947527/symmetric}
+}
+
+@misc{kishan2026exhaustive,
+  author       = {{Kishan}},
+  title        = {New Hadamard matrices, version 2.1.0, search/NOTES.md, section 114: exhaustive propus searches at v = 119, 213, 239, 247, 259, 267, 287, 343 and 397},
+  howpublished = {Software repository, commit d885022 of 2026-11-06, not peer reviewed},
+  year         = {2026},
+  url          = {https://github.com/vatskishan03/Hadamard/blob/d885022144ba6bf4efa8315e14871a3736947527/search/NOTES.md#L8020}
 }
