@@ -14,6 +14,9 @@ package = false
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+# The slow tests rebuild the largest found matrices a second way; run them with `uv run pytest -m slow`.
+addopts = "-m 'not slow'"
+markers = ["slow: rebuilds a matrix of order above 9000, minutes and gigabytes each"]
 
 [tool.ruff]
 line-length = 120

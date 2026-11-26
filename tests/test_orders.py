@@ -375,6 +375,7 @@ BORDERED = {
     1712: ([7, 61], [4, 12], 15, 30),
     2360: ([19, 31], [16, 20], 45, 16),
     2696: ([673], [600], 21, 32),
+    7496: ([1873], [491], 39, 48),
     5336: ([31, 43], [18, 17], 105, 16),
 }
 
@@ -417,7 +418,9 @@ def above_records(data):
     return found
 
 
-@pytest.mark.parametrize("order", sorted(BORDERED))
+@pytest.mark.parametrize(
+    "order", [pytest.param(o, marks=[pytest.mark.slow] if o > 9000 else []) for o in sorted(BORDERED)]
+)
 def test_bordered_matrix_is_the_array_of_the_sources(data, order):
     """A found matrix above the range is the bordered array of four subsets of a cyclic group, as both sources give it.
 
@@ -777,6 +780,19 @@ def test_bordered_eight_block_record_is_checked_and_described(data):
     assert not re.search(SLUGS, seen) and "—" not in seen and "[@" not in seen and "to our knowledge" not in seen
 
 
+def carried_by(row, t, w):
+    """The row y with y(tz) = x(z) for every z modulo w."""
+    out = [""] * w
+    for z, c in enumerate(row):
+        out[t * z % w] = c
+    return "".join(out)
+
+
+def autocorrelation_sum(rows, shifts, w):
+    values = [[1 if c == "+" else -1 for c in row] for row in rows]
+    return [sum(v[z] * v[(z + s) % w] for v in values for z in range(w)) for s in shifts]
+
+
 def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data, states, tmp_path):
     """The record of order 2696 names the map z -> 58z, which carries the first two rows to the other two."""
     from test_site import visible
@@ -785,29 +801,33 @@ def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data,
 
     records = bordered_records(data)
     x, w = records[2696], 673
-    assert x["pairing"] == {"multiplier": [58]} and [o for o, r in records.items() if "pairing" in r] == [2696]
+    assert x["tie"] == {"multiplier": [58], "chains": [[1, 3], [2, 4]]}
+    assert [o for o, r in records.items() if "tie" in r] == [2696, 7496]
     a, b, c, d = x["rows"]
-    assert 58 * 58 % w == w - 1 and skew.pairing_square(x) == -1
+    assert 58 * 58 % w == w - 1 and skew.tie_classes(x) == 8
     assert all(c[58 * z % w] == a[z] and d[58 * z % w] == b[z] for z in range(w))
+    assert carried_by(a, 58, w) == c and carried_by(b, 58, w) == d
+    # Carried once more, the third row is the first read backwards, and the fourth the second read backwards.
+    assert carried_by(c, 58, w) == a[0] + a[:0:-1] != a and carried_by(d, 58, w) == b[0] + b[:0:-1]
     # 58 is not among the multipliers that fix the rows, nor the negative of one.
     fixing = {pow(600, k, w) for k in range(21)}
     assert len(fixing) == 21 and 58 not in fixing and w - 58 not in fixing and c != a
-    # The sum of the four autocorrelations is the same at s and at 58s, from the pairing alone:
+    # The sum of the four autocorrelations is the same at s and at 58s, from the tie alone:
     # it holds for any two rows in place of a and b.
-    value = lambda row: [1 if ch == "+" else -1 for ch in row]  # noqa: E731
-    carry = lambda row: "".join(row[-58 * z % w] for z in range(w))  # noqa: E731
-    assert carry(a) == c and carry(b) == d
     one, two = "+" * 300 + "-" * 373, ("+-+" * 225)[:673]
-    rows = [value(r) for r in (one, two, carry(one), carry(two))]
-    total = [sum(r[z] * r[(z + s) % w] for r in rows for z in range(w)) for s in range(40)]
-    assert all(total[s] == sum(r[z] * r[(z + 58 * s) % w] for r in rows for z in range(w)) for s in range(1, 40))
-    assert len(set(total[1:])) > 1
+    rows = [one, two, carried_by(one, 58, w), carried_by(two, 58, w)]
+    total = autocorrelation_sum(rows, range(1, 40), w)
+    assert total == autocorrelation_sum(rows, [58 * s % w for s in range(1, 40)], w) and len(set(total)) > 1
     for change, message in (
-        ({"pairing": {"multiplier": [600]}}, "neither z nor -z"),
-        ({"pairing": {"multiplier": [672]}}, "not the first two carried"),
-        ({"pairing": {"multiplier": [615]}}, "not the first two carried"),
-        ({"pairing": {"multiplier": [0]}}, "not a unit"),
-        ({"pairing": {"multiplier": [58, 1]}}, "not a unit"),
+        ({"tie": {"multiplier": [600], "chains": [[1, 3], [2, 4]]}}, "row 3 is not row 1 carried"),
+        ({"tie": {"multiplier": [672], "chains": [[1, 3], [2, 4]]}}, "row 3 is not row 1 carried"),
+        ({"tie": {"multiplier": [615], "chains": [[1, 3], [2, 4]]}}, "row 3 is not row 1 carried"),
+        ({"tie": {"multiplier": [58], "chains": [[1, 3], [4, 2]]}}, "row 2 is not row 4 carried"),
+        ({"tie": {"multiplier": [58], "chains": [[1, 3]]}}, "does not sort the rows"),
+        ({"tie": {"multiplier": [58], "chains": [[1, 3], [2], [4]]}}, "does not sort the rows"),
+        ({"tie": {"multiplier": [58], "chains": [[1, 3]], "fixed": [2, 4]}}, "row 2 is not fixed"),
+        ({"tie": {"multiplier": [0], "chains": [[1, 3], [2, 4]]}}, "not a unit"),
+        ({"tie": {"multiplier": [58, 1], "chains": [[1, 3], [2, 4]]}}, "not a unit"),
     ):
         with pytest.raises(ValueError, match=message):
             skew.stored_text(x | change, check=False)
@@ -815,9 +835,11 @@ def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data,
     module = site_build()
     module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
     seen = visible((tmp_path / "orders/skew-2696.html").read_text())
-    assert "The third row is the first carried along by the map σ: z ↦ 58z of G" in seen
-    assert "c(σ(z)) = a(z) and d(σ(z)) = b(z) for every z in G" in seen
-    assert "Applying σ twice gives z ↦ −z" in seen and "is the same at s and at σ(s)" in seen
+    assert "The rows are tied by the map σ: z ↦ 58z of G." in seen
+    assert "a row x carried by σ is the row y with y(σ(z)) = x(z) for every z in G" in seen
+    assert "Then the third row is the first carried by σ and the fourth row is the second carried by σ." in seen
+    assert "is the same at s and at σ(s)" in seen and "has the first and second rows to choose" in seen
+    assert "there are 8 such sets" in seen
     assert (
         "all 65,536 rows of skew type and all 601,080,390 rows of sum 1" in seen and "It found 1,024 solutions" in seen
     )
@@ -825,9 +847,77 @@ def test_order_2696_ties_the_third_and_fourth_rows_to_the_first_two(board, data,
     assert "which gives t = 18 for m = 337, while 2696 = 2³ × 337" in seen
     assert "673 is a prime congruent to 33 modulo 64, which is neither 5 modulo 8 nor 9 modulo 16" in seen
     assert (w % 64, w % 8, w % 16, 2695, 1347) == (33, 1, 1, 5 * 7**2 * 11, 3 * 449)
-    assert "carried along" not in visible((tmp_path / "orders/skew-1416.html").read_text())
+    assert "tied by the map" not in visible((tmp_path / "orders/skew-1416.html").read_text())
     other = visible((tmp_path / "orders/skew-5392.html").read_text())
     assert "Order 5392 is also twice 2696: doubling the matrix of order 2696" in other
+
+
+def test_order_7496_ties_the_third_and_fourth_rows_to_the_second(board, data, states, tmp_path):
+    """The record of order 7496 names the map z -> 1823z, which fixes the first row and carries the second on."""
+    from test_site import visible
+
+    import skew
+
+    x, w, t = bordered_records(data)[7496], 1873, 1823
+    assert x["tie"] == {"multiplier": [t], "chains": [[2, 3, 4]], "fixed": [1]}
+    a, b, c, d = x["rows"]
+    fixing = {pow(491, k, w) for k in range(39)}
+    assert len(fixing) == 39 and pow(t, 3, w) in fixing and t not in fixing and w - t not in fixing
+    assert all(w % p for p in range(2, 44))
+    # c(x) = b(t^-1 x) and d(x) = b(t^-2 x): the second row carried once and twice.
+    inverse = pow(t, -1, w)
+    assert all(c[z] == b[inverse * z % w] and d[z] == b[inverse * inverse * z % w] for z in range(w))
+    assert carried_by(a, t, w) == a and carried_by(b, t, w) == c and carried_by(c, t, w) == d
+    assert carried_by(d, t, w) == b != c and b != d
+    # The first row is constant on the classes of sixteenth powers, which the multipliers and t generate;
+    # the second is not.
+    sixteenth = {pow(z, 16, w) for z in range(1, w)}
+    assert sixteenth == {h * pow(t, k, w) % w for h in fixing for k in range(3)} and len(sixteenth) == 117
+    assert all(a[h * z % w] == a[z] for h in sixteenth for z in range(1, w, 97))
+    assert any(b[h * z % w] != b[z] for h in sixteenth for z in range(1, 40))
+    # 16 classes of nonzero shifts under those maps, and 8 with z -> -z.
+    assert skew.tie_classes(x) == 8 and (w - 1) // 117 == 16 and w - 1 not in sixteenth
+    # The sum of the four autocorrelations is the same at s and at ts.
+    shifts = [1, 2, 3, 5, 7, 11]
+    assert autocorrelation_sum(x["rows"], [t * s % w for s in shifts], w) == autocorrelation_sum(x["rows"], shifts, w)
+    for change, message in (
+        ({"tie": {"multiplier": [t], "chains": [[2, 4, 3]], "fixed": [1]}}, "row 4 is not row 2 carried"),
+        ({"tie": {"multiplier": [t], "chains": [[1, 2, 3, 4]]}}, "row 2 is not row 1 carried"),
+        ({"tie": {"multiplier": [t], "chains": [[3, 4]], "fixed": [1, 2]}}, "does not close"),
+        ({"tie": {"multiplier": [t], "chains": [[2, 3, 4]], "fixed": []}}, "does not sort the rows"),
+        ({"tie": {"multiplier": [w - t], "chains": [[2, 3, 4]], "fixed": [1]}}, "row 3 is not row 2 carried"),
+        ({"rows": [a, b, c, b]}, "do not add to -4"),
+    ):
+        with pytest.raises(ValueError, match=message):
+            skew.stored_text(x | change, check=False)
+    # A chain that closes on the rows needs its power of the multiplier among the multipliers of the rows.
+    with pytest.raises(ValueError, match="to the power 3 is not a multiplier of the rows"):
+        skew.tie_classes(x | {"multiplier": {"generator": [1], "order": 1}})
+    module = site_build()
+    module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
+    seen = visible((tmp_path / "orders/skew-7496.html").read_text())
+    assert "The rows are tied by the map σ: z ↦ 1823z of G." in seen
+    assert (
+        "Then the third row is the second carried by σ, the fourth row is the third carried by σ and the first row "
+        "carried by σ is itself or itself read backwards."
+    ) in seen
+    assert "has the first and second rows to choose" in seen and "there are 8 such sets" in seen
+    assert "the map z ↦ 491z of G, which has order 39. It has 48 orbits besides {0}." in seen
+    assert "all 256 rows of skew type that the map leaves unchanged" in seen
+    assert "It is a sample and not a census." in seen and "16,080,018,104 steps" in seen and "1,227 seconds" in seen
+    assert "found 4 matches: 2 solutions, each together with the one that has its first row read backwards" in seen
+    assert "which gives t = 5 for m = 937, while 7496 = 2³ × 937" in seen
+    assert "7495 = 5 × 1499 and 3747 = 3 × 1249 are not prime powers" in seen
+    assert "1873 is a prime congruent to 1 modulo 16" in seen and "congruent to 17 modulo 32" in seen
+    assert (
+        "order 7496 is not among its orders" in seen
+        and 'ref-kline2026skew"' in (tmp_path / "orders/skew-7496.html").read_text()
+    )
+    assert (w % 16, w % 32, 7495, 3747, 7496) == (1, 17, 5 * 1499, 3 * 1249, 2**3 * 937)
+    assert all(p % 32 == 17 for p in (1009, 1297, 1489, 1553, w))
+    # Its first row read backwards gives the other solution of the pair, with the same other rows.
+    twin = [a[0] + a[:0:-1], b, c, d]
+    assert twin[0] != a and set(autocorrelation_sum(twin, shifts, w)) == {-4}
 
 
 def test_order_5392_is_the_bordered_eight_block_array_of_its_rows(data):
@@ -1241,6 +1331,7 @@ def test_matrix_block_states_the_construction_and_links_the_file(data, states, b
 
 
 def test_inconsistent_matrix_records_are_rejected(data):
+    of = lambda m, order: next(x for x in m if x["order"] == order)  # noqa: E731
     bib = Bibliography()
     doc = orders.load_matrices()
     assert len(orders.validate_matrices(doc, data, bib)) == len(doc["matrices"])
@@ -1256,15 +1347,15 @@ def test_inconsistent_matrix_records_are_rejected(data):
         lambda m: m.remove(next(x for x in m if x["origin"] == "found")),
         lambda m: m[0].update(origin="found"),
         # An order above the range is a found matrix without a file, with the fields of its array.
-        lambda m: m[-2].update(file="matrices/skew/skew-5336.txt.xz"),
-        lambda m: m[-2].update(origin="repository", software="kishan2026skew"),
-        lambda m: m[-2].pop("group"),
-        lambda m: m[-2].pop("array"),
-        lambda m: m[-2].update(array="other"),
-        lambda m: m[-2].update(order=5338),
-        lambda m: m[-2].update(order=1416),
-        lambda m: m[-1].pop("derivation"),
-        lambda m: m[-1].update(file="matrices/skew/skew-5392.txt.xz"),
+        lambda m: of(m, 5336).update(file="matrices/skew/skew-5336.txt.xz"),
+        lambda m: of(m, 5336).update(origin="repository", software="kishan2026skew"),
+        lambda m: of(m, 5336).pop("group"),
+        lambda m: of(m, 5336).pop("array"),
+        lambda m: of(m, 5336).update(array="other"),
+        lambda m: of(m, 5336).update(order=5338),
+        lambda m: of(m, 5336).update(order=1416),
+        lambda m: of(m, 5392).pop("derivation"),
+        lambda m: of(m, 5392).update(file="matrices/skew/skew-5392.txt.xz"),
         lambda m: m[0].pop("file"),
         lambda m: next(x for x in m if x["origin"] == "found").pop("block_signs"),
     ):
@@ -1344,17 +1435,28 @@ def test_every_written_matrix_is_skew_hadamard(board, data, states, tmp_path):
     import skew
 
     module = site_build()
-    chosen = module.write_skew_matrices(tmp_path, states, board[1])
+    # The found matrices above the range are left out here: the build rebuilds and checks each, the tests
+    # of their arrays rebuild them a second way, and one of them is written below.
+    chosen = module.write_skew_matrices(tmp_path, states, board[1], above=False)
     assert chosen == skew.chosen_entries(states)
     is_open = set(data["types"]["skew-hadamard"]["open"])
     written = {int(p.stem.removeprefix("skew-")) for p in (tmp_path / "matrices").iterdir()}
-    # The orders above the range with a found matrix have a file too. Each is rebuilt from its record,
-    # and a test of its array checks it a second way.
     above = above_records(data)
-    for order, record in above.items():
-        text = (tmp_path / skew.file_name(order)).read_bytes()
-        assert hashlib.sha256(text).hexdigest() == record["sha256"] and text.count(b"\n") == order
-    written -= set(above)
+    assert not written & set(above)
+    # A matrix above the range is written from its record: the file while its text is at most 50 MB,
+    # and above that the rows of the record.
+    module.write_above_matrix(tmp_path, above[1416])
+    text = (tmp_path / skew.file_name(1416)).read_bytes()
+    assert hashlib.sha256(text).hexdigest() == above[1416]["sha256"] and text.count(b"\n") == 1416
+    (tmp_path / skew.file_name(1416)).unlink()
+    module.write_above_matrix(tmp_path, above[7496], quick=True)
+    assert not (tmp_path / skew.file_name(7496)).exists()
+    assert (tmp_path / skew.rows_file_name(7496)).read_text().split() == above[7496]["rows"]
+    (tmp_path / skew.rows_file_name(7496)).unlink()
+    assert {o for o in above if skew.has_download(o)} == {1416, 1712, 2360, 2696, 3352, 5336, 5392}
+    assert skew.has_download(7070) and not skew.has_download(7072) and skew.checked_in_build(10440)
+    with pytest.raises(ValueError, match="does not match its sha256"):
+        module.write_above_matrix(tmp_path, above[1416] | {"sha256": "0" * 64}, quick=True)
     assert written == set(orders.in_range(data)) - is_open and len(written) == 300 - len(is_open)
     assert {356, 476, 712, 952, 996, 1200} <= written and not {404, 428, 668} & written
     for order in sorted(written):
@@ -1378,12 +1480,14 @@ def test_order_pages_cover_the_rows_without_a_board_cell(board, data, states, tm
     module = site_build()
     module.write_order_pages(tmp_path, states, skew.chosen_entries(states))
     written = {int(p.stem.removeprefix("skew-")) for p in (tmp_path / "orders").iterdir()}
-    assert written == {4 * n for n in range(2, 301, 2)} | set(BORDERED) | {3352, 5392} and len(written) == 157
+    assert written == {4 * n for n in range(2, 301, 2)} | set(BORDERED) | {3352, 5392} and len(written) == 158
     is_open = set(data["types"]["skew-hadamard"]["open"])
     for order in sorted(written):
         page = (tmp_path / f"orders/skew-{order}.html").read_text()
         assert f"<h1>Skew-Hadamard matrix of order {order}</h1>" in page and "<h2>References</h2>" in page
-        assert (f'href="../matrices/skew-{order}.txt" download' in page) == (order not in is_open), order
+        offered = order not in is_open and skew.has_download(order)
+        assert (f'href="../matrices/skew-{order}.txt" download' in page) == offered, order
+        assert (f'href="../matrices/skew-{order}-rows.txt" download' in page) == (not skew.has_download(order)), order
         assert 'href="../style.css"' in page and "—" not in page
     # The pages of the covered rows are the board cells, which carry the same block.
     d, r, b = board
@@ -1423,11 +1527,18 @@ def test_pages_of_orders_above_the_range_describe_the_bordered_array(board, data
         assert "The repository holds the four rows and the sha256 of the matrix file, not the file" in text
         assert "The result has not been reviewed." in text and "does not claim priority" in text
         assert f"on 2026-11-25 found no earlier skew-Hadamard matrix of order {order}" in text
-        assert f'href="../matrices/skew-{order}.txt" download' in page and "<h2>References</h2>" in page
+        assert (f'href="../matrices/skew-{order}.txt" download' in page) == skew.has_download(order)
+        assert "<h2>References</h2>" in page
+        if not skew.has_download(order):
+            megabytes = round(order * (order + 1) / 1e6, 1)
+            assert f"The matrix file would be {megabytes} MB of text, so the site does not offer it." in text
+            assert f'href="../matrices/skew-{order}-rows.txt" download>Download the rows</a>' in page
+            assert f"The sha256 of that text is {records[order]['sha256']}" in text
+            assert "Download the matrix" not in text
         for key in ("wallis1972some", "momihara2019constructions", "cati2024database", "kishan2026skew"):
             assert f'href="../references.html#ref-{key}"' in page, key
         # The survey was among the sources read for the first four orders.
-        assert ('href="../references.html#ref-egan2026recent"' in page) == (order != 2696)
+        assert ('href="../references.html#ref-egan2026recent"' in page) == (order not in (2696, 7496))
         # Plain language: no schema value, no marker left unresolved, no priority wording.
         assert not re.search(SLUGS, text), re.search(SLUGS, text).group(0)
         assert "—" not in text and "[@" not in text and "to our knowledge" not in text

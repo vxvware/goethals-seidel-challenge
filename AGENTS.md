@@ -35,6 +35,11 @@ trusted files require regenerating verify/validator_manifest.json with
 it. docs/ is build output and is not tracked. Do not silently overwrite
 existing research results or source archives.
 
+`uv run pytest` leaves out the tests marked slow, which rebuild the found
+skew-Hadamard matrices of order above 9000 a second way and run the exact check
+that the build skips above order 11000. Run `uv run pytest -m slow` when a
+record of such a matrix, or the code that rebuilds it, changes.
+
 The tracked campaign engines are reference sources, not permission to launch
 large searches. Ordinary verification needs no GPU. Only explicitly requested
 campaign replay should invoke the pinned GPU adapter.
