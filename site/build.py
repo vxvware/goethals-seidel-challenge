@@ -562,10 +562,7 @@ def new_results(stats: JSONObject, r: Results) -> list[tuple[str, list[JSONObjec
 
 
 def new_results_section(stats: JSONObject, r: Results) -> str:
-    parts = [
-        '<section id="new-results"><h2>New results</h2><p class="key">Statements that a literature '
-        "search did not find in the sources it read. This does not claim priority.</p>"
-    ]
+    parts = ['<section id="new-results"><h2>New results</h2>']
     for title, items in new_results(stats, r):
         parts.append(f"<h3>{esc(title)}</h3><ul>")
         for x in items:

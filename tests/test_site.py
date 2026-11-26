@@ -89,8 +89,6 @@ def test_existence_results_appear_only_when_featured(board):
     assert ("skew-sds", 89) in module.new_cells(stats, r)
     html = module.new_results_section(stats, r)
     assert "cells/n89-skew-sds.html" in html
-    # The section states its search qualifier once, for every item in it.
-    assert "did not find in the sources it read" in html and "does not claim priority" in html
     assert "first" not in html.lower()
 
 
@@ -114,7 +112,6 @@ def test_found_matrix_is_listed_among_the_existence_results(board):
     assert (item["n"], item["href"]) == (202, "orders/skew-808.html")
     html = module.new_results_section(stats, r)
     assert '<a href="orders/skew-808.html">A skew-Hadamard matrix of order 808.</a>' in html
-    assert "did not find in the sources it read" in html and "does not claim priority" in html
     assert "first" not in html.lower() and "1616" not in html
     # Every found order has a line of its own, and the skew-Hadamard lines stand together before the others.
     assert '<a href="orders/skew-5392.html">A skew-Hadamard matrix of order 5392.</a>' in html
