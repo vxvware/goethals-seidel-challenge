@@ -1189,7 +1189,26 @@ def skew_matrices(states: orders.OrderStates, r: Results) -> dict[int, tuple[str
     return files
 
 
-def write_skew_matrices(out: Path, states: orders.OrderStates, r: Results, quick: bool = False) -> dict[int, str]:
+def write_above_matrix(out: Path, record: JSONObject, quick: bool = False) -> None:
+    """Rebuild a found matrix of an order above the range from its record and write its file, or its rows.
+
+    The rebuilt text must have the recorded sha256, in a quick build too. A
+    full build also runs the exact check, except above skew.BUILD_CHECK_MAX,
+    where it takes more than a minute and the tests marked slow run it. A
+    matrix whose text is above skew.DOWNLOAD_LIMIT is not written: the site
+    offers the rows of its record, one per line.
+    """
+    order = record["order"]
+    text = skew.stored_text(record, check=not quick and skew.checked_in_build(order))
+    if skew.has_download(order):
+        (out / skew.file_name(order)).write_text(text)
+    else:
+        (out / skew.rows_file_name(order)).write_text("".join(line + "\n" for line in record["rows"]))
+
+
+def write_skew_matrices(
+    out: Path, states: orders.OrderStates, r: Results, quick: bool = False, above: bool = True
+) -> dict[int, str]:
     """Write the matrix file of every skew-Hadamard order that is not open; return the chosen board entries.
 
     An order the board holds gets the array of an entry, and every other order
@@ -1197,8 +1216,8 @@ def write_skew_matrices(out: Path, states: orders.OrderStates, r: Results, quick
     and checked exactly before it is written; any failure raises ValueError and
     stops the build. A quick build compares the sha256 only and skips the exact
     check of the stored files, which the full build and the tests run. A found
-    matrix of an order above the range has no stored file: it is rebuilt from
-    its record, checked in the same way and written like the others.
+    matrix of an order above the range has no stored file: write_above_matrix
+    rebuilds it from its record. With above unset those are left out.
     """
     files = skew_matrices(states, r)
     folder = out / "matrices"
@@ -1211,8 +1230,8 @@ def write_skew_matrices(out: Path, states: orders.OrderStates, r: Results, quick
         if s[skew.NAME]["state"] == "verified":
             (out / skew.file_name(order)).write_text(skew.stored_text(STORED[order], check=not quick))
     for order, record in STORED.items():
-        if orders.beyond_range(ORDERS, order):
-            (out / skew.file_name(order)).write_text(skew.stored_text(record, check=not quick))
+        if above and orders.beyond_range(ORDERS, order):
+            write_above_matrix(out, record, quick)
     return {order: ident for order, (ident, _) in files.items()}
 
 
