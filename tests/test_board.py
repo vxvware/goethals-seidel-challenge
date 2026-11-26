@@ -334,28 +334,32 @@ def test_new_results_are_worded_from_the_board(board):
     spec.loader.exec_module(module)
     new_results = module.new_results
     d, r, b = board
-    groups = dict(new_results(summary(d, r, b), r))
-    correction = groups["Contradicts a published result"]
+    rows = new_results(summary(d, r, b), r)
+    # The one row that contradicts a published result carries its source and stays among the counts.
+    correction = [x for x in rows if x["source"]]
     assert [(x["stratum"], x["n"]) for x in correction] == [("kkss", 49)]
-    assert correction[0]["text"] == "G-matrices of order 49: exactly 1 class."
+    assert (correction[0]["type"], correction[0]["order"], correction[0]["result"]) == (
+        "G-matrices",
+        49,
+        "exactly 1 class",
+    )
     assert "1802.00556" in correction[0]["source"]["url"]
-    texts = {x["text"] for items in groups.values() for x in items}
+    texts = {x["text"] for x in rows}
     # Williamson 61 was classified in a 2012 paper, Williamson 65 has earlier
     # public records and G-matrices at 53 have no parameter set: none is listed
     # as new.
     assert "Williamson matrices of order 61: exactly 1 class." not in texts
-    assert "Williamson matrices of order 65: none exist." not in texts
-    assert "G-matrices of order 53: none exist." not in texts
-    assert "G-matrices of order 57: none exist." in texts
+    assert "Williamson matrices of order 65: none." not in texts
+    assert "G-matrices of order 53: none." not in texts
+    assert "G-matrices of order 57: none." in texts
     assert "G-matrices of order 61: exactly 2 classes." in texts
-    assert "Not yet replayed" not in groups
-    # The board has not replayed the good-67 census, and its line says so beside the replayed ones.
+    # The board has not replayed the good-67 census; its row keeps the qualifier, which its cell page states.
     by_cell = {(x["n"], x["stratum"]): x for x in summary(*board)["cells"]}
     assert "reproduced" not in by_cell[67, "good"]["empty_basis"]
-    qualified = {x["text"]: x["qualifier"] for x in groups["Nonexistence"] if x["qualifier"]}
-    assert qualified == {"Good matrices of order 67: none exist.": "complete search reported, not rerun here"}
+    qualified = {x["text"]: x["qualifier"] for x in rows if x.get("qualifier")}
+    assert qualified == {"Good matrices of order 67: none.": "complete search reported, not rerun here"}
     # Good matrices at 75 were reported in a note of 2026-11-16, before the board's census: not new.
-    assert "Good matrices of order 75: none exist." not in texts
+    assert "Good matrices of order 75: none." not in texts
     assert by_cell[75, "good"]["status"] == "empty" and "reproduced" in by_cell[75, "good"]["empty_basis"]
     assert "independent-reproduction" in by_cell[75, "good"]["origins"]
     # The shift-class counts are not claimed as new.

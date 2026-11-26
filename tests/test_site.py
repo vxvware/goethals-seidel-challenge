@@ -1,5 +1,7 @@
 """What the site generator draws and words, checked against the verified board."""
 
+import re
+
 import pytest
 
 from verify.board import load, summary
@@ -82,7 +84,7 @@ def test_existence_results_appear_only_when_featured(board):
     assert not [x for x in module.existence_results(stats, r) if x["kind"] == "skew"]
     assert ("skew-sds", 89) not in module.new_cells(stats, r)
     group["featured"] = True
-    (item,) = (x for x in dict(module.new_results(stats, r))["Existence"] if x["kind"] == "skew")
+    (item,) = (x for x in module.new_results(stats, r) if x["kind"] == "skew")
     assert item["text"] == "A skew-Hadamard matrix of order 356."
     assert item["double"] == 712
     assert item["qualifier"] is None
@@ -111,13 +113,53 @@ def test_found_matrix_is_listed_among_the_existence_results(board):
     assert item["qualifier"] is None
     assert (item["n"], item["href"]) == (202, "orders/skew-808.html")
     html = module.new_results_section(stats, r)
-    assert '<a href="orders/skew-808.html">A skew-Hadamard matrix of order 808.</a>' in html
+    assert '<td>skew-Hadamard</td><td><a href="orders/skew-808.html">808</a></td><td>exists</td>' in html
     assert "first" not in html.lower() and "1616" not in html
-    # Every found order has a line of its own, and the skew-Hadamard lines stand together before the others.
-    assert '<a href="orders/skew-5392.html">A skew-Hadamard matrix of order 5392.</a>' in html
+    # Every found order has a row of its own, and the skew-Hadamard rows stand together before the others.
+    assert '<a href="orders/skew-5392.html">5392</a>' in html
     kinds = [x["kind"] for x in module.existence_results(stats, r)]
     symmetric = [i for i, kind in enumerate(kinds) if kind in module.SYMMETRIC_KINDS]
     assert symmetric == list(range(len(kinds) - len(symmetric), len(kinds)))
+
+
+def test_new_results_table_has_one_row_per_result_in_order(board):
+    module = site_build()
+    d, r, b = board
+    stats = summary(d, r, b)
+    items = module.new_results(stats, r)
+    html = module.new_results_section(stats, r)
+    assert "<h3>" not in html and "<ul>" not in html and "first" not in html.lower()
+    assert re.findall(r'<th scope="col">([^<]*)</th>', html) == ["Type", "Order", "Result", "Before"]
+    rows = re.findall(
+        r"<tr(?: class=\"([a-z]*)\")?><td>([^<]*)</td><td><a href=\"([^\"]*)\">(\d+)</a></td>"
+        r"<td>([^<]*)</td><td>(.*?)</td></tr>",
+        html,
+    )
+    assert len(rows) == len(items) == len(module.existence_results(stats, r)) + len(module.NEW_RESULTS)
+    hrefs = [x.get("href") or f"cells/n{x['n']}-{x['stratum']}.html" for x in items]
+    assert [href for _, _, href, *_ in rows] == hrefs
+    # Skew-Hadamard by order, then symmetric Hadamard, then propus, then the counts, then nonexistence.
+    types = [t for _, t, *_ in rows]
+    blocks = ["skew-Hadamard", "symmetric Hadamard", "Propus"]
+    assert types[: len([t for t in types if t in blocks])] == sorted(
+        (t for t in types if t in blocks), key=blocks.index
+    )
+    skew = [int(o) for _, t, _, o, *_ in rows if t == "skew-Hadamard"]
+    assert skew == sorted(skew) and skew[0] == 356
+    results = [x["result"] for x in items]
+    first_none = results.index("none")
+    assert all(x == "none" for x in results[first_none:]) and "none" not in results[:first_none]
+    assert ("Propus", 65) in {(x["type"], x["order"]) for x in items}
+    # Every row has a Before value or is on the explicit empty list, and no value is left unused.
+    keys = {(x["type"], x["order"]) for x in items}
+    assert keys == set(module.NEW_RESULT_BEFORE) | module.NEW_RESULT_BEFORE_EMPTY
+    assert not set(module.NEW_RESULT_BEFORE) & module.NEW_RESULT_BEFORE_EMPTY
+    for _, kind, _, order, _, before in rows:
+        assert (before == "") == ((kind, int(order)) in module.NEW_RESULT_BEFORE_EMPTY)
+    # The row that contradicts a published result is marked and cites it in its Before cell.
+    (bad,) = [row for row in rows if row[0]]
+    assert bad[0] == "contradicted" and bad[1:2] + bad[3:5] == ("G-matrices", "49", "exactly 1 class")
+    assert bad[5].startswith('published: none <a class="cite" href="references.html#ref-djokovic2018goethals">')
 
 
 def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
@@ -129,7 +171,7 @@ def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
     (item,) = (x for x in module.existence_results(stats, r) if x["kind"] == "propus")
     assert item["text"] == "Propus matrices of order 65: at least 1 class."
     html = module.new_results_section(stats, r)
-    assert f'<a href="entries/{ident}.html">{item["text"]}</a>' in html
+    assert f'<td>Propus</td><td><a href="entries/{ident}.html">65</a></td><td>exists</td>' in html
     assert "first" not in html.lower()
     # Neither the Hadamard nor the skew-Hadamard order 260 is new, so no cell is marked.
     assert not any(n == 65 for _, n in module.new_cells(stats, r))
@@ -208,7 +250,7 @@ def test_twisted_results_are_worded_linked_and_placed_after_the_skew_lines(board
     ]
     html = module.new_results_section(stats, r)
     for order, (ident, *_) in TWISTED.items():
-        assert f'<a href="entries/{ident}.html">A symmetric Hadamard matrix of order {order}.</a>' in html
+        assert f'<td>symmetric Hadamard</td><td><a href="entries/{ident}.html">{order}</a></td>' in html
         # Neither the Hadamard nor the skew-Hadamard order is new, so no cell is marked.
         assert not any(n == order // 4 for _, n in module.new_cells(stats, r))
     assert "first" not in html.lower()

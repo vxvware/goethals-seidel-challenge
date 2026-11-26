@@ -409,11 +409,56 @@ NEW_RESULTS = (
 # check has established that they were unknown.
 NEW_CELLS = set(NEW_RESULTS)
 NEW_RESULT_NAMES = {"williamson": "Williamson ", "good": "Good ", "kkss": "G-"}
-# What a contradicted source says and what was read of it, by bibliography key.
-# {cite} is the linked reference.
-CONTRADICTION_NOTES = {
-    "djokovic2018goethals": "A complete classification for odd v < 50 in {cite} lists none at this order.",
+# The Type column of the New results table, by the kind of a matrix result or the track of a family result.
+NEW_RESULT_TYPES = {
+    "skew": "skew-Hadamard",
+    "matrix": "skew-Hadamard",
+    "twisted": "symmetric Hadamard",
+    "propus": "Propus",
+    "williamson": "Williamson",
+    "good": "Good",
+    "kkss": "G-matrices",
 }
+# The Before column of the New results table: what the literature had, by (type, order) as the row shows
+# them. Each value is taken from the page the row links to, which states it with its citations: for a
+# skew-Hadamard order, the least order 2ᵗm with the same odd part m that the tables quoted on that page
+# give as known, and whether the SageMath list names the order. {cite} is replaced by the citation of the
+# published result a row contradicts.
+NEW_RESULT_BEFORE = {
+    ("skew-Hadamard", 356): "open, the smallest open order",
+    ("skew-Hadamard", 808): "open; smallest known 103424 (2¹⁰ × 101)",
+    ("skew-Hadamard", 856): "open; smallest known 109568 (2¹⁰ × 107)",
+    ("skew-Hadamard", 1416): "smallest known 2832 (2⁴ × 177)",
+    ("skew-Hadamard", 1712): "smallest known 109568 (2¹⁰ × 107)",
+    ("skew-Hadamard", 2360): "smallest known 4720 (2⁴ × 295)",
+    ("skew-Hadamard", 2696): "smallest known 88342528 (2¹⁸ × 337)",
+    ("skew-Hadamard", 3352): "smallest known 6704 (2⁴ × 419)",
+    ("skew-Hadamard", 5336): "smallest known 42688 (2⁶ × 667)",
+    ("skew-Hadamard", 5392): "smallest known 88342528 (2¹⁸ × 337)",
+    ("skew-Hadamard", 7496): "smallest known 29984 (2⁵ × 937)",
+    **{
+        ("skew-Hadamard", order): "no table covers this order"
+        for order in (9672, 10376, 10440, 12360, 14792, 15176, 16712, 17096, 18248, 18632, 20936, 22088, 25928, 28232)
+    },
+    ("symmetric Hadamard", 988): "none known",
+    ("symmetric Hadamard", 1036): "none known",
+    ("symmetric Hadamard", 1068): "none known",
+    ("Propus", 65): "no propus family known",
+    ("Good", 53): "no published search",
+    ("Good", 55): "no published search",
+    ("Good", 61): "no published search",
+    ("G-matrices", 49): "published: none {cite}",
+    ("G-matrices", 51): "exists, not classified",
+    ("G-matrices", 55): "exists, not classified",
+    ("G-matrices", 59): "none known",
+    ("G-matrices", 61): "open",
+    ("G-matrices", 63): "exists, not classified",
+    ("Williamson", 67): "open",
+    ("G-matrices", 57): "not settled",
+    ("G-matrices", 69): "not settled",
+}
+# Rows whose page states no short account of what the literature had before: their Before cell is empty.
+NEW_RESULT_BEFORE_EMPTY = {("Good", 59), ("Good", 67)}
 # Existence results, by contribution id, with their kind and the date of the
 # search of the sources its record names that found no earlier one.
 # A skew result is skew quadruples of one order, whose Goethals–Seidel array is
@@ -439,11 +484,6 @@ NEW_EXISTENCE = {
 }
 # The kinds whose result is a symmetric Hadamard matrix shown on the entry page of one quadruple.
 SYMMETRIC_KINDS = ("propus", "twisted")
-NEW_RESULT_GROUPS = (
-    ("correction", "Contradicts a published result"),
-    ("existence", "Existence"),
-    ("nonexistence", "Nonexistence"),
-)
 
 
 def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
@@ -455,7 +495,7 @@ def existence_results(stats: JSONObject, r: Results) -> list[JSONObject]:
         if not group or not group["featured"]:
             continue
         entries = [r[e] for e in group["entry_ids"]]
-        # The section's own sentence carries the search qualifier.
+        # The page the row links to carries the search qualifier.
         item: JSONObject = {"kind": kind, "source": None, "qualifier": None}
         if kind == "propus":
             if len(entries) != 1 or entries[0]["type"] != "quadruple" or not propus.shape(*display_rows(entries[0])):
@@ -536,58 +576,87 @@ def new_cells(stats: JSONObject, r: Results) -> set[tuple[str, int]]:
     return NEW_CELLS | {(x["stratum"], x["n"]) for x in existence_results(stats, r) if x["kind"] == "skew"}
 
 
-def new_results(stats: JSONObject, r: Results) -> list[tuple[str, list[JSONObject]]]:
-    """The curated new results, grouped, each worded from its cell's evidence."""
+def new_results(stats: JSONObject, r: Results) -> list[JSONObject]:
+    """The rows of the New results table, in order, each worded from its cell's evidence or its entries.
+
+    The skew-Hadamard matrices come first, by order, then the symmetric Hadamard matrices, the propus
+    family, the class counts and the nonexistence results. Each row has its type, its order (the matrix
+    order for a matrix, n for a family), its result and its link.
+    """
     by_cell = {(x["n"], x["stratum"]): x for x in stats["cells"]}
-    groups: dict[str, list[JSONObject]] = {key: [] for key, _ in NEW_RESULT_GROUPS}
+    counts: list[JSONObject] = []
+    empty: list[JSONObject] = []
     for track, n in NEW_RESULTS:
         c = by_cell[n, track]
-        item = {"n": n, "stratum": track, "source": None, "qualifier": None}
+        item = {
+            "n": n,
+            "stratum": track,
+            "source": None,
+            "qualifier": None,
+            "type": NEW_RESULT_TYPES[track],
+            "order": n,
+        }
         subject = f"{NEW_RESULT_NAMES[track]}matrices of order {n}"
         census = r[c["censuses"][0]] if c["censuses"] else None
         if c["status"] == "exists" and census and census["count"]:
             noun = "class" if census["count"] == 1 else "classes"
             exact = census["bound"] == "exact"
-            text = f"{subject}: {'exactly' if exact else 'at least'} {census['count']} {noun}."
-            kind = "existence"
+            result = f"{'exactly' if exact else 'at least'} {census['count']} {noun}"
             item["kind"] = "count"
+            target = counts
         elif c["status"] == "empty":
-            # A line beside replayed results must not read as one: a search the
-            # board has not rerun carries the wording of its cell.
-            text = f"{subject}: none exist."
+            result = "none"
+            # The cell page carries the wording of a search the board has not rerun.
             if "reproduced" not in c["empty_basis"]:
                 item["qualifier"] = "; ".join(EVIDENCE_WORDS[b] for b in c["empty_basis"])
-            kind = "nonexistence"
+            item["kind"] = "nonexistence"
+            target = empty
         else:
             raise ValueError(f"new result without a census or an empty cell: {track} n={n}")
         if c["contradicted"]:
-            kind = "correction"
             item["source"] = c["contradicted"][0]["source"]
-        groups[kind].append(item | {"text": text})
-    # Matrices first, then the counts of classes, which also say that the matrices exist.
-    groups["existence"] = existence_results(stats, r) + groups["existence"]
-    return [(title, groups[key]) for key, title in NEW_RESULT_GROUPS if groups[key]]
+        target.append(item | {"text": f"{subject}: {result}.", "result": result})
+    matrices: list[JSONObject] = []
+    for x in existence_results(stats, r):
+        order = x["n"] if x["kind"] == "propus" else 4 * x["n"]
+        matrices.append(x | {"type": NEW_RESULT_TYPES[x["kind"]], "order": order, "result": "exists"})
+    rank = {"skew-Hadamard": 0, "symmetric Hadamard": 1, "Propus": 2}
+    matrices.sort(key=lambda x: (rank[x["type"]], x["order"]))
+    return matrices + counts + empty
+
+
+def new_result_before(x: JSONObject) -> str:
+    """The Before cell of a New results row, as HTML. Raises ValueError for a row without one."""
+    key = (x["type"], x["order"])
+    if key in NEW_RESULT_BEFORE_EMPTY:
+        return ""
+    if key not in NEW_RESULT_BEFORE:
+        raise ValueError(f"new result without a Before value: {key}")
+    text = esc(NEW_RESULT_BEFORE[key])
+    if ("{cite}" in text) != bool(x["source"]):
+        raise ValueError(f"new result {key}: a contradicted source and a citation in Before go together")
+    if x["source"]:
+        bib_key = BIB.resolve(x["source"]["url"])
+        if not bib_key:
+            raise ValueError(f"contradicted source is not in references.bib: {x['source']['url']}")
+        text = text.replace("{cite}", BIB.mark(bib_key))
+    return text
 
 
 def new_results_section(stats: JSONObject, r: Results) -> str:
-    parts = ['<section id="new-results"><h2>New results</h2>']
-    for title, items in new_results(stats, r):
-        parts.append(f"<h3>{esc(title)}</h3><ul>")
-        for x in items:
-            href = x.get("href") or f"cells/n{x['n']}-{x['stratum']}.html"
-            link = f'<a href="{esc(href)}">{esc(x["text"])}</a>'
-            if x["source"]:
-                url = x["source"]["url"]
-                key = BIB.resolve(url)
-                if not key:
-                    raise ValueError(f"contradicted source is not in references.bib: {url}")
-                if key not in CONTRADICTION_NOTES:
-                    raise ValueError(f"contradicted source has no note on what was read: {key}")
-                link += " " + esc(CONTRADICTION_NOTES[key]).replace("{cite}", BIB.mark(key))
-            parts.append(f"<li>{link}</li>")
-        parts.append("</ul>")
-    parts.append("</section>")
-    return "".join(parts)
+    rows = []
+    for x in new_results(stats, r):
+        href = x.get("href") or f"cells/n{x['n']}-{x['stratum']}.html"
+        marked = ' class="contradicted"' if x["source"] else ""
+        rows.append(
+            f'<tr{marked}><td>{esc(x["type"])}</td><td><a href="{esc(href)}">{x["order"]}</a></td>'
+            f"<td>{esc(x['result'])}</td><td>{new_result_before(x)}</td></tr>"
+        )
+    return (
+        '<section id="new-results"><h2>New results</h2><div class="grid-wrap"><table class="results"><thead><tr>'
+        + "".join(f'<th scope="col">{x}</th>' for x in ("Type", "Order", "Result", "Before"))
+        + f"</tr></thead><tbody>{''.join(rows)}</tbody></table></div></section>"
+    )
 
 
 def cell_description(c: JSONObject) -> str:
