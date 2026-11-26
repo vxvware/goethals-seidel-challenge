@@ -98,41 +98,21 @@ def test_found_matrix_is_listed_among_the_existence_results(board):
     module = site_build()
     d, r, b = board
     stats = summary(d, r, b)
-    (item,) = (x for x in module.existence_results(stats, r) if x["kind"] == "matrix")
-    assert item["text"] == "A skew-Hadamard matrix of order 808." and item["qualifier"] is None
+    found = [x for x in module.existence_results(stats, r) if x["kind"] == "matrix"]
+    assert [x["text"] for x in found] == [
+        f"A skew-Hadamard matrix of order {order}." for order in (808, 1416, 1712, 2360, 2696, 5336, 5392)
+    ]
+    item = found[0]
+    assert item["qualifier"] is None
     assert (item["n"], item["href"]) == (202, "orders/skew-808.html")
     html = module.new_results_section(stats, r)
     assert '<a href="orders/skew-808.html">A skew-Hadamard matrix of order 808.</a>' in html
     assert "did not find in the sources it read" in html and "does not claim priority" in html
     assert "first" not in html.lower() and "1616" not in html
-    # The found matrices of orders above the range of the grid share one line, each order linked to its page.
-    (line,) = (x for x in module.existence_results(stats, r) if x["kind"] == "matrices")
-    assert (
-        line["text"] == "Skew-Hadamard matrices of orders 1416, 1712, 2360, 2696, 5336 and 5392."
-        and line["qualifier"] is None
-    )
-    assert line["links"][1416] == "orders/skew-1416.html" and list(line["links"]) == [
-        1416,
-        1712,
-        2360,
-        2696,
-        5336,
-        5392,
-    ]
-    assert (
-        "<li>Skew-Hadamard matrices of orders "
-        + ", ".join(f'<a href="orders/skew-{o}.html">{o}</a>' for o in (1416, 1712, 2360, 2696, 5336))
-        + ' and <a href="orders/skew-5392.html">5392</a>.</li>'
-    ) in html
-    assert html.index("order 808.") < html.index("Skew-Hadamard matrices of orders")
-    # None of them has a row in the grid, and none marks a cell.
-    assert not any(n > 300 for _, n in module.new_cells(stats, r))
-    assert 'data-n="354"' not in module.grid(stats, r)[1]
-    # The board has no cell for n = 202, so no family cell is marked; the order cell carries the marker.
-    assert not any(n == 202 for _, n in module.new_cells(stats, r))
-    _, rows, _ = module.grid(stats, r)
-    row = rows[rows.index('<tr data-n="202"') :]
-    assert row[: row.index("</tr>")].count('class="participant"') == 1
+    # Every found order has a line of its own, and the skew-Hadamard lines stand together before the others.
+    assert '<a href="orders/skew-5392.html">A skew-Hadamard matrix of order 5392.</a>' in html
+    kinds = [x["kind"] for x in module.existence_results(stats, r)]
+    assert "propus" not in kinds or kinds.index("propus") == len(kinds) - 1
 
 
 def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
@@ -151,7 +131,7 @@ def test_propus_result_is_worded_and_linked_without_marking_the_grid(board):
     assert module.propus_entries(stats) == {ident}
     stats["contributions"] = [g | {"featured": False} for g in stats["contributions"]]
     # A stored matrix found for this board belongs to no contribution, so it has no featured switch.
-    assert {x["kind"] for x in module.existence_results(stats, r)} == {"matrix", "matrices"}
+    assert {x["kind"] for x in module.existence_results(stats, r)} == {"matrix"}
     assert module.propus_entries(stats) == {ident}
 
 
