@@ -554,18 +554,6 @@ def new_results_section(stats: JSONObject, r: Results) -> str:
                 link += f' <span class="muted">({esc(x["qualifier"])})</span>'
             parts.append(f"<li>{link}</li>")
         parts.append("</ul>")
-        if any(x.get("kind") in ("skew", "matrix") for x in items):
-            doubles = sorted(x["double"] for x in items if x.get("double"))
-            within = (
-                f" Within the range of the board that gives order {orders.listing(doubles)}, marked on the grid."
-                if doubles
-                else ""
-            )
-            parts.append(
-                '<p class="key">Doubling a skew-Hadamard matrix gives one of twice the order '
-                f"{BIB.mark('wallis1971skew')}, so each skew-Hadamard order listed here also gives its doubles."
-                f"{within}</p>"
-            )
     parts.append("</section>")
     return "".join(parts)
 
