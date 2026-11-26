@@ -363,7 +363,9 @@ def test_twisted_array_of_the_board_entries_rebuilt_a_second_way(board):
         assert f"which has order {multipliers} modulo {n}" in page
         assert "is not taken from a published source" in page and "ours and has not been reviewed" in page
         assert "rests on the exact check of the build" in page and "first" not in page.replace("first two rows", "")
-        assert f"matrices/symmetric-{ident}.txt" in page and keys == set(twisted.ARRAY_SOURCES)
+        assert f"matrices/symmetric-{ident}.txt" in page and keys == {*twisted.ARRAY_SOURCES, twisted.TWIST_BEFORE}
+        assert "The nearest earlier work found in the sources read is in the notes of a repository" in page
+        assert "conclude that they give nothing beyond the propus array" in page
     with pytest.raises(ValueError, match="not tied by a multiplier"):
         twisted.matrix_file(module.display_rows(board[1]["n65-9bf801f0de9e2d01c459"])[0])
 
