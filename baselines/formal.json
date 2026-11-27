@@ -13,6 +13,12 @@
       "theorem": "GoethalsSeidel.Order49.exists_g_quadruple",
       "file": "formal/GoethalsSeidel/Order49.lean",
       "statement": "this entry is a quadruple with two skew and two symmetric blocks, so G-matrices of order 49 exist."
+    },
+    {
+      "entry_id": "williamson-n35",
+      "theorem": "GoethalsSeidel.Census.no_williamson_35",
+      "file": "formal/GoethalsSeidel/Census/Order35.lean",
+      "statement": "there is no Williamson quadruple of order 35. The search step is evaluated as compiled code by native_decide, so this proof also trusts the Lean compiler."
     }
   ]
 }

@@ -16,3 +16,7 @@ rev = "v4.36.0"
 
 [[lean_lib]]
 name = "GoethalsSeidel"
+
+[[lean_lib]]
+name = "CensusCore"
+precompileModules = true
