@@ -9,3 +9,6 @@ import GoethalsSeidel.Array
 import GoethalsSeidel.Hadamard
 import GoethalsSeidel.Types
 import GoethalsSeidel.Bordered
+import GoethalsSeidel.EqualBlocks
+import GoethalsSeidel.OrbitFamily
+import GoethalsSeidel.Census
