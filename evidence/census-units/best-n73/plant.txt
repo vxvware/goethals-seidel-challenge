@@ -1,0 +1,27 @@
+n 73 H 36 q 9 corank 4 patterns per pair 8
+form 0 psi 0000000000000001 rho 0000000800000001
+form 1 psi 0000000000000004 rho 0000000400000004
+form 2 psi 0000000000000010 rho 0000000200000010
+form 3 psi 0000000000000040 rho 0000000100000040
+form 4 psi 0000000000000100 rho 0000000080000100
+form 5 psi 0000000000000400 rho 0000000040000400
+form 6 psi 0000000000001000 rho 0000000020001000
+form 7 psi 0000000000004000 rho 0000000010004000
+form 8 psi 0000000000010000 rho 0000000008010000
+class 0 planted 40 recovered 40 emitted 40 capped 0 t0 23 seconds 33.4
+class 1 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.2
+class 2 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.0
+class 3 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.1
+class 4 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.0
+class 5 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.0
+class 6 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.4
+class 7 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 32.9
+class 8 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.0
+class 9 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.0
+class 10 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.1
+class 11 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 32.9
+class 12 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.1
+class 13 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.1
+class 14 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 32.8
+class 15 planted 40 recovered 40 emitted 40 capped 0 t0 0 seconds 33.1
+total planted 640 recovered 640

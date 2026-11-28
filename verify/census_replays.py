@@ -13,6 +13,7 @@ from math import gcd
 from pathlib import Path
 from typing import NotRequired, TypedDict
 
+from verify import census_units
 from verify.common import ROOT, ById, JSONObject, Rows, artifact, digest, read_json
 from verify.equivalence import canonical
 from verify.gs_verify import memberships, validate_rows
@@ -290,6 +291,7 @@ def apply_report(
     classes = replayed_classes(report, n, entry["stratum"])
     if classes != set(representatives) or entry["claimed_count"] != len(classes):
         raise ValueError("registered census replay disagrees with the representatives or count")
+    units = census_units.apply_units(report, entry, len(report["rows"]), root) if "units" in report else None
     result["checks"] = sorted(set(result["checks"] + ["registered-full-census-replay"]))
     result["replay"] = {
         key: report[key]
@@ -297,6 +299,13 @@ def apply_report(
         if key in report
     }
     result["replay"]["raw_rows"] = len(report["rows"])
+    if units is not None:
+        result["replay"]["units"] = {
+            "manifest": report["units"]["path"],
+            "classes": units["classes"],
+            "planted_classes": len(units["plant"]["passed"]),
+            "pairs": units["coverage"]["total_pairs"],
+        }
     result.update(bound="exact", tier="reproduced")
     result["limitations"] = [
         "Full offline replay of a pinned engine, re-derived from its raw rows here; "
@@ -308,6 +317,8 @@ def apply_registered(documents: ById, results: ById, root: Path = ROOT) -> None:
     registry = read_json(root / "baselines/census_replays.json")
     if registry.get("version") != 1:
         raise ValueError("unsupported census replay registry version")
+    for ref in registry.get("units", []):
+        census_units.load_manifest(ref, root)
     seen: set[str] = set()
     for ref in registry["reports"]:
         if not ref["path"].startswith(REPORT_DIR):

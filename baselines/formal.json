@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "note": "Lean theorems in formal/ that are about a specific board entry. The site links each from its entry page.",
+  "note": "Lean theorems in formal/ that are about a specific board entry. The site links each from its entry page. The entries for best-n73 are the steps of the best-matrix census at n=73; that census entry does not exist until the census finishes, and until then the census-by-class pages link them.",
   "theorems": [
     {
       "entry_id": "n119-f302cc45a2f83e60917b",
@@ -19,6 +19,72 @@
       "theorem": "GoethalsSeidel.Census.no_williamson_35",
       "file": "formal/GoethalsSeidel/Census/Order35.lean",
       "statement": "there is no Williamson quadruple of order 35. The search step is evaluated as compiled code by native_decide, so this proof also trusts the Lean compiler."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.Census.paf_modEq_four",
+      "file": "formal/GoethalsSeidel/Census/Basic.lean",
+      "statement": "the periodic autocorrelation of a ±1 sequence of length n is congruent to n modulo 4, so u(k) = (n − PAF(k))/4 is an integer and a quadruple is four sequences whose u values sum to n at every nonzero shift."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.Census.isQuadruple_iff_half",
+      "file": "formal/GoethalsSeidel/Census/Basic.lean",
+      "statement": "for odd n the shifts 1 to (n − 1)/2 suffice, the range every census loop runs over."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.IsQuadruple.best_rowSum_d",
+      "file": "formal/GoethalsSeidel/Census/Symmetry.lean",
+      "statement": "for best matrices of order n = r² + r + 1 the symmetric sequence has row sum ±(2r + 1), which fixes the number of entries −1 in D."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.Census.IsBest.mulRow",
+      "file": "formal/GoethalsSeidel/Census/Symmetry.lean",
+      "statement": "a multiplier applied to all four sequences keeps a best quadruple, so D can be taken least in its multiplier orbit."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.Census.IsBest.rev_a",
+      "file": "formal/GoethalsSeidel/Census/Symmetry.lean",
+      "statement": "reversing the first skew sequence keeps a best quadruple; with negating D and permuting the skew sequences (IsBest.neg_d, IsBest.swap_ab, IsBest.swap_bc in the same file) these are the moves behind the normalizations of the census."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.Census.best_psd_d_le",
+      "file": "formal/GoethalsSeidel/Census/Spectral.lean",
+      "statement": "the power spectral density of D is at most 4n − 3 at every character, the ceiling on the D rows."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.Census.best_psd_a_le",
+      "file": "formal/GoethalsSeidel/Census/Spectral.lean",
+      "statement": "the power spectral density of A is at most 4n − 2 minus that of D, the ceiling on the A rows and on the pairs."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.Census.best_psd_max_ge",
+      "file": "formal/GoethalsSeidel/Census/Spectral.lean",
+      "statement": "the largest of the three skew spectra at a character is at least (4n − PSD of D)/3, which lets A be the skew row that is largest at the character where D is least."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.Census.stage1_best",
+      "file": "formal/GoethalsSeidel/Census/StageSkew.lean",
+      "statement": "the stage-1 parity equations of the two unknown skew sequences: their pattern t satisfies M1 t = r with r(k) = 1 + u_A(k) + u_D(k) modulo 2."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.Census.stage2_best",
+      "file": "formal/GoethalsSeidel/Census/StageSkew.lean",
+      "statement": "the exact stage-2 identity for a given pattern, from which the stage-2 system follows."
+    },
+    {
+      "entry_id": "best-n73",
+      "theorem": "GoethalsSeidel.Census.stage2_best_code",
+      "file": "formal/GoethalsSeidel/Census/StageSkewCode.lean",
+      "statement": "the stage-2 equation in the bit-coded form best_hkt2.c builds, so every best quadruple solves the program's stage-2 system for its pattern."
     }
   ]
 }
