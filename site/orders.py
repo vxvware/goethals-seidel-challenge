@@ -389,6 +389,6 @@ def listing(values: Iterable[object]) -> str:
 def intro(data: JSONObject) -> str:
     """The one-sentence description of the front-page grid."""
     return (
-        "Each row is an order 4n: whether a Hadamard and a skew-Hadamard matrix of that order is known, "
-        "and how many cyclic Goethals–Seidel quadruples of each type exist at n."
+        "For each block order n, the board records known Hadamard and skew-Hadamard matrices of order 4n, "
+        "and gives counts or current lower bounds for equivalence classes in four circulant families."
     )
