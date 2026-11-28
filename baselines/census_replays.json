@@ -233,5 +233,11 @@
       "path": "evidence/census-replays/williamson-n67.json",
       "sha256": "c656d3335954cca577e7b8537dc91efb25e4c986f27b768a9228866bfc07fbf1"
     }
+  ],
+  "units": [
+    {
+      "path": "evidence/census-units/best-n73/units.json",
+      "sha256": "370d52edf1dbfb390c63e5084b9022f753fd50e80a05c0505b2ff7660dc0759c"
+    }
   ]
 }

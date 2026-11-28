@@ -17,6 +17,7 @@ import orders
 import propus
 import skew
 import twisted
+import units
 from references import Bibliography
 from verify import catalogue
 from verify.board import load, summary
@@ -1004,7 +1005,7 @@ def record_words(result: JSONObject) -> str:
     return detail
 
 
-def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
+def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "", units_link: str = "") -> str:
     """One page per order and track: what is known in one sentence, the quadruples, credit and sources.
 
     matrix is the block about the skew-Hadamard matrix of order 4n, which the
@@ -1043,6 +1044,11 @@ def cell_page(c: JSONObject, d: Results, r: Results, matrix: str = "") -> str:
             parts.append(f'<p class="muted">{" ".join(words)}</p>')
     if c["note"] and c["status"] != "empty":
         parts.append(f"<p>{esc(c['note'])}</p>")
+    if units_link:
+        parts.append(
+            f'<p class="note">A census of this cell runs class by class: <a href="../{esc(units_link)}">its '
+            "classes, logs, coverage counts and planted-solution tests</a>.</p>"
+        )
     for claim in c["contradicted"]:
         parts.append(
             '<p class="contradiction">The verified rows contradict a published result: '
@@ -1431,6 +1437,7 @@ def build(quick: bool = False) -> JSONObject:
     (out / "index.html").write_text(shell("The board", body, head=MATH_HEAD))
     with_propus = propus_entries(stats)
     with_twisted = symmetric_entries(stats, "twisted")
+    unit_links = units.write(out, shell, FORMAL, BIB)
     for ident, doc in d.items():
         result = r[ident]
         sources = "".join(source_item(s, "../") for s in doc["sources"])
@@ -1467,6 +1474,12 @@ def build(quick: bool = False) -> JSONObject:
             for t in FORMAL
             if t["entry_id"] == ident
         )
+        by_class = unit_links.get((doc["stratum"], doc["n"])) if doc["type"] == "census" else None
+        if by_class:
+            formal += (
+                f'<p class="census">This census ran class by class: <a href="../{by_class}">'
+                "its classes, logs, coverage counts and planted-solution tests</a>.</p>"
+            )
         if doc["type"] == "certificate":
             tag = certificate_label(result)
         if doc["type"] == "census":
@@ -1527,7 +1540,12 @@ def build(quick: bool = False) -> JSONObject:
         if c["stratum"] == orders.CELL_TRACKS[skew.NAME]:
             matrix, _ = skew.matrix_block(ORDERS, 4 * c["n"], states[4 * c["n"]][skew.NAME], STORED, chosen, BIB)
         (out / f"cells/n{c['n']}-{c['stratum']}.html").write_text(
-            shell(title, cell_page(c, d, r, matrix), "../", description=cell_description(c))
+            shell(
+                title,
+                cell_page(c, d, r, matrix, unit_links.get((c["stratum"], c["n"]), "")),
+                "../",
+                description=cell_description(c),
+            )
         )
         listing = out / f"cells/n{c['n']}-{c['stratum']}.txt"
         if c["quadruples"]:
